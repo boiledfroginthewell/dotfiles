@@ -1,5 +1,6 @@
 l() {
 local LESS=$(type lv > /dev/null 2>&1 && echo lv || echo less)
+local OPEN=$(type open > /dev/null 2>&1 && echo open || echo exo-open)
 
 if [ $# -eq 0 ]; then
 	if [ -t 0 ]; then
@@ -23,7 +24,7 @@ if [ -z "$1" ];then
 elif [ -d "$1" ]; then
 	ls $opt "$1"
 elif file --mime "$1" | grep 'charset=binary'  > /dev/null ;then
-	exo-open "$1"
+	$OPEN "$1"
 else
 	$LESS "$1"
 fi

@@ -4,7 +4,7 @@ _calc(){
 		shift
 		perl -e "print(sprintf('%.2e', $*)\n)";
 	else
-		perl -e "print($*\n)";
+		perl -e 'print(('$*' ").\n")';
 	fi
 
 	set +f;
