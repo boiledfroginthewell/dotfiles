@@ -4,7 +4,10 @@ case $- in
       *) return;;
 esac
 
-CONF_DIR=~/etc/bash
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_CACHE_HOME="${HOME}/.cache"
+CONF_DIR=${XDG_CONFIG_HOME}/bash
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
