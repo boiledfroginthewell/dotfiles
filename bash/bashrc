@@ -69,7 +69,6 @@ shopt -s dirspell
 
 alias graph="graph -T X"
 alias cvlc="cvlc --play-and-exit -q"
-alias poweroff="/sbin/poweroff"
 alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
