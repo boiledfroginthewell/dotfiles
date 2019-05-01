@@ -1,0 +1,8 @@
+set background=light
+set autochdir
+highlight CursorLine gui=underline guifg=NONE guibg=NONE
+
+" GUI related options
+" Remove toolbar and menubar
+set guioptions-=T
+set guioptions-=m
