@@ -1,6 +1,8 @@
 l() {
 local LESS=$(type lv > /dev/null 2>&1 && echo lv || echo less)
-local OPEN=$(type open > /dev/null 2>&1 && echo open || echo exo-open)
+local OPEN=$(type exo-open > /dev/null 2>&1 && echo exo-open || \
+	(type xdg-open > /dev/null 2>&1 && echo xdg-open ||  \
+	echo open))
 
 if [ $# -eq 0 ]; then
 	if [ -t 0 ]; then
