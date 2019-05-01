@@ -46,7 +46,7 @@ __z_multi_dots() {
 		return
 	fi
 
-	cd $(seq -s "" -f "../" $1)
+	cd $(printf "../%.0s" $(seq $1))
 }
 alias z.=__z_multi_dots
 

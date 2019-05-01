@@ -35,9 +35,9 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}${userhost}\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1)\$ '
+    PS1='${debian_chroot:+($debian_chroot)}'${userhost}'\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1)\$ '
 else
-    PS1='${debian_chroot:+($debian_chroot)}${userhost}\w$(__git_ps1)$ '
+    PS1='${debian_chroot:+($debian_chroot)}'${userhost}'\w$(__git_ps1)$ '
 fi
 unset userhost
 unset color_prompt force_color_prompt

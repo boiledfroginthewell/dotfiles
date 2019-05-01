@@ -23,7 +23,7 @@ if [ -z "$1" ];then
 	ls $opt $1
 elif [ -d "$1" ]; then
 	ls $opt "$1"
-elif file --mime "$1" | grep 'charset=binary'  > /dev/null ;then
+elif file --mime "$(readlink -m  "$1")" | grep 'charset=binary'  > /dev/null ;then
 	$OPEN "$1"
 else
 	$LESS "$1"
