@@ -7,6 +7,8 @@ set autoindent
 set background=dark
 set cursorline
 set visualbell
+set list
+set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
