@@ -6,7 +6,7 @@ alias cd=cl
 
 
 # Install fasd
-type fasd > /dev/null && eval "$(fasd --init auto)"
+type fasd &> /dev/null && eval "$(fasd --init auto)"
 
 # cd toward parent directories
 zp() {

@@ -32,7 +32,7 @@ shopt -s globstar
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-. "${CONF_DIR}/ps1.sh"
+source "${CONF_DIR}/ps1.sh"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
