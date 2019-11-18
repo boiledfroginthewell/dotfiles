@@ -7,8 +7,8 @@ set autoindent
 set background=dark
 set cursorline
 set visualbell
-set list
-set listchars=tab:‚ãÆ\ ,trail:‚éµ,extends:‚ü©,precedes:‚ü®,nbsp:‚ñ°
+"set list
+"set listchars=tab:?\ ,trail:?,extends:?,precedes:?,nbsp:Å†
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
@@ -23,13 +23,13 @@ noremap gm :call cursor(0, virtcol('$')/2)<CR>
 :command! Erc tabnew $MYVIMRC
 :command! Egrc tabnew $MYGVIMRC
 
-source ~/.vim/rc/dvorak_op.vim
-source ~/.vim/rc/func.vim
-source ~/.vim/rc/vundle.vim
+source $XDG_CONFIG_HOME/vim/rc/dvorak_op.vim
+source $XDG_CONFIG_HOME/vim/rc/func.vim
+"source $XDG_CONFIG_HOME/vim/rc/vundle.vim
 
 "netrw Configuration
 let g:netrv_altv = &spl
-" netrw„ÅØÂ∏∏„Å´tree view
+" netrwÇÕèÌÇ…tree view
 let g:netrw_liststyle = 3
 augroup netrw_mapping
     autocmd!
