@@ -1,2 +1,1 @@
-source <(npm completion)
-
+#type npm &> /dev/null && source <(npm completion)

@@ -15,20 +15,14 @@
 #         set $_Z_EXCLUDE_DIRS to an array of directories to exclude.
 #         set $_Z_OWNER to your username if you want use z while sudo with $HOME kept
 #
-
-show_help() {
-    echo -n "${_Z_CMD:-z} [-cehlrtx] args
-
-USE:
-    * z foo     # cd to most frecent dir matching foo
-    * z foo bar # cd to most frecent dir matching foo and bar
-    * z -r foo  # cd to highest ranked dir matching foo
-    * z -t foo  # cd to most recently accessed dir matching foo
-    * z -l foo  # list matches instead of cd
-    * z -c foo  # restrict matches to subdirs of \$PWD
-    * z -e foo  # echo matches instead of cd
-" >&2; 
-}
+# USE:
+#     * z foo     # cd to most frecent dir matching foo
+#     * z foo bar # cd to most frecent dir matching foo and bar
+#     * z -r foo  # cd to highest ranked dir matching foo
+#     * z -t foo  # cd to most recently accessed dir matching foo
+#     * z -l foo  # list matches instead of cd
+#     * z -e foo  # echo the best match, don't cd
+#     * z -c foo  # restrict matches to subdirs of $PWD
 
 [ -d "${_Z_DATA:-$HOME/.z}" ] && {
     echo "ERROR: z.sh's datafile (${_Z_DATA:-$HOME/.z}) is a directory."
@@ -95,7 +89,7 @@ _z() {
         if [ $? -ne 0 -a -f "$datafile" ]; then
             env rm -f "$tempfile"
         else
-            [ "$_Z_OWNER" ] && chown $_Z_OWNER:$(id -ng $_Z_OWNER) "$tempfile"
+            [ "$_Z_OWNER" ] && chown $_Z_OWNER:"$(id -ng $_Z_OWNER)" "$tempfile"
             env mv -f "$tempfile" "$datafile" || env rm -f "$tempfile"
         fi
 
@@ -116,22 +110,21 @@ _z() {
 
     else
         # list/go
+        local echo fnd last list opt typ
         while [ "$1" ]; do case "$1" in
-            --) while [ "$1" ]; do shift; local fnd="$fnd${fnd:+ }$1";done;;
-            -*) local opt=${1:1}; while [ "$opt" ]; do case ${opt:0:1} in
-                    c) local fnd="^$PWD $fnd";;
-                    e) local echo=echo;;
-                    h) show_help; return;;
-                    l) local list=1;;
-                    r) local typ="rank";;
-                    t) local typ="recent";;
+            --) while [ "$1" ]; do shift; fnd="$fnd${fnd:+ }$1";done;;
+            -*) opt=${1:1}; while [ "$opt" ]; do case ${opt:0:1} in
+                    c) fnd="^$PWD $fnd";;
+                    e) echo=1;;
+                    h) echo "${_Z_CMD:-z} [-cehlrtx] args" >&2; return;;
+                    l) list=1;;
+                    r) typ="rank";;
+                    t) typ="recent";;
                     x) sed -i -e "\:^${PWD}|.*:d" "$datafile";;
                 esac; opt=${opt:1}; done;;
-             *) local fnd="$fnd${fnd:+ }$1";;
-        esac; local last=$1; [ "$#" -gt 0 ] && shift; done
-
-        # show list when no query is given
-        # [ "$fnd" -a "$fnd" != "^$PWD " ] || local list=1
+             *) fnd="$fnd${fnd:+ }$1";;
+        esac; last=$1; [ "$#" -gt 0 ] && shift; done
+        [ "$fnd" -a "$fnd" != "^$PWD " ] || list=1
 
         # if we hit enter on a completion just go there
         case "$last" in
@@ -143,7 +136,7 @@ _z() {
         [ -f "$datafile" ] || return
 
         local cd
-        cd="$( < <( _z_dirs ) awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -F"|" '
+        cd="$( _z_dirs | awk -v t="$(date +%s)" -v list="$list" -v typ="$typ" -v q="$fnd" -F"|" '
             function frecent(rank, time) {
                 # relate frequency and time
                 dx = t - time
@@ -155,7 +148,7 @@ _z() {
             function output(matches, best_match, common) {
                 # list or return the desired directory
                 if( list ) {
-                    cmd = "sort -n >&2"
+                    cmd = "sort -g >&2"
                     for( x in matches ) {
                         if( matches[x] ) {
                             printf "%-10s %s\n", matches[x], x | cmd
