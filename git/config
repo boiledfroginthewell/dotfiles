@@ -1,14 +1,14 @@
 [branch "master"]
 [user]
-	name = boiledfroginthewell
-	email = boiledfroginthewell@users.noreply.github.com
+	name = ***REMOVED***
+	email = ***REMOVED***@***REMOVED***
 
 [alias] 
 	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(cyan)@%ad, %h' --date=short
 	st = status
 
 [core]
-	pager = lv -c
+	#pager = lv -c
 	autocrlf = input
 [help]
 	autocorrect = 15
