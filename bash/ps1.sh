@@ -13,6 +13,9 @@ esac
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
 #force_color_prompt=yes
+if [ "$OSTYPE" = "msys" ]; then
+	force_color_prompt=yes
+fi
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -50,4 +53,3 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
