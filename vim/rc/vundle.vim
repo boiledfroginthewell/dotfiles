@@ -1,55 +1,44 @@
-" vundle
-" =======
-set nocompatible               " be iMproved
-filetype off                   " required!
-set rtp+=~/.vim/bundle/Vundle/
-call vundle#rc()
-" let Vundle manage Vundle
-" required! 
-Plugin 'gmarik/Vundle'
+" Specify a directory for plugins
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
+
+Plug 'junegunn/vim-plug'
 
 
-" Plugins
-" ========
-Plugin 'project.tar.gz'
-Plugin 'restart.vim'
+Plug 'vim-scripts/project.tar.gz'
+Plug 'vim-scripts/restart.vim'
 " 終了時に保存するセッションオプションを設定する
 let g:restart_sessionoptions
     \ = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
 
-Plugin 'vim-scripts/ShowMarks'
+Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-Plugin 'thinca/vim-localrc'
-Plugin 'editorconfig/editorconfig-vim'
+Plug 'thinca/vim-localrc'
+Plug 'editorconfig/editorconfig-vim'
 
-Plugin 'SingleCompile'
+Plug 'vim-scripts/SingleCompile'
 "---------------------
 nmap <F5> :w<cr>:SCCompile<cr>
 " nmap <F4> :w<cr>:SCCompileRun<cr>
 "* gnuplot support
-call SingleCompile#SetCompilerTemplate('gnuplot', 'gnuplot', 'gnuplotname', 'gnuplot', '', '')
-call SingleCompile#ChooseCompiler('gnuplot', 'gnuplot')
+"call SingleCompile#SetCompilerTemplate('gnuplot', 'gnuplot', 'gnuplotname', 'gnuplot', '', '')
+"call SingleCompile#ChooseCompiler('gnuplot', 'gnuplot')
 
-" markdown X pandoc
-" call SingleCompile#SetCompilerTemplate('markdown', 'pandocpdf', 'pandocpdf', 'pandoc', '-f markdown -t latex -o $(FILE_TITLE)$.pdf', "mupdf")
-" call SingleCompile#SetOutfile('markdown', 'pandocpdf', '$(FILE_TITLE)$.pdf')
-" call SingleCompile#ChooseCompiler('markdown', "pandocpdf")
-
-Plugin 'janko/vim-test'
+Plug 'janko/vim-test'
 nmap <silent> <F6> :TestNearest<CR>
 nmap <silent> <F7> :TestFile<CR>
-nmap <silent> t<C-s> :TestSuite<CR>
-nmap <silent> t<C-l> :TestLast<CR>
-nmap <silent> t<C-g> :TestVisit<CR>
+" nmap <silent> t<C-s> :TestSuite<CR>
+" nmap <silent> t<C-l> :TestLast<CR>
+" nmap <silent> t<C-g> :TestVisit<CR>
 
 " Comment out
-Plugin 'tyru/caw.vim'
+Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
 
-" Plugin 'majutsushi/tagbar'
+" Plug 'majutsushi/tagbar'
 " nmap <F8> :TagbarToggle<CR>
 " let g:tagbar_width = 30
 " let g:tagbar_compact = 1
@@ -57,9 +46,9 @@ vmap <C-k> <Plug>(caw:hatpos:toggle)
 " " sort by file order
 " let g:tagbar_sort = 0
 
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite-outline'
+Plug 'Shougo/unite.vim'
+"Plug 'Shougo/neomru.vim'
+Plug 'Shougo/unite-outline'
 " let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 50
@@ -84,18 +73,13 @@ function! s:unite_project(...)
 	execute 'Unite' opts 'file_rec:' . dir
 endfunction
 
-Plugin 'vim-scripts/camelcasemotion'
+Plug 'vim-scripts/camelcasemotion'
 autocmd FileType programming * map <silent> <buffer> e <Plug>CamelCaseMotion_w
 autocmd FileType programming * map <silent> <buffer> w <Plug>CamelCaseMotion_e
 autocmd FileType programming * map <silent> <buffer> b <Plug>CamelCaseMotion_b
 
-" Vim with evernote
-" Plugin 'kakkyz81/evervim'
-" let g:evervim_devtoken='S=s311:U=84a6b98:E=15c72b5af18:C=1551b048140:P=1cd:A=en-devtoken:V=2:H=0621e4cc2577a25bcb4211b17be21a60'
 
-
-Plugin 'Shougo/neocomplete.vim'
-" Plugin 'Shougo/neosnippet'
+Plug 'Shougo/neocomplete.vim'
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
@@ -120,24 +104,29 @@ inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Close popup by <Space>.
 inoremap <expr><Space> neocomplete#close_popup() . "\<Space>"
-" Plugin key-mappings.
+" Plug key-mappings.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
 
 
-Plugin 'scrooloose/syntastic'
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" no checker for js is install in this computer
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_python_checkers = ["flake8"]
+" TODO : ustilize polyglot or ale
+" Plug 'scrooloose/syntastic'
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" " no checker for js is install in this computer
+" let g:syntastic_javascript_checkers = ['jshint']
+" let g:syntastic_python_checkers = ["flake8"]
 
+" A solid language pack for Vim. 
+Plug 'sheerun/vim-polyglot'
 
+" Vim motions on speed!
+Plug 'easymotion/vim-easymotion'
 
 " Language Specific Plugins
 " ========================
@@ -145,40 +134,37 @@ let g:syntastic_python_checkers = ["flake8"]
 "
 " markdown
 " --------
-Plugin 'previm/previm'
-Plugin 'tyru/open-browser.vim'
+Plug 'previm/previm'
+Plug 'tyru/open-browser.vim'
 au BufRead,BufNewFile *.md set filetype=markdown
 
 " C
 " ---
-Plugin 'jceb/vim-hier'
+Plug 'jceb/vim-hier'
 
 " Python
 " --------
-Plugin 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 let g:jedi#documentation_command = "T"
 autocmd FileType python setlocal completeopt-=preview
 " jedi-vim with neocomplete
 autocmd FileType python setlocal omnifunc=jedi#python3completions
-Plugin 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent'
 
 " JavaScript
 " -----------------
-Plugin 'othree/yajs.vim'
-Plugin 'ternjs/tern_for_vim'
-" Plugin 'Valloric/YouCompleteMe'
-Plugin 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/yajs.vim'
+Plug 'ternjs/tern_for_vim'
+" Plug 'Valloric/YouCompleteMe'
+Plug 'othree/javascript-libraries-syntax.vim'
 " au FileType javascript noremap <F3> :TernDef<CR>
 " au FileType javascript inoremap <F3> :TernDef<CR>
 
-Plugin 'maksimr/vim-jsbeautify' 
+Plug 'maksimr/vim-jsbeautify'
 
 " html
 " -----------------
-Plugin 'othree/html5.vim'
+Plug 'othree/html5.vim'
 
-" For Vundle
-" ============
-filetype on
-filetype plugin on
-filetype indent on
+call plug#end()
+
