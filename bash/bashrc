@@ -69,6 +69,7 @@ shopt -s autocd
 shopt -s cdspell
 shopt -s dirspell
 
+export FIGNORE=__pycache__
 
 alias graph="graph -T X"
 alias cvlc="cvlc --play-and-exit -q"
