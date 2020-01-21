@@ -14,6 +14,8 @@ set infercase " ignore case when completing words
 syntax on
 highlight CursorLine term=underline ctermfg=NONE ctermbg=NONE
 
+set splitright
+
 map <Space> <c-f>
 map <s-Space> <c-b>
 map <F2> :w<CR>:make<CR>
