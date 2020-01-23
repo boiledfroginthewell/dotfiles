@@ -22,14 +22,14 @@ endif
 command! -nargs=? -complete=command Cheat call <SID>toggle_cheat_sheet(<q-args>)
 
 function! s:toggle_cheat_sheet(cmd)
-  if exists('s:cheatbuf')
-    call s:close_cheat_sheet(s:cheatbuf)
-    unlet s:cheatbuf
+  if exists('t:cheatbuf')
+    call s:close_cheat_sheet(t:cheatbuf)
+    unlet t:cheatbuf
   else
     if g:cheatsheet#float_window == 0
-      let s:cheatbuf = s:open_cheat_sheet()
+      let t:cheatbuf = s:open_cheat_sheet()
     else
-      let s:cheatbuf = s:open_cheat_sheet_float()
+      let t:cheatbuf = s:open_cheat_sheet_float()
     endif
   endif
 endfunction
@@ -42,12 +42,13 @@ function! s:open_cheat_sheet() abort
     return
   endif
 
-  let l:split_command = ':sp'
+  let l:split_command = ':belowright sp'
   if g:cheatsheet#vsplit != 0
-    let l:split_command = ':' . g:cheatsheet#vsplit_width . 'vs'
+    let l:split_command = ':belowright ' . g:cheatsheet#vsplit_width . 'vs'
   endif
   execute l:split_command
   execute 'view' l:path
+  wincmd w
   return bufnr('%')
 endfunction
 
