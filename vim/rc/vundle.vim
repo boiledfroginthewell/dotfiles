@@ -9,6 +9,8 @@ Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
+autocmd VimEnter * Cheat 
+autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
 
 Plug 'vim-scripts/project.tar.gz'
 Plug 'vim-scripts/restart.vim'
