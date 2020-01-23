@@ -5,6 +5,13 @@ call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
 Plug 'junegunn/vim-plug'
 
 
+Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
+let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
+let g:cheatsheet#vsplit = 1
+let g:cheatsheet#vsplit_width = 35
+autocmd VimEnter * Cheat 
+autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+
 Plug 'vim-scripts/project.tar.gz'
 Plug 'vim-scripts/restart.vim'
 " 終了時に保存するセッションオプションを設定する
@@ -127,6 +134,8 @@ Plug 'sheerun/vim-polyglot'
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
+map , <Plug>(easymotion-bd-w)
+nmap , <Plug>(easymotion-overwin-w)
 
 " Language Specific Plugins
 " ========================
@@ -136,6 +145,10 @@ Plug 'easymotion/vim-easymotion'
 " --------
 Plug 'previm/previm'
 Plug 'tyru/open-browser.vim'
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+ 
 au BufRead,BufNewFile *.md set filetype=markdown
 
 " C
