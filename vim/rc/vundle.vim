@@ -2,21 +2,24 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
 
-Plug 'junegunn/vim-plug'
-
-
 Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
-autocmd VimEnter * Cheat 
+autocmd VimEnter * Cheat
 autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
 
 Plug 'vim-scripts/project.tar.gz'
-Plug 'vim-scripts/restart.vim'
+Plug 'vim-scripts/restart.vim', {'on': 'Restart'}
 " 終了時に保存するセッションオプションを設定する
 let g:restart_sessionoptions
     \ = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
+
+" fzf heart vim
+Plug 'junegunn/fzf.vim'
+if has("unix") && !has("win32unix")
+	source /usr/share/doc/fzf/examples/fzf.vim
+endif
 
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -52,33 +55,6 @@ vmap <C-k> <Plug>(caw:hatpos:toggle)
 " let g:tagbar_iconchars = ['>', 'V']
 " " sort by file order
 " let g:tagbar_sort = 0
-
-Plug 'Shougo/unite.vim'
-"Plug 'Shougo/neomru.vim'
-Plug 'Shougo/unite-outline'
-" let g:unite_enable_start_insert=1
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 50
-autocmd FileType unite nnoremap <buffer> d h
-autocmd FileType unite nnoremap <buffer> h j
-autocmd FileType unite nnoremap <buffer> t k
-autocmd FileType unite nnoremap <buffer> n l
-autocmd FileType unite nnoremap <buffer> k d
-nnoremap <silent> Uy :<C-u>Unite history/yank<CR> 
-nnoremap <silent> Ut :<C-u>Unite buffer<CR> 
-nnoremap <silent> Ub :<C-u>Unite bookmark<CR> 
-nnoremap <silent> Uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR> 
-nnoremap <silent> Ur :<C-u>Unite -buffer-name=register register<CR> 
-nnoremap <silent> Um :<C-u>Unite file_mru buffer<CR>
-nnoremap <silent> Uc :<C-u>Unite file buffer<CR>
-nnoremap <silent> Ue :<C-u>Unite file_rec buffer<CR>
-nnoremap <silent> Uo :<C-u>Unite -ignorecase -start-insert outline<CR>
-nnoremap <silent> Up :<C-u>call <SID>unite_project('-start-insert')<CR>
-function! s:unite_project(...)
-	let opts = (a:0 ? join(a:000, ' ') : '')
-	let dir = unite#util#path2project_directory(expand('%'))
-	execute 'Unite' opts 'file_rec:' . dir
-endfunction
 
 Plug 'vim-scripts/camelcasemotion'
 autocmd FileType programming * map <silent> <buffer> e <Plug>CamelCaseMotion_w
@@ -134,8 +110,7 @@ Plug 'sheerun/vim-polyglot'
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
-map , <Plug>(easymotion-bd-w)
-nmap , <Plug>(easymotion-overwin-w)
+nmap - <Plug>(easymotion-overwin-w)
 
 " Language Specific Plugins
 " ========================
@@ -153,31 +128,31 @@ au BufRead,BufNewFile *.md set filetype=markdown
 
 " C
 " ---
-Plug 'jceb/vim-hier'
+Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 " Python
 " --------
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', {'for': 'python'}
 let g:jedi#documentation_command = "T"
 autocmd FileType python setlocal completeopt-=preview
 " jedi-vim with neocomplete
 autocmd FileType python setlocal omnifunc=jedi#python3completions
-Plug 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
 
 " JavaScript
 " -----------------
-Plug 'othree/yajs.vim'
-Plug 'ternjs/tern_for_vim'
+Plug 'othree/yajs.vim', {'for': 'js'}
+Plug 'ternjs/tern_for_vim', {'for': 'js'}
 " Plug 'Valloric/YouCompleteMe'
-Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/javascript-libraries-syntax.vim', {'for': 'js'}
 " au FileType javascript noremap <F3> :TernDef<CR>
 " au FileType javascript inoremap <F3> :TernDef<CR>
 
-Plug 'maksimr/vim-jsbeautify'
+Plug 'maksimr/vim-jsbeautify', {'for': 'js'}
 
 " html
 " -----------------
-Plug 'othree/html5.vim'
+Plug 'othree/html5.vim', {'for': 'html'}
 
 call plug#end()
 
