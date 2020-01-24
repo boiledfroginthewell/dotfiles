@@ -1,3 +1,12 @@
+source $VIMRUNTIME/defaults.vim
+
+if has("win32")
+		if has("gui_running")
+				set runtimepath+=$XDG_CONFIG_HOME\vim
+		endif
+endif
+
+
 set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 
 set nu
@@ -7,40 +16,27 @@ set autoindent
 set background=dark
 set cursorline
 set visualbell
-set list
-set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
+set splitright
+if !has("win32") && !has("win32unix")
+  set list
+  set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
+endif
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
 highlight CursorLine term=underline ctermfg=NONE ctermbg=NONE
 
-set splitright
 
 map <Space> <c-f>
 map <s-Space> <c-b>
 map <F2> :w<CR>:make<CR>
 " go to the middle of a line by gm
 noremap gm :call cursor(0, virtcol('$')/2)<CR>
+
 :command! Brol browse old
 :command! Erc tabnew $MYVIMRC
 :command! Egrc tabnew $MYGVIMRC
 
 source $XDG_CONFIG_HOME/vim/rc/dvorak_op.vim
-source $XDG_CONFIG_HOME/vim/rc/func.vim
 source $XDG_CONFIG_HOME/vim/rc/vundle.vim
 
-"netrw Configuration
-let g:netrv_altv = &spl
-" netrwは常にtree view
-let g:netrw_liststyle = 3
-augroup netrw_mapping
-    autocmd!
-    autocmd filetype netrw call NetrwMapping()
-augroup END
-
-function! NetrwMapping()
-    noremap <buffer> t k
-    noremap <buffer> T t
-    noremap <buffer> o v
-    noremap <buffer> O V
-endfunction
