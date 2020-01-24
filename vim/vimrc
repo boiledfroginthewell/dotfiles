@@ -1,9 +1,9 @@
 source $VIMRUNTIME/defaults.vim
 
 if has("win32")
-		if has("gui_running")
-				set runtimepath+=$XDG_CONFIG_HOME\vim
-		endif
+	if has("gui_running")
+		set runtimepath+=$XDG_CONFIG_HOME\vim
+	endif
 endif
 
 
@@ -18,8 +18,8 @@ set cursorline
 set visualbell
 set splitright
 if !has("win32") && !has("win32unix")
-  set list
-  set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
+	set list
+	set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 endif
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
