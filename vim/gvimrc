@@ -6,3 +6,9 @@ highlight CursorLine gui=underline guifg=NONE guibg=NONE
 " Remove toolbar and menubar
 set guioptions-=T
 set guioptions-=m
+
+" IMEの状態でカーソル色を変更する
+if has('multi_byte_ime')
+  highlight Cursor guifg=NONE guibg=Green
+  highlight CursorIM guifg=NONE guibg=Purple
+endif
