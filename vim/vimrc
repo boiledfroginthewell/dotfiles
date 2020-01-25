@@ -1,5 +1,8 @@
 source $VIMRUNTIME/defaults.vim
 
+set encoding=utf8
+scriptencoding utf8
+
 if has("win32")
 	if has("gui_running")
 		set runtimepath+=$XDG_CONFIG_HOME\vim
@@ -12,11 +15,17 @@ set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 set nu
 set display+=lastline
 set autochdir
-set autoindent
+set smartindent
 set background=dark
 set cursorline
+hi CursorLine ctermbg=darkgray ctermfg=white cterm=none
 set visualbell
 set splitright
+set noswapfile
+set showcmd
+set completeopt+=longest
+set wildmode=list:longest
+set shiftwidth=4
 if !has("win32") && !has("win32unix")
 	set list
 	set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
@@ -24,18 +33,23 @@ endif
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
-highlight CursorLine term=underline ctermfg=NONE ctermbg=NONE
 
+
+let mapleader=","
 
 map <Space> <c-f>
 map <s-Space> <c-b>
-map <F2> :w<CR>:make<CR>
+
 " go to the middle of a line by gm
 noremap gm :call cursor(0, virtcol('$')/2)<CR>
 
-:command! Brol browse old
-:command! Erc tabnew $MYVIMRC
-:command! Egrc tabnew $MYGVIMRC
+command! Brol browse old
+command! Erc tabnew $MYVIMRC
+command! Egrc tabnew $MYGVIMRC
+" カーソル下の単語を置換する
+nnoremap g* :%s/\<<C-r><C-w>\>/
+" 検索ハイライトをクリア
+nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 
 source $XDG_CONFIG_HOME/vim/rc/dvorak_op.vim
 source $XDG_CONFIG_HOME/vim/rc/vundle.vim

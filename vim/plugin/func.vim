@@ -25,3 +25,11 @@ else
                 \if has('gui_running') | source $MYGVIMRC
     autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') | source $MYGVIMRC
 endif
+
+" アクティブウィンドウを目立たせる
+augroup vimrcEmphasizeWindow
+	autocmd!
+	autocmd WinEnter * set cul
+	autocmd WinLeave * set nocul
+augroup END
+
