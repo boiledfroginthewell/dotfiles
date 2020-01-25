@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+selected=$(git status -s | grep -ve '^M ' | fzf -m --ansi \
+	--preview 'git diff -- $(echo {} |cut -c 3-) ')
+
+if [ -n "$selected" ]; then
+	git add -- $(echo "$selected"| cut -c 3-)
+fi
+
