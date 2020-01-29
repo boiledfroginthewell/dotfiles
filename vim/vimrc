@@ -26,10 +26,8 @@ set showcmd
 set completeopt+=longest
 set wildmode=list:longest
 set shiftwidth=4
-if !has("win32") && !has("win32unix")
-	set list
-	set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
-endif
+set list
+set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
