@@ -32,7 +32,7 @@ endif
 function! s:toggle_cheat_sheet(cmd)
   if exists('t:cheatbuf')
     call s:close_cheat_sheet(t:cheatbuf)
-    unlet t:cheatbuf
+    unlet! t:cheatbuf
   else
     if g:cheatsheet#float_window == 0
       let t:cheatbuf = s:open_cheat_sheet()
@@ -56,9 +56,10 @@ function! s:open_cheat_sheet() abort
   endif
   execute l:split_command
   execute 'view' l:path
+  let returnBufnr = bufnr('%')
   set nonu
   wincmd w
-  return bufnr('%')
+  return returnBufnr
 endfunction
 
 function! s:open_cheat_sheet_float() abort
