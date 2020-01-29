@@ -7,11 +7,7 @@ Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
-augroup cheatsheet
-	autocmd!
-	autocmd cheatsheet VimEnter * Cheat
-	autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
-augroup END
+noremap <leader>? :Cheat<CR>
 
 if !has("win32unix")
 	Plug 'thinca/vim-localrc'
@@ -31,7 +27,7 @@ vmap gx <Plug>(openbrowser-smart-search)
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-if !has('win32unix')
+if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
 	if has("unix") && !has("win32unix")
