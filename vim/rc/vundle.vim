@@ -7,10 +7,15 @@ Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
-autocmd VimEnter * Cheat
-autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+augroup cheatsheet
+	autocmd!
+	autocmd cheatsheet VimEnter * Cheat
+	autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+augroup END
 
-Plug 'thinca/vim-localrc'
+if !has("win32unix")
+	Plug 'thinca/vim-localrc'
+endif
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'vim-scripts/restart.vim', {'on': 'Restart'}
@@ -26,16 +31,24 @@ vmap gx <Plug>(openbrowser-smart-search)
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
-" fzf heart vim
-Plug 'junegunn/fzf.vim'
-if has("unix") && !has("win32unix")
-	source /usr/share/doc/fzf/examples/fzf.vim
+if !has('win32unix')
+	" fzf heart vim
+	Plug 'junegunn/fzf.vim'
+	if has("unix") && !has("win32unix")
+		source /usr/share/doc/fzf/examples/fzf.vim
+	endif
+	nmap <silent> <Leader>o :GFiles<CR>
+	nmap <silent> <Leader>r :Rg 
+	nmap <silent> <Leader>, :Commands<CR>
+	command Maps call fzf#vim#maps('', 0)<cr>
+else
+	Plug 'ctrlpvim/ctrlp.vim'
+	let g:ctrlp_cmd = 'CtrlPMixed'
+	if executable('fd')
+		let g:ctrlp_user_command = 'fd -t f -c never "" %s'
+		let g:ctrlp_use_caching = 0
+	endif
 endif
-nmap <silent> <Leader>o :GFiles<CR>
-nmap <silent> <Leader>r :Rg 
-nmap <silent> <Leader>, :Commands<CR>
-command Maps call fzf#vim#maps('', 0)<cr>
-
 
 " TESTING USABILITY
 " visually select increasingly larger regions of text using the same key combination.
@@ -118,6 +131,7 @@ vmap <C-k> <Plug>(caw:hatpos:toggle)
 " let g:tagbar_iconchars = ['>', 'V']
 " " sort by file order
 " let g:tagbar_sort = 0
+
 
 Plug 'vim-scripts/camelcasemotion'
 augroup vimrcCamelCaseMotion

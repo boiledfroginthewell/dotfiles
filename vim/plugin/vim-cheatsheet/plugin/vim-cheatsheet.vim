@@ -21,6 +21,14 @@ endif
 
 command! -nargs=? -complete=command Cheat call <SID>toggle_cheat_sheet(<q-args>)
 
+if !exists('g:cheatsheet#no_auto_open')
+	augroup cheatsheet
+		autocmd!
+		autocmd cheatsheet VimEnter * Cheat
+		autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+	augroup END
+endif
+
 function! s:toggle_cheat_sheet(cmd)
   if exists('t:cheatbuf')
     call s:close_cheat_sheet(t:cheatbuf)
@@ -48,6 +56,7 @@ function! s:open_cheat_sheet() abort
   endif
   execute l:split_command
   execute 'view' l:path
+  set nonu
   wincmd w
   return bufnr('%')
 endfunction
