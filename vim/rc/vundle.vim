@@ -12,17 +12,13 @@ noremap <leader>? :Cheat<CR>
 if !has("win32unix")
 	Plug 'thinca/vim-localrc'
 endif
+
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'vim-scripts/restart.vim', {'on': 'Restart'}
 " 終了時に保存するセッションオプションを設定する
 let g:restart_sessionoptions
     \ = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
-
-Plug 'tyru/open-browser.vim'
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
 
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -46,6 +42,7 @@ else
 	endif
 endif
 
+
 " TESTING USABILITY
 " visually select increasingly larger regions of text using the same key combination.
 Plug 'terryma/vim-expand-region'
@@ -53,7 +50,7 @@ vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
 " quoting/parenthesizing made simple
-" Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 let g:surround_no_mappings = 1
 nmap ks  <Plug>Dsurround
 nmap cs  <Plug>Csurround
@@ -160,10 +157,6 @@ nmap <silent> <F7> :TestFile<CR>
 
 " Language Specific Plugins
 " -------------------------
-
-" markdown
-" --------
-" au BufRead,BufNewFile *.md set filetype=markdown
 
 " C
 " ---
