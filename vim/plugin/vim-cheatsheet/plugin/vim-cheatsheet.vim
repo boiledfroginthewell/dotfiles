@@ -26,8 +26,19 @@ if !exists('g:cheatsheet#no_auto_open')
 		autocmd!
 		autocmd cheatsheet VimEnter * Cheat
 		autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+		autocmd cheatsheet VimResized * call s:resize_cheat_sheet()
 	augroup END
 endif
+
+function! s:resize_cheat_sheet()
+	if !exists('t:cheatbuf')
+		return
+	elseif g:cheatsheet#vsplit == 0
+		return
+	endif
+
+	execute 'vertical ' . t:cheatbuf . 'resize ' . g:cheatsheet#vsplit_width
+endfunction
 
 function! s:toggle_cheat_sheet(cmd)
   if exists('t:cheatbuf')
@@ -58,6 +69,7 @@ function! s:open_cheat_sheet() abort
   execute 'view' l:path
   let returnBufnr = bufnr('%')
   set nonu
+  set nocursorline
   wincmd w
   return returnBufnr
 endfunction

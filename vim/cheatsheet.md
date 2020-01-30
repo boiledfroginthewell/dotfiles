@@ -14,8 +14,13 @@ gm -- 行の中心にカーソル移動
 <Esc><Esc> -- 検索色クリア
 vv -- expand visual region
 
+テキストオブジェクト
+----------------------
+{w}ordd
+{p}aragraph
+{b}lock ()
+{B}lock {}
 
-gx -- ブラウザで開く
 
 Programming
 ------------
