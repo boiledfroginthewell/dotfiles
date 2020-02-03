@@ -137,8 +137,12 @@ augroup END
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 Plug 'dense-analysis/ale'
 
-" TODO: YouCompleteMe
+" XXX: YouCompleteMe
 " Plug 'Valloric/YouCompleteMe'
+
+" Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
+Plug 'neoclide/coc.nvim'
+
 
 Plug 'vim-scripts/SingleCompile'
 nmap <F5> :w<cr>:SCCompile<cr>

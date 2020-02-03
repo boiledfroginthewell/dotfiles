@@ -30,20 +30,11 @@ noremap H J
 noremap T K
 noremap <C-n> <C-y>
 noremap <C-h> <C-u>
+
 " convienient mapping
 noremap 0 ^
 noremap ^ 0
 noremap _ $
 noremap e w
 noremap w e
-nnoremap <S-CR> O<esc>
-nnoremap <CR> o<esc>
-" duplicate current line
-noremap <A-c> yyp
-" Clipboard
-noremap <C-y> "+P
-noremap <C-Y> "+p
-inoremap <C-y> <C-r>+
-noremap <C-A-y> "*p
-noremap <C-A-Y> "*P
-inoremap <C-A-y> <C-r>*
+

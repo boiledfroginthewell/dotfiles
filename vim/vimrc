@@ -30,6 +30,7 @@ set list
 set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 syntax on
 
 " Default Indent Config
@@ -43,8 +44,16 @@ set background=dark
 
 let mapleader=","
 
+" 通常のエディタにあるショートカット
 map <Space> <c-f>
 map <s-Space> <c-b>
+nnoremap <S-CR> O<esc>
+nnoremap <CR> o<esc>
+
+" Clipboard
+noremap <C-y> "+P
+inoremap <C-y> <C-r>+
+noremap <C-A-y> "*P
 
 " go to the middle of a line by gm
 noremap gm :call cursor(0, virtcol('$')/2)<CR>
@@ -54,6 +63,9 @@ nnoremap g* :%s/\<<C-r><C-w>\>/
 vnoremap g* :s/\<<C-r><C-w>\>/
 " 検索ハイライトをクリア
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+
+" duplicate current line
+nnoremap <A-c> yyp
 
 source $XDG_CONFIG_HOME/vim/rc/dvorak_op.vim
 source $XDG_CONFIG_HOME/vim/rc/vundle.vim
