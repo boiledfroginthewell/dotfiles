@@ -26,13 +26,22 @@ let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
-	if has("unix") && !has("win32unix")
-		source /usr/share/doc/fzf/examples/fzf.vim
-	endif
+	source /usr/share/doc/fzf/examples/fzf.vim
 	nmap <silent> <Leader>o :GFiles<CR>
 	nmap <silent> <Leader>r :Rg 
 	nmap <silent> <Leader>, :Commands<CR>
-	command Maps call fzf#vim#maps('', 0)<cr>
+	command! Maps call fzf#vim#maps('', 0)<cr>
+	command! FZFMix call fzf#run({
+				\'source':  'bash -c "'.
+				\				'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+				\				'find --type f \"\"'.
+				\			'"',
+				\'sink' : 'e ',
+				\'dir' : g:projectroot,
+				\'options' : '-e -m --reverse',
+				\'window' : 'enew',
+			\})
+	nmap <silent> <Leader>O :FZFMix<CR>
 else
 	Plug 'ctrlpvim/ctrlp.vim'
 	let g:ctrlp_cmd = 'CtrlPMixed'
