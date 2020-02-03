@@ -18,21 +18,27 @@ set viminfo+='1000,n$XDG_CACHE_HOME/vim/viminfo
 set nu
 set display+=lastline
 set autochdir
-set smartindent
-set background=dark
 set cursorline
 set visualbell
 set splitright
+set splitbelow
 set noswapfile
 set showcmd
 set completeopt+=longest
 set wildmode=list:longest
-set shiftwidth=4
 set list
 set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 syntax on
+
+" Default Indent Config
+set shiftwidth=4
+set tabstop=4
+set noexpandtab
+set smartindent
+
+set background=dark
 
 
 let mapleader=","
