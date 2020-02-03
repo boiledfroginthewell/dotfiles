@@ -1,5 +1,4 @@
 if filereadable($VIMRUNTIME . "/defaults.vim")
-
 	source $VIMRUNTIME/defaults.vim
 endif
 
