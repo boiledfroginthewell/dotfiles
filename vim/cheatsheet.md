@@ -21,8 +21,10 @@ vv -- expand visual region
 {b}lock ()
 {B}lock {}
 
+:'<,'>! -- Shellコマンド置換
 
 Programming
 ------------
+<F5> -- Single Compile
 <F6> -- :TestNearest
 <F7> -- :TestFile
