@@ -12,7 +12,7 @@ type fasd &> /dev/null && eval "$(fasd --init auto)"
 zp() {
 	IFS_BK="$IFS"
 	IFS=/
-	dirs=( $(pwd) )
+	dirs=( $(pwd | sed 's:^/::') )
 	IFS="$IFS_BK"
 
 	dest=""
