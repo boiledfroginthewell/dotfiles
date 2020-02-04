@@ -176,14 +176,6 @@ nmap <silent> <F7> :TestFile<CR>
 " ---
 Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
-" Python
-" --------
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
-let g:jedi#documentation_command = "T"
-autocmd FileType python setlocal completeopt-=preview
-" jedi-vim with neocomplete
-autocmd FileType python setlocal omnifunc=jedi#python3completions
-
 " JavaScript
 " -----------------
 Plug 'othree/yajs.vim', {'for': 'js'}
