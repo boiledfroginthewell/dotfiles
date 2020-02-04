@@ -144,7 +144,11 @@ Plug 'dense-analysis/ale'
 " Plug 'Valloric/YouCompleteMe'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
+Plug 'honza/vim-snippets'
 
 
 Plug 'vim-scripts/SingleCompile'
