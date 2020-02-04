@@ -52,12 +52,6 @@ else
 endif
 
 
-" TESTING USABILITY
-" visually select increasingly larger regions of text using the same key combination.
-Plug 'terryma/vim-expand-region'
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
 " quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 let g:surround_no_mappings = 1
@@ -157,8 +151,11 @@ Plug 'vim-scripts/SingleCompile'
 nmap <F5> :w<cr>:SCCompile<cr>
 " nmap <F4> :w<cr>:SCCompileRun<cr>
 "* gnuplot support
-"call SingleCompile#SetCompilerTemplate('gnuplot', 'gnuplot', 'gnuplotname', 'gnuplot', '', '')
-"call SingleCompile#ChooseCompiler('gnuplot', 'gnuplot')
+augroup vimrcSingleCompileGnuplot
+	autocmd!
+	autocmd FileType gnuplot * call SingleCompile#SetCompilerTemplate('gnuplot', 'gnuplot', 'gnuplotname', 'gnuplot', '', '')
+	autocmd FileType gnuplot * call SingleCompile#ChooseCompiler('gnuplot', 'gnuplot')
+augroup END
 
 Plug 'janko/vim-test'
 nmap <silent> <F6> :TestNearest<CR>
@@ -191,7 +188,7 @@ Plug 'othree/javascript-libraries-syntax.vim', {'for': 'js'}
 " au FileType javascript noremap <F3> :TernDef<CR>
 " au FileType javascript inoremap <F3> :TernDef<CR>
 
-" XXX: ale is enough?
+" XXX: Can be done in coc
 " Plug 'maksimr/vim-jsbeautify', {'for': 'js'}
 
 call plug#end()
