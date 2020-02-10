@@ -27,3 +27,10 @@ Programming
 <F5> -- Single Compile
 <F6> -- :TestNearest
 <F7> -- :TestFile
+<F8> -- :TagbarToggle
+
+### coc
+gd -- Go to Definition
+gr -- References
+<Space>rn -- Rename
+<C-S-f> -- Format

@@ -120,14 +120,16 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" Plug 'majutsushi/tagbar'
-" nmap <F8> :TagbarToggle<CR>
-" let g:tagbar_width = 30
-" let g:tagbar_compact = 1
-" let g:tagbar_iconchars = ['>', 'V']
-" " sort by file order
-" let g:tagbar_sort = 0
 
+if executable('ctags')
+	Plug 'majutsushi/tagbar'
+	nmap <F8> :TagbarToggle<CR>
+	let g:tagbar_width = 30
+	let g:tagbar_compact = 1
+	let g:tagbar_iconchars = ['>', 'V']
+	" sort by file order
+	let g:tagbar_sort = 0
+endif
 
 Plug 'vim-scripts/camelcasemotion'
 augroup vimrcCamelCaseMotion
@@ -176,16 +178,6 @@ nmap <silent> <F7> :TestFile<CR>
 " ---
 Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
-" JavaScript
-" -----------------
-Plug 'othree/yajs.vim', {'for': 'js'}
-Plug 'ternjs/tern_for_vim', {'for': 'js'}
-Plug 'othree/javascript-libraries-syntax.vim', {'for': 'js'}
-" au FileType javascript noremap <F3> :TernDef<CR>
-" au FileType javascript inoremap <F3> :TernDef<CR>
-
-" XXX: Can be done in coc
-" Plug 'maksimr/vim-jsbeautify', {'for': 'js'}
 
 call plug#end()
 
