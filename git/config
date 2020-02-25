@@ -10,5 +10,4 @@
 [core]
 	pager = lv -c
 	autocrlf = input
-[help]
-	autocorrect = 15
+
