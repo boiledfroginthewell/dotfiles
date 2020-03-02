@@ -1,0 +1,48 @@
+#!/bin/sh
+
+readonly UUID=e128e5ce-cff8-8dfa-c39a-634552c96df7
+readonly PRIMARY=${TMP}/.primary_selection_$UUID
+readonly SECONDARY=${TMP}/.secondary_selection_$UUID
+readonly CLIPBOARD=/dev/clipboard
+
+selection=$CLIPBOARD
+
+while getopts opsbh OPT; do
+    case $OPT in
+        o)
+            output=1;;
+        p)
+            selection=$PRIMARY;;
+        s)
+            selection=$SECONDARY;;
+        b)
+            selection=$CLIPBOARD;;
+        h)
+             cat <<EOS
+Clipboard manager for windows unix-like environment.
+
+Usage:
+   xsel [-o] [-p|-s|-b]
+
+Options:
+   -o        Output the contexnt of the selection
+   -p        Use the primary selection
+   -s        Use the secondary selection
+   -b        Use the clibboard. This is the default behaviour.
+EOS
+            exit
+            ;;
+        \*)
+            echo Unkonw option [$OPT] 1>&2
+            exit 1
+            ;;
+    esac
+done
+
+if  [ ${output:=0} = 1 ]; then
+    # if primary or secandary files do not exist, show nothing
+    cat $selection 2>/dev/null
+else
+    cat - > $selection
+fi
+
