@@ -1,0 +1,11 @@
+#!/bin/bash
+
+selected=$(git status -s | fzf)
+
+#selected=$(git status -s | cut -c 3- | fzf -m --ansi \
+	#--preview 'head {}')
+
+if [ -n "$selected" ];then
+	git add -- $(echo "$selected"| cut -c 3-) &
+fi
+
