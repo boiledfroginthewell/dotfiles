@@ -1,0 +1,18 @@
+#!/bin/bash -x
+
+DEST="$1"
+SOURCE="$2"
+
+if [ -e "$DEST" -a ! -e "$SOURCE" ]; then
+	echo Treating the second arg as the source directory. >&2
+	TMP="$SOURCE"
+	SOURCE="$DEST"
+	DEST="$TMP"
+fi
+
+SOURCE=$(cygpath -w "$SOURCE")
+DEST=$(cygpath -w "$DEST")
+
+
+cmd //C "cd $(cygpath -w "$PWD") && mklink /J \"$DEST\" \"$SOURCE\"" 2>&1 | nkf -w
+
