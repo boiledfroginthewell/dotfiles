@@ -120,14 +120,16 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" Plug 'majutsushi/tagbar'
-" nmap <F8> :TagbarToggle<CR>
-" let g:tagbar_width = 30
-" let g:tagbar_compact = 1
-" let g:tagbar_iconchars = ['>', 'V']
-" " sort by file order
-" let g:tagbar_sort = 0
 
+if executable('ctags')
+	Plug 'majutsushi/tagbar'
+	nmap <F8> :TagbarToggle<CR>
+	let g:tagbar_width = 30
+	let g:tagbar_compact = 1
+	let g:tagbar_iconchars = ['>', 'V']
+	" sort by file order
+	let g:tagbar_sort = 0
+endif
 
 Plug 'vim-scripts/camelcasemotion'
 augroup vimrcCamelCaseMotion
@@ -144,7 +146,11 @@ Plug 'dense-analysis/ale'
 " Plug 'Valloric/YouCompleteMe'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
+let g:coc_snippet_next = '<tab>'
+let g:coc_snippet_prev = '<s-tab>'
+Plug 'honza/vim-snippets'
 
 
 Plug 'vim-scripts/SingleCompile'
@@ -172,24 +178,6 @@ nmap <silent> <F7> :TestFile<CR>
 " ---
 Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
-" Python
-" --------
-Plug 'davidhalter/jedi-vim', {'for': 'python'}
-let g:jedi#documentation_command = "T"
-autocmd FileType python setlocal completeopt-=preview
-" jedi-vim with neocomplete
-autocmd FileType python setlocal omnifunc=jedi#python3completions
-
-" JavaScript
-" -----------------
-Plug 'othree/yajs.vim', {'for': 'js'}
-Plug 'ternjs/tern_for_vim', {'for': 'js'}
-Plug 'othree/javascript-libraries-syntax.vim', {'for': 'js'}
-" au FileType javascript noremap <F3> :TernDef<CR>
-" au FileType javascript inoremap <F3> :TernDef<CR>
-
-" XXX: Can be done in coc
-" Plug 'maksimr/vim-jsbeautify', {'for': 'js'}
 
 call plug#end()
 
