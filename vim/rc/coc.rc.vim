@@ -129,3 +129,9 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 noremap <silent> <C-S-f> <Plug>(coc-format)
 
+" Plugins
+let g:coc_global_extensions = [
+	\	'coc-python',
+	\'coc-html', 'coc-css'
+\]
+
