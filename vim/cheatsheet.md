@@ -28,6 +28,7 @@ Programming
 <F6> -- :TestNearest
 <F7> -- :TestFile
 <F8> -- :TagbarToggle
+<C-k> -- Toggle Comments
 
 ### coc
 gd -- Go to Definition
