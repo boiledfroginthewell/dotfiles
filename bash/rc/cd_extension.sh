@@ -1,9 +1,15 @@
+
 # ls after cd
 cl () {
     \cd "$@" && ls
 }
 alias cd=cl
 
+zl() {
+	z "$@" && ls
+}
+
+alias z=zl
 
 # Install fasd
 type fasd &> /dev/null && eval "$(fasd --init auto)"
@@ -52,5 +58,4 @@ alias z.=__z_multi_dots
 
 
 alias zc='z "$(pwd)" "$@"'
-
 
