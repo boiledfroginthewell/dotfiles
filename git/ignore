@@ -342,3 +342,4 @@ tags
 
 # End of https://www.gitignore.io/api/git,vim,node,java,maven,python,eclipse
 
+.idea
