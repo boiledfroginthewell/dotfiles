@@ -77,8 +77,15 @@ alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 
+PATH="${CONF_DIR}/../bin:$PATH"
+
 # read separated configuration files
 for x in ${CONF_DIR}/rc/*.sh; do
 	. $x
 done
 
+if [ $(uname -s) = Darwin ]; then
+	for x in ${CONF_DIR}/macrc/*.sh; do
+		. "$x"
+	done
+fi

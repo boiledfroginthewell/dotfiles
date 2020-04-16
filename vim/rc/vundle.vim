@@ -1,4 +1,5 @@
 " Specify a directory for plugins
+"
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
 
@@ -26,7 +27,13 @@ let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
-	source /usr/share/doc/fzf/examples/fzf.vim
+	if filereadable('/usr/share/doc/fzf/example/fzf.vim')
+		source '/usr/share/doc/fzf/examples/fzf.vim'
+	endif
+	if filereadable('/usr/local/opt/fzf')
+		" MacOS
+		set rtp+=/usr/local/opt/fzf
+	endif
 	nmap <silent> <Leader>r :Rg 
 	nmap <silent> <Leader>, :Commands<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
@@ -147,9 +154,11 @@ Plug 'dense-analysis/ale'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
-let g:coc_snippet_next = '<tab>'
-let g:coc_snippet_prev = '<s-tab>'
+if filereadable($XDG_CONFIG_HOME.'/vim/plug/coc.nvim')
+	source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
+	let g:coc_snippet_next = '<tab>'
+	let g:coc_snippet_prev = '<s-tab>'
+endif
 Plug 'honza/vim-snippets'
 
 
