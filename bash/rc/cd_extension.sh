@@ -1,7 +1,9 @@
+source ~/.autoenv/activate.sh
 
 # ls after cd
 cl () {
     \cd "$@" && ls
+	autoenv_init
 }
 alias cd=cl
 
