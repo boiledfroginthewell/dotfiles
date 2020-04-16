@@ -1,11 +1,10 @@
 #!/bin/bash
 
-selected=$(git status -s | fzf)
-
-#selected=$(git status -s | cut -c 3- | fzf -m --ansi \
-	#--preview 'head {}')
+selected=$(git status -s | \
+	fzf -m --ansi --cycle --layout=reverse \
+	--preview 'git diff -- $(echo {} | cut -c 4-)')
 
 if [ -n "$selected" ];then
-	git add -- $(echo "$selected"| cut -c 3-) &
+	git add -- $(echo "$selected" | cut -c 4-) &
 fi
 

@@ -1,8 +1,0 @@
-#!/bin/bash
-
-
-selected=$(git status -s | fzf -m --ansi \
-	--preview 'git diff -- $(echo {} |cut -c 3-) ')
-
-git add -- $(echo "$selected"| cut -c 3-)
-
