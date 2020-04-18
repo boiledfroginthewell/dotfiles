@@ -1,7 +1,13 @@
+# Activate autoenv
+if [ -e "${HOME}/opt/autoenv/activate.sh" ]; then
+	source "${HOME}/opt/autoenv/activate.sh"
+	AUTOENV_INIT=autoenv_init
+fi
 
 # ls after cd
 cl () {
-    \cd "$@" && ls
+	\cd "$@" && ls
+	$AUTOENV_INIt
 }
 alias cd=cl
 
