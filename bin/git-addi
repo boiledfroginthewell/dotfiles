@@ -1,0 +1,13 @@
+#!/bin/bash
+
+selected=$(git status -s | \
+	fzf -m --ansi --cycle --layout=reverse \
+	--preview 'bash '$(cd $(dirname $0); pwd)'/git-addi-preview.sh {}' \
+	--header '^g:patch, ^d:diff' \
+	--bind 'ctrl-g:execute[git add --patch -- $(echo {} | cut -c 4-) > /dev/tty ]
+	,ctrl-d:execute[git diff -- $(echo {} | cut -c 4-) > /dev/tty ]'
+)
+if [ -n "$selected" ];then
+	git add -- $(echo "$selected" | cut -c 4-) &
+fi
+
