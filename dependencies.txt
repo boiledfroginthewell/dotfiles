@@ -1,0 +1,10 @@
+git
+
+fzf
+fasd
+
+lv
+rg
+fd
+nkf
+
