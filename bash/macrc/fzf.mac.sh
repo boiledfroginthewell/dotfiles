@@ -10,4 +10,6 @@ fi
 
 # Key bindings
 # ------------
-source "/usr/local/opt/fzf/shell/key-bindings.bash"
+KEY_BINDING_FILE="/usr/local/opt/fzf/shell/key-bindings.bash"
+source <(< $KEY_BINDING_FILE sed 's/\C-t/\C-s/')
+
