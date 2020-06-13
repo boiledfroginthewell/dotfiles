@@ -1,10 +1,4 @@
 #!/bin/bash
 
-SED_ARG=""
-while [ $# -gt 0 ]; do
-	SED_ARG="${SED_ARG} -e s~$1~$2~g"
-	shift 2
-done
-
-sed ${SED_ARG}
+sed 's~'"$1"'~'"$2"'~g'
 

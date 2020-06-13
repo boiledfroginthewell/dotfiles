@@ -30,7 +30,7 @@ if !has('win32unix') && !has('win32')
 	if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
 		source /usr/share/doc/fzf/examples/fzf.vim
 	endif
-	if filereadable('/usr/local/opt/fzf')
+	if isdirectory('/usr/local/opt/fzf')
 		" MacOS
 		set rtp+=/usr/local/opt/fzf
 	endif
@@ -112,7 +112,11 @@ let g:EasyMotion_keys =
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_add_search_history = 0
 let g:EasyMotion_off_screen_search = 0
-nmap - <Plug>(easymotion-overwin-w)
+if has('mac')
+	nmap - <Plug>(easymotion-bd-w)
+else
+	nmap - <Plug>(easymotion-overwin-w)
+endif
 
 
 

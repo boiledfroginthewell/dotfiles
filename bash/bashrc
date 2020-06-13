@@ -76,6 +76,7 @@ alias cvlc="cvlc --play-and-exit -q"
 alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
+alias rg="rg --smart-case"
 
 PATH="${CONF_DIR}/../bin:$PATH"
 
