@@ -27,8 +27,8 @@ let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
-	if filereadable('/usr/share/doc/fzf/example/fzf.vim')
-		source '/usr/share/doc/fzf/examples/fzf.vim'
+	if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
+		source /usr/share/doc/fzf/examples/fzf.vim
 	endif
 	if isdirectory('/usr/local/opt/fzf')
 		" MacOS
@@ -152,6 +152,7 @@ augroup END
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
 Plug 'dense-analysis/ale'
+highlight ALEWarning ctermbg=None
 
 " XXX: YouCompleteMe
 " Plug 'Valloric/YouCompleteMe'
