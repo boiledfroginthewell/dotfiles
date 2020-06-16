@@ -1,4 +1,4 @@
-if [[ "$OSTYPE" = "darwin"* ]]; then
+if [[ "$OSTYPE" != "darwin"* ]]; then
 	# GitHub Cloneしてインストールしたときのみ必要. macでは不要
 	export PYENV_ROOT="$HOME/opt/pyenv"
 	export PATH="$PYENV_ROOT/bin:$PATH"
