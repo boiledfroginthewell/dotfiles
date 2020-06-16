@@ -9,5 +9,5 @@
 
 [core]
 	autocrlf = input
-	pager = delta --color-only --dark
+	pager = delta $DELTA_DEFAULT_OPTION
 
