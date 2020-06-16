@@ -8,6 +8,6 @@
 	st = status
 
 [core]
-	pager = lv -c
 	autocrlf = input
+	pager = delta --color-only --dark
 
