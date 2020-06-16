@@ -33,5 +33,5 @@ Programming
 ### coc
 gd -- Go to Definition
 gr -- References
-<Space>rn -- Rename
+<F2> -- Rename
 <C-S-f> -- Format
