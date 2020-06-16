@@ -8,6 +8,6 @@ if [[ "$1" = "?? "* ]]; then
 		cat "$fileName"
 	fi
 else
-	git diff -- "$fileName" | delta --color-only
+	git diff -- "$fileName" | delta $DELTA_DEFAULT_OPTION
 fi
 

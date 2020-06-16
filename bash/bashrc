@@ -77,7 +77,7 @@ alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 alias rg="rg --smart-case"
-export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color 7 --hunk-color yellow"
+export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color cyan --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"
 
 PATH="${CONF_DIR}/../bin:$PATH"
