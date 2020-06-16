@@ -34,21 +34,26 @@ if !has('win32unix') && !has('win32')
 		" MacOS
 		set rtp+=/usr/local/opt/fzf
 	endif
-	nmap <silent> <Leader>r :Rg 
-	nmap <silent> <Leader>, :Commands<CR>
+	nmap <silent> <Leader>r :Rg<CR>
+	nmap <silent> <Leader>c :Commands<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
 	function! s:get_git_root()
 	  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
 	  return v:shell_error ? '' : root
 	endfunction
+	if executable('fd')
+		let g:fzf_file_search_command = 'fd -t f'
+	else
+		let g:fzf_file_search_command = 'find --type f'
+	endif
 	command! FZFMix call fzf#run(fzf#wrap({
 				\'source':  'bash -c "'.
 				\				'echo -e \"'.join(v:oldfiles, '\n').'\";'.
-				\				'find --type f \"\"'.
+				\				g:fzf_file_search_command.';'.
 				\			'"',
 				\'dir': s:get_git_root(),
 			\}))
-	nmap <silent> <Leader>o :FZFMix<CR>
+	nmap <silent> <Leader>, :FZFMix<CR>
 else
 	Plug 'ctrlpvim/ctrlp.vim'
 	let g:ctrlp_cmd = 'CtrlPMixed'
@@ -131,6 +136,8 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
+" sleuth.vim: Heuristically set buffer options 
+Plug 'tpope/vim-sleuth'
 
 if executable('ctags')
 	Plug 'majutsushi/tagbar'
@@ -159,7 +166,7 @@ highlight ALEWarning ctermbg=None
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if filereadable($XDG_CONFIG_HOME.'/vim/plug/coc.nvim')
+if isdirectory($XDG_CONFIG_HOME.'/vim/plugged/coc.nvim')
 	source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
 	let g:coc_snippet_next = '<tab>'
 	let g:coc_snippet_prev = '<s-tab>'

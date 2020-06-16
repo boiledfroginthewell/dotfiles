@@ -132,6 +132,7 @@ noremap <silent> <C-S-f> <Plug>(coc-format)
 " Plugins
 let g:coc_global_extensions = [
 	\'coc-python',
+	\'coc-snippets',
 	\'coc-html', 'coc-css'
 \]
 
