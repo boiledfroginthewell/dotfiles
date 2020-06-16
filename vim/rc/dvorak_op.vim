@@ -8,6 +8,7 @@ noremap d h
 " delete
 noremap k d
 noremap kk dd
+vunmap kk
 noremap K D
 noremap <A-k> 0D
 " jump
