@@ -8,6 +8,6 @@ if [[ "$1" = "?? "* ]]; then
 		cat "$fileName"
 	fi
 else
-	git --no-pager diff --color-words -- "$fileName"
+	git diff -- "$fileName" | delta --color-only
 fi
 

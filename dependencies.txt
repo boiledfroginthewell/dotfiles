@@ -8,3 +8,4 @@ rg
 fd
 nkf
 
+git-delta
