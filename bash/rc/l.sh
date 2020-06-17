@@ -7,7 +7,7 @@ local LESS_COMMAND=$(type lv > /dev/null 2>&1 && echo lv || echo less)
 local OPEN_COMMAND=$(type exo-open > /dev/null 2>&1 && echo exo-open || \
 	(type xdg-open > /dev/null 2>&1 && echo xdg-open ||  \
 	echo open))
-local LS="${L_LS_COMMAND:-ls -F}"
+local LS="${L_LS_COMMAND:-ls --color=auto -p}"
 
 if [ $# -eq 0 ]; then
 	if [ -t 0 ]; then
