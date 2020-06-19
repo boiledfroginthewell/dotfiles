@@ -14,7 +14,7 @@ if [ $# -eq 0 ]; then
 		$LS
 	else
 		# read data from stdin
-		lv
+		$LESS_COMMAND
 	fi
 	return
 fi
