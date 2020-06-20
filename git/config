@@ -1,13 +1,15 @@
-[branch "master"]
+[core]
+	autocrlf = input
+	pager = delta $DELTA_DEFAULT_OPTION
+
+[alias]
+	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(cyan)@%ad, %h' --date=short
+	st = status
+
 [user]
 	name = boiledfroginthewell
 	email = boiledfroginthewell@users.noreply.github.com
 
-[alias] 
-	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(cyan)@%ad, %h' --date=short
-	st = status
-
-[core]
-	autocrlf = input
-	pager = delta $DELTA_DEFAULT_OPTION
+[include]
+	path = ./userconfig
 

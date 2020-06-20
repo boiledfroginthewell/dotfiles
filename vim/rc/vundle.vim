@@ -157,9 +157,10 @@ augroup vimrcCamelCaseMotion
 	autocmd FileType programming * map <silent> <buffer> b <Plug>CamelCaseMotion_b
 augroup END
 
-" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support 
+" Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
 highlight ALEWarning ctermbg=None
+highlight ALEError ctermbg=None ctermfg=red
 
 " XXX: YouCompleteMe
 " Plug 'Valloric/YouCompleteMe'
