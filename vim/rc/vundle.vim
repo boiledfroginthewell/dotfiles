@@ -149,13 +149,15 @@ if executable('ctags')
 	let g:tagbar_sort = 0
 endif
 
-Plug 'vim-scripts/camelcasemotion'
-augroup vimrcCamelCaseMotion
-	autocmd!
-	autocmd FileType programming * map <silent> <buffer> e <Plug>CamelCaseMotion_w
-	autocmd FileType programming * map <silent> <buffer> w <Plug>CamelCaseMotion_e
-	autocmd FileType programming * map <silent> <buffer> b <Plug>CamelCaseMotion_b
-augroup END
+Plug 'chaoren/vim-wordmotion'
+let g:wordmotion_mappings = {
+\ 'e' : 'w',
+\ 'w' : 'e',
+\ 'ge' : 'ge',
+\ 'ae' : 'aw',
+\ 'ie' : 'iw',
+\ }
+let g:wordmotion_spaces = '_-.'
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
