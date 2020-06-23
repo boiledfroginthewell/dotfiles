@@ -1,4 +1,8 @@
 export FZF_DEFAULT_OPTS="--reverse --multi --cycle --ansi"
+if type fd &> /dev/null; then
+	export FZF_DEFAULT_COMMAND="fd ."
+	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
 
 KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.bash
 if [ -e "$KEY_BINDING_FILE" ]; then
