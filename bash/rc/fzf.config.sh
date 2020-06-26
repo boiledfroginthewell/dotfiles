@@ -11,9 +11,7 @@ if [ -e "$KEY_BINDING_FILE" ]; then
 	# Disable C-t Mapping
 	source <(< $KEY_BINDING_FILE sed 's/.*bind .*C-t.*/:/')
 fi
-FZF_CTRL_T_OPTS='
---bind "ctrl-l:execute(l {} > /dev/tty )"
-'
+FZF_CTRL_T_OPTS='--bind "ctrl-l:execute(l {} > /dev/tty )"'
 
 COMPLETION_FILE=/usr/share/bash-completion/completions/fzf
 if [ -e "$COMPLETION_FILE" ]; then
@@ -22,11 +20,19 @@ fi
 
 _fzf_config_insert() {
 	local query="${READLINE_LINE##* }"
+	if [[ -d "$query" ]]; then
+		PIPE='fd . "$query" | '
+	elif [[ "$query" = *"/"* && -d "$(dirname $query)" ]]; then
+		PIPE='fd "$(basename)" "$(dirname query)" | '
+	else
+		PIPE=
+	fi
 	local output=$(
-		fzf-tmux \
+		eval \
+			$PIPE fzf-tmux \
 			--height ${FZF_TMUX_HEIGHT:-40%} \
-			--query "${query}" \
-			"$FZF_CTRL_T_OPTS"
+			--query \'"${query}"\' \
+			$FZF_CTRL_T_OPTS
 	)
 	if [ -z "${output}" ]; then
 		return
