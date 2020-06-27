@@ -12,14 +12,9 @@ CONF_DIR=${XDG_CONFIG_HOME}/bash
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
-
 export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=200
-HISTFILESIZE=1000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -38,16 +33,11 @@ source "${CONF_DIR}/ps1.sh"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto -p'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -76,6 +66,7 @@ alias cvlc="cvlc --play-and-exit -q"
 alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
+alias cdiff="git diff --no-index"
 alias rg="rg --smart-case"
 export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color cyan --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 selected=$(git status -s | \
+	grep -E -v '^[AM] ' | \
 	fzf -m --ansi --cycle --layout=reverse \
 	--preview 'bash '$(cd $(dirname $0); pwd)'/git-addi-preview.sh {}' \
 	--header '^g:patch, ^d:diff' \

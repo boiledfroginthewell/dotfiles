@@ -16,7 +16,7 @@ endif
 
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'vim-scripts/restart.vim', {'on': 'Restart'}
+Plug 'tyru/restart.vim', {'on': 'Restart'}
 " 終了時に保存するセッションオプションを設定する
 let g:restart_sessionoptions
     \ = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
@@ -47,12 +47,12 @@ if !has('win32unix') && !has('win32')
 		let g:fzf_file_search_command = 'find --type f'
 	endif
 	command! FZFMix call fzf#run(fzf#wrap({
-				\'source':  'bash -c "'.
-				\				'echo -e \"'.join(v:oldfiles, '\n').'\";'.
-				\				g:fzf_file_search_command.';'.
-				\			'"',
-				\'dir': s:get_git_root(),
-			\}))
+		\'source':  'bash -c "'.
+		\	'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+		\	g:fzf_file_search_command.';'.
+		\'"',
+		\'dir': s:get_git_root(),
+	\}))
 	nmap <silent> <Leader>, :FZFMix<CR>
 else
 	Plug 'ctrlpvim/ctrlp.vim'
@@ -87,22 +87,9 @@ omap j <Plug>(clever-f-f)
 nmap J <Plug>(clever-f-F)
 xmap J <Plug>(clever-f-F)
 omap J <Plug>(clever-f-F)
-" nmap ; <Plug>(clever-f-f)
-" xmap ; <Plug>(clever-f-f)
-" omap ; <Plug>(clever-f-f)
-
-" The missing motion for Vim
-Plug 'justinmk/vim-sneak'
-map <C-s> <Plug>Sneak_s
-omap <C-s> <Plug>Sneak_s
-xmap <C-s> <Plug>Sneak_s
-map <C-J> <Plug>Sneak_S
-omap <C-J> <Plug>Sneak_S
-xmap <C-J> <Plug>Sneak_S
-" Prevent mapping. (Sneak overwrites maps if not already mapped.)
-nmap <F20> <Plug>SneakForward
-nmap <F21> <Plug>SneakBackward
-nmap <F22> <Plug>Sneak_
+nmap ; <Plug>(clever-f-f)
+xmap ; <Plug>(clever-f-f)
+omap ; <Plug>(clever-f-f)
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -123,6 +110,8 @@ else
 	nmap - <Plug>(easymotion-overwin-w)
 endif
 
+
+Plug 'roxma/vim-window-resize-easy'
 
 
 " Programming Plugins
