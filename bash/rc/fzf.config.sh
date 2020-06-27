@@ -1,7 +1,6 @@
 export FZF_DEFAULT_OPTS="--reverse --multi --cycle --ansi"
 if type fd &> /dev/null; then
 	export FZF_DEFAULT_COMMAND="fd ."
-	export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 fi
 
 KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.bash
@@ -21,15 +20,20 @@ fi
 _fzf_config_insert() {
 	local query="${READLINE_LINE##* }"
 	if [[ -d "$query" ]]; then
-		PIPE='fd . "$query" | '
+		PIPE='fd . "$query"'
 	elif [[ "$query" = *"/"* && -d "$(dirname $query)" ]]; then
-		PIPE='fd "$(basename)" "$(dirname query)" | '
+		PIPE='fd "$(basename)" "$(dirname query)"'
 	else
-		PIPE=
+		GIT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+		if [ -n "$GIT_ROOT" ]; then
+			PIPE="fd . . $GIT_ROOT"
+		else
+			PIPE='fd .'
+		fi
 	fi
 	local output=$(
 		eval \
-			$PIPE fzf-tmux \
+			$PIPE " | " fzf-tmux \
 			--height ${FZF_TMUX_HEIGHT:-40%} \
 			--query \'"${query}"\' \
 			$FZF_CTRL_T_OPTS
