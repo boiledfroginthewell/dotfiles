@@ -1,5 +1,7 @@
 if [[ "$OSTYPE" != "darwin"* ]]; then
-	L_READLINK_OPTION="-m"
+	READLINK_COMMAND="readlink -m"
+else
+	READLINK_COMMAND="echo"
 fi
 
 l() {
@@ -9,16 +11,6 @@ local OPEN_COMMAND=$(type exo-open > /dev/null 2>&1 && echo exo-open || \
 	echo open))
 local LS="${L_LS_COMMAND:-ls --color=auto -p}"
 
-if [ $# -eq 0 ]; then
-	if [ -t 0 ]; then
-		$LS
-	else
-		# read data from stdin
-		$LESS_COMMAND
-	fi
-	return
-fi
-
 opt=""
 while [ "${1:0:1}" = "-" ]; do
 	opt=$opt' '"$1"
@@ -26,11 +18,14 @@ while [ "${1:0:1}" = "-" ]; do
 done
 
 # execute ls for directory and less for file
-if [ -z "$1" ];then
+if [ ! -t 0 ]; then
+	# read data from stdin
+	$LESS_COMMAND $opt
+elif [ -z "$1" ];then
 	$LS $opt $1
 elif [ -d "$1" ]; then
 	$LS $opt "$1"
-elif file --mime "$(readlink $L_READLINK_OPTION  "$1")" | grep 'charset=binary'  > /dev/null ;then
+elif file --mime "$($READLINK_COMMAND "$1")" | grep -q -e 'charset=binary' ;then
 	$OPEN_COMMAND "$1"
 else
 	$LESS_COMMAND "$1"
