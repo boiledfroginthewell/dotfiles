@@ -1,6 +1,9 @@
-if [[ "$OSTYPE" != "darwin"* ]]; then
+if [[ "$OSTYPE" != "darwin"* ]] \
+	|| readlink -m . &> /dev/null; then
+	# Gnu readlink (coreutils) is available
 	READLINK_COMMAND="readlink -m"
 else
+	# Only BSD readlink is installed
 	READLINK_COMMAND="echo"
 fi
 
