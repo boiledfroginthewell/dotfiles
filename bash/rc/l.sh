@@ -28,7 +28,7 @@ elif [ -z "$1" ];then
 	$LS $opt $1
 elif [ -d "$1" ]; then
 	$LS $opt "$1"
-elif file --mime "$($READLINK_COMMAND "$1")" | grep -q -e 'charset=binary' ;then
+elif [ -n "$(file --mime "$($READLINK_COMMAND "$1")" | grep -e 'charset=binary' | grep -v x-empty)" ] ;then
 	$OPEN_COMMAND "$1"
 else
 	$LESS_COMMAND "$1"
