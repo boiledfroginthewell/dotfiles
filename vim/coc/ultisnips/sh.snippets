@@ -1,0 +1,18 @@
+snippet getopts "Parse arguments" b
+while getopts '${1:Options like f:h}' ARG; do
+	case $ARG in
+	${2}f)
+		FILE=$OPTARG
+		;;
+	h|\?)
+		help()
+		;;
+	esac
+done
+shift $(( OPTIND - 1 ))
+endsnippet
+
+snippet trap "Set trap on any exit" b
+trap "${1:command}" SIGHUP SIGINT SIGQUIT SIGTERM EXIT
+endsnippet
+
