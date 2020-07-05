@@ -16,11 +16,6 @@ endif
 
 Plug 'editorconfig/editorconfig-vim'
 
-Plug 'tyru/restart.vim', {'on': 'Restart'}
-" 終了時に保存するセッションオプションを設定する
-let g:restart_sessionoptions
-    \ = 'blank,buffers,curdir,folds,help,localoptions,tabpages'
-
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
@@ -78,18 +73,8 @@ nmap ySS <Plug>YSsurround
 " xmap S   <Plug>VSurround
 " xmap gS  <Plug>VgSurround
 
-" Extended f, F, t and T key mappings for Vim.
-Plug 'rhysd/clever-f.vim'
-let g:clever_f_not_overwrites_standard_mappings = 1
-nmap j <Plug>(clever-f-f)
-xmap j <Plug>(clever-f-f)
-omap j <Plug>(clever-f-f)
-nmap J <Plug>(clever-f-F)
-xmap J <Plug>(clever-f-F)
-omap J <Plug>(clever-f-F)
-nmap ; <Plug>(clever-f-f)
-xmap ; <Plug>(clever-f-f)
-omap ; <Plug>(clever-f-f)
+" vim-textobj-user - Create your own text objects
+Plug 'kana/vim-textobj-user'
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
