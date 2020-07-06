@@ -28,6 +28,7 @@ Programming
 <F7> -- :TestFile
 <F8> -- :TagbarToggle
 <C-k> -- Toggle Comments
+,# -- :ShebangInsert
 
 ### coc
 gd -- Go to Definition
