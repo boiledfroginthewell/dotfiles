@@ -113,6 +113,12 @@ vmap <C-k> <Plug>(caw:hatpos:toggle)
 " sleuth.vim: Heuristically set buffer options 
 Plug 'tpope/vim-sleuth'
 
+Plug 'sbdchd/vim-shebang'
+nmap <leader># :ShebangInsert<CR>
+let g:shebang#shebangs = {
+	\ 'sh': '#!/bin/bash',
+\ }
+
 if executable('ctags')
 	Plug 'majutsushi/tagbar'
 	nmap <F8> :TagbarToggle<CR>
