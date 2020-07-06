@@ -10,8 +10,8 @@
 	"snippets": {
 		"ultisnips": {
 			"directories": [
-				"~/cfg/dotfiles/vim/plugged/vim-snippets/UltiSnips",
-				"~/cfg/dotfiles/vim/coc/ultisnips"
+				"plugged/vim-snippets/UltiSnips",
+				"coc/ultisnips"
 			]
 		}
 	}
