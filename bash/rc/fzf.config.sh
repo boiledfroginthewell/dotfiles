@@ -33,7 +33,7 @@ _fzf_config_insert() {
 	fi
 	local output=$(
 		eval \
-			$PIPE " | " fzf-tmux \
+			$PIPE " | sed \"s:$HOME:~:\" | " fzf-tmux \
 			--height ${FZF_TMUX_HEIGHT:-40%} \
 			--query \'"${query}"\' \
 			$FZF_CTRL_T_OPTS
