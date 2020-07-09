@@ -68,7 +68,6 @@ nnoremap <A-c> yyp
 
 source $XDG_CONFIG_HOME/vim/rc/dvorak_op.vim
 source $XDG_CONFIG_HOME/vim/rc/vundle.vim
-source $XDG_CONFIG_HOME/vim/rc/myftdetect.vim
 
 if has('macunix')
 	set guifont=Monaco:h12
