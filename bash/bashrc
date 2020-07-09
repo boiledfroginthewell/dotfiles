@@ -9,11 +9,15 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CACHE_HOME="${HOME}/.cache"
 CONF_DIR=${XDG_CONFIG_HOME}/bash
 
+
+# History Configuration
+# ----------------------------
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
 # append to the history file, don't overwrite it
 shopt -s histappend
+export HISTFILESIZE=20000
 export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
 
 # check the window size after each command and, if necessary,
@@ -24,6 +28,9 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
+
+# Color Configuration
+# --------------------------
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
@@ -32,8 +39,7 @@ source "${CONF_DIR}/ps1.sh"
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto -p'
-
+    readonly IS_COLOR_AVAILABLE=1
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
@@ -71,15 +77,39 @@ alias rg="rg --smart-case"
 export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color cyan --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"
 
+LESS_COMMAND=$(
+	type -t bat > /dev/null && echo bat \
+	|| (type -t lv > /dev/null && echo lv) \
+	|| echo less
+)
+alias less=$LESS_COMMAND
+OPEN_COMMAND=$(
+	type -t exo-open > /dev/null  && echo exo-open \
+	|| (type -t xdg-open > /dev/null && echo xdg-open) \
+	|| (type -t start > /dev/null && echo start) \
+	|| echo open
+)
+alias open=$OPEN_COMMAND
+LS_COMMAND=$(
+	type -t exa > /dev/null && echo exa \
+	|| ([ "$IS_COLOR_AVAILABLE" = 1 ] && echo ls --color=auto -p) \
+	|| echo ls
+)
+alias ls=$LS_COMMAND
+
 PATH="${CONF_DIR}/../bin:$PATH"
 
-# read separated configuration files
+
+# Load additional configuration files
+# --------------------------------
 for x in ${CONF_DIR}/rc/*.sh; do
 	. $x
 done
 
+# Load Mac Configuration
 if [ $(uname -s) = Darwin ]; then
 	for x in ${CONF_DIR}/macrc/*.sh; do
 		. "$x"
 	done
 fi
+
