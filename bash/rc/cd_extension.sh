@@ -2,21 +2,19 @@
 if [ -e "${HOME}/opt/autoenv/activate.sh" ]; then
 	export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
 	source "${HOME}/opt/autoenv/activate.sh"
-	AUTOENV_INIT=autoenv_init
 fi
 
-# ls after cd
-cl () {
-	\cd "$@" && ls
-	$AUTOENV_INIt
-}
-alias cd=cl
 
-zl() {
-	z "$@" && ls
+# Auto ls
+__AUTO_LS_PREV_PWD="$PWD"
+__auto_ls() {
+	if [ "$__AUTO_LS_PREV_PWD" != "$PWD" ]; then
+		__AUTO_LS_PREV_PWD="$PWD"
+		ls
+	fi
 }
+export PROMPT_COMMAND="${PROMPT_COMMAND}__auto_ls;"
 
-alias z=zl
 
 # Install fasd
 type fasd &> /dev/null && eval "$(fasd --init auto)"
