@@ -102,12 +102,13 @@ PATH="${CONF_DIR}/../bin:$PATH"
 
 # Load additional configuration files
 # --------------------------------
+# loadLazily trigger_command source_file [arguments ...]
 loadLazily() {
 	local TRIGGER_COMMAND=$1
 	unalias $1
 	source "$2"
 	shift 2
-	eval $TRIGGER_COMMAND "$@"
+	$TRIGGER_COMMAND "$@"
 }
 
 if [ $(uname -s) = Darwin ]; then
