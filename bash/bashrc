@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 case $- in
 	*i*) ;;
-	  *) return;;
+	*) return;;
 esac
 
 export XDG_CONFIG_HOME="${HOME}/.config"
@@ -49,11 +49,11 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
-  fi
+	if [ -f /usr/share/bash-completion/bash_completion ]; then
+		. /usr/share/bash-completion/bash_completion
+	elif [ -f /etc/bash_completion ]; then
+		. /etc/bash_completion
+	fi
 fi
 
 # terminal shortcuts
@@ -102,12 +102,14 @@ PATH="${CONF_DIR}/../bin:$PATH"
 
 # Load additional configuration files
 # --------------------------------
-# loadLazily trigger_command source_file [arguments ...]
-loadLazily() {
+# loadLazily trigger_command other_triggers source_file [arguments ...]
+mybashrc::lazyLoad::loadLazily() {
 	local TRIGGER_COMMAND=$1
-	unalias $1
-	source "$2"
-	shift 2
+	for trig in ${2//,/ }; do
+		unalias $trig
+	done
+	source "$3"
+	shift 3
 	$TRIGGER_COMMAND "$@"
 }
 
@@ -115,14 +117,24 @@ if [ $(uname -s) = Darwin ]; then
 	MAC_RC="${CONF_DIR}/macrc/*.sh"
 fi
 for x in ${CONF_DIR}/rc/*.sh $MAC_RC; do
-	if [[ "$x" = *".lazy"* ]]; then
-		trigger=$(basename "${x%%.lazy*}")
-		alias $trigger="loadLazily $trigger \"$x\""
-	else
-		# T=$(date +'%S%N')
+	if [[ "$x" != *".lazy"* ]]; then
+		# T=$(gdate +'1%-S%N')
 		source $x
-		# T2=$(date +'%S%N')
-		# echo -e $(( $T2 - $T )) "\t" $x
+		# echo -e $(( ($(gdate +'1%-S%N') - $T) / 100000 )) "\t" $x
+	else
+		# Extract trigger command: formats=TRIGGER.lazy.sh or foo.lazy=TRIGGER,TRIG2.sh
+		filename=$(basename $x)
+		lazy=${filename##*.lazy}
+		lazy=${lazy%%.*}
+		if [ "${lazy:0:1}" != "=" ]; then
+			trigger_commands=${filename%%.lazy*}
+		else
+			trigger_commands=${lazy:1}
+		fi
+
+		for trig in ${trigger_commands//,/ }; do
+			alias $trig="mybashrc::lazyLoad::loadLazily $trig $trigger_commands \"$x\""
+		done
 	fi
 done
 
