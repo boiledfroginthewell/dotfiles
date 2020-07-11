@@ -32,6 +32,7 @@ if !has('win32unix') && !has('win32')
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
+
 	function! s:get_git_root()
 	  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
 	  return v:shell_error ? '' : root
@@ -49,6 +50,19 @@ if !has('win32unix') && !has('win32')
 		\'dir': s:get_git_root(),
 	\}))
 	nmap <silent> <Leader>, :FZFMix<CR>
+
+	function! s:fzf_commandline()
+		let l:BS = "\u08" " <C-h>
+		let l:list = fzf#run(fzf#wrap({
+			\ 'sink': { lines -> lines }
+		\ }))
+		if len(list)
+			return escape(substitute(list[0], '^.\{-,},', '', ''), ' ')
+		else
+			return 'a' . l:BS " workaround for redraw problem
+		endif
+	endfunction
+	cnoremap <expr> <C-S> <SID>fzf_commandline()
 else
 	Plug 'ctrlpvim/ctrlp.vim'
 	let g:ctrlp_cmd = 'CtrlPMixed'
