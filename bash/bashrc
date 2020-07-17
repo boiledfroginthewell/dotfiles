@@ -77,6 +77,8 @@ alias rg="rg --smart-case"
 export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color cyan --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"
 
+type -t bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 LESS_COMMAND=$(
 	type -t bat > /dev/null && echo bat \
 	|| (type -t lv > /dev/null && echo lv) \
