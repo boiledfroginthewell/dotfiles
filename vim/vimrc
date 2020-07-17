@@ -29,6 +29,7 @@ set list
 set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
+set hidden
 autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 syntax on
 

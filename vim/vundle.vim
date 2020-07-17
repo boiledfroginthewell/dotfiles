@@ -30,6 +30,7 @@ if !has('win32unix') && !has('win32')
 	endif
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
+	nmap <silent> <Leader>b :Buffers<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
 	command! FZFDEFAULT call fzf#run(fzf#wrap({}))
 	nmap <silent> <Leader>, :FZFDEFAULT<CR>
