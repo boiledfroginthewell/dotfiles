@@ -4,15 +4,19 @@
 ,r -- Grep
 ,c -- コマンド一覧
 ,b -- Buffer一覧
-^-p -- ctrlp
+^p -- ctrlp
 
 gm -- 行の中心にカーソル移動
 - -- 画面単語ジャンプ
 {/} -- 段落移動
-^-t/h -- インデント移動
+^t/h -- インデント移動
 
 */g* -- 単語検索／置換
 <Esc><Esc> -- 検索色クリア
+
+^w{+-<>} -- リサイズ
+:'<,'>! -- Shellコマンド置換
+:so % -- Reload vimrc
 
 テキストオブジェクト
 ----------------------
@@ -20,8 +24,6 @@ gm -- 行の中心にカーソル移動
 {p}aragraph
 {b}lock ()
 {B}lock {}
-
-:'<,'>! -- Shellコマンド置換
 
 Programming
 ------------
@@ -37,8 +39,4 @@ gd -- Go to Definition
 gr -- References
 <F2> -- Rename
 <C-f> -- Format
-
-Misc
-------
-:so % -- Reload vimrc
 
