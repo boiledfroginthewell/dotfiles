@@ -32,24 +32,8 @@ if !has('win32unix') && !has('win32')
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
-
-	function! s:get_git_root()
-	  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
-	  return v:shell_error ? '' : root
-	endfunction
-	if executable('fd')
-		let g:fzf_file_search_command = 'fd -t f'
-	else
-		let g:fzf_file_search_command = 'find --type f'
-	endif
-	command! FZFMix call fzf#run(fzf#wrap({
-		\'source':  'bash -c "'.
-		\	'echo -e \"'.join(v:oldfiles, '\n').'\";'.
-		\	g:fzf_file_search_command.';'.
-		\'"',
-		\'dir': s:get_git_root(),
-	\}))
-	nmap <silent> <Leader>, :FZFMix<CR>
+	command! FZFDEFAULT call fzf#run(fzf#wrap({}))
+	nmap <silent> <Leader>, :FZFDEFAULT<CR>
 
 	function! s:fzf_commandline()
 		let l:BS = "\u08" " <C-h>
