@@ -4,7 +4,6 @@
 call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
 
 " チートシート
-Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
@@ -73,6 +72,10 @@ nmap ySS <Plug>YSsurround
 
 " vim-textobj-user - Create your own text objects
 Plug 'kana/vim-textobj-user'
+
+Plug 'jeetsukumaran/vim-indentwise'
+map <C-t> <Plug>(IndentWiseBlockScopeBoundaryBegin)
+map <C-h> <Plug>(IndentWiseBlockScopeBoundaryEnd)
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -148,7 +151,7 @@ highlight ALEError ctermbg=None ctermfg=red
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if isdirectory($XDG_CONFIG_HOME.'/vim/plugged/coc.nvim')
-	source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
+	source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
 	let g:coc_snippet_next = '<tab>'
 	let g:coc_snippet_prev = '<s-tab>'
 endif

@@ -11,20 +11,19 @@ augroup vimrc-auto-mkdir
 augroup END
 
 " Reload .vimrc/.gvimrc after saving .vimrc
-" Set augroup.
 augroup MyAutoCmd
     autocmd!
-augroup END
 
-if !has('gui_running') && !(has('win32') || has('win64'))
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC nested source $MYVIMRC
-else
-    " .vimrcの再読込時にも色が変化するようにする
-    autocmd MyAutoCmd BufWritePost $MYVIMRC source $MYVIMRC |
-                \if has('gui_running') | source $MYGVIMRC
-    autocmd MyAutoCmd BufWritePost $MYGVIMRC if has('gui_running') | source $MYGVIMRC
-endif
+    if !has('gui_running') && !(has('win32') || has('win64'))
+        " .vimrcの再読込時にも色が変化するようにする
+        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim nested source $MYVIMRC
+    else
+        " .vimrcの再読込時にも色が変化するようにする
+        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim source $MYVIMRC |
+                    \if has('gui_running') | source $MYGVIMRC
+        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim if has('gui_running') | source $MYGVIMRC
+    endif
+augroup END
 
 " アクティブウィンドウを目立たせる
 augroup vimrcEmphasizeWindow
