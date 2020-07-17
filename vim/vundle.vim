@@ -85,7 +85,7 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys =
 \ 'EUOAI' .
 \ 'F:L,R.C' .
-\ '2346789' .
+\ '234789' .
 \ ';QJKXVZWMBY' .
 \ 'DSNTH'
 let g:EasyMotion_enter_jump_first = 1
@@ -97,8 +97,8 @@ else
 	nmap - <Plug>(easymotion-overwin-w)
 endif
 
-
-Plug 'roxma/vim-window-resize-easy'
+" submode : Create your own submodes
+Plug 'kana/vim-submode'
 
 
 " Programming Plugins
@@ -187,3 +187,17 @@ Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 call plug#end()
 
+" ### Submode configuration
+let g:submode_keep_leaving_key=1
+call submode#enter_with('tab', 'n', '', 'gt', 'gt')
+call submode#enter_with('tab', 'n', '', 'gT', 'gT')
+call submode#map('tab', 'n', '', 't', 'gt')
+call submode#map('tab', 'n', '', 'T', 'gT')
+call submode#enter_with('window', 'n', '', '<c-w>-', '<c-w>-')
+call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
+call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
+call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
+call submode#map('window', 'n', '', '-', '<c-w>-')
+call submode#map('window', 'n', '', '+', '<c-w>+')
+call submode#map('window', 'n', '', '<', '<c-w><')
+call submode#map('window', 'n', '', '>', '<c-w>>')
