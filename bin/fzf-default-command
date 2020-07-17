@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+# Show absolute path or relative path, which is shorter
+compact() {
+	while read line; do
+		local ABS="$line"
+		local REL=${ABS#$PWD/}
+		REL=${REL:-.}
+
+		if [ ${#ABS} -gt ${#REL} ]; then
+			echo ${REL}
+		else
+			echo ${ABS}
+		fi
+	done
+}
+
+get_project_root() {
+	if [ -n "$1" ]; then
+		cd "$1"
+	fi
+	local PARENT_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
+	if [ -z "$PARENT_DIR" ]; then
+		PARENT_DIR="$PWD"
+		PROJECT_ROOT=""
+	else
+		PROJECT_ROOT="$PARENT_DIR"
+	fi
+
+	while [ "$PARENT_DIR" != "/" ]; do
+		if [ -e "$PARENT_DIR/.fzfinclude" ]; then
+			PROJECT_ROOT="$PARENT_DIR"
+		fi
+		PARENT_DIR=$(dirname "$PARENT_DIR")
+	done
+
+	echo "$PROJECT_ROOT"
+}
+
+
+directory="${1}"
+search_root=$(get_project_root "${directory}")
+
+fd . ${search_root} |\
+cat - <(fasd -alR) |\
+compact |\
+awk '!x[$0]++' |\
+sed "s:$HOME:~:"
+
