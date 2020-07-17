@@ -135,11 +135,14 @@ Plug 'chaoren/vim-wordmotion'
 let g:wordmotion_mappings = {
 \ 'e' : 'w',
 \ 'w' : 'e',
-\ 'ge' : 'ge',
-\ 'ae' : 'aw',
+\ 'ge' : '',
+\ 'ae' : '',
 \ 'ie' : 'iw',
 \ }
 let g:wordmotion_spaces = '_-.'
+nnoremap gw w
+nnoremap ge e
+nnoremap gb b
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
