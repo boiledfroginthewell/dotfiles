@@ -1,7 +1,8 @@
+let s:vim_plug_dir = $XDG_CONFIG_HOME . '/vim/plugged'
 " Specify a directory for plugins
 "
 " - Avoid using standard Vim directory names like 'plugin'
-call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
+call plug#begin(s:vim_plug_dir)
 
 " チートシート
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
@@ -154,7 +155,7 @@ highlight ALEError ctermbg=None ctermfg=red
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if isdirectory($XDG_CONFIG_HOME.'/vim/plugged/coc.nvim')
+if isdirectory(s:vim_plug_dir . '/coc.nvim')
 	source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
 	let g:coc_snippet_next = '<tab>'
 	let g:coc_snippet_prev = '<s-tab>'
@@ -190,17 +191,19 @@ Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 call plug#end()
 
-" ### Submode configuration
-let g:submode_keep_leaving_key=1
-call submode#enter_with('tab', 'n', '', 'gt', 'gt')
-call submode#enter_with('tab', 'n', '', 'gT', 'gT')
-call submode#map('tab', 'n', '', 't', 'gt')
-call submode#map('tab', 'n', '', 'T', 'gT')
-call submode#enter_with('window', 'n', '', '<c-w>-', '<c-w>-')
-call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
-call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
-call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
-call submode#map('window', 'n', '', '-', '<c-w>-')
-call submode#map('window', 'n', '', '+', '<c-w>+')
-call submode#map('window', 'n', '', '<', '<c-w><')
-call submode#map('window', 'n', '', '>', '<c-w>>')
+if isdirectory(s:vim_plug_dir . '/vim-submode')
+	" ### Submode configuration
+	let g:submode_keep_leaving_key=1
+	call submode#enter_with('tab', 'n', '', 'gt', 'gt')
+	call submode#enter_with('tab', 'n', '', 'gT', 'gT')
+	call submode#map('tab', 'n', '', 't', 'gt')
+	call submode#map('tab', 'n', '', 'T', 'gT')
+	call submode#enter_with('window', 'n', '', '<c-w>-', '<c-w>-')
+	call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
+	call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
+	call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
+	call submode#map('window', 'n', '', '-', '<c-w>-')
+	call submode#map('window', 'n', '', '+', '<c-w>+')
+	call submode#map('window', 'n', '', '<', '<c-w><')
+	call submode#map('window', 'n', '', '>', '<c-w>>')
+endif
