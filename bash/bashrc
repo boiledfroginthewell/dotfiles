@@ -19,6 +19,7 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 export HISTFILESIZE=20000
 export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
+export PROMPT_COMMAND="${PROMPT_COMMAND}history -a;"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
