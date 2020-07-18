@@ -127,7 +127,7 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-noremap <silent> <C-S-f> <Plug>(coc-format)
+noremap <silent> <C-f> <Plug>(coc-format)
 
 " Plugins
 let g:coc_global_extensions = [

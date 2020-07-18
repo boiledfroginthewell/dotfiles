@@ -4,7 +4,6 @@
 call plug#begin($XDG_CONFIG_HOME . '/vim/plugged')
 
 " チートシート
-Plug $XDG_CONFIG_HOME . '/vim/plugin/reireias/vim-cheatsheet'
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
@@ -31,25 +30,10 @@ if !has('win32unix') && !has('win32')
 	endif
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
+	nmap <silent> <Leader>b :Buffers<CR>
 	command! Maps call fzf#vim#maps('', 0)<cr>
-
-	function! s:get_git_root()
-	  let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
-	  return v:shell_error ? '' : root
-	endfunction
-	if executable('fd')
-		let g:fzf_file_search_command = 'fd -t f'
-	else
-		let g:fzf_file_search_command = 'find --type f'
-	endif
-	command! FZFMix call fzf#run(fzf#wrap({
-		\'source':  'bash -c "'.
-		\	'echo -e \"'.join(v:oldfiles, '\n').'\";'.
-		\	g:fzf_file_search_command.';'.
-		\'"',
-		\'dir': s:get_git_root(),
-	\}))
-	nmap <silent> <Leader>, :FZFMix<CR>
+	command! FZFDEFAULT call fzf#run(fzf#wrap({}))
+	nmap <silent> <Leader>, :FZFDEFAULT<CR>
 
 	function! s:fzf_commandline()
 		let l:BS = "\u08" " <C-h>
@@ -90,6 +74,10 @@ nmap ySS <Plug>YSsurround
 " vim-textobj-user - Create your own text objects
 Plug 'kana/vim-textobj-user'
 
+Plug 'jeetsukumaran/vim-indentwise'
+map <C-t> <Plug>(IndentWiseBlockScopeBoundaryBegin)
+map <C-h> <Plug>(IndentWiseBlockScopeBoundaryEnd)
+
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
 let g:EasyMotion_do_mapping = 0
@@ -97,7 +85,7 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys =
 \ 'EUOAI' .
 \ 'F:L,R.C' .
-\ '2346789' .
+\ '234789' .
 \ ';QJKXVZWMBY' .
 \ 'DSNTH'
 let g:EasyMotion_enter_jump_first = 1
@@ -109,8 +97,8 @@ else
 	nmap - <Plug>(easymotion-overwin-w)
 endif
 
-
-Plug 'roxma/vim-window-resize-easy'
+" submode : Create your own submodes
+Plug 'kana/vim-submode'
 
 
 " Programming Plugins
@@ -127,6 +115,12 @@ vmap <C-k> <Plug>(caw:hatpos:toggle)
 " sleuth.vim: Heuristically set buffer options 
 Plug 'tpope/vim-sleuth'
 
+Plug 'sbdchd/vim-shebang'
+nmap <leader># :ShebangInsert<CR>
+let g:shebang#shebangs = {
+	\ 'sh': '#!/bin/bash',
+\ }
+
 if executable('ctags')
 	Plug 'majutsushi/tagbar'
 	nmap <F8> :TagbarToggle<CR>
@@ -141,11 +135,14 @@ Plug 'chaoren/vim-wordmotion'
 let g:wordmotion_mappings = {
 \ 'e' : 'w',
 \ 'w' : 'e',
-\ 'ge' : 'ge',
-\ 'ae' : 'aw',
+\ 'ge' : '',
+\ 'ae' : '',
 \ 'ie' : 'iw',
 \ }
 let g:wordmotion_spaces = '_-.'
+nnoremap gw w
+nnoremap ge e
+nnoremap gb b
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 Plug 'dense-analysis/ale'
@@ -158,7 +155,7 @@ highlight ALEError ctermbg=None ctermfg=red
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if isdirectory($XDG_CONFIG_HOME.'/vim/plugged/coc.nvim')
-	source $XDG_CONFIG_HOME/vim/rc/coc.rc.vim
+	source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
 	let g:coc_snippet_next = '<tab>'
 	let g:coc_snippet_prev = '<s-tab>'
 endif
@@ -193,3 +190,17 @@ Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 call plug#end()
 
+" ### Submode configuration
+let g:submode_keep_leaving_key=1
+call submode#enter_with('tab', 'n', '', 'gt', 'gt')
+call submode#enter_with('tab', 'n', '', 'gT', 'gT')
+call submode#map('tab', 'n', '', 't', 'gt')
+call submode#map('tab', 'n', '', 'T', 'gT')
+call submode#enter_with('window', 'n', '', '<c-w>-', '<c-w>-')
+call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
+call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
+call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
+call submode#map('window', 'n', '', '-', '<c-w>-')
+call submode#map('window', 'n', '', '+', '<c-w>+')
+call submode#map('window', 'n', '', '<', '<c-w><')
+call submode#map('window', 'n', '', '>', '<c-w>>')

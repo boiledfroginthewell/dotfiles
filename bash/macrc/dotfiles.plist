@@ -6,14 +6,9 @@
   <string>dotfiles</string>
   <key>ProgramArguments</key>
   <array>
-    <string>/bin/launchctl</string>
-    <string>setenv</string>
-    <string>XDG_CONFIG_HOME</string>
-    <string>~/.config</string>
-    <string>XDG_CACHE_HOME</string>
-    <string>~/.cache</string>
-    <string>XDG_DATA_HOME</string>
-    <string>~/.local/share</string>
+    <string>/bin/sh</string>
+    <string>-c</string>
+    <string>/bin/launchctl setenv XDG_CONFIG_HOME ~/.config XDG_CACHE_HOME ~/.cache XDG_DATA_HOME ~.local/share</string>
   </array>
   <key>RunAtLoad</key>
   <true/>
