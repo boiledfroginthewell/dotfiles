@@ -6,6 +6,9 @@
 	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(cyan)@%ad, %h' --date=short
 	st = status
 
+[diff]
+  algorithm = histogram
+
 [user]
 	name = boiledfroginthewell
 	email = boiledfroginthewell@users.noreply.github.com
