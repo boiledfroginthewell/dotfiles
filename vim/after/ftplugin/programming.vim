@@ -4,7 +4,7 @@ set smartindent
 augroup myfiletype_programming
 	autocmd!
 	" highlight the word under the cursor
-	autocmd CursorMoved * exe printf('match Visual /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+	autocmd CursorMoved <buffer> exe printf('match Visual /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 augroup END
 
 call textobj#user#plugin('spaces', {
