@@ -20,13 +20,15 @@ if !exists('g:cheatsheet#float_window_height_ratio')
 endif
 
 command! -nargs=? -complete=command Cheat call <SID>toggle_cheat_sheet(<q-args>)
+command! -nargs=? -complete=command CheatOpen call <SID>open_cheat_sheet(<q-args>)
+command! -nargs=? -complete=command CheatClose call <SID>close_cheat_sheet(<q-args>)
 
 if !exists('g:cheatsheet#no_auto_open')
 	augroup cheatsheet
 		autocmd!
 		autocmd cheatsheet VimEnter * Cheat
 		autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
-		autocmd cheatsheet VimResized * call s:resize_cheat_sheet()
+		autocmd cheatsheet VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
 	augroup END
 endif
 
@@ -37,7 +39,7 @@ function! s:resize_cheat_sheet()
 		return
 	endif
 
-	execute 'vertical ' . t:cheatbuf . 'resize ' . g:cheatsheet#vsplit_width
+	execute 'vertical ' . t:returnWinnr . 'resize ' . g:cheatsheet#vsplit_width
 endfunction
 
 function! s:toggle_cheat_sheet(cmd)
@@ -67,6 +69,7 @@ function! s:open_cheat_sheet() abort
   endif
   execute l:split_command
   execute 'view' l:path
+  let t:returnWinnr = win_getid()
   let returnBufnr = bufnr('%')
   set nonu
   set nocursorline
@@ -98,11 +101,15 @@ function! s:open_cheat_sheet_float() abort
   let winid = nvim_open_win(buf, v:true, opts)
   let l:path = expand(g:cheatsheet#cheat_file)
   execute 'view' l:path
+  " set winfixwidth
   " q = :Cheat
-  nnoremap <buffer> <silent> q :<C-u>Cheat<CR>
+  nnoremap <buffer> <silent> q :<C-u>CheatClose<CR>
   return bufnr('%')
 endfunction
 
 function! s:close_cheat_sheet(cheatbuf) abort
-  execute 'bd' a:cheatbuf
+  if exists('t:cheatbuf')
+    execute 'bd' t:cheatbuf
+    unlet! t:cheatbuf
+  endif
 endfunction
