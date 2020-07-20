@@ -77,7 +77,7 @@ Plug 'kana/vim-textobj-user'
 
 Plug 'jeetsukumaran/vim-indentwise'
 map <C-t> <Plug>(IndentWiseBlockScopeBoundaryBegin)
-map <C-h> <Plug>(IndentWiseBlockScopeBoundaryEnd)
+map  <Plug>(IndentWiseBlockScopeBoundaryEnd)
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -205,3 +205,4 @@ if isdirectory(s:vim_plug_dir . '/vim-submode')
 	call submode#map('window', 'n', '', '<', '<c-w><')
 	call submode#map('window', 'n', '', '>', '<c-w>>')
 endif
+
