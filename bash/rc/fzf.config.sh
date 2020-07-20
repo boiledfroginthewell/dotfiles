@@ -29,13 +29,15 @@ _fzf_config_insert() {
 		directory=
 	fi
 
-	local output=$(
-		eval \
-			"${command:-fzf-default-command} \"$directory\" | \
-			fzf-tmux \
-			--height ${FZF_TMUX_HEIGHT:-40%} \
-			--query \"${query}\" \
-			$FZF_CTRL_T_OPTS"
+	local output=(
+		$(
+			eval \
+				"${command:-fzf-default-command} \"$directory\" | \
+				fzf-tmux \
+				--height ${FZF_TMUX_HEIGHT:-40%} \
+				--query \"${query}\" \
+				$FZF_CTRL_T_OPTS"
+		)
 	)
 	if [ -z "${output}" ]; then
 		return
@@ -46,7 +48,7 @@ _fzf_config_insert() {
 	else
 		READLINE_LINE="${READLINE_LINE%${query}}"
 	fi
-	READLINE_LINE="${READLINE_LINE}${output#*$'\t'}"
+	READLINE_LINE="${READLINE_LINE}${output[@]}"
 	if [ -z "$READLINE_POINT" ]; then
 		echo "$READLINE_LINE"
 	else
