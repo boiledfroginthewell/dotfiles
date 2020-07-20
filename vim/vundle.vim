@@ -157,8 +157,6 @@ highlight ALEError ctermbg=None ctermfg=red
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if isdirectory(s:vim_plug_dir . '/coc.nvim')
 	source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
-	let g:coc_snippet_next = '<tab>'
-	let g:coc_snippet_prev = '<s-tab>'
 endif
 Plug 'honza/vim-snippets'
 

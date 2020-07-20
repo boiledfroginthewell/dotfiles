@@ -38,4 +38,5 @@ gd -- Go to Definition
 gr -- References
 <F2> -- Rename
 <C-f> -- Format
+,lc -- Command List
 
