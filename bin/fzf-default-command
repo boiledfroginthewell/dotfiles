@@ -35,11 +35,13 @@ get_project_root() {
 
 
 directory="${1}"
-search_root=$(get_project_root "${directory}")
+if [ -z "$directory" ]; then
+	directory=$(get_project_root "${directory}")
+fi
 
 cat \
 	<(fasd -alR) \
-	<(fd . ${search_root}) |\
+	<(fd . ${directory}) |\
 compact |\
 awk '!x[$0]++' |\
 sed "s:$HOME:~:"
