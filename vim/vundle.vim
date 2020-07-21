@@ -29,6 +29,14 @@ if !has('win32unix') && !has('win32')
 		" MacOS
 		set rtp+=/usr/local/opt/fzf
 	endif
+	function! s:swap_buffer(lines)
+		let l:buf = bufnr('%')
+		exec 'e '.a:lines[0]
+		exec 'bd '.l:buf
+	endfunction
+	let g:fzf_action = {
+		\'ctrl-n': function('s:swap_buffer'),
+	\ }
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
