@@ -65,7 +65,6 @@ else
 	endif
 endif
 
-
 " quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 let g:surround_no_mappings = 1
@@ -84,8 +83,14 @@ nmap ySS <Plug>YSsurround
 Plug 'kana/vim-textobj-user'
 
 Plug 'jeetsukumaran/vim-indentwise'
-map <C-t> <Plug>(IndentWiseBlockScopeBoundaryBegin)
-map  <Plug>(IndentWiseBlockScopeBoundaryEnd)
+map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
+	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
+map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
+	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
+function! s:indentwise_is_top_level() abort
+	let first_char = getline('.')[0]
+	return first_char == '' || first_char =~ '\S'
+endfunction
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
