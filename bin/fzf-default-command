@@ -7,11 +7,7 @@ compact() {
 		local REL=${ABS#$PWD/}
 		REL=${REL:-.}
 
-		if [ ${#ABS} -gt ${#REL} ]; then
-			echo ${REL}
-		else
-			echo ${ABS}
-		fi
+		echo ${REL}
 	done
 }
 
@@ -39,10 +35,13 @@ get_project_root() {
 
 
 directory="${1}"
-search_root=$(get_project_root "${directory}")
+if [ -z "$directory" ]; then
+	directory=$(get_project_root "${directory}")
+fi
 
-fd . ${search_root} |\
-cat - <(fasd -alR) |\
+cat \
+	<(fasd -alR) \
+	<(fd . ${directory}) |\
 compact |\
 awk '!x[$0]++' |\
 sed "s:$HOME:~:"

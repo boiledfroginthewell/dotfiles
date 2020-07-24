@@ -15,9 +15,12 @@ if [ -e "$COMPLETION_FILE" ]; then
 	source $COMPLETION_FILE
 fi
 
+
 _fzf_config_insert() {
+	local query directory command
 	local input_value="${READLINE_LINE##* }"
 	if [[ -d "$input_value" ]]; then
+		command="fd ."
 		query=
 		directory="$input_value"
 	elif [[ "$input_value" = *"/"* && -d "$(dirname $input_value)" ]]; then
@@ -29,24 +32,21 @@ _fzf_config_insert() {
 		directory=
 	fi
 
-	local output=$(
-		eval \
-			"${command:-fzf-default-command} \"$directory\" | \
-			fzf-tmux \
-			--height ${FZF_TMUX_HEIGHT:-40%} \
-			--query \"${query}\" \
-			$FZF_CTRL_T_OPTS"
+	local output=(
+		$(
+			eval \
+				"${command:-fzf-default-command} \"$directory\" | \
+				fzf-tmux \
+				--height ${FZF_TMUX_HEIGHT:-40%} \
+				--query \"${query}\" \
+				$FZF_CTRL_T_OPTS"
+		)
 	)
 	if [ -z "${output}" ]; then
 		return
 	fi
 
-	if [ -z "$query" ]; then
-		READLINE_LINE="${READLINE_LINE} "
-	else
-		READLINE_LINE="${READLINE_LINE%${query}}"
-	fi
-	READLINE_LINE="${READLINE_LINE}${output#*$'\t'}"
+	READLINE_LINE="${READLINE_LINE%${input_value}}${output[@]}"
 	if [ -z "$READLINE_POINT" ]; then
 		echo "$READLINE_LINE"
 	else

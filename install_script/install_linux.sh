@@ -2,7 +2,7 @@
 
 # git
 if [ -n "$XDG_CONFIG_HOME" ]; then
-	echo "Explicitly  set  XDG_CONFIG_HOME  for  git  since  git  does  not  use  XDG Directories  when  they  are  blank.  The  default  value  of  XDG_CONFIG_HOME  is  ~/.config"
+	echo "Explicitly set XDG_CONFIG_HOME for git since git does not use XDG Directories when they are blank. The default value of XDG_CONFIG_HOME is ~/.config"
 fi
 
 PRJ_ROOT="$(cd $(dirname $0); git rev-parse --show-toplevel)"
@@ -15,6 +15,7 @@ ln -s $PRJ_ROOT/bash/bashrc ~/.bashrc
 ln -s $PRJ_ROOT/vim/vimrc ~/.vimrc
 ln -s $PRJ_ROOT/vim/gvimrc ~/.gvimrc
 ln -s $PRJ_ROOT/vim ~/.vim
+ln -s $PRJ_ROOT/python/pylintrc ~/.pylintrc
 
 source "${PRJ_ROOT}/install_script/common.sh"
 
