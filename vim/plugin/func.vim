@@ -16,10 +16,10 @@ augroup MyAutoCmd
 
     if !has('gui_running') && !(has('win32') || has('win64'))
         " .vimrcの再読込時にも色が変化するようにする
-        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim nested source $MYVIMRC
+        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim,*/vim/plugin/*.vim,*/vim/*.rc.vim nested source $MYVIMRC
     else
         " .vimrcの再読込時にも色が変化するようにする
-        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim source $MYVIMRC |
+        autocmd MyAutoCmd BufWritePost vimrc,vundle.vim,*/vim/plugin/*.vim,*/vim/*.rc.vim source $MYVIMRC |
                     \if has('gui_running') | source $MYGVIMRC
         autocmd MyAutoCmd BufWritePost vimrc,vundle.vim if has('gui_running') | source $MYGVIMRC
     endif

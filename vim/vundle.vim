@@ -29,6 +29,14 @@ if !has('win32unix') && !has('win32')
 		" MacOS
 		set rtp+=/usr/local/opt/fzf
 	endif
+	function! s:swap_buffer(lines)
+		let l:buf = bufnr('%')
+		exec 'e '.a:lines[0]
+		exec 'bd '.l:buf
+	endfunction
+	let g:fzf_action = {
+		\'ctrl-n': function('s:swap_buffer'),
+	\ }
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
@@ -57,7 +65,6 @@ else
 	endif
 endif
 
-
 " quoting/parenthesizing made simple
 Plug 'tpope/vim-surround'
 let g:surround_no_mappings = 1
@@ -69,15 +76,21 @@ nmap yS  <Plug>YSurround
 nmap yss <Plug>Yssurround
 nmap ySs <Plug>YSsurround
 nmap ySS <Plug>YSsurround
-" xmap S   <Plug>VSurround
-" xmap gS  <Plug>VgSurround
+xmap S   <Plug>VSurround
+xmap gS  <Plug>VgSurround
 
 " vim-textobj-user - Create your own text objects
 Plug 'kana/vim-textobj-user'
 
 Plug 'jeetsukumaran/vim-indentwise'
-map <C-t> <Plug>(IndentWiseBlockScopeBoundaryBegin)
-map <C-h> <Plug>(IndentWiseBlockScopeBoundaryEnd)
+map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
+	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
+map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
+	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
+function! s:indentwise_is_top_level() abort
+	let first_char = getline('.')[0]
+	return first_char == '' || first_char =~ '\S'
+endfunction
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -205,3 +218,4 @@ if isdirectory(s:vim_plug_dir . '/vim-submode')
 	call submode#map('window', 'n', '', '<', '<c-w><')
 	call submode#map('window', 'n', '', '>', '<c-w>>')
 endif
+
