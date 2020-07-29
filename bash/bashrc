@@ -100,6 +100,9 @@ LS_COMMAND=$(
 )
 alias ls=$LS_COMMAND
 
+# time style for `ls -l` command output
+TIME_STYLE=long-iso
+
 PATH="${CONF_DIR}/../bin:$PATH"
 
 
