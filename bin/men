@@ -3,7 +3,7 @@
 if man -w "$1" &> /dev/null; then
 	man "$@"
 elif type -t "$1" &> /dev/null; then
-	$1 -h
+	$1 -h | eval ${MANPAGER:-less}
 else
 	echo No manual is available for \""$1"\" >&2
 fi
