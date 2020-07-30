@@ -40,13 +40,21 @@ if !has('win32unix') && !has('win32')
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
+	" Include all mode
 	command! Maps call fzf#vim#maps('', 0)<cr>
-	command! FZFDEFAULT call fzf#run(fzf#wrap({}))
-	nmap <silent> <Leader>, :FZFDEFAULT<CR>
+	let s:default_fzf_source = 'bash -c "'.
+		\    'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+		\    'fzf-default-command;'.
+		\'"'
+	command! FZFMix call fzf#run(fzf#wrap({
+		\'source': s:default_fzf_source,
+	\}))
+	nmap <silent> <Leader>, :FZFMix<CR>
 
 	function! s:fzf_commandline()
 		let l:BS = "\u08" " <C-h>
 		let l:list = fzf#run(fzf#wrap({
+			\'source': s:default_fzf_source,
 			\ 'sink': { lines -> lines }
 		\ }))
 		if len(list)
