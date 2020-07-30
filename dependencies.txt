@@ -6,6 +6,7 @@ fd
 nkf
 
 git-delta
+forgit
 
 bat
 # Not needed for MacOS
