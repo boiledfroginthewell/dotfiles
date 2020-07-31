@@ -25,8 +25,9 @@ set noswapfile
 set showcmd
 set completeopt+=longest
 set wildmode=list:longest
+set ambiwidth=double
 set list
-set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:□
+set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:⍽
 set hlsearch " highlight search word
 set infercase " ignore case when completing words
 set hidden

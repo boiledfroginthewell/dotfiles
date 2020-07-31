@@ -141,6 +141,10 @@ augroup vimrc_indent
 	autocmd BufReadPost * :DetectIndent
 augroup END
 
+" Visualise space indents
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '¦'
+
 Plug 'sbdchd/vim-shebang'
 nmap <leader># :ShebangInsert<CR>
 let g:shebang#shebangs = {
