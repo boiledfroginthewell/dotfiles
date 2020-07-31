@@ -134,8 +134,12 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" sleuth.vim: Heuristically set buffer options 
-Plug 'tpope/vim-sleuth'
+" Indent
+Plug 'ciaranm/detectindent'
+augroup vimrc_indent
+	autocmd!
+	autocmd BufReadPost * :DetectIndent
+augroup END
 
 Plug 'sbdchd/vim-shebang'
 nmap <leader># :ShebangInsert<CR>
@@ -170,9 +174,6 @@ nnoremap gb b
 Plug 'dense-analysis/ale'
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
-
-" XXX: YouCompleteMe
-" Plug 'Valloric/YouCompleteMe'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
