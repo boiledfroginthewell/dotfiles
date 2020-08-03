@@ -19,6 +19,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+" Update v:oldfiles on opening buffer
+Plug 'gpanders/vim-oldfiles'
+
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
@@ -42,20 +45,23 @@ if !has('win32unix') && !has('win32')
 	nmap <silent> <Leader>b :Buffers<CR>
 	" Include all mode
 	command! Maps call fzf#vim#maps('', 0)<cr>
-	let s:default_fzf_source = 'bash -c "'.
-		\    'echo -e \"'.join(v:oldfiles, '\n').'\";'.
-		\    'fzf-default-command;'.
-		\'"'
-	command! FZFMix call fzf#run(fzf#wrap({
-		\'source': s:default_fzf_source,
-	\}))
-	nmap <silent> <Leader>, :FZFMix<CR>
+	nmap <silent> <Leader>, :call fzf#run(fzf#wrap({
+		\'source': 'bash -c "'.
+			\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+			\'fzf-default-command;'.
+			\'"',
+		\'dir': '.',
+	\}))<CR>
 
 	function! s:fzf_commandline()
 		let l:BS = "\u08" " <C-h>
 		let l:list = fzf#run(fzf#wrap({
-			\'source': s:default_fzf_source,
-			\ 'sink': { lines -> lines }
+			\'source': 'bash -c "'.
+				\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+				\'fzf-default-command;'.
+				\'"',
+			\'dir': '.',
+			\ 'sink': { lines -> lines },
 		\ }))
 		if len(list)
 			return escape(substitute(list[0], '^.\{-,},', '', ''), ' ')
