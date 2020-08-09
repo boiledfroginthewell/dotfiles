@@ -1,6 +1,7 @@
 # Activate autoenv
 if [ -e "${HOME}/opt/autoenv/activate.sh" ]; then
 	export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
+	export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 	source "${HOME}/opt/autoenv/activate.sh"
 fi
 

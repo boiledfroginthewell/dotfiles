@@ -16,3 +16,6 @@
 [include]
 	path = ./userconfig
 
+[log]
+	follow = true
+
