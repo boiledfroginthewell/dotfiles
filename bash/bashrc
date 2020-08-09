@@ -100,7 +100,10 @@ LS_COMMAND=$(
 )
 alias ls=$LS_COMMAND
 
-PATH="${CONF_DIR}/../bin:$PATH"
+# time style for `ls -l` command output
+export TIME_STYLE=long-iso
+
+export PATH="${CONF_DIR}/../bin:$PATH"
 
 
 # Load additional configuration files

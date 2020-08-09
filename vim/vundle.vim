@@ -19,6 +19,9 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+" Update v:oldfiles on opening buffer
+Plug 'gpanders/vim-oldfiles'
+
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf.vim'
@@ -40,14 +43,25 @@ if !has('win32unix') && !has('win32')
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
+	" Include all mode
 	command! Maps call fzf#vim#maps('', 0)<cr>
-	command! FZFDEFAULT call fzf#run(fzf#wrap({}))
-	nmap <silent> <Leader>, :FZFDEFAULT<CR>
+	nmap <silent> <Leader>, :call fzf#run(fzf#wrap({
+		\'source': 'bash -c "'.
+			\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+			\'fzf-default-command;'.
+			\'"',
+		\'dir': '.',
+	\}))<CR>
 
 	function! s:fzf_commandline()
 		let l:BS = "\u08" " <C-h>
 		let l:list = fzf#run(fzf#wrap({
-			\ 'sink': { lines -> lines }
+			\'source': 'bash -c "'.
+				\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+				\'fzf-default-command;'.
+				\'"',
+			\'dir': '.',
+			\ 'sink': { lines -> lines },
 		\ }))
 		if len(list)
 			return escape(substitute(list[0], '^.\{-,},', '', ''), ' ')
@@ -126,8 +140,16 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" sleuth.vim: Heuristically set buffer options 
-Plug 'tpope/vim-sleuth'
+" Indent
+Plug 'ciaranm/detectindent'
+augroup vimrc_indent
+	autocmd!
+	autocmd BufReadPost * :DetectIndent
+augroup END
+
+" Visualise space indents
+Plug 'Yggdroot/indentLine'
+let g:indentLine_char = '¦'
 
 Plug 'sbdchd/vim-shebang'
 nmap <leader># :ShebangInsert<CR>
@@ -162,9 +184,6 @@ nnoremap gb b
 Plug 'dense-analysis/ale'
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
-
-" XXX: YouCompleteMe
-" Plug 'Valloric/YouCompleteMe'
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -213,9 +232,17 @@ if isdirectory(s:vim_plug_dir . '/vim-submode')
 	call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
 	call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
 	call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
+	call submode#enter_with('window', 'n', '', '<c-w>d', '<c-w>h')
+	call submode#enter_with('window', 'n', '', '<c-w>h', '<c-w>j')
+	call submode#enter_with('window', 'n', '', '<c-w>t', '<c-w>k')
+	call submode#enter_with('window', 'n', '', '<c-w>n', '<c-w>l')
 	call submode#map('window', 'n', '', '-', '<c-w>-')
 	call submode#map('window', 'n', '', '+', '<c-w>+')
 	call submode#map('window', 'n', '', '<', '<c-w><')
 	call submode#map('window', 'n', '', '>', '<c-w>>')
+	call submode#map('window', 'n', '', 'd', '<c-w>h')
+	call submode#map('window', 'n', '', 'h', '<c-w>j')
+	call submode#map('window', 'n', '', 't', '<c-w>k')
+	call submode#map('window', 'n', '', 'n', '<c-w>l')
 endif
 

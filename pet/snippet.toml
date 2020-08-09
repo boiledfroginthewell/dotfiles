@@ -1,0 +1,19 @@
+[[snippets]]
+  description = "Show files skipped by git update-index --skip-worktree command."
+  command = "git ls-files -v . | grep ^S"
+  output = ""
+
+[[snippets]]
+  description = "Show project root directory of git."
+  command = "git rev-parse --show-toplevel"
+  output = ""
+
+[[snippets]]
+  description = "Unique without sort"
+  command = "awk '!x[$0]++'"
+  output = ""
+
+[[snippets]]
+  description = "Change delimiter of awk command by argument"
+  command = "awk -F \"<delimiter=,>\""
+  output = ""
