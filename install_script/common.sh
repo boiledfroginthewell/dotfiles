@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# throws error on undefined variables
+set -u
+
 echo Enter Git default user name:
 read GIT_USER_NAME
 echo Enter Git default email:
