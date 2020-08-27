@@ -8,6 +8,9 @@
 		}
 	},
 	"snippets": {
+		"extends": {
+			"bash": ["sh"]
+		},
 		"ultisnips": {
 			"directories": [
 				"plugged/vim-snippets/UltiSnips",
