@@ -17,3 +17,35 @@
   description = "Change delimiter of awk command by argument"
   command = "awk -F \"<delimiter=,>\""
   output = ""
+
+[[snippets]]
+  description = "PID of last background job"
+  command = "$!"
+  output = ""
+
+[[snippets]]
+  description = "PID of current process"
+  command = "$$"
+  output = ""
+
+[[snippets]]
+  description = "Discard standard output and standard error"
+  command = "&> /dev/null"
+  tag = ["stdout", "stderr"]
+  output = ""
+
+[[snippets]]
+  description = ""
+  command = "git commit --amend --no-edit"
+  output = ""
+
+[[snippets]]
+  description = "Update local maseter branch"
+  command = "git push --no-verify . origin/<branch=master>:<branch=master>"
+  output = ""
+
+[[snippets]]
+  description = ""
+  command = "pip install -r requirements.txt"
+  output = ""
+
