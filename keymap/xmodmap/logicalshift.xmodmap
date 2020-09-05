@@ -1,0 +1,43 @@
+! Dvorak Layout with Logical Bit Pairing
+! And Muhenkan Modifier
+keycode 102 = Mode_switch
+keycode 100 = Muhenkan Henkan Muhenkan Henkan Muhenkan Henkan
+keycode 101 = Henkan Henkan Henkan Henkan Henkan Henkan
+
+keycode  20 = at grave at grave at grave
+keycode  21 = asciicircum asciitilde asciicircum asciitilde asciicircum asciitilde
+keycode  24 = colon asterisk Escape Escape colon asterisk
+keycode  25 = comma less Delete Delete comma less
+keycode  26 = period greater Home Home period greater
+keycode  27 = p P End End p P
+keycode  28 = y Y y Y y Y
+keycode  29 = f F Page_Down Page_Down f F
+keycode  30 = g G g G g G
+keycode  31 = c C c C c C
+keycode  32 = r R Return Return r R
+keycode  33 = l L l L l L
+keycode  34 = slash question slash question slash question
+keycode  35 = bracketleft braceleft bracketleft braceleft bracketleft braceleft Control_L
+keycode  38 = a A a A a A
+keycode  39 = o O XF86Save XF86Save o O
+keycode  40 = e E Page_Up Page_Up e E
+keycode  41 = u U Page_Down Page_Down u U
+keycode  42 = i I i I i I
+keycode  43 = d D Left Left d D
+keycode  44 = h H Down Down h H
+keycode  45 = t T Up Up t T
+keycode  46 = n N Right Right n N
+keycode  47 = s S Return Return s S
+keycode  48 = minus equal minus equal minus equal
+keycode  49 = Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji Zenkaku_Hankaku Kanji
+keycode  51 = bracketright braceright bracketright braceright bracketright braceright
+keycode  52 = semicolon plus semicolon plus semicolon plus
+keycode  53 = q Q XF86Cut XF86Cut q Q
+keycode  54 = j J XF86Copy XF86Copy j J
+keycode  55 = k K XF86Paste XF86Paste k K
+keycode  56 = x X x X x X
+keycode  57 = b B Page_Up Page_Up b B
+keycode  58 = m M Return Return m M
+keycode  59 = w W w W w W
+keycode  60 = v V v V v V
+keycode  61 = z Z z Z z Z

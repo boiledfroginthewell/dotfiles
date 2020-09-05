@@ -1,0 +1,28 @@
+! CapsLk -> BackSpace
+keycode  66 = BackSpace Delete BackSpace Delete 
+clear lock
+
+! BackSpace -> Tab
+! keycode 22 = Tab Tab Tab Tab
+
+! Japanese Input configurations and control key
+clear control
+! Muhenkan key
+keycode 102 = Mode_switch Mode_switch Mode_switch Mode_switch
+keycode 254 = Muhenkan Muhenkan Muhenkan Muhenkan
+! Henkan key
+keycode 100 = Control_R Control_R Control_R Control_R Control_R
+keycode 253 = Henkan Henkan Henkan Henkan
+! katakana/hiragana key
+keycode 101 = Control_R NoSymbol Control_R NoSymbol
+add Control = Control_L Control_R
+
+! Alt_L <--> Shift_L
+! remove Mod1 = Alt_L
+! remove Shift = Shift_L
+! keycode 64 = Shift_L NoSymbol Shift_L NoSymbol
+! keycode 50 = Alt_L Meta_L Alt_L Meta_L
+! keycode 62 = Shift_R NoSymbol Shift_R NoSymbol
+! add Mod1 = Alt_L Alt_R Meta_L Meta_R
+! add Shift = Shift_L Shift_R
+
