@@ -49,3 +49,7 @@
   command = "pip install -r requirements.txt"
   output = ""
 
+[[snippets]]
+  description = ":"
+  command = "git push origin HEAD"
+  output = ""
