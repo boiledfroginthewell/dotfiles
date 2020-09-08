@@ -40,7 +40,7 @@ set tabstop=4
 set noexpandtab
 set smartindent
 
-set background=$COLOR_MODE ? $COLOR_MODE : "dark"
+let &background = ($COLOR_MODE != "" ? $COLOR_MODE : "dark")
 
 
 let mapleader=","
