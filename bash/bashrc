@@ -75,11 +75,20 @@ alias info="info --vi-keys"
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 alias cdiff="git diff --no-index"
 alias rg="rg --smart-case"
-export DELTA_DEFAULT_OPTION="--dark --theme DarkNeon --file-color cyan --hunk-style plain"
+if [ "$COLOR_MODE" = "light" ]; then
+	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
+else
+	DELTA_THEME_SETTING="--dark --theme DarkNeon --file-color cyan"
+fi
+export DELTA_DEFAULT_OPTION="${DELT_THEME_SETTING} --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"
 
 type -t bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+if [ "$COLOR_MODE" = "light" ]; then
+	export BAT_THEME="Monokai Extended Light"
+	export BAT_STYLE="changes,header"
+fi
 LESS_COMMAND=$(
 	type -t bat > /dev/null && echo bat \
 	|| (type -t lv > /dev/null && echo lv) \
