@@ -25,7 +25,10 @@
             }
           ]
         }
-      ]
+      ],
+      "parameters": {
+        "to_if_alone_timeout_milliseconds": 100
+      }
     }
   ]
 }

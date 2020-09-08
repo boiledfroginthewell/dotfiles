@@ -128,12 +128,17 @@ endif
 " submode : Create your own submodes
 Plug 'kana/vim-submode'
 
+" diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
+Plug 'airblade/vim-gitgutter'
+
 
 " Programming Plugins
 "---------------------
 
 " A solid language pack for Vim.
 Plug 'sheerun/vim-polyglot'
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 
 " Comment out
 Plug 'tyru/caw.vim'
