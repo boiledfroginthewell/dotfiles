@@ -53,3 +53,9 @@
   description = ":"
   command = "git push origin HEAD"
   output = ""
+
+[[snippets]]
+  description = "Run shell in docker"
+  command = "docker run --rm -it <image> bash"
+  output = ""
+
