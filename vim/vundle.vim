@@ -10,10 +10,6 @@ let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
 noremap <leader>? :Cheat<CR>
 
-if !has("win32unix")
-	Plug 'thinca/vim-localrc'
-endif
-
 Plug 'editorconfig/editorconfig-vim'
 
 Plug 'vim-scripts/ShowMarks'
@@ -191,11 +187,13 @@ highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-if isdirectory(s:vim_plug_dir . '/coc.nvim')
-	source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
+if executable('node')
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	if isdirectory(s:vim_plug_dir . '/coc.nvim')
+		source $XDG_CONFIG_HOME/vim/coc/coc.rc.vim
+	endif
+	Plug 'honza/vim-snippets'
 endif
-Plug 'honza/vim-snippets'
 
 
 Plug 'vim-scripts/SingleCompile'

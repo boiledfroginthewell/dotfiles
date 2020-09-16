@@ -58,6 +58,7 @@ noremap <C-A-y> "*P
 
 " go to the middle of a line by gm
 noremap gm :call cursor(0, virtcol('$')/2)<CR>
+noremap <C-u> <C-y>
 
 " カーソル下の単語を置換する
 nnoremap g* :%s/\<<C-r><C-w>\>/
