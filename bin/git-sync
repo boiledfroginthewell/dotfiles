@@ -1,6 +1,7 @@
 #!/bin/bash
 
-currentBranch="$(git branch --show-current)"
+# currentBranch="$(git branch --show-current)"
+currentBranch="$(git symbolic-ref --short HEAD)"
 git fetch -q
 
 if git rev-parse --verify master &> /dev/null; then

@@ -19,10 +19,11 @@ fi
 _fzf_config_insert() {
 	local query directory command
 	local input_value="${READLINE_LINE##* }"
-	if [[ -d "$input_value" ]]; then
+	input_value="${input_value/#\~/$HOME}"
+	if [[ -d "${input_value}" ]]; then
 		command="fd ."
 		query=
-		directory="$input_value"
+		directory="${input_value}"
 	elif [[ "$input_value" = *"/"* && -d "$(dirname $input_value)" ]]; then
 		command="fd ."
 		query="$(basename $input_value)"
@@ -36,6 +37,7 @@ _fzf_config_insert() {
 		$(
 			eval \
 				"${command:-fzf-default-command} \"$directory\" | \
+				sed "s:^$directory::" | \
 				fzf-tmux \
 				--height ${FZF_TMUX_HEIGHT:-40%} \
 				--query \"${query}\" \
