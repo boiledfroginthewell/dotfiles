@@ -1,10 +1,14 @@
+" Vim Plugin Configuration
+" ===========================
 let s:vim_plug_dir = $XDG_CONFIG_HOME . '/vim/plugged'
 " Specify a directory for plugins
 "
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin(s:vim_plug_dir)
 
-" チートシート
+" General Plugins
+" -----------------
+" ### Cheat sheet
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
@@ -135,6 +139,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
+let g:polyglot_disabled = ['python-indent', 'csv']
 
 " Comment out
 Plug 'tyru/caw.vim'
@@ -156,6 +161,7 @@ Plug 'sbdchd/vim-shebang'
 nmap <leader># :ShebangInsert<CR>
 let g:shebang#shebangs = {
 	\ 'sh': '#!/bin/bash',
+	\ 'bash': '#!/bin/bash',
 \ }
 
 if executable('ctags')
@@ -217,8 +223,7 @@ nmap <silent> <F7> :TestFile<CR>
 " Language Specific Plugins
 " -------------------------
 
-" C
-" ---
+" ### C
 Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 
