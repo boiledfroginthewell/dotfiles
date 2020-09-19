@@ -26,9 +26,9 @@ command! -nargs=? -complete=command CheatClose call <SID>close_cheat_sheet(<q-ar
 if !exists('g:cheatsheet#no_auto_open')
 	augroup cheatsheet
 		autocmd!
-		autocmd cheatsheet VimEnter * Cheat
-		autocmd cheatsheet bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
-		autocmd cheatsheet VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
+		autocmd VimEnter * if winwidth(0) >= 90| Cheat| endif
+		autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+		autocmd VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
 	augroup END
 endif
 
