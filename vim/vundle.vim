@@ -96,6 +96,8 @@ xmap gS  <Plug>VgSurround
 " vim-textobj-user - Create your own text objects
 Plug 'kana/vim-textobj-user'
 
+Plug 'inkarkat/argtextobj.vim'
+
 Plug 'jeetsukumaran/vim-indentwise'
 map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
 	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
@@ -242,7 +244,7 @@ if isdirectory(s:vim_plug_dir . '/vim-submode')
 	call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
 	call submode#enter_with('window', 'n', '', '<c-w>d', '<c-w>h')
 	call submode#enter_with('window', 'n', '', '<c-w>h', '<c-w>j')
-	call submode#enter_with('window', 'n', '', '<c-w>t', '<c-w>k')
+	call submode#enter_with('window', 'n', '', '<c-w>k', '<c-w>k')
 	call submode#enter_with('window', 'n', '', '<c-w>n', '<c-w>l')
 	call submode#map('window', 'n', '', '-', '<c-w>-')
 	call submode#map('window', 'n', '', '+', '<c-w>+')
