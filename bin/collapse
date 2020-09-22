@@ -1,0 +1,10 @@
+#!/bin/awk -f
+
+$0 == "" {
+	printf "\n"
+	next
+}
+
+{
+	printf $0
+}
