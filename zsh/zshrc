@@ -30,7 +30,16 @@ setopt hist_reduce_blanks
 
 # Color Configuration
 # --------------------------
-export COLOR_MODE=light
+bg_color=${COLORFGBG##*;}
+if [ -n "$bg_color" ]; then
+	if [ $bg_color -ge 9 ]; then
+		export COLOR_MODE=light
+	else
+		export COLOR_MODE=dark
+	fi
+else
+	export COLOR_MODE=light
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -69,7 +78,7 @@ if [ "$COLOR_MODE" = "light" ]; then
 else
 	DELTA_THEME_SETTING="--dark --theme DarkNeon --file-color cyan"
 fi
-export DELTA_DEFAULT_OPTION="${DELT_THEME_SETTING} --hunk-style plain"
+export DELTA_DEFAULT_OPTION="${DELTA_THEME_SETTING} --hunk-style plain"
 alias delta="delta $DELTA_DEFAULT_OPTION"
 
 type bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -116,9 +125,14 @@ compinit
 
 # Plugins
 # -----------
-export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
+if [ -e "/usr/share/zplug/init.zsh" ]; then
+	source /usr/share/zplug/init.zsh
+	export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
+elif type brew &> /dev/null; then
+	export ZPLUG_HOME=$(brew --prefix)/opt/zplug
+	source $ZPLUG_HOME/init.zsh
+fi
 # export ZPLUG_LOADFILE="$XDG_CONFIG_HOME/packages.zsh"
-source /usr/share/zplug/init.zsh
 zplug "zsh-users/zsh-autosuggestions"
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
@@ -170,7 +184,7 @@ unset P10K_FILE
 if [ $(uname -s) = Darwin ]; then
 	MAC_RC="${CONF_DIR}/macrc/*.sh"
 fi
-for x in ${CONF_DIR}/rc/*.sh $MAC_RC; do
+for x in ${CONF_DIR}/rc/*.sh $(eval echo $MAC_RC); do
 	if [[ "$x" =~ .*comp_.* ]]; then
 		continue
 	fi
