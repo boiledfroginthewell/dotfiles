@@ -1,0 +1,179 @@
+# If not running interactively, don't do anything
+case $- in
+	*i*) ;;
+	*) return;;
+esac
+
+export XDG_CONFIG_HOME="${XDG_CONFIGHOME:-${HOME}/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
+CONF_DIR=${XDG_CONFIG_HOME}/zsh
+
+
+# Prompt Configuration
+# -----------------------
+# source "${CONF_DIR}/ps1.sh"
+
+
+# History Configuration
+# ----------------------------
+export HISTSIZE=20000
+export SAVEHIST=20000
+export HISTFILE="$XDG_CACHE_HOME/zsh/history"
+export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
+setopt share_history
+setopt append_history
+setopt inc_append_history
+setopt hist_ignore_all_dups
+setopt hist_reduce_blanks
+
+
+# Color Configuration
+# --------------------------
+export COLOR_MODE=light
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+	test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+	IS_COLOR_AVAILABLE=1
+	alias grep='grep --color=auto'
+	alias fgrep='fgrep --color=auto'
+	alias egrep='egrep --color=auto'
+fi
+
+
+# Terminal Configuration
+# -----------------------
+# terminal shortcuts
+stty sane
+stty stop undef
+
+export FIGNORE=__pycache__
+# shopt -s cdspell
+# shopt -s dirspell
+# shopt -s no_empty_cmd_completion
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+# shopt -s checkwinsize
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+# shopt -s globstar
+
+# ### Aliases
+alias info="info --vi-keys"
+
+alias diff="diff --ignore-space-change --ignore-trailing-space"
+alias rg="rg --smart-case"
+if [ "$COLOR_MODE" = "light" ]; then
+	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
+else
+	DELTA_THEME_SETTING="--dark --theme DarkNeon --file-color cyan"
+fi
+export DELTA_DEFAULT_OPTION="${DELT_THEME_SETTING} --hunk-style plain"
+alias delta="delta $DELTA_DEFAULT_OPTION"
+
+type bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+if [ "$COLOR_MODE" = "light" ]; then
+	export BAT_THEME="Monokai Extended Light"
+fi
+export BAT_STYLE="changes,header,grid"
+LESS_COMMAND=$(
+(( $+commands[bat] )) && echo bat \
+	|| ((( $+commands[lv] )) && echo lv) \
+	|| echo less
+)
+alias less=$LESS_COMMAND
+OPEN_COMMAND=$(
+	type exo-open > /dev/null  && echo exo-open \
+	|| (type xdg-open > /dev/null && echo xdg-open) \
+	|| (type start > /dev/null && echo start) \
+	|| echo open
+)
+alias open=$OPEN_COMMAND
+LS_COMMAND=$(
+	type exa > /dev/null && echo exa \
+	|| ([ "$IS_COLOR_AVAILABLE" = 1 ] && echo ls --color=auto -p) \
+	|| echo ls
+)
+alias ls=$LS_COMMAND
+
+# time style for `ls -l` command output
+export TIME_STYLE=long-iso
+
+tcsh-backward-delete-word () {
+	local WORDCHARS="${WORDCHARS:s#/#}"
+	zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+bindkey '^[<BS>' tcsh-backward-delete-word
+
+export PATH="$(realpath "${CONF_DIR}/../bin"):$PATH"
+
+autoload -Uz compinit && compinit
+compinit
+
+
+# Plugins
+# -----------
+export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
+# export ZPLUG_LOADFILE="$XDG_CONFIG_HOME/packages.zsh"
+source /usr/share/zplug/init.zsh
+zplug "zsh-users/zsh-autosuggestions"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-completions"
+# zplug "bhilburn/powerlevel10k", as:theme
+zplug "denysdovhan/spaceship-prompt", as:theme, if:"[[ $COLOR_MODE == dark ]]" 
+# zplug "agnoster/agnoster-zsh-theme", as:theme
+zplug "romkatv/powerlevel10k", as:theme
+
+zplug "wfxr/forgit"
+export forgit_ignore=forgit_ignore
+export FORGIT_FZF_DEFAULT_OPTS="--height 100%"
+
+zplug "inishchith/autoenv", use:"activate.sh"
+export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
+export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
+
+# zplug "MichaelAquilina/zsh-auto-notify"
+
+zplug "akoenig/npm-run.plugin.zsh"
+
+zplug "junegunn/fzf", use:shell/completion.zsh
+
+if ! zplug check; then
+	printf "Install? [y/N]: "
+	if read -q; then
+		echo; zplug install
+	fi
+fi
+zplug load
+
+# ### Powerlevel10k
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+P10K_FILE="$XDG_CONFIG_HOME/zsh/p10k.zsh"
+[[ ! -f "$P10K_FILE" ]] || source "$P10K_FILE"
+unset P10K_FILE
+
+
+# ### Local plugins
+# -----------------
+if [ $(uname -s) = Darwin ]; then
+	MAC_RC="${CONF_DIR}/macrc/*.sh"
+fi
+for x in ${CONF_DIR}/rc/*.sh $MAC_RC; do
+	if [[ "$x" =~ .*comp_.* ]]; then
+		continue
+	fi
+	source $x
+done
+
