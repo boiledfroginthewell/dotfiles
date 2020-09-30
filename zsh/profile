@@ -9,11 +9,11 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
 
-# Node.js (NVM)
-export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# for mac
-[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+# # Node.js (NVM)
+# export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# # for mac
+# [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
 
 
 # Python (Pyenv)
