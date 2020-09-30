@@ -10,11 +10,6 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 CONF_DIR=${XDG_CONFIG_HOME}/zsh
 
 
-# Prompt Configuration
-# -----------------------
-# source "${CONF_DIR}/ps1.sh"
-
-
 # History Configuration
 # ----------------------------
 export HISTSIZE=20000
@@ -53,20 +48,17 @@ fi
 
 # Terminal Configuration
 # -----------------------
-# terminal shortcuts
 stty sane
 stty stop undef
+setopt correct
+tcsh-backward-delete-word () {
+	local WORDCHARS="${WORDCHARS:s#/#}"
+	zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+bindkey '^[<BS>' tcsh-backward-delete-word
 
 export FIGNORE=__pycache__
-# shopt -s cdspell
-# shopt -s dirspell
-# shopt -s no_empty_cmd_completion
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-# shopt -s checkwinsize
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-# shopt -s globstar
 
 # ### Aliases
 alias info="info --vi-keys"
@@ -110,17 +102,7 @@ alias ls=$LS_COMMAND
 # time style for `ls -l` command output
 export TIME_STYLE=long-iso
 
-tcsh-backward-delete-word () {
-	local WORDCHARS="${WORDCHARS:s#/#}"
-	zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-bindkey '^[<BS>' tcsh-backward-delete-word
-
 export PATH="$(realpath "${CONF_DIR}/../bin"):$PATH"
-
-autoload -Uz compinit && compinit
-compinit
 
 
 # Plugins
@@ -133,25 +115,33 @@ elif type brew &> /dev/null; then
 	source $ZPLUG_HOME/init.zsh
 fi
 # export ZPLUG_LOADFILE="$XDG_CONFIG_HOME/packages.zsh"
+zplug 'jreese/zsh-titles'
 zplug "zsh-users/zsh-autosuggestions"
-export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
+if [ "$COLOR_MODE" = "light" ]; then
+	export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=250'
+else
+	export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243'
+fi
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
-# zplug "bhilburn/powerlevel10k", as:theme
-zplug "denysdovhan/spaceship-prompt", as:theme, if:"[[ $COLOR_MODE == dark ]]" 
+# zplug "denysdovhan/spaceship-prompt", as:theme, if:"[[ $COLOR_MODE == dark ]]"
 # zplug "agnoster/agnoster-zsh-theme", as:theme
 zplug "romkatv/powerlevel10k", as:theme
 
 zplug "wfxr/forgit"
-export forgit_ignore=forgit_ignore
 export FORGIT_FZF_DEFAULT_OPTS="--height 100%"
+export FORGIT_PAGER="delta $DELTA_DEFAULT_OPTION"
 
 zplug "inishchith/autoenv", use:"activate.sh"
 export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
 export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 
-# zplug "MichaelAquilina/zsh-auto-notify"
+zplug "lukechilds/zsh-nvm"
+export NVM_COMPLETION=true
+export NVM_LAZY_LOAD=true
+export NVM_NO_USE=true
+export NVM_AUTO_USE=true
 
 zplug "akoenig/npm-run.plugin.zsh"
 
@@ -163,7 +153,6 @@ if ! zplug check; then
 		echo; zplug install
 	fi
 fi
-zplug load
 
 # ### Powerlevel10k
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -173,10 +162,8 @@ if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-P10K_FILE="$XDG_CONFIG_HOME/zsh/p10k.zsh"
-[[ ! -f "$P10K_FILE" ]] || source "$P10K_FILE"
-unset P10K_FILE
+
+autoload -Uz compinit && compinit
 
 
 # ### Local plugins
@@ -190,4 +177,14 @@ for x in ${CONF_DIR}/rc/*.sh $(eval echo $MAC_RC); do
 	fi
 	source $x
 done
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+P10K_FILE="$XDG_CONFIG_HOME/zsh/p10k-unicode.zsh"
+[[ ! -f "$P10K_FILE" ]] || source "$P10K_FILE"
+unset P10K_FILE
+
+zplug load
+
+# load nvm
+nvm --version &> /dev/null
 
