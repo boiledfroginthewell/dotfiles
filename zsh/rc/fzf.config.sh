@@ -48,9 +48,22 @@ _fzf_config_insert() {
 	fi
 
 	LBUFFER="${LBUFFER%${query}}${output[@]} "
-	zle reset-prompt
+	zle redisplay
 }
 # Customization
 zle -N _fzf_config_insert
 bindkey '^s' _fzf_config_insert
+
+
+_fzf_config_git_insert() {
+	local selection=$(git graph | fzf --no-sort)
+	local hash=${selection##*, }
+	if [ -n "$selection" ]; then
+		LBUFFER="${LBUFFER}${hash}"
+		zle redisplay
+	fi
+
+}
+zle -N _fzf_config_git_insert
+bindkey '^g' _fzf_config_git_insert
 

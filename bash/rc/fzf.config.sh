@@ -58,3 +58,15 @@ _fzf_config_insert() {
 # Customization
 bind -x '"\C-s": _fzf_config_insert'
 
+
+_fzf_config_git_insert() {
+	local selection=$(git graph | fzf --no-sort)
+	local hash=${selection##*, }
+	if [ -n "$selection" ]; then
+		READLINE_LINE="${READLINE_LINE}${hash}"
+		READLINE_POINT=0x7fffffff
+	fi
+
+}
+bind -x '"\C-g": _fzf_config_git_insert'
+
