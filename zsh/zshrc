@@ -141,7 +141,8 @@ zplug "lukechilds/zsh-nvm"
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 export NVM_NO_USE=true
-export NVM_AUTO_USE=true
+# disable because cd become too slow when both autoenv and zsh-nvm are enabled
+# export NVM_AUTO_USE=true
 
 zplug "akoenig/npm-run.plugin.zsh"
 
@@ -187,4 +188,5 @@ zplug load
 
 # load nvm
 nvm --version &> /dev/null
+_zsh_nvm_auto_use &> /dev/null
 
