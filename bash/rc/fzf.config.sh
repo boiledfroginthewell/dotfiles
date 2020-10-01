@@ -38,7 +38,7 @@ _fzf_config_insert() {
 			eval \
 				"${command:-fzf-default-command} \"$directory\" | \
 				sed "s:^$directory::" | \
-				fzf-tmux \
+				fzf \
 				--height ${FZF_TMUX_HEIGHT:-40%} \
 				--query \"${query}\" \
 				$FZF_CTRL_T_OPTS"

@@ -20,7 +20,7 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 if [[ "$OSTYPE" != "darwin"* ]]; then
 	export PYENV_ROOT="$HOME/opt/pyenv"
 else
-	PYENV_ROOT="$HOME/.pyenv/shims"
+	PYENV_ROOT="$HOME/.pyenv"
 fi
 [ -d "$PYENV_ROOT/shims" ] && export PATH="$PYENV_ROOT/shims:$PATH"
 
