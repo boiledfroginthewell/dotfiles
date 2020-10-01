@@ -57,6 +57,8 @@ tcsh-backward-delete-word () {
 }
 zle -N tcsh-backward-delete-word
 bindkey '^[<BS>' tcsh-backward-delete-word
+bindkey '^j' vi-find-next-char
+bindkey '^f' vi-find-prev-char
 
 export FIGNORE=__pycache__
 
@@ -164,7 +166,8 @@ if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
 fi
 
 
-autoload -Uz compinit && compinit
+autoload -U compinit && compinit
+autoload -U bashcompinit && bashcompinit
 
 
 # ### Local plugins
@@ -173,9 +176,6 @@ if [ $(uname -s) = Darwin ]; then
 	MAC_RC="${CONF_DIR}/macrc/*.sh"
 fi
 for x in ${CONF_DIR}/rc/*.sh $(eval echo $MAC_RC); do
-	if [[ "$x" =~ .*comp_.* ]]; then
-		continue
-	fi
 	source $x
 done
 
