@@ -18,7 +18,7 @@ FZF_CTRL_T_OPTS='--bind "ctrl-l:execute(l {} > /dev/tty )"'
 
 _fzf_config_insert() {
 	local query directory command
-	local input_value="${READLINE_LINE##* }"
+	local input_value="${LBUFFER##* }"
 	input_value="${input_value/#\~/$HOME}"
 	if [[ -d "${input_value}" ]]; then
 		command="fd ."
@@ -37,23 +37,18 @@ _fzf_config_insert() {
 		eval \
 			"${command:-fzf-default-command} \"$directory\" | \
 			sed "s:^$directory::" | \
-			fzf-tmux \
+			fzf \
 			--height ${FZF_TMUX_HEIGHT:-40%} \
 			--query \"${query}\" \
 			$FZF_CTRL_T_OPTS"
 	)
 	if [ -z "${output}" ]; then
+		zle reset-prompt
 		return
 	fi
 
-	zle -U "${output[*]}"
+	LBUFFER="${LBUFFER%${query}}${output[@]} "
 	zle reset-prompt
-	# READLINE_LINE="${READLINE_LINE%${input_value}}${output[@]}"
-	# if [ -z "$READLINE_POINT" ]; then
-		# echo "$READLINE_LINE"
-	# else
-		# READLINE_POINT=0x7fffffff
-	# fi
 }
 # Customization
 zle -N _fzf_config_insert
