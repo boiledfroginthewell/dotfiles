@@ -1,7 +1,10 @@
 function pet-select() {
-  BUFFER=$(pet search --color --query "$READLINE_LINE")
-  READLINE_LINE="$BUFFER"
-  READLINE_POINT="${#BUFFER}"
+  petResult=$(pet search --color --query "$BUFFER")
+  if [ -n "$petResult" ]; then
+    BUFFER="$petResult"
+    CURSOR=${#BUFFER}
+    zle redisplay
+  fi
 }
 zle -N pet-select
 bindkey '^p' pet-select
