@@ -3,6 +3,9 @@ __AUTO_LS_PREV_PWD="$PWD"
 __auto_ls() {
 	if [ "$__AUTO_LS_PREV_PWD" != "$PWD" ]; then
 		__AUTO_LS_PREV_PWD="$PWD"
+
+		# load nvm
+		_zsh_nvm_auto_use &> /dev/null
 		ls
 	fi
 }
