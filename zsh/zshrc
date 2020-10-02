@@ -110,13 +110,12 @@ export PATH="$(realpath "${CONF_DIR}/../bin"):$PATH"
 # Plugins
 # -----------
 if [ -e "/usr/share/zplug/init.zsh" ]; then
-	source /usr/share/zplug/init.zsh
 	export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
+	source /usr/share/zplug/init.zsh
 elif type brew &> /dev/null; then
 	export ZPLUG_HOME=$(brew --prefix)/opt/zplug
 	source $ZPLUG_HOME/init.zsh
 fi
-# export ZPLUG_LOADFILE="$XDG_CONFIG_HOME/packages.zsh"
 zplug 'jreese/zsh-titles'
 zplug "zsh-users/zsh-autosuggestions"
 if [ "$COLOR_MODE" = "light" ]; then
@@ -127,8 +126,6 @@ fi
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
-# zplug "denysdovhan/spaceship-prompt", as:theme, if:"[[ $COLOR_MODE == dark ]]"
-# zplug "agnoster/agnoster-zsh-theme", as:theme
 zplug "romkatv/powerlevel10k", as:theme
 
 zplug "wfxr/forgit"
@@ -143,7 +140,7 @@ zplug "lukechilds/zsh-nvm"
 export NVM_COMPLETION=true
 export NVM_LAZY_LOAD=true
 export NVM_NO_USE=true
-# disable because cd become too slow when both autoenv and zsh-nvm are enabled
+# disabled because cd become too slow when both autoenv and zsh-nvm are enabled
 # export NVM_AUTO_USE=true
 
 zplug "akoenig/npm-run.plugin.zsh"

@@ -56,7 +56,7 @@ bindkey '^s' _fzf_config_insert
 
 
 _fzf_config_git_insert() {
-	local selection=$(git graph | fzf --no-sort)
+	local selection=$(git graph --color=always | fzf --no-sort)
 	local hash=${selection##*, }
 	if [ -n "$selection" ]; then
 		LBUFFER="${LBUFFER}${hash}"
