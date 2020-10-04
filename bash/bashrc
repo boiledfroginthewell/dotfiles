@@ -4,11 +4,12 @@ case $- in
 	*) return;;
 esac
 
-export XDG_CONFIG_HOME="${HOME}/.config"
-export XDG_DATA_HOME="${HOME}/.local/share"
-export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_CONFIG_HOME="${XDG_CONFIGHOME:-${HOME}/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 CONF_DIR=${XDG_CONFIG_HOME}/bash
 
+source "${CONF_DIR}/ps1.sh"
 
 # History Configuration
 # ----------------------------
@@ -21,21 +22,19 @@ export HISTFILESIZE=20000
 export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
 export PROMPT_COMMAND="${PROMPT_COMMAND}history -a;"
 
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# If set, the pattern "**" used in a pathname expansion context will
-# match all files and zero or more directories and subdirectories.
-shopt -s globstar
-
 
 # Color Configuration
 # --------------------------
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-source "${CONF_DIR}/ps1.sh"
+bg_color=${COLORFGBG##*;}
+if [ -n "$bg_color" ]; then
+	if [ $bg_color -ge 9 ]; then
+		export COLOR_MODE=light
+	else
+		export COLOR_MODE=dark
+	fi
+else
+	export COLOR_MODE=light
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -46,6 +45,9 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
+
+# Terminal Configuration
+# -----------------------
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -61,19 +63,22 @@ fi
 stty sane
 stty stop undef
 
-# autocd: cd can be omitted when an argument is given
-shopt -s autocd
+export FIGNORE=__pycache__
 shopt -s cdspell
 shopt -s dirspell
+shopt -s no_empty_cmd_completion
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+shopt -s globstar
 
-export FIGNORE=__pycache__
 
-alias graph="graph -T X"
-alias cvlc="cvlc --play-and-exit -q"
+# ### Aliases
 alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
-alias cdiff="git diff --no-index"
 alias rg="rg --smart-case"
 if [ "$COLOR_MODE" = "light" ]; then
 	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
@@ -112,7 +117,7 @@ alias ls=$LS_COMMAND
 # time style for `ls -l` command output
 export TIME_STYLE=long-iso
 
-export PATH="${CONF_DIR}/../bin:$PATH"
+export PATH="$(realpath "${CONF_DIR}/../bin"):$PATH"
 
 
 # Load additional configuration files

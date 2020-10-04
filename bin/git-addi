@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/bin/zsh
 
-source "${XDG_CONFIG_HOME:-$HOME}/bash/rc/forgit/forgit.plugin.sh"
+source "${ZPLUG_HOME}/repos/wfxr/forgit/forgit.plugin.zsh"
 forgit::add "$@"
 

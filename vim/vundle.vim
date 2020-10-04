@@ -96,6 +96,8 @@ xmap gS  <Plug>VgSurround
 " vim-textobj-user - Create your own text objects
 Plug 'kana/vim-textobj-user'
 
+Plug 'inkarkat/argtextobj.vim'
+
 Plug 'jeetsukumaran/vim-indentwise'
 map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
 	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'

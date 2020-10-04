@@ -1,4 +1,13 @@
 {
     "workbench.tree.indent": 18,
     "editor.minimap.enabled": false,
+    "eslint.alwaysShowStatus": true,
+    "eslint.lintTask.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "editor.formatOnSaveMode": "modifications",
+    "editor.formatOnSave": true,
+    "editor.renderWhitespace": "trailing",
+    "window.zoomLevel": 0
 }
