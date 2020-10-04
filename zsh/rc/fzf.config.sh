@@ -47,7 +47,11 @@ _fzf_config_insert() {
 		return
 	fi
 
-	LBUFFER="${LBUFFER%${query}}${output[@]} "
+	outputString=""
+	for item in "${output[@]}"; do
+		[ -n "$item" ] && outputString="$outputString$(<<<$item tr '\n' ' ')"
+	done
+	LBUFFER="${LBUFFER%${query}}${outputString}"
 	zle redisplay
 }
 # Customization
