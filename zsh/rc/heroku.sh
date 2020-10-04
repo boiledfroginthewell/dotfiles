@@ -1,0 +1,7 @@
+# for Heroku
+export BROWSER=firefox
+
+# heroku autocomplete setup
+# HEROKU_AC_BASH_SETUP_PATH=$XDG_CACHE_HOME/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+HEROKU_AC_ZSH_SETUP_PATH=$XDG_CACHE_HOME/heroku/autocomplete/zsh_setup && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
