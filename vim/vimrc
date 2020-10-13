@@ -62,7 +62,8 @@ noremap <C-u> <C-y>
 
 " カーソル下の単語を置換する
 nnoremap g* :%s/\<<C-r><C-w>\>/
-vnoremap g* :s/\<<C-r><C-w>\>/
+vnoremap g* "qy:%s~<C-r>q~~gc<left><left><left>
+
 " 検索ハイライトをクリア
 nnoremap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 

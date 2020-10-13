@@ -51,18 +51,23 @@ fi
 stty sane
 stty stop undef
 setopt correct
+setopt rmstarsilent
 tcsh-backward-delete-word () {
 	local WORDCHARS="${WORDCHARS:s#/#}"
 	zle backward-delete-word
 }
 zle -N tcsh-backward-delete-word
-bindkey '^[<BS>' tcsh-backward-delete-word
+# M-<BS> to delete one word like bash
+bindkey '^[^?' tcsh-backward-delete-word
+bindkey '^u' backward-kill-line
 bindkey '^j' vi-find-next-char
 bindkey '^f' vi-find-prev-char
+
 
 export FIGNORE=__pycache__
 
 # ### Aliases
+alias cp="cp -r"
 alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
@@ -124,8 +129,14 @@ else
 	export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=243'
 fi
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-zplug "zsh-users/zsh-syntax-highlighting"
+export ZSH_AUTOSUGGEST_USE_ASYNC=true
+zplug "zdharma/fast-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
+# Smart case completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
+zplug "greymd/docker-zsh-completion"
+
+
 zplug "romkatv/powerlevel10k", as:theme
 
 zplug "wfxr/forgit"
@@ -147,7 +158,7 @@ zplug "akoenig/npm-run.plugin.zsh"
 
 zplug "junegunn/fzf", use:shell/completion.zsh
 
-if ! zplug check; then
+if ! zplug check --verbose; then
 	printf "Install? [y/N]: "
 	if read -q; then
 		echo; zplug install
