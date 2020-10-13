@@ -228,8 +228,25 @@ nmap <silent> <F7> :TestFile<CR>
 " ### C
 Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
+" ### JSON
+Plug 'rhysd/vim-fixjson', {'for': 'json'}
 
 call plug#end()
+
+if isdirectory(s:vim_plug_dir . '/vim-textobj-user')
+	call textobj#user#plugin('spaces', {
+	\   'space-a': {
+	\     'pattern': '\s*\S\+\s*',
+	\     'select': 'a<Space>',
+	\     'scan': 'cursor',
+	\   },
+	\   'space-i': {
+	\     'pattern': '[^ \t]\+',
+	\     'select': 'i<Space>',
+	\     'scan': 'line',
+	\   }
+	\ })
+endif
 
 if isdirectory(s:vim_plug_dir . '/vim-submode')
 	" ### Submode configuration
