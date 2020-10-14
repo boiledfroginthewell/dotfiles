@@ -177,14 +177,21 @@ if executable('ctags')
 endif
 
 Plug 'chaoren/vim-wordmotion'
-let g:wordmotion_mappings = {
-\ 'e' : 'w',
-\ 'w' : 'e',
-\ 'ge' : '',
-\ 'ae' : '',
-\ 'ie' : 'iw',
-\ }
+let g:wordmotion_nomap = 1
+" let g:wordmotion_mappings = {
+"\ 'e' : 'w',
+"\ 'w' : 'e',
+"\ 'ge' : '',
+"\ 'ae' : '',
+"\ 'ie' : 'iw',
+"\ }
 let g:wordmotion_spaces = '_-.'
+map e <Plug>WordMotion_w
+map w <Plug>WordMotion_e
+map b <Plug>WordMotion_b
+omap e <Plug>WordMotion_e
+omap w <Plug>WordMotion_w
+omap b <Plug>WordMotion_b
 nnoremap gw w
 nnoremap ge e
 nnoremap gb b

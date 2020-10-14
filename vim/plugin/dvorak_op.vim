@@ -37,8 +37,12 @@ noremap <C-w>n <C-w>l
 " noremap 0 ^
 " noremap ^ 0
 noremap _ $
-noremap e w
-noremap w e
+" nnoremap e w
+" vnoremap e w
+" snoremap e w
+" nnoremap w e
+" vnoremap w e
+" snoremap w e
 noremap <A-k> "f0D
 noremap <M-k> "f0D
 noremap k "f0D
