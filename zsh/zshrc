@@ -147,12 +147,14 @@ zplug "inishchith/autoenv", use:"activate.sh"
 export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
 export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 
-zplug "lukechilds/zsh-nvm"
-export NVM_COMPLETION=true
-export NVM_LAZY_LOAD=true
-export NVM_NO_USE=true
-# disabled because cd become too slow when both autoenv and zsh-nvm are enabled
-# export NVM_AUTO_USE=true
+if [[ $OSTYPE = darwin* ]]; then
+	zplug "lukechilds/zsh-nvm"
+	export NVM_COMPLETION=true
+	export NVM_LAZY_LOAD=true
+	export NVM_NO_USE=true
+	# disabled because cd become too slow when both autoenv and zsh-nvm are enabled
+	# export NVM_AUTO_USE=true
+fi
 
 zplug "akoenig/npm-run.plugin.zsh"
 
@@ -194,7 +196,9 @@ unset P10K_FILE
 
 zplug load
 
-# load nvm
-nvm --version &> /dev/null
-_zsh_nvm_auto_use &> /dev/null
+if [ $(uname -s) = Darwin ]; then
+	# load nvm
+	nvm --version &> /dev/null
+	# _zsh_nvm_auto_use &> /dev/null
+fi
 
