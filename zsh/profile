@@ -10,8 +10,10 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 
 
 # # Node.js (NVM)
-export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+if [[ $OSTYPE != darwin* ]]; then
+	export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+fi
 
 
 # Python (Pyenv)
