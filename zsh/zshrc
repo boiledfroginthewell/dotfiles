@@ -199,6 +199,6 @@ zplug load
 if [ $(uname -s) = Darwin ]; then
 	# load nvm
 	nvm --version &> /dev/null
-	# _zsh_nvm_auto_use &> /dev/null
+	_zsh_nvm_auto_use &> /dev/null
 fi
 
