@@ -33,7 +33,7 @@ if [ -n "$bg_color" ]; then
 		export COLOR_MODE=dark
 	fi
 else
-	export COLOR_MODE=light
+	export COLOR_MODE=dark
 fi
 
 # enable color support of ls and also add handy aliases
@@ -50,7 +50,6 @@ fi
 # -----------------------
 stty sane
 stty stop undef
-setopt correct
 setopt rmstarsilent
 tcsh-backward-delete-word () {
 	local WORDCHARS="${WORDCHARS:s#/#}"

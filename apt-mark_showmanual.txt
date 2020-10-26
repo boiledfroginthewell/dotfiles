@@ -1,0 +1,13 @@
+fasd
+fd-find
+fzf
+git
+pet
+ripgrep
+tmux
+vim
+vim-gtk3
+xcape
+xsel
+zplug
+zsh
