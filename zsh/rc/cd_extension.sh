@@ -13,6 +13,7 @@ add-zsh-hook precmd __auto_ls
 
 
 # Install fasd
+export _FASD_DATA=$XDG_CACHE_HOME/fasd
 type fasd &> /dev/null && eval "$(fasd --init auto)"
 
 # cd toward parent directories
