@@ -50,6 +50,7 @@ nnoremap <Space> <c-f>
 nnoremap <s-Space> <c-b>
 nnoremap <S-CR> O<esc>
 nnoremap <CR> o<esc>
+noremap <F1> K
 
 " Clipboard
 noremap <C-y> "+P
