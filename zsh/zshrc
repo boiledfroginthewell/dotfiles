@@ -155,6 +155,7 @@ if [[ $OSTYPE = darwin* ]]; then
 	# export NVM_AUTO_USE=true
 fi
 
+zplug 'ekalinin/pip-bash-completion', use:pip
 zplug "akoenig/npm-run.plugin.zsh"
 
 zplug "junegunn/fzf", use:shell/completion.zsh

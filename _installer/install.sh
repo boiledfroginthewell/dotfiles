@@ -10,7 +10,7 @@ fi
 CONF_DIR=$(git rev-parse --show-toplevel)
 cd "$CONF_DIR"
 
-if [ -z "${XDG_CONFIG_HOME:-}" ]; then
+if [ -z "${XDG_CONFIG_HOME}" ]; then
 	echo "Error: XDG_CONFIG_HOME is undefined." >&2
 	exit 1
 fi
