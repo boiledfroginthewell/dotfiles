@@ -24,7 +24,7 @@ Plug 'gpanders/vim-oldfiles'
 
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
-	Plug 'junegunn/fzf'
+	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
 	function! s:swap_buffer(lines)
 		let l:buf = bufnr('%')
