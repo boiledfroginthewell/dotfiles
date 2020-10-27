@@ -28,6 +28,10 @@ _fzf_config_insert() {
 		command="fd ."
 		query="$(basename $input_value)"
 		directory="$(dirname $input_value)"
+	elif [[ "$LBUFFER" = "git"* ]]; then
+		command="fd ."
+		query=
+		directory="$(git rev-parse --show-toplevel)/"
 	else
 		query="$input_value"
 		directory=

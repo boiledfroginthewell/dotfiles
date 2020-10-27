@@ -24,22 +24,28 @@ Plug 'gpanders/vim-oldfiles'
 
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
+	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
-	if filereadable("/usr/share/doc/fzf/examples/fzf.vim")
-		source /usr/share/doc/fzf/examples/fzf.vim
-	endif
-	if isdirectory('/usr/local/opt/fzf')
-		" MacOS
-		set rtp+=/usr/local/opt/fzf
-	endif
 	function! s:swap_buffer(lines)
 		let l:buf = bufnr('%')
 		exec 'e '.a:lines[0]
 		exec 'bd '.l:buf
 	endfunction
+	function! s:edit_selection(lines)
+		call feedkeys(':e ' . join(a:lines, ' '))
+	endfunction
 	let g:fzf_action = {
 		\'ctrl-n': function('s:swap_buffer'),
+		\'ctrl-e': function('s:edit_selection'),
 	\ }
+	hi MyrcFzfPopup ctermbg=237
+	hi MyrcFzfPopupBorder term=bold cterm=bold ctermfg=blue
+	let g:fzf_colors = {
+		\'bg': ['bg', 'MyrcFzfPopup'],
+		\'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+		\'bg+': ['bg', 'CursorLine', 'CursorColumn'],
+		\'border': ['fg', 'MyrcFzfPopupBorder'],
+	\}
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
