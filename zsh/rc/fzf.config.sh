@@ -16,6 +16,23 @@ FZF_CTRL_T_OPTS='--bind "ctrl-l:execute(l {} > /dev/tty )"'
 # fi
 
 
+_fzf_config_insert_git() {
+	case "$(<<<"$LBUFFER" cut -d ' ' -f 2)" in
+		stash|add|restore)
+			git status --short | \
+			fzf \
+				--height ${FZF_HEIGHT:-40%} \
+				--preview "git diff --color=always -- \$(<<<{} cut -c 4-) | delta $DELTA_DEFAULT_OPTION" | \
+			cut -c 4-
+			return
+			;;
+		*)
+			echo __fallback
+			return
+			;;
+	esac
+}
+
 _fzf_config_insert() {
 	local query directory command
 	local input_value="${LBUFFER##* }"
@@ -29,23 +46,32 @@ _fzf_config_insert() {
 		query="$(basename $input_value)"
 		directory="$(dirname $input_value)"
 	elif [[ "$LBUFFER" = "git"* ]]; then
-		command="fd ."
-		query=
-		directory="$(git rev-parse --show-toplevel)/"
+		local output=$(_fzf_config_insert_git)
+		if [ "$output" = "__fallback" ]; then
+			output=
+			command="fd ."
+			query=
+			directory="$(git rev-parse --show-toplevel)/"
+		elif [ -z "$output" ]; then
+			zle reset-prompt
+			return
+		fi
 	else
 		query="$input_value"
 		directory=
 	fi
 
-	local output=$(
-		eval \
-			"${command:-fzf-default-command} \"$directory\" | \
-			sed "s:^$directory::" | \
-			fzf \
-			--height ${FZF_TMUX_HEIGHT:-40%} \
-			--query \"${query}\" \
-			$FZF_CTRL_T_OPTS"
-	)
+	if [ -z "$output" ]; then
+		local output=$(
+			eval \
+				"${command:-fzf-default-command} ${directory:+\"${directory}\"} | \
+				sed "s:^$directory::" | \
+				fzf \
+				--height ${FZF_HEIGHT:-40%} \
+				--query \"${query}\" \
+				$FZF_CTRL_T_OPTS"
+		)
+	fi
 	if [ -z "${output}" ]; then
 		zle reset-prompt
 		return
