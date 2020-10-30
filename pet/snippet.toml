@@ -59,3 +59,54 @@
   command = "docker run --rm -it <image> bash"
   output = ""
 
+[[snippets]]
+  description = "Substitute variable if it has value"
+  command = "${<var>:+<string>}"
+  output = ""
+  # tag = ["zsh", "environment", "expansion"]
+
+[[snippets]]
+  description = "Trim the beginning of variable"
+  command = "${<var>#<string>}"
+  output = ""
+
+[[snippets]]
+  description = "Trim the ending of variable"
+  command = "${<var>%<string>}"
+  output = ""
+
+[[snippets]]
+  description = "Substring variable"
+  command = "${name:offset:length}"
+  output = ""
+
+[[snippets]]
+  description = "Replace variable"
+  command = "${name/pattern/repl}"
+  output = ""
+
+[[snippets]]
+  description = "Capitalize variable (${var^} in bash)"
+  command = "${(C)<var>}"
+  output = ""
+
+[[snippets]]
+  description = "Make variable upper case (${var^^} in bash)"
+  command = "${(U)<var>}"
+  output = ""
+
+[[snippets]]
+  description = "Make variable lowore case (${var,,} in bash)"
+  command = "${(L)<var>}"
+  output = ""
+
+[[snippets]]
+  description = "Postgres login"
+  command = "psql -h <host> -p <port> -U <user> -d <database> <schema>"
+  output = ""
+
+[[snippets]]
+  description = "Clean up docker files to address 'no space left on device' error"
+  command = "docker system prune"
+  output = ""
+
