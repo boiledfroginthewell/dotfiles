@@ -104,15 +104,15 @@ Plug 'kana/vim-textobj-user'
 
 Plug 'inkarkat/argtextobj.vim'
 
-Plug 'jeetsukumaran/vim-indentwise'
-map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
-	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
-map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
-	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
-function! s:indentwise_is_top_level() abort
-	let first_char = getline('.')[0]
-	return first_char == '' || first_char =~ '\S'
-endfunction
+" Plug 'jeetsukumaran/vim-indentwise'
+" map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
+"	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
+" map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
+"	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
+" function! s:indentwise_is_top_level() abort
+" 	let first_char = getline('.')[0]
+" 	return first_char == '' || first_char =~ '\S'
+" endfunction
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -148,6 +148,8 @@ Plug 'sheerun/vim-polyglot'
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:polyglot_disabled = ['python-indent', 'csv']
+
+Plug 'tpope/vim-fugitive'
 
 " Comment out
 Plug 'tyru/caw.vim'
@@ -206,6 +208,8 @@ nnoremap gb b
 Plug 'dense-analysis/ale'
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
+nmap <silent> <C-t> <Plug>(ale_previous_wrap)
+nmap <silent> <C-h> <Plug>(ale_next_wrap)
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 if executable('node')
