@@ -7,7 +7,7 @@
 ^p -- ctrlp
 
 gm -- 行の中心にカーソル移動
-t -- 文字手前ジャンプ (like f)
+f -- 文字手前ジャンプ (like j)
 - -- 画面単語ジャンプ
 {/} -- 段落移動
 ^t/h -- インデント移動
@@ -18,15 +18,9 @@ t -- 文字手前ジャンプ (like f)
 ^w{+-<>} -- リサイズ
 :'<,'>! -- Shellコマンド置換
 
-テキストオブジェクト
-----------------------
-{w}ordd
-{p}aragraph
-{b}lock ()
-{B}lock {}
-
 Programming
 ------------
+<F1> -- doc
 <F5> -- Single Compile
 <F6> -- :TestNearest
 <F7> -- :TestFile
@@ -40,4 +34,12 @@ gr -- References
 <F2> -- Rename
 <C-f> -- Format
 ,lc -- Command List
+
+
+テキストオブジェクト
+----------------------
+{w}ordd
+{p}aragraph
+{b}lock ()
+{B}lock {}
 
