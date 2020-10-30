@@ -84,7 +84,7 @@ type bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 if [ "$COLOR_MODE" = "light" ]; then
 	export BAT_THEME="Monokai Extended Light"
 fi
-export BAT_STYLE="changes,header,grid"
+export BAT_STYLE="changes,header,grid,numbers"
 LESS_COMMAND=$(
 (( $+commands[bat] )) && echo bat \
 	|| ((( $+commands[lv] )) && echo lv) \
