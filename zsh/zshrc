@@ -4,6 +4,10 @@ case $- in
 	*) return;;
 esac
 
+# enableProfiling=1
+
+[ -n "$enableProfiling" ] && zmodload zsh/zprof && zprof
+
 export XDG_CONFIG_HOME="${XDG_CONFIGHOME:-${HOME}/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
@@ -14,7 +18,7 @@ CONF_DIR=${XDG_CONFIG_HOME}/zsh
 # ----------------------------
 export HISTSIZE=20000
 export SAVEHIST=20000
-export HISTFILE="$XDG_CACHE_HOME/zsh/history"
+export HISTFILE="$XDG_CACHE_HOME/.zsh_history"
 export HISTIGNORE='sudo *:*;sudo *:*; sudo *:l:history:history *'
 setopt share_history
 setopt append_history
@@ -129,6 +133,10 @@ else
 fi
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 export ZSH_AUTOSUGGEST_USE_ASYNC=true
+# zplug "marlonrichert/zsh-autocomplete", defer:2
+# zstyle ':autocomplete:*' min-input 3
+# zstyle ':autocomplete:*' max-lines 5
+# zstyle ':autocomplete:*' config off
 zplug "zdharma/fast-syntax-highlighting"
 zplug "zsh-users/zsh-completions"
 # Smart case completion
@@ -171,13 +179,25 @@ fi
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
+if [ -z "$enableProfiling" ] && [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  # source "${XDG_CACHE_HOME}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-
 autoload -U compinit && compinit
+# Skip the not really helping Ubuntu global compinit
+# skip_global_compinit=1
+# cached compinit
+# autoload -Uz compinit
+# if [[ -n ${ZDOTDIR:-HOME}/.zcompdump(#qN.mh+24) ]]; then
+# 	compinit
+# else
+# 	compinit -C
+# fi
+
 autoload -U bashcompinit && bashcompinit
+
+setopt no_auto_menu
+setopt bash_auto_list
 
 
 # ### Local plugins
@@ -202,3 +222,6 @@ if [ $(uname -s) = Darwin ]; then
 	_zsh_nvm_auto_use &> /dev/null
 fi
 
+if type zprof &>/dev/null; then
+	zprof
+fi
