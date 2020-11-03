@@ -16,6 +16,9 @@ keycode 253 = Henkan Henkan Henkan Henkan
 ! katakana/hiragana key
 keycode 101 = Control_R NoSymbol Control_R NoSymbol
 add Control = Control_L Control_R
+! Enter/Widow key
+keycode 135 = Super_L Super_L Super_L Super_L
+keycode 252 = Return Return Return Return
 
 ! Alt_L <--> Shift_L
 ! remove Mod1 = Alt_L
