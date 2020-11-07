@@ -1,4 +1,3 @@
 xmodmap "$HOME/.Xmodmap"
-# xcape -e '#65=space;#102=Muhenkan;#100=Henkan'
-$HOME/bin/_xcape.sh
+$(dirname $0)/xcape.sh
 
