@@ -7,7 +7,8 @@
         "source.fixAll": true
     },
     "editor.formatOnSaveMode": "modifications",
-    "editor.formatOnSave": true,
     "editor.renderWhitespace": "trailing",
-    "window.zoomLevel": 0
+    "window.zoomLevel": 0,
+    "extensions.ignoreRecommendations": false,
+    "workbench.editor.enablePreview": false
 }
