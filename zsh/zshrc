@@ -37,7 +37,7 @@ if [ -n "$bg_color" ]; then
 		export COLOR_MODE=dark
 	fi
 else
-	export COLOR_MODE=dark
+	[ -z "$COLOR_MODE" ] && export COLOR_MODE=dark
 fi
 
 # enable color support of ls and also add handy aliases

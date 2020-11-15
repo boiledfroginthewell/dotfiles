@@ -2,7 +2,7 @@
 
 CDIR=$(cd $(dirname $0); pwd)
 
-ln -s "$CDIR/profile" ~/.profile
-ln -s "$CDIR/zshrc" ~/.zshrc
-ln -s "$CDIR" "$XDG_CONFIG_HOME/"
+ln -sf "$CDIR/profile" ~/.profile
+ln -sf "$CDIR/zshrc" ~/.zshrc
+ln -sf "$CDIR" "$XDG_CONFIG_HOME/"
 
