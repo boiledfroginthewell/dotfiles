@@ -38,14 +38,22 @@ if !has('win32unix') && !has('win32')
 		\'ctrl-n': function('s:swap_buffer'),
 		\'ctrl-e': function('s:edit_selection'),
 	\ }
-	hi MyrcFzfPopup ctermbg=237
-	hi MyrcFzfPopupBorder term=bold cterm=bold ctermfg=blue
-	let g:fzf_colors = {
-		\'bg': ['bg', 'MyrcFzfPopup'],
-		\'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-		\'bg+': ['bg', 'CursorLine', 'CursorColumn'],
-		\'border': ['fg', 'MyrcFzfPopupBorder'],
-	\}
+	augroup myrcFzfConfig
+		function! s:configureFzfPopup()
+			if &background == "dark"
+				hi MyrcFzfPopup ctermbg=237
+				hi MyrcFzfPopupBorder term=bold cterm=bold ctermfg=blue
+				let g:fzf_colors = {
+					\'bg': ['bg', 'MyrcFzfPopup'],
+					\'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+					\'bg+': ['bg', 'CursorLine', 'CursorColumn'],
+					\'border': ['fg', 'MyrcFzfPopupBorder'],
+				\}
+			endif
+		endfunction
+		autocmd!
+		autocmd VimEnter * call s:configureFzfPopup()
+	augroup END
 	nmap <silent> <Leader>r :Rg<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
