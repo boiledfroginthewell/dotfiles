@@ -37,8 +37,7 @@ function! s:check_back_space() abort
 endfunction
 
 function! s:check_single_suggest() abort
-	let pos = pum_getpos()
-	return has_key(pos, "height") && pos["height"] == 1
+	return get(pum_getpos(), 'height', 0) == 1
 endfunction
 
 let g:coc_snippet_next = '<tab>'
