@@ -65,7 +65,6 @@ _fzf_config_insert() {
 		local output=$(
 			eval \
 				"${command:-fzf-default-command} ${directory:+\"${directory}\"} | \
-				sed "s:^$directory::" | \
 				fzf \
 				--height ${FZF_HEIGHT:-40%} \
 				--query \"${query}\" \
@@ -81,7 +80,7 @@ _fzf_config_insert() {
 	for item in "${output[@]}"; do
 		[ -n "$item" ] && outputString="$outputString$(<<<$item tr '\n' ' ')"
 	done
-	LBUFFER="${LBUFFER%${query}}${outputString}"
+	LBUFFER="${LBUFFER%${input_value}}${outputString}"
 	zle redisplay
 }
 # Customization
