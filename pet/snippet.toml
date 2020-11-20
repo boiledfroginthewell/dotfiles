@@ -55,8 +55,13 @@
   output = ""
 
 [[snippets]]
-  description = "Run shell in docker"
-  command = "docker run --rm -it <image> bash"
+  description = "Run shell in docker image"
+  command = "docker run --rm -it <image> ash"
+  output = ""
+
+[[snippets]]
+  description = "Run shell in running docker"
+  command = "docker exec -it <container> ash"
   output = ""
 
 [[snippets]]
