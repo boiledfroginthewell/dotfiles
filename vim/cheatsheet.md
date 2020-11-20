@@ -7,6 +7,7 @@
 ^p -- ctrlp
 
 gm -- 行の中心にカーソル移動
+ysi{TObj}" -- "で囲む
 f -- 文字手前ジャンプ (like j)
 - -- 画面単語ジャンプ
 {/} -- 段落移動
@@ -38,7 +39,7 @@ gr -- References
 
 テキストオブジェクト
 ----------------------
-{w}ordd
+{w}ord
 {p}aragraph
 {b}lock ()
 {B}lock {}

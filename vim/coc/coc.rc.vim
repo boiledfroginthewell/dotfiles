@@ -154,6 +154,7 @@ let g:coc_global_extensions = [
 	\'coc-python',
 	\'coc-snippets',
 	\'coc-html', 'coc-css',
+	\'coc-tsserver',
 \]
 
 hi CocFloating ctermbg=8
