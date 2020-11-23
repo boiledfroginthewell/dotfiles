@@ -2,9 +2,8 @@
 
 from xkeysnail.transform import *
 
-
-# Dvorak Mapping
-define_keymap(None, {
+# Simple Kecode translation
+define_modmap({
 	# number row
 	# Key.KEY_1: Key.KEY_1,
 	# Key.KEY_2: Key.KEY_2,
@@ -16,75 +15,97 @@ define_keymap(None, {
 	# Key.KEY_8: Key.KEY_8,
 	# Key.KEY_9: Key.KEY_9,
 	# Key.KEY_0: Key.KEY_0,
-	K("MINUS"): Key.SLASH,
+	Key.MINUS: Key.LEFT_BRACE,
 	# Key.EQUAL: Key.EQUL,
 	# Key.YEN: Key.YEN,
 
 	# 1st row
-	K("q"): Key.APOSTROPHE,
-	K("w"): Key.COMMA,
-	K("e"): Key.DOT,
-	K("r"): K("p"),
-	K("t"): K("y"),
+	Key.Q: Key.APOSTROPHE,
+	Key.W: Key.COMMA,
+	Key.E: Key.DOT,
+	Key.R: Key.P,
+	Key.T: Key.Y,
 
-	K("y"): K("f"),
-	K("u"): K("g"),
-	K("i"): K("c"),
-	K("o"): K("r"),
-	K("p"): K("l"),
-	K("LEFT_BRACE"): Key.SLASH,
-	K("RIGHT_BRACE"): Key.LEFT_BRACE,
+	Key.Y: Key.F,
+	Key.U: Key.G,
+	Key.I: Key.C,
+	Key.O: Key.R,
+	Key.P: Key.L,
+	Key.LEFT_BRACE: Key.SLASH,
+	# Key.RIGHT_BRACE: Key.RIGHT_BRACE,
 
 	# 2nd row
-	K("a"): K("a"),
-	K("s"): K("o"),
-	K("d"): K("e"),
-	K("f"): K("u"),
-	K("g"): K("i"),
+	Key.A: Key.A,
+	Key.S: Key.O,
+	Key.D: Key.E,
+	Key.F: Key.U,
+	Key.G: Key.I,
 
-	K("h"): K("d"),
-	K("j"): K("h"),
-	K("k"): K("t"),
-	K("l"): K("n"),
-	K("SEMICOLON"): K("s"),
-	K("APOSTROPHE"): Key.MINUS,
-	K("GRAVE"): Key.RIGHT_BRACE,
+	Key.H: Key.D,
+	Key.J: Key.H,
+	Key.K: Key.T,
+	Key.L: Key.N,
+	Key.SEMICOLON: Key.S,
+	Key.APOSTROPHE: Key.MINUS,
+	Key.GRAVE: Key.RIGHT_BRACE,
 
 	# 3rd row
-	K("z"): Key.SEMICOLON,
-	K("x"): K("q"),
-	K("c"): K("j"),
-	K("v"): K("k"),
-	K("b"): K("x"),
+	Key.Z: Key.SEMICOLON,
+	Key.X: Key.Q,
+	Key.C: Key.J,
+	Key.V: Key.K,
+	Key.B: Key.X,
 
-	K("n"): K("b"),
-	K("m"): K("m"),
-	K("COMMA"): K("w"),
-	K("DOT"): K("v"),
-	K("SLASH"): K("z"),
+	Key.N: Key.B,
+	Key.M: Key.M,
+	Key.COMMA: Key.W,
+	Key.DOT: Key.V,
+	Key.SLASH: Key.Z,
 	# Key.BACKSLASH: Key.BACKSLASH,
-# })
 
-# define_keymap(None, {
-	K("Shift-Key_0"): K("Shift-Yen"),
-	K("CAPSLOCK"): Key.BACKSPACE,
+	Key.CAPSLOCK: Key.BACKSPACE,
 })
 
+# Transform Combinations
+define_keymap(None, {
+	K("Shift-Key_0"): K("Shift-Yen"),
+})
+
+# Logical Shift
+logical_shift_layer: bool = False
+
+def set_layer(enabled: bool, key):
+	global logical_shift_layer
+	logical_shift_layer = enabled
+	return key
+
+def switch_logical_shift_layer(action):
+	global logical_shift_layer
+	logical_shift_layer = action.is_pressed()
+
+def is_ls(_):
+	global logical_shift_layer
+	return logical_shift_layer
+
+define_timeout(200)
+
 define_multipurpose_modmap({
-	# K("MUHENKAN"): [Key.MUHENKAN, lambda: [logical_shift_layer := True]],
+	Key.MUHENKAN: [
+		Key.MUHENKAN,
+		{
+			"mod_key": Key.ISO,
+			"hook": switch_logical_shift_layer
+		}
+	],
 	Key.SPACE: [Key.SPACE, Key.LEFT_SHIFT],
 	Key.HENKAN: [Key.HENKAN, Key.RIGHT_CTRL],
 	Key.HIRAGANA: [Key.HIRAGANA, Key.RIGHT_ALT],
 	Key.COMPOSE: [Key.ENTER, Key.RIGHT_META],
 })
 
-# Logical Shift
-logical_shift_layer: bool = False
-# define_keymap({
-#	K("MUHENKAN"): lambda: logical_shift_layer= True,
-# })
 define_conditional_modmap(
-	lambda wm_class, device_name: logical_shift_layer,
+		is_ls,
+	# lambda wm_class: is_ls(wm_class), #logical_shift_layer,
 	{
 		Key.KEY_1: Key.F1,
 		Key.KEY_2: Key.F2,
@@ -115,25 +136,29 @@ define_conditional_modmap(
 		# Key.RIGHT_BRACE: Key.LEFT_BRACE,
 
 		# 2nd row
-		Key.A: K("C-a"),
-		Key.S: K("C-o"),
+		# Key.A: K("C-a"),
+		# Key.S: K("C-o"),
 		Key.D: Key.PAGE_UP,
 		Key.F: Key.PAGE_DOWN,
 		# Key.G: K("i"),
 
 		Key.H: Key.LEFT,
-		Key.J: Key.UP,
-		Key.K: Key.DOWN,
+		Key.J: Key.DOWN,
+		Key.K: Key.UP,
 		Key.L: Key.RIGHT,
 		# Key.SEMICOLON: K("s"),
 		# Key.APOSTROPHE: Key.MINUS,
 		# Key.GRAVE: Key.RIGHT_BRACE,
+		# K("Shift-h"): K("Shift-LEFT"),
+		# K("Shift-j"): K("Shift-DOWN"),
+		# K("Shift-k"): K("Shift-UP"),
+		# K("Shift-l"): K("Shift-RIGHT"),
 
 		# 3rd row
-		Key.Z: K("C-z"),
-		Key.X: K("C-x"),
-		Key.C: K("C-c"),
-		Key.V: K("C-v"),
+		# Key.Z: K("C-z"),
+		# Key.X: K("C-x"),
+		# Key.C: K("C-c"),
+		# Key.V: K("C-v"),
 		# Key.B: K("x"),
 
 		# Key.N: K("b"),
@@ -145,4 +170,12 @@ define_conditional_modmap(
 	}
 )
 
+define_keymap(is_ls, {
+	K("A"): K("C-a"),
+	K("S"): K("C-o"),
 
+	K("Z"): K("C-z"),
+	K("X"): K("C-x"),
+	K("C"): K("C-c"),
+	K("V"): K("C-v"),
+})
