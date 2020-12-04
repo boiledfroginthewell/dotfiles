@@ -51,7 +51,7 @@ _fzf_config_insert() {
 			output=
 			command="fd ."
 			query=
-			directory="$(git rev-parse --show-toplevel)/"
+			directory=$(<<<"$(git rev-parse --show-toplevel)/" sed s:"^$PWD":"./":)
 		elif [ -z "$output" ]; then
 			zle reset-prompt
 			return

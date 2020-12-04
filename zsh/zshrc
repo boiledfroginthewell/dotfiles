@@ -55,12 +55,16 @@ fi
 stty sane
 stty stop undef
 setopt rmstarsilent
+autoload -Uz select-word-style
+select-word-style default
+zstyle ':zle:*' word-chars " _-./;@"
+zstyle ':zle:*' word-style unspecified
+# M-<BS> to delete one word like bash
 tcsh-backward-delete-word () {
 	local WORDCHARS="${WORDCHARS:s#/#}"
 	zle backward-delete-word
 }
 zle -N tcsh-backward-delete-word
-# M-<BS> to delete one word like bash
 bindkey '^[^?' tcsh-backward-delete-word
 bindkey '^u' backward-kill-line
 bindkey '^j' vi-find-next-char
