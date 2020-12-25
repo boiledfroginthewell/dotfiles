@@ -115,3 +115,7 @@
   command = "docker system prune"
   output = ""
 
+[[snippets]]
+  description = "Show previous stash content"
+  command = "git stash show -p -- stash@{1}"
+  output = ""
