@@ -1,5 +1,18 @@
-// Place your key bindings in this file to override the defaultsauto[]
 [
-    { "key": "ctrl+tab",         "command": "workbench.action.nextEditor" },
-    { "key": "ctrl+shift+tab",   "command": "workbench.action.previousEditor"}
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditor"
+    },
+    {
+        "key": "cmd+[Minus]",
+        "command": "findThenJump.initiate"
+    },
+    {
+        "key": "cmd+shift+[Minus]",
+        "command": "findThenJump.initiateWithSelection"
+    }
 ]
