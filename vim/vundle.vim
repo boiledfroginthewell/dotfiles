@@ -111,16 +111,18 @@ xmap gS  <Plug>VgSurround
 Plug 'kana/vim-textobj-user'
 
 Plug 'inkarkat/argtextobj.vim'
+Plug 'thalesmello/vim-textobj-methodcall'
 
-" Plug 'jeetsukumaran/vim-indentwise'
-" map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
-"	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
-" map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
-"	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
-" function! s:indentwise_is_top_level() abort
-" 	let first_char = getline('.')[0]
-" 	return first_char == '' || first_char =~ '\S'
-" endfunction
+Plug 'jeetsukumaran/vim-indentwise'
+let g:indentwise_skip_blanks = 1
+map <silent><expr> <C-t> <SID>indentwise_is_top_level() ?
+	\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
+map <silent><expr> <C-h> <SID>indentwise_is_top_level() ?
+	\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
+function! s:indentwise_is_top_level() abort
+	let first_char = getline('.')[0]
+	return first_char == '' || first_char =~ '\S'
+endfunction
 
 " Vim motions on speed!
 Plug 'easymotion/vim-easymotion'
@@ -216,8 +218,8 @@ nnoremap gb b
 Plug 'dense-analysis/ale'
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
-nmap <silent> <C-t> <Plug>(ale_previous_wrap)
-nmap <silent> <C-h> <Plug>(ale_next_wrap)
+" nmap <silent> <C-t> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-h> <Plug>(ale_next_wrap)
 
 " Intellisense engine for vim8 & neovim, full language server protocol support as VSCode
 if executable('node')

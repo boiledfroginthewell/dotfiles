@@ -3,12 +3,12 @@
     "editor.minimap.enabled": false,
     "eslint.alwaysShowStatus": true,
     "eslint.lintTask.enable": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll": true
-    },
     "editor.formatOnSaveMode": "modifications",
     "editor.renderWhitespace": "trailing",
+    "editor.acceptSuggestionOnCommitCharacter": false,
     "window.zoomLevel": 0,
     "extensions.ignoreRecommendations": false,
-    "workbench.editor.enablePreview": false
+    "workbench.editor.enablePreview": false,
+    "editor.multiCursorModifier": "alt",
+    "explorer.autoReveal": "focusNoScroll"
 }
