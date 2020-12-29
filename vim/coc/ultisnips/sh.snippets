@@ -16,3 +16,7 @@ snippet trap "Set trap on any exit" b
 trap "${1:command}" SIGHUP SIGINT SIGQUIT SIGTERM EXIT
 endsnippet
 
+snippet git "git root directory" b
+git rev-parse --show-toplevel
+endsnippet
+

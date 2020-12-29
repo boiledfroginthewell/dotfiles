@@ -7,7 +7,6 @@
 ^p -- ctrlp
 
 gm -- 行の中心にカーソル移動
-ysi{TObj}" -- "で囲む
 f -- 文字手前ジャンプ (like j)
 - -- 画面単語ジャンプ
 {/} -- 段落移動
@@ -36,6 +35,10 @@ gr -- References
 <C-f> -- Format
 ,lc -- Command List
 
+Git
+------
+,hs -- stage hunk
+,hu -- undo stating hunk
 
 テキストオブジェクト
 ----------------------
@@ -43,4 +46,5 @@ gr -- References
 {p}aragraph
 {b}lock ()
 {B}lock {}
+ysi{TObj}" -- "で囲む
 
