@@ -165,7 +165,7 @@ if [[ $OSTYPE = darwin* ]]; then
 fi
 
 zplug 'ekalinin/pip-bash-completion', use:pip
-zplug "akoenig/npm-run.plugin.zsh"
+zplug "lukechilds/zsh-better-npm-completion"
 
 zplug "junegunn/fzf", use:shell/completion.zsh
 

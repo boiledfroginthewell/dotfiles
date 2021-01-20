@@ -1,7 +1,7 @@
 snippet getopts "Parse arguments" b
 while getopts '${1:Options like f:h}' ARG; do
 	case $ARG in
-	${2}f)
+	${2:})
 		FILE=$OPTARG
 		;;
 	h|\?)
@@ -13,7 +13,11 @@ shift $(( OPTIND - 1 ))
 endsnippet
 
 snippet trap "Set trap on any exit" b
-trap "${1:command}" SIGHUP SIGINT SIGQUIT SIGTERM EXIT
+trap "${1:command}" HUP INT QUIT TERM EXIT
+endsnippet
+
+snippet trap "kill all child processes on exit" b
+trap "kill 0; wait; exit 0" HUP INT QUIT TERM EXIT
 endsnippet
 
 snippet git "git root directory" b
