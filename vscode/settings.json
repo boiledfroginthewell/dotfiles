@@ -3,12 +3,13 @@
     "editor.minimap.enabled": false,
     "eslint.alwaysShowStatus": true,
     "eslint.lintTask.enable": true,
-    "editor.formatOnSaveMode": "modifications",
     "editor.renderWhitespace": "trailing",
     "editor.acceptSuggestionOnCommitCharacter": false,
     "window.zoomLevel": 0,
     "extensions.ignoreRecommendations": false,
     "workbench.editor.enablePreview": false,
     "editor.multiCursorModifier": "alt",
-    "explorer.autoReveal": "focusNoScroll"
+    "explorer.autoReveal": "focusNoScroll",
+    "editor.formatOnSaveMode": "modifications",
+    "todo-tree.tree.showScanModeButton": false
 }

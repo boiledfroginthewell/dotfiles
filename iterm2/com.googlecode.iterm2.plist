@@ -1333,9 +1333,9 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>370 191 700 622 0 0 1440 877 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>483 1 946 872 0 0 1440 875 </string>
+	<string>722 900 953 1055 -241 900 1920 1055 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>405 386 650 452 0 0 1440 877 </string>
+	<string>405 378 650 458 0 0 1440 875 </string>
 	<key>NeverWarnAboutShortLivedSessions_C7AC5824-806C-4374-8E5F-F0BC5EDA612B</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_C7AC5824-806C-4374-8E5F-F0BC5EDA612B_selection</key>
@@ -2065,7 +2065,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>7B3F61B3-9A9A-44DC-AF0E-70244EB08C17</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>172</integer>
+	<integer>199</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2860,7 +2860,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-12-10T01:00:12Z</date>
+	<date>2021-01-18T01:06:54Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
@@ -2870,7 +2870,7 @@
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>
-	<false/>
+	<true/>
 	<key>SoundForEsc</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
