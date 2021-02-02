@@ -14,7 +14,7 @@ keycode 254 = Muhenkan Muhenkan Muhenkan Muhenkan
 keycode 100 = Control_R Control_R Control_R Control_R Control_R
 keycode 253 = Henkan Henkan Henkan Henkan
 ! katakana/hiragana key
-keycode 101 = Control_R NoSymbol Control_R NoSymbol
+keycode 101 = Alt_R Alt_R Alt_R Alt_R
 add Control = Control_L Control_R
 ! Enter/Widow key
 keycode 135 = Super_L Super_L Super_L Super_L

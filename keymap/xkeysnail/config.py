@@ -64,6 +64,7 @@ define_modmap({
 	# Key.BACKSLASH: Key.BACKSLASH,
 
 	Key.CAPSLOCK: Key.BACKSPACE,
+	Key.KATAKANAHIRAGANA: Key.RIGHT_ALT,
 })
 
 # Transform Combinations
@@ -167,6 +168,9 @@ define_conditional_modmap(
 		# Key.DOT: K("v"),
 		# Key.SLASH: K("z"),
 		# Key.BACKSLASH: Key.BACKSLASH,
+
+
+		Key.KATAKANAHIRAGANA: Key.RIGHT_ALT,
 	}
 )
 
