@@ -119,3 +119,8 @@
   description = "Show previous stash content"
   command = "git stash show -p -- stash@{1}"
   output = ""
+
+[[snippets]]
+  description = "replace previous command and run"
+  command = "!!:gs/<pattern>/<replacement>"
+  output = ""
