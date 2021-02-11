@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if type hub &> /dev/null; then
+	hub sync
+	exit
+fi
+
 # currentBranch="$(git branch --show-current)"
 currentBranch="$(git symbolic-ref --short HEAD)"
 git fetch -q
