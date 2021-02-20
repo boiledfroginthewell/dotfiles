@@ -151,7 +151,7 @@ nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
 " Plugins
 let g:coc_global_extensions = [
 	\'coc-json',
-	\'coc-python',
+	\'coc-pyright',
 	\'coc-snippets',
 	\'coc-html', 'coc-css',
 	\'coc-tsserver',

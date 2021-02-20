@@ -257,6 +257,7 @@ Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 
 " ### JSON
 Plug 'rhysd/vim-fixjson', {'for': 'json'}
+let g:fixjson_fix_on_save = 0
 
 call plug#end()
 

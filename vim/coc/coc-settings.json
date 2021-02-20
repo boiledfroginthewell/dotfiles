@@ -17,5 +17,8 @@
 				"coc/ultisnips"
 			]
 		}
+	},
+	"python": {
+		"linting.flake8Enabled": true
 	}
 }
