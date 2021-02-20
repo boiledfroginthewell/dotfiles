@@ -107,7 +107,7 @@
 
 [[snippets]]
   description = "Postgres login"
-  command = "psql -h <host> -p <port> -U <user> -d <database> <schema>"
+  command = "psql -h <host=localhost> -p <port=5432> -U <user> -d <database> <schema>"
   output = ""
 
 [[snippets]]
