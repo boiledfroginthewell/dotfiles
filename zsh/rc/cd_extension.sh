@@ -1,3 +1,5 @@
+# Reset overriding of cd by autoenv
+unset cd
 # Auto ls
 __AUTO_LS_PREV_PWD="$PWD"
 __auto_ls() {
@@ -7,6 +9,7 @@ __auto_ls() {
 		# load nvm
 		_zsh_nvm_auto_use &> /dev/null
 		ls
+		autoenv_init
 	fi
 }
 add-zsh-hook precmd __auto_ls
