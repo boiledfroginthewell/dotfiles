@@ -20,7 +20,11 @@ snippet trap "kill all child processes on exit" b
 trap "kill 0; wait; exit 0" HUP INT QUIT TERM EXIT
 endsnippet
 
-snippet git "git root directory" b
+snippet git-root "git root directory" b
+git rev-parse --show-toplevel
+endsnippet
+
+snippet rev-parse "git root directory" b
 git rev-parse --show-toplevel
 endsnippet
 

@@ -110,6 +110,8 @@ LS_COMMAND=$(
 )
 alias ls=$LS_COMMAND
 
+alias git=hub
+
 # time style for `ls -l` command output
 export TIME_STYLE=long-iso
 

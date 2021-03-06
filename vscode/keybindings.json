@@ -14,5 +14,23 @@
     {
         "key": "cmd+shift+[Minus]",
         "command": "findThenJump.initiateWithSelection"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "-scrollLineDown",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+pagedown",
+        "command": "workbench.action.showNextWindowTab"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "-scrollLineUp",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+pageup",
+        "command": "workbench.action.showPreviousWindowTab"
     }
 ]
