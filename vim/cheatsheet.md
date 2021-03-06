@@ -31,6 +31,7 @@ Programming
 ### coc
 gd -- Go to Definition
 gr -- References
+go -- Organize Import
 <F2> -- Rename
 <C-f> -- Format
 ,lc -- Command List
