@@ -173,6 +173,18 @@ augroup vimrc_indent
 	autocmd BufReadPost * :DetectIndent
 augroup END
 
+" Color brackets
+Plug 'luochen1990/rainbow'
+let g:rainbow_active = 1
+if &background == "light"
+	let darkcolors = ['DarkBlue', 'Magenta', 'Black', 'Red', 'DarkGray', 'DarkGreen', 'DarkYellow']
+	let g:rainbow_conf = {
+	\   'ctermfgs': darkcolors,
+	\   'guifgs': darkcolors
+	\}
+endif
+
+
 " Visualise space indents
 Plug 'Yggdroot/indentLine'
 let g:indentLine_char = '¦'
