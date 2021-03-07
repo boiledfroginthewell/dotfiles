@@ -4,7 +4,6 @@ set cindent
 set tabstop=4
 set shiftwidth=4
 set noexpandtab
-map <F12> ggI#!/usr/bin/env python<CR># vim: fileencoding=utf-8<ESC><C>o
 map <F6> :!xsel -o\|python %<CR>
 map <F4> :!cat %\|xsel %<CR>
 

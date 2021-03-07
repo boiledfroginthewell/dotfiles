@@ -19,6 +19,8 @@
 		}
 	},
 	"python": {
-		"linting.flake8Enabled": true
+		"linting.pylintEnabled": true,
+		"linting.flake8Enabled": false,
+		"linting.mypyEnabled": true
 	}
 }
