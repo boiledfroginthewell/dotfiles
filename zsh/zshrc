@@ -67,7 +67,7 @@ zle -N tcsh-backward-delete-word
 bindkey '^[^?' tcsh-backward-delete-word
 bindkey '^u' backward-kill-line
 
-
+export EDITOR=vim
 export FIGNORE=__pycache__
 
 # ### Aliases
@@ -110,7 +110,6 @@ LS_COMMAND=$(
 )
 alias ls=$LS_COMMAND
 
-alias git=hub
 
 # time style for `ls -l` command output
 export TIME_STYLE=long-iso
@@ -152,6 +151,7 @@ zplug "romkatv/powerlevel10k", as:theme
 zplug "wfxr/forgit"
 export FORGIT_FZF_DEFAULT_OPTS="--height 100%"
 export FORGIT_PAGER="delta $DELTA_DEFAULT_OPTION"
+export forgit_ignore=forgit_ignore
 
 zplug "agkozak/zsh-z"
 ZSHZ_DATA=$XDG_CACHE_HOME/z
@@ -234,3 +234,7 @@ fi
 if type zprof &>/dev/null; then
 	zprof
 fi
+
+
+alias git=hub
+
