@@ -1,0 +1,9 @@
+[flake8]
+max-line-length = 120
+
+# E402: module level import not at top of file
+# E722: do not use bare 'except'
+# E126: continuition line is over indented
+# E127: continuation line under-indented for hanging indent
+ignore = E402, E712, E722, E126, E127
+
