@@ -1,9 +1,17 @@
 [flake8]
 max-line-length = 120
 
-# E402: module level import not at top of file
-# E722: do not use bare 'except'
 # E126: continuition line is over indented
 # E127: continuation line under-indented for hanging indent
-ignore = E402, E712, E722, E126, E127
+# E302 expected 2 blank lines, found 1
+# E305 expected 2 blank lines after class or function definition
+# E402: module level import not at top of file
+# E701 multiple statements on one line
+# E722: do not use bare 'except'
+# W391 blank line at end of file
+ignore = E302, E305,
+	E126, E127,
+	E402,
+	E701, E712, E722,
+	W391
 

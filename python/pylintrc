@@ -11,7 +11,13 @@
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
-disable=print-statement
+disable=print-statement,
+		broad-except,
+		unnecessary-pass,
+		trailing-newlines,
+		missing-function-docstring,
+		missing-module-docstring,
+		expression-not-assigned
 
 [REPORTS]
 
@@ -33,7 +39,7 @@ check-quote-consistency=yes
 max-line-length=120
 
 # Expected format of line ending, e.g. empty (any line ending), LF or CRLF.
-expected-line-ending-format=lf
+expected-line-ending-format=LF
 
 # String used as indentation unit. This is usually "    " (4 spaces) or "\t" (1
 # tab).
@@ -44,7 +50,7 @@ indent-string='\t'
 [BASIC]
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i, j, k, x, ex, _
+good-names=i, j, k, x, e, ex, _
 
 [SPELLING]
 
