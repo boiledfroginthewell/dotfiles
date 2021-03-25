@@ -227,7 +227,9 @@ nnoremap ge e
 nnoremap gb b
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+let g:ale_disable_lsp = 1
 Plug 'dense-analysis/ale'
+let g:ale_linters = { 'python': ['flake8', 'mypy', 'isort'] }
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
 " nmap <silent> <C-t> <Plug>(ale_previous_wrap)

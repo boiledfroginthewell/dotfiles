@@ -68,7 +68,6 @@
   description = "Substitute variable if it has value"
   command = "${<var>:+<string>}"
   output = ""
-  # tag = ["zsh", "environment", "expansion"]
 
 [[snippets]]
   description = "Trim the beginning of variable"
@@ -123,4 +122,10 @@
 [[snippets]]
   description = "replace previous command and run"
   command = "!!:gs/<pattern>/<replacement>"
+  output = ""
+
+[[snippets]]
+  description = "show installed packages"
+  command = "apt list --installed"
+  tag = ["dpkg", "debian", "ubuntu"]
   output = ""
