@@ -6,7 +6,7 @@ max-line-length = 120
 # E225: Format
 # E302, E303, E305: blank lines
 # C0103: snake case
-ignore = C103,
+ignore = C0103,
 	# E111, E114: indentation is not a multiple of four
 	E111, E114, E126, E127, E128
 	E302, E303, E305,
