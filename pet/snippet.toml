@@ -129,3 +129,8 @@
   command = "apt list --installed"
   tag = ["dpkg", "debian", "ubuntu"]
   output = ""
+
+[[snippets]]
+  description = "show all available python versions"
+  command = "pyenv install --list | l"
+  output = ""

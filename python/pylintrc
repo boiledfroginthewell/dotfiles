@@ -50,7 +50,7 @@ indent-string='\t'
 [BASIC]
 
 # Good variable names which should always be accepted, separated by a comma.
-good-names=i, j, k, x, e, ex, _
+good-names=i, j, k, x, e, ex, p, n
 
 [SPELLING]
 

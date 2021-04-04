@@ -22,6 +22,7 @@
 	"python": {
 		"pythonPath": "~/opt/pyenv/shims/python",
 		"linting.flake8Enabled": true,
+		"linting.pylintEnabled": false,
 		"linting.mypyEnabled": true
 	}
 }
