@@ -1277,6 +1277,8 @@
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>IRMemory</key>
+	<integer>4</integer>
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSColorPanelMode</key>
@@ -1333,9 +1335,9 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>354 356 731 400 0 0 1440 875 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>370 191 700 622 0 0 1440 877 </string>
+	<string>369 1224 700 622 -241 900 1920 1055 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>722 900 953 1055 -241 900 1920 1055 </string>
+	<string>723 0 714 875 0 0 1440 875 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>405 378 650 458 0 0 1440 875 </string>
 	<key>NeverWarnAboutShortLivedSessions_C7AC5824-806C-4374-8E5F-F0BC5EDA612B</key>
@@ -2048,6 +2050,7 @@
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
+		<string>MesloLGS NF</string>
 		<string>Osaka</string>
 	</array>
 	<key>NoSyncFrame_SessionsPreferences</key>
@@ -2062,12 +2065,12 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1440, 900}}</string>
 		<key>topLeft</key>
-		<string>{12, 756}</string>
+		<string>{517, 635}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>7B3F61B3-9A9A-44DC-AF0E-70244EB08C17</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>217</integer>
+	<integer>241</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2846,7 +2849,7 @@
 		</dict>
 	</dict>
 	<key>PrefsCustomFolder</key>
-	<string>~/config/dotfiles/iterm2</string>
+	<string>/Users/***REMOVED***/config/dotfiles/iterm2</string>
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<true/>
 	<key>Print In Black And White</key>
@@ -2862,11 +2865,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2021-02-08T00:46:45Z</date>
+	<date>2021-03-16T00:59:13Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
-	<string>3.4.3</string>
+	<string>3.4.4</string>
 	<key>SUUpdateGroupIdentifier</key>
 	<integer>195758353</integer>
 	<key>SUUpdateRelaunchingMarker</key>
