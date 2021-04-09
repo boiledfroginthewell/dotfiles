@@ -155,6 +155,7 @@ Plug 'airblade/vim-gitgutter'
 
 " A solid language pack for Vim.
 Plug 'sheerun/vim-polyglot'
+set conceallevel=0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:polyglot_disabled = ['python-indent', 'csv']
