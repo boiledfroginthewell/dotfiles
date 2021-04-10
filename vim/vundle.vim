@@ -167,12 +167,13 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" Indent
-Plug 'ciaranm/detectindent'
-augroup vimrc_indent
-	autocmd!
-	autocmd BufReadPost * :DetectIndent
-augroup END
+" ALE already supports vim-sleuth
+" " Indent
+" Plug 'ciaranm/detectindent'
+" augroup vimrc_indent
+" 	autocmd!
+" 	autocmd BufReadPost * :DetectIndent
+" augroup END
 
 " Color brackets
 Plug 'luochen1990/rainbow'
