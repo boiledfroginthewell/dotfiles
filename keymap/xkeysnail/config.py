@@ -147,7 +147,7 @@ define_conditional_modmap(
 		Key.J: Key.DOWN,
 		Key.K: Key.UP,
 		Key.L: Key.RIGHT,
-		# Key.SEMICOLON: K("s"),
+		Key.SEMICOLON: Key.RIGHT,
 		# Key.APOSTROPHE: Key.MINUS,
 		# Key.GRAVE: Key.RIGHT_BRACE,
 		# K("Shift-h"): K("Shift-LEFT"),
