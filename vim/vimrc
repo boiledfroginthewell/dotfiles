@@ -12,7 +12,9 @@ if has("win32")
 endif
 
 
-set viminfo+='2000,n$XDG_CACHE_HOME/vim/viminfo
+if !has("nvim")
+	set viminfo+='2000,n$XDG_CACHE_HOME/vim/viminfo
+endif
 
 set nu
 set display+=lastline
