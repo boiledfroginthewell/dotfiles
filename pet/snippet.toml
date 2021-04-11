@@ -134,3 +134,9 @@
   description = "show all available python versions"
   command = "pyenv install --list | l"
   output = ""
+
+[[snippets]]
+  description = "grep ps including arguments"
+  command = "pgrep -fa"
+  output = "1234 python app.py arg1 arg2"
+
