@@ -7,6 +7,14 @@ return {
 		"Noto Sans CJK JP",
 	}),
 
+	colors = {
+		split = "#4444AA",
+	},
+	inactive_pane_hsb = {
+		saturation = 0.7,
+		brightness = 0.53,
+	},
+
 	keys = {
 		{key="PageUp", mods="CTRL", action=wezterm.action{ActivateTabRelative=-1}},
 		{key="PageDown", mods="CTRL", action=wezterm.action{ActivateTabRelative=1}},

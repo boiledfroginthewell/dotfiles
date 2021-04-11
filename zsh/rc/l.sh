@@ -2,8 +2,15 @@ if [[ "$OSTYPE" != "darwin"* ]] || readlink -m . &> /dev/null; then
 	# Gnu readlink (coreutils) is available
 	READLINK_COMMAND="readlink -m"
 else
-	# Only BSD readlink is installed
+	# When BSD readlink is installed
 	READLINK_COMMAND="echo"
+fi
+
+IMAGE_VIEWER="$OPEN_COMMAND"
+if type wezterm &> /dev/null; then
+	IMAGE_VIEWER="wezterm imgcat"
+elif type imgcat &> /dev/null; then
+	IMAGE_VIEWER=imgcat
 fi
 
 l() {
