@@ -1,7 +1,28 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 set -u
 
+READLINK=readlink
+type greadlink &> /dev/null && READLINK=greadlink
+
+help() {
+	echo "$0 [-t install_pattern] [install]"
+	exit
+}
+
+target=""
+while getopts 't:h' ARG; do
+	case $ARG in
+	t)
+		target="$OPTARG"
+		;;
+	h|\?)
+		help
+		;;
+	esac
+done
+
+shift $(( OPTIND - 1 ))
 NO_DRY_MODE="echo dry run: "
 if [ "${1:-}" = "install" ]; then
 	NO_DRY_MODE=
@@ -21,12 +42,22 @@ else
 	export OS=linux
 fi
 
-echo Copying XDG directories based settings...
+echo "## Copying XDG directories based settings..."
 for x in $(fd "\.xdg_config_home(\.$OS)?" --maxdepth 2 -H); do
 	confname=$(dirname "$x")
+	if [[ $confname != *"$target"* ]]; then
+		continue
+	fi
 
-	echo "XDG_CONFIG found: $confname"
 	dest="$XDG_CONFIG_HOME/$confname"
+	status="not installed"
+	if [[ $($READLINK -f "$dest") = "$CONF_DIR/$confname" ]]; then
+		status="installed"
+	fi
+	echo "### XDG_CONFIG found: $confname ($status)"
+	if [[ "$status" = "installed" ]]; then
+		continue
+	fi
 	if [ -f "$dest" ]; then
 		echo Warn: Overwriting $confname >&2
 	fi
@@ -35,11 +66,14 @@ done
 echo ""
 
 
-echo Installing custom settings...
+echo "## Installing custom settings..."
 for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 	confname=$(dirname "$x")
+	if [[ $confname != *"$target"* ]]; then
+		continue
+	fi
 
-	echo "Custom Installer found: $confname"
+	echo "### Custom Installer found: $confname"
 	$NO_DRY_MODE $x
 done
 
