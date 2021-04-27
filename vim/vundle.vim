@@ -148,6 +148,7 @@ Plug 'kana/vim-submode'
 
 " diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_diff_args = '--ignore-all-space'
 
 
 " Programming Plugins
