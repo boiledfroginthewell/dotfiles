@@ -1,5 +1,6 @@
 [Unit]
 Description=xkeysnail
+After=default.target
 
 [Service]
 # KillMode=process

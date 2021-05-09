@@ -21,12 +21,15 @@ WindowSeparatorGradient = true
 
 DrawBorderForFloatWindow = true
 
-## You can write a vimscript to be executed after goneovim starts,
-## for example to disable the vimscript that Goneovim has embedded internally.
-## GinitVim = '''
-##  let g:hoge = 'fuga'
-## '''
-# Ginitvim = ""
+# You can write a vimscript to be executed after goneovim starts,
+# for example to disable the vimscript that Goneovim has embedded internally.
+# GinitVim = '''
+#  let g:hoge = 'fuga'
+# '''
+Ginitvim = '''
+noremap � <NOP>
+inoremap � <NOP>
+'''
 
 
 # The statusline configuration below relates to the display of Goenovim's own external status lines.
