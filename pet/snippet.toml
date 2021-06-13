@@ -68,7 +68,6 @@
   description = "Substitute variable if it has value"
   command = "${<var>:+<string>}"
   output = ""
-  # tag = ["zsh", "environment", "expansion"]
 
 [[snippets]]
   description = "Trim the beginning of variable"
@@ -124,3 +123,20 @@
   description = "replace previous command and run"
   command = "!!:gs/<pattern>/<replacement>"
   output = ""
+
+[[snippets]]
+  description = "show installed packages"
+  command = "apt list --installed"
+  tag = ["dpkg", "debian", "ubuntu"]
+  output = ""
+
+[[snippets]]
+  description = "show all available python versions"
+  command = "pyenv install --list | l"
+  output = ""
+
+[[snippets]]
+  description = "grep ps including arguments"
+  command = "pgrep -fa"
+  output = "1234 python app.py arg1 arg2"
+

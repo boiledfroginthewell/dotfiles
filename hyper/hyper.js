@@ -12,7 +12,7 @@ module.exports = {
     fontSize: 12,
 
     // font family with optional fallbacks
-    fontFamily: 'MesloLGS NF, Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: '"MesloLGS NF", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -67,13 +67,13 @@ module.exports = {
     showWindowControls: '',
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '12px 14px',
+    padding: '12px 0',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
     // an array here instead of a color map object
     colors: {
-      black: '#000000',
+      black: '#111111',
       red: '#C51E14',
       green: '#1DC121',
       yellow: '#C7C329',
@@ -150,7 +150,7 @@ module.exports = {
     "hyper-pane",
     "hypercwd",
     "hyper-search",
-    "hyper-native-window-decoration",
+    "hypertheme-monokai",
   ],
 
   // in development, you can create a directory under
@@ -176,4 +176,22 @@ module.exports = {
     "pane:next": "",
     "pane:prev": "",
   },
+  paneNavigation: {
+    debug: false,
+    hotkeys: {
+      jump_prefix: 'ctrl+alt', // completed with 1-9 digits
+      permutation_modifier: 'shift', // Added to jump and navigation hotkeys for pane permutation
+      maximize: 'meta+enter'
+    },
+    showIndicators: true, // Show pane number
+    indicatorPrefix: '^⌥', // Will be completed with pane number
+    indicatorStyle: { // Added to indicator <div>
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      fontSize: '10px'
+    },
+    focusOnMouseHover: false,
+    inactivePaneOpacity: 0.6 // Set to 1 to disable inactive panes dimming
+  }
 };

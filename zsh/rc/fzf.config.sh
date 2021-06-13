@@ -62,14 +62,14 @@ _fzf_config_insert() {
 	fi
 
 	if [ -z "$output" ]; then
-		local output=$(
+		local -a output=($(
 			eval \
 				"${command:-fzf-default-command} ${directory:+\"${directory}\"} | \
 				fzf \
 				--height ${FZF_HEIGHT:-40%} \
 				--query \"${query}\" \
 				$FZF_CTRL_T_OPTS"
-		)
+		))
 	fi
 	if [ -z "${output}" ]; then
 		zle reset-prompt
@@ -77,8 +77,8 @@ _fzf_config_insert() {
 	fi
 
 	outputString=""
-	for item in "${output[@]}"; do
-		[ -n "$item" ] && outputString="$outputString$(<<<$item tr '\n' ' ')"
+	for item in ${output[@]}; do
+		[ -n "$item" ] && outputString="$outputString$(printf "%q " $(<<<$item tr "\n" " ") | sed 's/^\\~/~/')"
 	done
 	LBUFFER="${LBUFFER%${input_value}}${outputString}"
 	zle redisplay

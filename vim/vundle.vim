@@ -148,6 +148,7 @@ Plug 'kana/vim-submode'
 
 " diff markers in the sign column and stages/previews/undoes hunks and partial hunks.
 Plug 'airblade/vim-gitgutter'
+let g:gitgutter_diff_args = '--ignore-all-space'
 
 
 " Programming Plugins
@@ -155,6 +156,7 @@ Plug 'airblade/vim-gitgutter'
 
 " A solid language pack for Vim.
 Plug 'sheerun/vim-polyglot'
+set conceallevel=0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:polyglot_disabled = ['python-indent', 'csv']
@@ -166,12 +168,13 @@ Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
 vmap <C-k> <Plug>(caw:hatpos:toggle)
 
-" Indent
-Plug 'ciaranm/detectindent'
-augroup vimrc_indent
-	autocmd!
-	autocmd BufReadPost * :DetectIndent
-augroup END
+" ALE already supports vim-sleuth
+" " Indent
+" Plug 'ciaranm/detectindent'
+" augroup vimrc_indent
+" 	autocmd!
+" 	autocmd BufReadPost * :DetectIndent
+" augroup END
 
 " Color brackets
 Plug 'luochen1990/rainbow'
@@ -227,7 +230,9 @@ nnoremap ge e
 nnoremap gb b
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
+let g:ale_disable_lsp = 1
 Plug 'dense-analysis/ale'
+let g:ale_linters = { 'python': ['flake8', 'mypy', 'isort'] }
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
 " nmap <silent> <C-t> <Plug>(ale_previous_wrap)

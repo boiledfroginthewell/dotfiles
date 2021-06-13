@@ -1,3 +1,6 @@
 [submodule "bash/rc/forgit"]
 	path = bash/rc/forgit
 	url = https://github.com/wfxr/forgit
+[submodule "keymap/xkeysnail/xkeysnail"]
+	path = keymap/xkeysnail/xkeysnail
+	url = https://github.com/boiledfroginthewell/xkeysnail.git

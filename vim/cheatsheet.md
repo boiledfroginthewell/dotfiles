@@ -11,15 +11,11 @@ f -- 文字手前ジャンプ (like j)
 - -- 画面単語ジャンプ
 {/} -- 段落移動
 ^t/h -- インデント移動
-
 */g* -- 単語検索／置換
-<Esc><Esc> -- 検索色クリア
-
 ^w{+-<>} -- リサイズ
 :'<,'>! -- Shellコマンド置換
 
-Programming
-------------
+## Programming
 <F1> -- doc
 <F5> -- Single Compile
 <F6> -- :TestNearest
@@ -28,23 +24,21 @@ Programming
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
 
-### coc
+## coc
 gd -- Go to Definition
 gr -- References
 go -- Organize Import
 <F2> -- Rename
 <C-f> -- Format
 ,lc -- Command List
+,a -- Action
+,f -- Quick Fix
 
-Git
-------
+## Git
 ,hs -- stage hunk
 ,hu -- undo stating hunk
 
-テキストオブジェクト
-----------------------
-{w}ord
-{p}aragraph
+## テキストオブジェクト
 {b}lock ()
 {B}lock {}
 ysi{TObj}" -- "で囲む
