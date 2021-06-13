@@ -1,0 +1,23 @@
+[flake8]
+max-line-length = 120
+
+# E126: continuition line is over indented
+# E127, E128: continuation line under-indented for hanging indent
+# E225: Format
+# E302, E303, E305: blank lines
+# C0103: snake case
+ignore = C0103,
+	# E111, E114: indentation is not a multiple of four
+	E111, E114, E126, E127, E128
+	E302, E303, E305,
+	E225,
+	# E402: module level import not at top of file
+	E402,
+	# E701 multiple statements on one line
+	# E722: do not use bare 'except'
+	E701, E712, E722,
+	# W191: Indentation contains tabs 
+	W191,
+	# W391 blank line at end of file
+	W391
+

@@ -11,5 +11,19 @@
     "editor.multiCursorModifier": "alt",
     "explorer.autoReveal": "focusNoScroll",
     "editor.formatOnSaveMode": "modifications",
-    "todo-tree.tree.showScanModeButton": false
+    "todo-tree.tree.showScanModeButton": false,
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "auto-close-tag.SublimeText3Mode": true,
+    "auto-close-tag.enableAutoCloseSelfClosingTag": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "auto-close-tag.fullMode": true
 }

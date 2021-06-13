@@ -4292,6 +4292,30 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Change return to ⌘+Shift if pressed with other keys, to return if pressed alone",
+                        "manipulators": [
+                            {
+                                "from": {
+                                    "key_code": "application"
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "right_command",
+                                        "modifiers": [
+                                            "right_shift"
+                                        ]
+                                    }
+                                ],
+                                "to_if_alone": [
+                                    {
+                                        "key_code": "return_or_enter"
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
@@ -4513,16 +4537,6 @@
                     "ignore": false,
                     "manipulate_caps_lock_led": false,
                     "simple_modifications": [
-                        {
-                            "from": {
-                                "key_code": "application"
-                            },
-                            "to": [
-                                {
-                                    "key_code": "return_or_enter"
-                                }
-                            ]
-                        },
                         {
                             "from": {
                                 "key_code": "caps_lock"

@@ -1,0 +1,29 @@
+{
+  "title": "Change return and window control key",
+  "rules": [
+    {
+      "description": "Change return to ⌘+Shift if pressed with other keys, to return if pressed alone",
+      "manipulators": [
+        {
+          "from": {
+            "key_code": "application"
+          },
+          "to": [
+            {
+              "key_code": "right_command",
+              "modifiers": [
+                "right_shift"
+              ]
+            }
+          ],
+          "to_if_alone": [
+            {
+              "key_code": "return_or_enter"
+            }
+          ],
+          "type": "basic"
+        }
+      ]
+    }
+  ]
+}
