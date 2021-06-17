@@ -10,6 +10,12 @@ help() {
 	exit
 }
 
+if ! type fd &>/dev/null; then
+	echo Error: fd is not found. Install fd first.
+	exit 1
+fi
+
+
 target=""
 while getopts 't:h' ARG; do
 	case $ARG in
@@ -60,6 +66,9 @@ for x in $(fd "\.xdg_config_home(\.$OS)?" --maxdepth 2 -H); do
 	fi
 	if [ -f "$dest" ]; then
 		echo Warn: Overwriting $confname >&2
+	elif [ -d "$dest" ]; then
+		echo Warn: Overwriting $confname >&2
+		$NO_DRY_MODE rm -rf "$dest"
 	fi
 	$NO_DRY_MODE ln -sf "$CONF_DIR/$confname" "$dest"
 done
