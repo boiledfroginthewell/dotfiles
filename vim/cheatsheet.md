@@ -1,11 +1,5 @@
 :Cheat -- Vim Cheet Sheet
 ==========================
-,, -- ファイルを開く
-,r -- Grep
-,c -- コマンド一覧
-,b -- Buffer一覧
-^p -- ctrlp
-
 gm -- 行の中心にカーソル移動
 f -- 文字手前ジャンプ (like j)
 - -- 画面単語ジャンプ
@@ -37,9 +31,17 @@ go -- Organize Import
 ## Git
 ,hs -- stage hunk
 ,hu -- undo stating hunk
+[/]c -- next/previout changes
 
 ## テキストオブジェクト
 {b}lock ()
 {B}lock {}
 ysi{TObj}" -- "で囲む
+
+## Leader
+,, -- ファイルを開く
+,r -- Grep
+,c -- コマンド一覧
+,b -- Buffer一覧
+^p -- ctrlp
 
