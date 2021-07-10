@@ -47,9 +47,6 @@ let &background = ($COLOR_MODE != "" ? $COLOR_MODE : "dark")
 
 let mapleader=","
 
-" 通常のエディタにあるショートカット
-nnoremap <Space> <c-f>
-nnoremap <s-Space> <c-b>
 nnoremap <S-CR> O<esc>
 nnoremap <CR> o<esc>
 noremap <F1> K

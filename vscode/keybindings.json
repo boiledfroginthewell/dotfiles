@@ -42,5 +42,21 @@
         "key": "shift+cmd+[IntlYen]",
         "command": "-editor.action.jumpToBracket",
         "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+w t",
+        "command": "workbench.action.navigateUp"
+    },
+    {
+        "key": "ctrl+w h",
+        "command": "workbench.action.navigateDown"
+    },
+    {
+        "key": "ctrl+w d",
+        "command": "workbench.action.navigateLeft"
+    },
+    {
+        "key": "ctrl+w n",
+        "command": "workbench.action.navigateRight"
     }
 ]
