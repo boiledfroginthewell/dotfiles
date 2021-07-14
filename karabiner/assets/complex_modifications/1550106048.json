@@ -6,7 +6,10 @@
       "manipulators": [
         {
           "from": {
-            "key_code": "application"
+            "key_code": "application",
+            "modifiers": {
+              "optional": ["shift", "control"]
+            }
           },
           "to": [
             {
