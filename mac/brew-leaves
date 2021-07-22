@@ -1,0 +1,23 @@
+bat
+cantino/mcfly/mcfly
+choose-rust
+fd
+git-delta
+httpie
+hub
+jq
+knqyf263/pet/pet
+postgresql
+pyenv-virtualenv
+ripgrep
+sd
+tree
+watchman
+zplug
+
+lefthook
+
+# for mac
+coreutils
+exa
+pstree
