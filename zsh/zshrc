@@ -162,6 +162,8 @@ zplug "inishchith/autoenv", use:"activate.sh"
 export AUTOENV_AUTH_FILE="${XDG_CACHE_HOME}/autoenv/autoenv_authorized"
 export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 
+zplug "MichaelAquilina/zsh-autoswitch-virtualenv"
+
 if [[ $OSTYPE = darwin* ]]; then
 	zplug "lukechilds/zsh-nvm"
 	export NVM_COMPLETION=true
@@ -192,6 +194,7 @@ if [ -z "$enableProfiling" ] && [[ -r "${XDG_CACHE_HOME}/p10k-instant-prompt-${(
 fi
 
 # Skip the not really helping Ubuntu global compinit
+fpath+=~/.zfunc
 skip_global_compinit=1
 # cached compinit
 autoload -Uz compinit
