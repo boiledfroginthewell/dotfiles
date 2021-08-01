@@ -87,12 +87,15 @@ def switch_logical_shift_layer(action):
 def is_ls(_):
 	global logical_shift_layer
 	return logical_shift_layer
+	# return is_pressed(Key.ISO)
+	# return False
 
 define_timeout(200)
 
 define_multipurpose_modmap({
 	Key.MUHENKAN: [
 		Key.MUHENKAN,
+		# Key.ISO
 		{
 			"mod_key": Key.ISO,
 			"hook": switch_logical_shift_layer
@@ -176,7 +179,7 @@ define_conditional_modmap(
 
 define_keymap(is_ls, {
 	K("A"): K("C-a"),
-	K("S"): K("C-o"),
+	K("S"): K("C-s"),
 
 	K("Z"): K("C-z"),
 	K("X"): K("C-x"),
