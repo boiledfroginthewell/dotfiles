@@ -1,0 +1,13 @@
+# For GUI (Ubuntu desktop)
+
+> gsettings get org.gnome.desktop.input-sources sources
+[('ibus', 'mozc-jp'), ('xkb', 'jp')]
+
+---
+
+# For CLI (NB, Not works for Ubuntu Desktop)
+
+> setxkbmap -layout jp,us -variant ,
+
+> xkbcomp default.xkb ${DISPLAY:-:0}
+
