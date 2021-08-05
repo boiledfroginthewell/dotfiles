@@ -17,10 +17,12 @@ fi
 
 
 # Python (Pyenv)
-if ! echo "$OSTYPE" | grep -q "darwin"; then
+if [[ $OSTYPE != *darwin* ]]; then
 	export PYENV_ROOT="$HOME/opt/pyenv"
 else
-	PYENV_ROOT="$HOME/.pyenv"
+	export PYENV_ROOT="$HOME/.pyenv"
+	export PATH="$PYENV_ROOT/bin:$PATH"
+	eval "$(pyenv init --path)"
 fi
 [ -d "$PYENV_ROOT/shims" ] && export PATH="$PYENV_ROOT/shims:$PATH"
 
@@ -32,4 +34,8 @@ export PATH="$HOME/opt/bin:/opt/bin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 [ "$shell" = "zsh" ] && type pyenv > /dev/null && eval "$(pyenv virtualenv-init -)"
+
+if [[ $OSTYPE = *darwin* ]]; then
+	export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS/"
+fi
 
