@@ -8,7 +8,7 @@
           "from": {
             "key_code": "application",
             "modifiers": {
-              "optional": ["shift", "control"]
+              "optional": ["shift", "control", "option"]
             }
           },
           "to": [
