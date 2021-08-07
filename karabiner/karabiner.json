@@ -1,6 +1,6 @@
 {
     "global": {
-        "check_for_updates_on_startup": true,
+        "check_for_updates_on_startup": false,
         "show_in_menu_bar": true,
         "show_profile_name_in_menu_bar": false
     },
@@ -4273,27 +4273,6 @@
                         ]
                     },
                     {
-                        "description": "Change Alt+¥ to ¥",
-                        "manipulators": [
-                            {
-                                "from": {
-                                    "key_code": "international3",
-                                    "modifiers": {
-                                        "mandatory": [
-                                            "option"
-                                        ]
-                                    }
-                                },
-                                "to": [
-                                    {
-                                        "key_code": "international3"
-                                    }
-                                ],
-                                "type": "basic"
-                            }
-                        ]
-                    },
-                    {
                         "description": "Change return to ⌘+Shift if pressed with other keys, to return if pressed alone",
                         "manipulators": [
                             {
@@ -4302,7 +4281,8 @@
                                     "modifiers": {
                                         "optional": [
                                             "shift",
-                                            "control"
+                                            "control",
+                                            "option"
                                         ]
                                     }
                                 },
