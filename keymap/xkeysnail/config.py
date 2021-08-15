@@ -70,7 +70,15 @@ define_modmap({
 # Transform Combinations
 define_keymap(None, {
 	K("Shift-Key_0"): K("Shift-Yen"),
-})
+
+	K("Virtual-A"): K("C-a"),
+	K("Virtual-S"): K("C-s"),
+
+	K("Virtual-Z"): K("C-z"),
+	K("Virtual-X"): K("C-x"),
+	K("Virtual-C"): K("C-c"),
+	K("Virtual-V"): K("C-v"),
+}, name="S-0 => |")
 
 # Logical Shift
 logical_shift_layer: bool = False
@@ -177,12 +185,14 @@ define_conditional_modmap(
 	}
 )
 
-define_keymap(is_ls, {
-	K("A"): K("C-a"),
-	K("S"): K("C-s"),
+# define_keymap(is_ls, {
+# 	K("Virtual-A"): K("C-a"),
+# 	K("Virtual-S"): K("C-s"),
+# 
+# 	K("Virtual-Z"): K("C-z"),
+# 	K("Virtual-X"): K("C-x"),
+# 	K("Virtual-C"): K("C-c"),
+# 	K("Virtual-V"): K("C-v"),
+# }, 
+# name="Logical Shit (Control Key)")
 
-	K("Z"): K("C-z"),
-	K("X"): K("C-x"),
-	K("C"): K("C-c"),
-	K("V"): K("C-v"),
-})
