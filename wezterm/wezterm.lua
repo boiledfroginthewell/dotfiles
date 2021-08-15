@@ -8,13 +8,14 @@ keys = {
 	-- Pane Operations
 	{key="\"", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
 	{key="%", mods="CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+	{key="w", mods="CTRL", action=wezterm.action{CloseCurrentTab={confirm=false}}},
 }
-if not is_gnome_shell then
-	table.insert(keys, { key = "d", mods="ALT", action=wezterm.action{ActivatePaneDirection="Left"}})
-	table.insert(keys, { key = "h", mods="ALT", action=wezterm.action{ActivatePaneDirection="Down"}})
-	table.insert(keys, { key = "t", mods="ALT", action=wezterm.action{ActivatePaneDirection="Up"}})
-	table.insert(keys, { key = "n", mods="ALT", action=wezterm.action{ActivatePaneDirection="Right"}})
-end
+-- if not is_gnome_shell then
+	table.insert(keys, { key = "LeftArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Left"}})
+	table.insert(keys, { key = "DownArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Down"}})
+	table.insert(keys, { key = "UpArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Up"}})
+	table.insert(keys, { key = "RightArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Right"}})
+-- end
 
 
 
