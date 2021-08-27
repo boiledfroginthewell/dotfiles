@@ -58,5 +58,13 @@
     {
         "key": "ctrl+w n",
         "command": "workbench.action.navigateRight"
+    },
+    {
+        "key": "ctrl+e",
+        "command": "scrollLineDown"
+    },
+    {
+        "key": "ctrl+u",
+        "command": "scrollLineUp"
     }
 ]
