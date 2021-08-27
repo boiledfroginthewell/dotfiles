@@ -1,46 +1,49 @@
 {
-    "workbench.tree.indent": 18,
-    "editor.minimap.enabled": false,
-    "eslint.alwaysShowStatus": true,
-    "eslint.lintTask.enable": true,
-    "editor.renderWhitespace": "trailing",
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "extensions.ignoreRecommendations": false,
-    "workbench.editor.enablePreview": false,
-    "editor.multiCursorModifier": "alt",
-    "explorer.autoReveal": "focusNoScroll",
-    "editor.formatOnSaveMode": "modifications",
-    "[typescript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescriptreact]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "files.trimFinalNewlines": true,
-    "files.trimTrailingWhitespace": true,
-    "auto-close-tag.SublimeText3Mode": true,
-    "auto-close-tag.enableAutoCloseSelfClosingTag": true,
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "auto-close-tag.fullMode": true,
-    "cSpell.userWords": [
-        "Scrollable",
-        "YYYYMMDD",
-        "callbackify",
-        "csrf",
-        "postgres",
-        "upsert"
-    ],
-    "hadolint.hadolintPath": "/usr/local/bin/hadolint",
-    "[jsonc]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "terminal.integrated.fontSize": 13,
-    "terminal.integrated.fontFamily": "MesloLGS NF",
-    "workbench.colorCustomizations": {
-        "tab.activeBorder": "#4586ff",
-        "tab.activeBackground": "#4A4A4A",
-    },
-    "html.autoClosingTags": false
+  "workbench.tree.indent": 18,
+  "editor.minimap.enabled": false,
+  "eslint.alwaysShowStatus": true,
+  "eslint.lintTask.enable": true,
+  "editor.renderWhitespace": "trailing",
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "extensions.ignoreRecommendations": false,
+  "workbench.editor.enablePreview": false,
+  "editor.multiCursorModifier": "alt",
+  "explorer.autoReveal": "focusNoScroll",
+  "editor.formatOnSaveMode": "modifications",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "auto-close-tag.SublimeText3Mode": true,
+  "auto-close-tag.enableAutoCloseSelfClosingTag": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "auto-close-tag.fullMode": true,
+  "cSpell.userWords": [
+    "scrollable",
+    "YYYYMMDD",
+    "callbackify",
+    "csrf",
+    "postgres",
+    "upsert"
+  ],
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "terminal.integrated.fontSize": 13,
+  "terminal.integrated.fontFamily": "MesloLGS NF",
+  "workbench.colorCustomizations": {
+    "tab.activeBorder": "#4586ff",
+    "tab.activeBackground": "#4A4A4A",
+    "editor.lineHighlightBackground": "#FFFFFF1A",
+  },
+  "html.autoClosingTags": false
 }
