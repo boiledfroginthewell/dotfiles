@@ -47,5 +47,6 @@
   },
   "html.autoClosingTags": false,
   "typescript.autoClosingTags": false,
-  "emmet.showExpandedAbbreviation": "never"
+  "emmet.showExpandedAbbreviation": "never",
+  "editor.bracketPairColorization.enabled": true
 }
