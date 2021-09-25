@@ -45,5 +45,8 @@
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
   },
-  "html.autoClosingTags": false
+  "html.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "emmet.showExpandedAbbreviation": "never",
+  "editor.bracketPairColorization.enabled": true
 }

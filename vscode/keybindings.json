@@ -66,5 +66,26 @@
     {
         "key": "ctrl+u",
         "command": "scrollLineUp"
+    },
+    {
+        "key": "alt+h",
+        "command": "cursorMove",
+        "args": {
+            "to": "viewPortTop"
+        }
+    },
+    {
+        "key": "alt+m",
+        "command": "cursorMove",
+        "args": {
+            "to": "viewPortCenter"
+        }
+    },
+    {
+        "key": "alt+l",
+        "command": "cursorMove",
+        "args": {
+            "to": "viewPortBottom"
+        }
     }
 ]
