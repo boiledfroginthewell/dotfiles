@@ -1,0 +1,20 @@
+#Mon Sep 27 18:30:22 JST 2021
+\!/=
+/instance/org.eclipse.core.resources/version=1
+/instance/org.eclipse.ui.editors/SQLEditor.extraPanels.ratio=500-500
+/instance/org.eclipse.ui.editors/SQLEditor.resultSet.ratio=500-500
+/instance/org.eclipse.ui.workbench//org.eclipse.ui.commands/state/org.eclipse.ui.navigator.resources.nested.changeProjectPresentation/org.eclipse.ui.commands.radioState=false
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_END=255,255,255
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_BG_START=255,255,255
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.ACTIVE_NOFOCUS_TAB_TEXT_COLOR=16,16,16
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.ACTIVE_TAB_BG_END=255,255,255
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.ACTIVE_TAB_BG_START=230,230,230
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.INACTIVE_TAB_BG_END=255,255,255
+/instance/org.eclipse.ui.workbench/org.eclipse.ui.workbench.INACTIVE_TAB_BG_START=240,240,240
+/instance/org.eclipse.urischeme/processedSchemes=,eclipse+command
+/instance/org.jkiss.dbeaver.core/SQLEditor.format.keywordCaseAuto=false
+/instance/org.jkiss.dbeaver.core/org.jkiss.dbeaver.core.confirm.exit=always
+/instance/org.jkiss.dbeaver.core/tipOfTheDayInitializer.notFirstRun=true
+/instance/org.jkiss.dbeaver.core/ui.auto.update.check.time=1632734983896
+/instance/org.jkiss.dbeaver.core/ui.show.tip.of.the.day.on.startup=false
+file_export_version=3.0
