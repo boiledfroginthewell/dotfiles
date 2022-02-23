@@ -1,0 +1,76 @@
+#| --------------------------------------------------------------------------
+
+(deflayer <layerName>
+  _    _    _    _    _    _    _    _    _    _    _    _    _              _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _         _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _         _              _
+  _    _    _    _         _              _    _    _    _    _    _         _    _    _
+)
+
+  -------------------------------------------------------------------------- |#
+
+(defcfg
+  ;; For Linux
+  ;;input  (device-file "/dev/input/by-id/usb-www.BeyondQ.com_DuMang_KeyBoard_DK6_05D6FF313431474843257220-event-kbd") ;; Dumang_left
+  ;;input  (device-file "/dev/input/by-id/usb-www.BeyondQ.com_DuMang_KeyBoard_DK6_05D8FF303037484843148234-event-kbd") ;; Dumang_right
+
+  ;;input  (device-file "/dev/input/by-id/usb-0566_3107-event-kbd")
+  input  (device-file "%INPUT_DEVICE_FILE%")
+
+  output (uinput-sink "My KMonad output")
+  fallthrough true
+)
+
+
+;; Aliases for logical bit pairing (Japanes keyboard symbols) instead of type writer pairing (US keyboard symbols)
+(defalias
+  JP^ =
+  JP@ [
+  JP[ ]
+  JP: '
+  JP] \
+  JP\ /
+)
+(defalias bar S-KeyYen)
+
+;; :timeout-button is not supported in v0.4.1
+;; (defalias s&s (tap-hold-next 150 spc rsft :timeout-button spc))
+
+;; SandS
+(defalias s&s (tap-hold-next 500 spc rsft))
+(defalias rmt (tap-hold-next 300 ret rmet))
+
+;; Henkan and Muhenkan keys
+(defalias lgs (layer-toggle logical-shift))
+(defalias lmh (tap-hold-next 300 KeyMuhenkan @lgs))
+(defalias chn (tap-hold-next 300 KeyHenkan rctl))
+
+(defsrc
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12           ssrq slck pause
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc     ins  home pgup
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret      del  end  pgdn
+  caps a    s    d    f    g    h    j    k    l    ;    '    \
+  lsft z    x    c    v    b    n    m    ,    .    /    102d      rsft            up
+  lctl lmet lalt KeyMuhenkan spc KeyHenkan KeyKatakana ralt rmet cmp rctl   left down rght
+)
+
+(deflayer dvorak
+  _    _    _    _    _    _    _    _    _    _    _    _    _              _    _    _
+  XX   1    2    3    4    5    6    7    8    9    0    @JP@ _    _         _    _    _
+  tab  @JP: ,    .    p    y    f    g    c    r    l    /    _    _         _    _    _
+  bspc a    o    e    u    i    d    h    t    n    s    min  _
+  lsft ;    q    j    k    x    b    m    w    v    z    _         _              _
+  _    _    _    @lmh      @s&s           @chn ralt _    _    @rmt _         _    _    _
+)
+
+(deflayer logical-shift
+  _    _    _    _    _    _    _    _    _    _    _    _    _              _    _    _
+  _    f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  _         _    _    _
+  _    esc  del  home  end _    _    _    ret  _    @bar _    _    _         _    _    _
+  _    C-a  C-s  pgup pgdn _    left down up   rght _    _    _
+  _    C-z  C-x  C-c  C-v  _    _    _    _    _    _    _         _              _
+  _    _    _    _         _              _    _    _    _    _    _         _    _    _
+)
+
