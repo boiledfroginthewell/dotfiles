@@ -13,11 +13,14 @@
 	name = boiledfroginthewell
 	email = boiledfroginthewell@users.noreply.github.com
 
-[include]
-	path = ./userconfig
-
 [log]
 	follow = true
 
 [hub]
 	protocol = https
+
+[include]
+	path = ./userconfig
+
+[init]
+	defaultBranch = main
