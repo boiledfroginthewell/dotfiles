@@ -9,6 +9,11 @@
   output = ""
 
 [[snippets]]
+  description = "Show file content of a git revision."
+  command = "git cat-file -p <revision=HEAD>:<path>"
+  output = ""
+
+[[snippets]]
   description = "Unique without sort"
   command = "awk '!x[$0]++'"
   output = ""

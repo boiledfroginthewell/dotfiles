@@ -98,7 +98,7 @@ def is_ls(_):
 	# return is_pressed(Key.ISO)
 	# return False
 
-define_timeout(200)
+define_timeout(50)
 
 define_multipurpose_modmap({
 	Key.MUHENKAN: [
