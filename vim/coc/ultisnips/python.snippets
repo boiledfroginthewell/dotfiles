@@ -1,0 +1,22 @@
+snippet plot "Plot with matplotlib" b
+fig, ax = plt.subplots()
+ax.plot(${1:x}, ${2:y})
+endsnippet
+
+snippet plotly "Plot with Plotly" b
+import plotly.express as px
+fig = px.scatter(${1:df or x=[], y=[] or y=[[], []]})
+fig.show()
+endsnippet
+
+snippet plotbokeh "Plot with Bokeh" b
+from bokeh.plotting import figure, show
+p = figure()
+p.line(${1:x}, ${2:y})
+show(p)
+endsnippet
+
+snippet debug "Start debugger" b
+import pdb; pdb.set_trace()
+endsnippet
+
