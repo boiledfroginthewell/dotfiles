@@ -276,6 +276,9 @@ Plug 'jceb/vim-hier', {'for': ['c', 'cpp']}
 Plug 'rhysd/vim-fixjson', {'for': 'json'}
 let g:fixjson_fix_on_save = 0
 
+" ### KMonad
+Plug 'kmonad/kmonad-vim'
+
 call plug#end()
 
 if isdirectory(s:vim_plug_dir . '/vim-textobj-user')
