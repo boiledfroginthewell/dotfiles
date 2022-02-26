@@ -28,9 +28,15 @@ l() {
 		eval ${LS_COMMAND:-ls} "${opt[@]}"
 	elif [ -d "$1" ]; then
 		eval ${LS_COMMAND:-ls} "${opt[@]}" "\"$1\""
-	elif [ -n "$(file --mime "$(eval $READLINK_COMMAND "$1")" | grep -e 'charset=binary' | grep -v x-empty)" ]; then
-		eval ${OPEN_COMMAND:-open} "${opt[@]}" "\"$1\""
 	else
-		eval ${LESS_COMMAND:-less} "${opt[@]}" "\"$1\""
+		local mime="$(file --mime "$(eval $READLINK_COMMAND "$1")")"
+		if [[ $mime == *image/* ]]; then
+			eval ${IMAGE_VIEWER} "${opt[@]}" "\"$1\""
+		elif [[ $mime == *charset=binary* ]] && [[ $mime != *x-empty* ]]; then
+			eval ${OPEN_COMMAND:-open} "${opt[@]}" "\"$1\""
+		else
+			eval ${LESS_COMMAND:-less} "${opt[@]}" "\"$1\""
+		fi
 	fi
 }
+
