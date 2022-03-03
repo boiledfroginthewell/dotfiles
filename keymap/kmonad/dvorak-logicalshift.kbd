@@ -39,7 +39,8 @@
 ;; (defalias s&s (tap-hold-next 150 spc rsft :timeout-button spc))
 
 ;; SandS
-(defalias s&s (tap-hold-next 500 spc rsft))
+(defalias s&s rsft)
+;; (defalias s&s (tap-hold-next 500 spc rsft))
 (defalias rmt (tap-hold-next 300 ret rmet))
 
 ;; Henkan and Muhenkan keys
