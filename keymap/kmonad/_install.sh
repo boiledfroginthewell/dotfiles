@@ -12,3 +12,8 @@ ln -sf "$dir" "$XDG_CONFIG_HOME/"
 cp "$dir/kmonad.service" "$XDG_CONFIG_HOME/systemd/user/"
 systemctl enable --user kmonad
 
+wait 1
+if systemd is-active --user kmonad.service --quiet; then
+	systemd restart --user kmonad.service
+fi
+

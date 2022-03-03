@@ -27,6 +27,10 @@ for x in /sys/devices/virtual/input/input*; do
 	fi
 done
 
+# start xcape for better SandS
+pkill xcape
+xcape -t 200 -e '#62=space'
+
 # start kmonad
 < "$cdir/dvorak-logicalshift.kbd" sed "s:%INPUT_DEVICE_FILE%:$devFile:" > "$cdir/.rendered.kbd"
 kmonad "$cdir/.rendered.kbd"
