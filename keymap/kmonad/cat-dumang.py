@@ -12,7 +12,7 @@ device_paths = sys.argv[1:]
 if not device_paths:
 	print("Error: No devices are specified")
 	sys.exit(1)
-devices: List[evdev.InputDevice] = [evdev.InputDevice(x) for x in device_paths]
+devices = [evdev.InputDevice(x) for x in device_paths]
 
 
 def sands(event: evdev.events.InputEvent, ui: evdev.UInput) -> bool:
