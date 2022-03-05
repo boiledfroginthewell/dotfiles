@@ -39,8 +39,15 @@
 ;; (defalias s&s (tap-hold-next 150 spc rsft :timeout-button spc))
 
 ;; SandS
-(defalias s&s (tap-hold-next 500 spc rsft))
-(defalias rmt (tap-hold-next 300 ret rmet))
+;; (defalias s&s rsft)
+;; (defalias s&s (tap-hold-next 141 spc rsft))
+;; original ones does not work with the following sequence (spc disappears): Pa Pspc Ra Rspc
+;; (defalias s&s (tap-hold-next-release 141 spc rsft))
+;; https://github.com/kmonad/kmonad/issues/407#issuecomment-966527870
+(defalias s&s (tap-hold-next-release 141 spc (tap-hold-next 40 spc rsft)))
+
+;; (defalias rmt (tap-hold-next 300 ret rmet))
+(defalias rmt (tap-hold-next-release 300 ret (tap-hold-next 10 ret rmet)))
 
 ;; Henkan and Muhenkan keys
 (defalias lgs (layer-toggle logical-shift))
@@ -73,4 +80,3 @@
   _    C-z  C-x  C-c  C-v  _    _    _    _    _    _    _         _              _
   _    _    _    _         _              _    _    _    _    _    _         _    _    _
 )
-

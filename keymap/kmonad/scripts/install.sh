@@ -2,7 +2,7 @@
 
 set -e
 
-dir=$(cd $(dirname $0); pwd)
+dir=$(cd $(dirname $(dirname $0)); pwd)
 ln -sf "$dir" "$XDG_CONFIG_HOME/"
 
 # "$dir/build.sh"
@@ -11,4 +11,9 @@ ln -sf "$dir" "$XDG_CONFIG_HOME/"
 # systemctl enable --user kmonad@dumang_left
 cp "$dir/kmonad.service" "$XDG_CONFIG_HOME/systemd/user/"
 systemctl enable --user kmonad
+
+sleep 1
+if systemctl is-active --user kmonad.service --quiet; then
+	systemctl restart --user kmonad.service
+fi
 
