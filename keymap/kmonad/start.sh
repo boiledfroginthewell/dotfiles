@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# set -e
-
 cdir="$(dirname $0)"
 
 # eval "$(pyenv init -)"
@@ -30,6 +28,10 @@ for x in /sys/devices/virtual/input/input*; do
 		break
 	fi
 done
+if [ -z "$devFile" ]; then
+	echo No device file was found >&2
+	exit 1
+fi
 
 # start xcape for better SandS
 # pkill xcape

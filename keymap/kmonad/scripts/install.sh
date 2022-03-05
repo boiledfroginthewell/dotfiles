@@ -2,7 +2,7 @@
 
 set -e
 
-dir=$(cd $(dirname $0); pwd)
+dir=$(cd $(dirname $(dirname $0)); pwd)
 ln -sf "$dir" "$XDG_CONFIG_HOME/"
 
 # "$dir/build.sh"
