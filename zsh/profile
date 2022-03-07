@@ -2,7 +2,8 @@
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
 # This file is not read when logged in with X window system, where it does not have interactive shell.
-# Note: this file is also read when ssh login.
+# Note: To read this file on X window login, souce this in ~/.xsessinrc. In this case, bsh is used instead of the login shell.
+# Note: this file is read when ssh login.
 
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_DATA_HOME="${HOME}/.local/share"
@@ -10,14 +11,14 @@ export XDG_CACHE_HOME="${HOME}/.cache"
 
 
 # # Node.js (NVM)
-if [[ $OSTYPE != darwin* ]]; then
+if ! echo $OSTYPE | grep -q darwin; then
 	export NVM_DIR="$XDG_CONFIG_HOME/nvm"
 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 fi
 
 
 # Python (Pyenv)
-if [[ $OSTYPE != *darwin* ]]; then
+if ! echo $OSTYPE | grep -q darwin; then
 	export PYENV_ROOT="$HOME/opt/pyenv"
 else
 	export PYENV_ROOT="$HOME/.pyenv"
