@@ -1,4 +1,5 @@
 [
+    // Common Bindings
     {
         "key": "ctrl+tab",
         "command": "workbench.action.nextEditor"
@@ -6,14 +7,6 @@
     {
         "key": "ctrl+shift+tab",
         "command": "workbench.action.previousEditor"
-    },
-    {
-        "key": "cmd+[Minus]",
-        "command": "findThenJump.initiate"
-    },
-    {
-        "key": "cmd+shift+[Minus]",
-        "command": "findThenJump.initiateWithSelection"
     },
     {
         "key": "ctrl+pagedown",
@@ -34,6 +27,53 @@
         "command": "workbench.action.previousEditor"
     },
     {
+        "key": "shift+alt+up",
+        "command": "editor.action.copyLinesUpAction",
+    },
+    {
+        "key": "shift+alt+down",
+        "command": "editor.action.copyLinesDownAction",
+    },
+    { "key": "ctrl+alt+up", "command": "editor.action.insertCursorAbove" },
+    { "key": "ctrl+alt+down", "command": "editor.action.insertCursorBelow" },
+    {
+        "key": "f1",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "editor.action.formatDocument",
+        "when": "!editorHasSelection"
+    },
+    {
+        "key": "shift+alt+f",
+        "command": "editor.action.formatSelection",
+        "when": "editorHasSelection"
+    },
+
+    // VScode
+    {
+        "key": "ctrl+[Equal]",
+        "command": "workbench.action.focusActiveEditorGroup",
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.focus",
+        "when": "editorFocus"
+    },
+
+    // Vim-like Bindings
+    { "key": "cmd+[Minus]", "command": "findThenJump.initiate" },
+    { "key": "ctrl+[Minus]", "command": "findThenJump.initiate" },
+    { "key": "cmd+shift+[Minus]", "command": "findThenJump.initiateWithSelection" },
+    { "key": "ctrl+shift+[Minus]", "command": "findThenJump.initiateWithSelection" },
+    {
         "key": "alt+5",
         "command": "editor.action.jumpToBracket",
         "when": "editorTextFocus"
@@ -43,22 +83,10 @@
         "command": "-editor.action.jumpToBracket",
         "when": "editorTextFocus"
     },
-    {
-        "key": "ctrl+w t",
-        "command": "workbench.action.navigateUp"
-    },
-    {
-        "key": "ctrl+w h",
-        "command": "workbench.action.navigateDown"
-    },
-    {
-        "key": "ctrl+w d",
-        "command": "workbench.action.navigateLeft"
-    },
-    {
-        "key": "ctrl+w n",
-        "command": "workbench.action.navigateRight"
-    },
+    { "key": "alt+d", "command": "workbench.action.focusLeftGroup" },
+    { "key": "alt+h", "command": "workbench.action.focusBelowGroup" },
+    { "key": "alt+t", "command": "workbench.action.focusAboveGroup" },
+    { "key": "alt+n", "command": "workbench.action.focusRightGroup" },
     {
         "key": "ctrl+e",
         "command": "scrollLineDown"
@@ -87,5 +115,12 @@
         "args": {
             "to": "viewPortBottom"
         }
+    },
+
+    // Python
+    {
+        "key": "ctrl+alt+enter",
+        "command": "jupyter.runallcellsabove.palette",
+        "when": "editorLangId == 'python'",
     }
 ]
