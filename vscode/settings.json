@@ -1,43 +1,37 @@
 {
-  "workbench.tree.indent": 18,
-  "editor.minimap.enabled": false,
-  "eslint.alwaysShowStatus": true,
-  "eslint.lintTask.enable": true,
-  "editor.renderWhitespace": "trailing",
   "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.formatOnSaveMode": "modifications",
+  "editor.suggest.localityBonus": true,
+  "editor.minimap.enabled": false,
+  "editor.multiCursorModifier": "alt",
+  "editor.renderWhitespace": "trailing",
+  "editor.tabCompletion": "on",
+  "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?_",
+  "explorer.autoReveal": "focusNoScroll",
+  "explorer.confirmDragAndDrop": false,
   "extensions.ignoreRecommendations": false,
   "workbench.editor.enablePreview": false,
-  "editor.multiCursorModifier": "alt",
-  "explorer.autoReveal": "focusNoScroll",
-  "editor.formatOnSaveMode": "modifications",
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
+  "workbench.tree.indent": 18,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
-  "auto-close-tag.SublimeText3Mode": true,
-  "auto-close-tag.enableAutoCloseSelfClosingTag": true,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "files.exclude": {
+    "**/__pycache__": true,
+    "**/.vim": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.ipynb_checkpoints": true,
   },
-  "auto-close-tag.fullMode": true,
   "cSpell.userWords": [
-    "scrollable",
-    "YYYYMMDD",
     "callbackify",
     "csrf",
+    "ipython",
+    "noreferrer",
     "postgres",
-    "upsert"
+    "scrollable",
+    "upsert",
+    "YYYYMMDD"
   ],
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "files.trimTrailingWhitespace": false
-  },
+  // Theme
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontFamily": "MesloLGS NF",
   "workbench.colorCustomizations": {
@@ -45,8 +39,42 @@
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
   },
+  "editor.bracketPairColorization.enabled": true,
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+
+  // HTML / JSX
+  "auto-close-tag.SublimeText3Mode": true,
+  "auto-close-tag.enableAutoCloseSelfClosingTag": true,
+  "auto-close-tag.fullMode": true,
   "html.autoClosingTags": false,
   "typescript.autoClosingTags": false,
   "emmet.showExpandedAbbreviation": "never",
-  "editor.bracketPairColorization.enabled": true
+
+  // JavaScriptp / TypeScript
+  "eslint.alwaysShowStatus": true,
+  "eslint.lintTask.enable": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.commandsToSkipShell": [
+    "language-julia.interrupt"
+  ],
+
+  // python
+  "jupyter.askForKernelRestart": false,
+  "python.analysis.typeCheckingMode": "basic",
+
+  "julia.symbolCacheDownload": true,
 }
