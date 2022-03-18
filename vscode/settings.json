@@ -11,6 +11,7 @@
   "explorer.confirmDragAndDrop": false,
   "extensions.ignoreRecommendations": false,
   "workbench.editor.enablePreview": false,
+  "workbench.editor.closeEmptyGroups": false,
   "workbench.tree.indent": 18,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
@@ -38,6 +39,7 @@
     "tab.activeBorder": "#4586ff",
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
+    "editorWhitespace.foreground": "#00CC00",
   },
   "editor.bracketPairColorization.enabled": true,
 
@@ -45,7 +47,8 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[markdown]": {
-    "files.trimTrailingWhitespace": false
+    "files.trimTrailingWhitespace": false,
+    "editor.formatOnSave": false,
   },
 
   // HTML / JSX
