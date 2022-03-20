@@ -3,9 +3,8 @@ local wezterm = require 'wezterm';
 local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
 keys = {
-	-- {key="PageUp", mods="CTRL", action=wezterm.action{ActivateTabRelative=-1}},
-	-- {key="PageDown", mods="CTRL", action=wezterm.action{ActivateTabRelative=1}},
 	-- Pane Operations
+	-- " and % mapping doesn't work. But the default CTRL|SHIFT|ALT mods works.
 	{key="\"", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
 	{key="%", mods="CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
 	{key="w", mods="CTRL|SHIFT", action=wezterm.action{CloseCurrentTab={confirm=false}}},
@@ -37,6 +36,7 @@ return {
 
 	colors = {
 		split = "#4444AA",
+		compose_cursor = "orange",
 	},
 	inactive_pane_hsb = {
 		saturation = 0.7,
