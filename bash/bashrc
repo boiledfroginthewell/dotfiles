@@ -10,6 +10,7 @@ export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 CONF_DIR=${XDG_CONFIG_HOME}/bash
 
 source "${CONF_DIR}/ps1.sh"
+export LANG=ja_JP.UTF-8
 
 # History Configuration
 # ----------------------------
@@ -80,6 +81,10 @@ alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 alias rg="rg --smart-case"
+alias g="git status"
+if type hub &> /dev/null; then
+	alias git=hub
+fi
 if [ "$COLOR_MODE" = "light" ]; then
 	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
 else
