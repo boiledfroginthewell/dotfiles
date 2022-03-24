@@ -1,20 +1,20 @@
 [core]
 	autocrlf = input
 	pager = delta $DELTA_DEFAULT_OPTION
+	quotepath = false
 
 [alias]
-	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(cyan)@%ad, %h' --date=short
+	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' '--date=format-local:%Y-%m-%d %H:%M'
 	st = status
 
 [diff]
   algorithm = histogram
 
-[user]
-	name = boiledfroginthewell
-	email = boiledfroginthewell@users.noreply.github.com
-
 [log]
 	follow = true
+
+[init]
+	defaultBranch = main
 
 [hub]
 	protocol = https
@@ -22,5 +22,3 @@
 [include]
 	path = ./userconfig
 
-[init]
-	defaultBranch = main
