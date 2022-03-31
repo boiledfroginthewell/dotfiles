@@ -13,6 +13,6 @@ fi
 SOURCE=$(cygpath -w "$SOURCE")
 DEST=$(cygpath -w "$DEST")
 
-
-cmd //C "cd $(cygpath -w "$PWD") && mklink /J \"$DEST\" \"$SOURCE\"" 2>&1 | nkf -w
+cmd //C "cd $(cygpath -w "$PWD") && mklink /J $DEST $SOURCE" 2>&1
+# | nkf -w
 

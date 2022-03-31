@@ -1,0 +1,23 @@
+#!/bin/bash -x
+
+if type hub &> /dev/null; then
+	hub sync
+	exit
+fi
+
+# currentBranch="$(git branch --show-current)"
+currentBranch="$(git symbolic-ref --short HEAD)"
+git fetch -q
+
+branches="main"
+
+for x in $branches; do
+	if git rev-parse --verify $x &> /dev/null; then
+		if [ "$currentBranch" = "$x" ]; then
+			git merge --ff-only origin/$x
+		else
+			git push --no-verify . origin/$x:$x
+		fi
+	fi
+done
+
