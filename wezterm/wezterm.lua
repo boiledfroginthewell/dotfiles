@@ -5,8 +5,8 @@ local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 keys = {
 	-- Pane Operations
 	-- " and % mapping doesn't work. But the default CTRL|SHIFT|ALT mods works.
-	{key="\"", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
-	{key="%", mods="CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+	{key="\"", mods="CTRL|SHIFT", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+	{key="%", mods="CTRL|SHIFT", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
 	{key="w", mods="CTRL|SHIFT", action=wezterm.action{CloseCurrentTab={confirm=false}}},
 	{ key="LeftArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Left"}},
 	{ key="DownArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Down"}},
@@ -16,6 +16,7 @@ keys = {
 	-- Copy & Paste
 	{key="C", mods="CTRL|SHIFT", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
 	{key="V", mods="CTRL|SHIFT", action=wezterm.action{PasteFrom="Clipboard"}},
+	{key="-", mods="CTRL", action="QuickSelect"},
 	-- {key="V", mods="CTRL|SHIFT", action=wezterm.action{PasteFrom="PrimarySelection"}},
 }
 
@@ -43,4 +44,9 @@ return {
 		brightness = 0.53,
 	},
 	keys = keys,
+
+	window_padding = {
+		left = 0,
+		right = 0,
+	},
 }

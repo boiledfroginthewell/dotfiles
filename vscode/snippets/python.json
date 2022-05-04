@@ -25,7 +25,7 @@
   "If main": {
     "prefix": "main",
     "body": [
-      "if __name__ == \"__main__\":",
+      "if __name__ == \"__main__\" and \"__file__\" in globals():",
       " ",
     ],
     "description": "Insert if __name__ == \"__main__\""
