@@ -279,6 +279,9 @@ let g:fixjson_fix_on_save = 0
 " ### KMonad
 Plug 'kmonad/kmonad-vim'
 
+" ### Linux
+Plug 'wgwoods/vim-systemd-syntax'
+
 call plug#end()
 
 if isdirectory(s:vim_plug_dir . '/vim-textobj-user')
