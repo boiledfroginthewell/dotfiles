@@ -1,5 +1,7 @@
 [Unit]
-Description=kmonad keyboard config (%I)
+Description=Kmonad keyboard config
+BindsTo=dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D6FF313431474843257220\x2devent\x2dkbd.device dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D8FF303037484843148234\x2devent\x2dkbd.device
+OnFailure=failure-handler@%N.service
 
 [Service]
 Restart=always
@@ -11,3 +13,4 @@ Nice=-20
 
 [Install]
 WantedBy=default.target
+
