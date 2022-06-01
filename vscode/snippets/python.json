@@ -29,5 +29,13 @@
       " ",
     ],
     "description": "Insert if __name__ == \"__main__\""
+  },
+  "Plotly": {
+    "prefix": "plot",
+    "description": "Plot line figure with plotly",
+    "body": [
+      // "import plotly.express as px",
+      "px.line(df)"
+    ],
   }
 }

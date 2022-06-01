@@ -4,7 +4,7 @@
   "editor.suggest.localityBonus": true,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "alt",
-  "editor.renderWhitespace": "trailing",
+  "editor.renderWhitespace": "boundary",
   "editor.tabCompletion": "on",
   "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?_",
   "explorer.autoReveal": "focusNoScroll",
@@ -39,9 +39,12 @@
     "tab.activeBorder": "#4586ff",
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
-    "editorWhitespace.foreground": "#00CC00",
+    // "editorWhitespace.foreground": "#00CC00",
   },
   "editor.bracketPairColorization.enabled": true,
+  "trailing-spaces.regexp": "[ \t　]+",
+  "trailing-spaces.backgroundColor": "rgba(0,255,0,0.15)",
+  "trailing-spaces.borderColor": "rgba(100, 255,100,0.2)",
 
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
