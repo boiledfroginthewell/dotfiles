@@ -3,11 +3,10 @@ local wezterm = require 'wezterm';
 local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
 keys = {
-	-- {key="PageUp", mods="CTRL", action=wezterm.action{ActivateTabRelative=-1}},
-	-- {key="PageDown", mods="CTRL", action=wezterm.action{ActivateTabRelative=1}},
 	-- Pane Operations
-	{key="\"", mods="CTRL", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
-	{key="%", mods="CTRL", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
+	-- " and % mapping doesn't work. But the default CTRL|SHIFT|ALT mods works.
+	{key="\"", mods="CTRL|SHIFT", action=wezterm.action{SplitHorizontal={domain="CurrentPaneDomain"}}},
+	{key="%", mods="CTRL|SHIFT", action=wezterm.action{SplitVertical={domain="CurrentPaneDomain"}}},
 	{key="w", mods="CTRL|SHIFT", action=wezterm.action{CloseCurrentTab={confirm=false}}},
 	{ key="LeftArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Left"}},
 	{ key="DownArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Down"}},
@@ -17,6 +16,7 @@ keys = {
 	-- Copy & Paste
 	{key="C", mods="CTRL|SHIFT", action=wezterm.action{CopyTo="ClipboardAndPrimarySelection"}},
 	{key="V", mods="CTRL|SHIFT", action=wezterm.action{PasteFrom="Clipboard"}},
+	{key="-", mods="CTRL", action="QuickSelect"},
 	-- {key="V", mods="CTRL|SHIFT", action=wezterm.action{PasteFrom="PrimarySelection"}},
 }
 
@@ -37,10 +37,16 @@ return {
 
 	colors = {
 		split = "#4444AA",
+		compose_cursor = "orange",
 	},
 	inactive_pane_hsb = {
 		saturation = 0.7,
 		brightness = 0.53,
 	},
 	keys = keys,
+
+	window_padding = {
+		left = 0,
+		right = 0,
+	},
 }

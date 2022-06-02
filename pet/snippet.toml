@@ -145,3 +145,12 @@
   command = "pgrep -fa"
   output = "1234 python app.py arg1 arg2"
 
+[[snippets]]
+  description = "show systemd's user unit log"
+  command = "journalctl --user-unit kmonad"
+  output = ""
+
+[[snippets]]
+  description = "restart systemd's user unit"
+  command = "systemctl restart --user kmonad.service"
+  output = ""

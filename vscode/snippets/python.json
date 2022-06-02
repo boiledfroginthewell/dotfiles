@@ -25,9 +25,17 @@
   "If main": {
     "prefix": "main",
     "body": [
-      "if __name__ == \"__main__\":",
+      "if __name__ == \"__main__\" and \"__file__\" in globals():",
       " ",
     ],
     "description": "Insert if __name__ == \"__main__\""
+  },
+  "Plotly": {
+    "prefix": "plot",
+    "description": "Plot line figure with plotly",
+    "body": [
+      // "import plotly.express as px",
+      "px.line(df)"
+    ],
   }
 }

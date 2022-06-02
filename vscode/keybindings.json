@@ -122,5 +122,33 @@
         "key": "ctrl+alt+enter",
         "command": "jupyter.runallcellsabove.palette",
         "when": "editorLangId == 'python'",
-    }
+    },{
+        "key": "ctrl+j b",
+        "command": "jupyter.insertCellBelow",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j a",
+        "command": "jupyter.insertCellAbove",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j h",
+        "command": "jupyter.gotoNextCellInFile",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j t",
+        "command": "jupyter.gotoPrevCellInFile",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j x",
+        "command": "jupyter.deleteCells",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j m",
+        "command": "jupyter.changeCellToMarkdown",
+        "when": "editorLangId == 'python'",
+    },{
+        "key": "ctrl+j c",
+        "command": "jupyter.changeCellToCode",
+        "when": "editorLangId == 'python'",
+    },
 ]
