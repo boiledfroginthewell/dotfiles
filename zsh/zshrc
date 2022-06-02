@@ -75,6 +75,7 @@ export FIGNORE=__pycache__
 alias cp="cp -r"
 alias info="info --vi-keys"
 alias g="git st"
+alias pgrep="pgrep -afl"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 if [ "$COLOR_MODE" = "light" ]; then
