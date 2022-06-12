@@ -55,6 +55,16 @@
     "editor.formatOnSave": false,
   },
 
+  // programming
+  "tabnine.experimentalAutoImports": true,
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX"
+  ],
+
   // HTML / JSX
   "auto-close-tag.SublimeText3Mode": true,
   "auto-close-tag.enableAutoCloseSelfClosingTag": true,
@@ -81,7 +91,17 @@
 
   // python
   "jupyter.askForKernelRestart": false,
-  "python.analysis.typeCheckingMode": "basic",
+  // "python.analysis.typeCheckingMode": "basic",
+  "jupyter.runStartupCommands": [
+    "%load_ext autoreload",
+    "%autoreload 2",
+  ],
+  "jupyter.alwaysScrollOnNewCell": true,
+  "jupyter.widgetScriptSources": [
+    "jsdelivr.com",
+    "unpkg.com"
+  ],
 
+  // Julia
   "julia.symbolCacheDownload": true,
 }
