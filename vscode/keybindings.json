@@ -116,7 +116,11 @@
             "to": "viewPortBottom"
         }
     },
-
+    {
+        "key": "ctrl+f5",
+        "command": "test-explorer.run-test-at-cursor",
+        "when": "editorTextFocus"
+    },
     // Python
     {
         "key": "ctrl+alt+enter",
@@ -131,11 +135,11 @@
         "command": "jupyter.insertCellAbove",
         "when": "editorLangId == 'python'",
     },{
-        "key": "ctrl+j h",
+        "key": "ctrl+j ctrl+h",
         "command": "jupyter.gotoNextCellInFile",
         "when": "editorLangId == 'python'",
     },{
-        "key": "ctrl+j t",
+        "key": "ctrl+j ctrl+t",
         "command": "jupyter.gotoPrevCellInFile",
         "when": "editorLangId == 'python'",
     },{

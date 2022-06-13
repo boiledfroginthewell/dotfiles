@@ -1,0 +1,16 @@
+partial default xkb_types "logicalshift" {
+
+    virtual_modifiers LogicalShift;
+
+    type "LOGICAL_SHIFT" {
+	modifiers = Shift+LogicalShift;
+	map[None] = Level1;
+	map[Shift] = Level2;
+	map[LogicalShift] = Level3;
+	map[Shift+LogicalShift] = Level4;
+	level_name[Level1] = "Base";
+	level_name[Level2] = "Shift";
+	level_name[Level3] = "LogShift Base";
+	level_name[Level4] = "Shift LogShift";
+    };
+};
