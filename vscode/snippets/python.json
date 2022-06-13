@@ -22,11 +22,16 @@
     "body": ["_logger = logging.getLogger(__name__)"],
     "description": "Declare logger instance for this module"
   },
+  debugger: {
+    prefix: debugger,
+    body: ["import pdb; pdb.set_trace()"],
+    description: "add pdb debbuger"
+  },
   "If main": {
-    "prefix": "main",
+    "prefix": ["ifmain", "main"],
     "body": [
       "if __name__ == \"__main__\" and \"__file__\" in globals():",
-      " ",
+      "\t",
     ],
     "description": "Insert if __name__ == \"__main__\""
   },
@@ -37,5 +42,34 @@
       // "import plotly.express as px",
       "px.line(df)"
     ],
-  }
+  },
+  "Plotly Graph Object": {
+    "prefix": ["plot", "go"],
+    "description": "Plot line figure with plotly graph objects",
+    "body": [
+      "figure: Figure = go.Figure()",
+      "figure.add_trace(go.Scatter(df))"
+    ]
+  },
+  "Plotly ipywidget": {
+    "prefix": "widget",
+    "body": [
+      "import plotly.graph_objects as go",
+      "from plotly.graph_objs._figure import Figure",
+      "from plotly.graph_objs._figurewidget import FigureWidget",
+      "import ipywidgets as widgets",
+      "from portfolio.plotting import god",
+      "",
+      "figure: Figure = go.Figure()",
+      "figure.add_trace(go.Scatter(name=\"data\"))",
+      "",
+      "g: FigureWidget = go.FigureWidget(figure)",
+      "@widgets.interact()",
+      "@g.batch_update()",
+      "def draw_figure():",
+      "\tg.update_traces(go.Scatter(**god(data.adjust)), selector=dict(name=\"data\"))",
+      "",
+      "g",
+    ]
+  },
 }
