@@ -152,11 +152,11 @@ nnoremap <silent> <leader>k  :<C-u>CocPrev<CR>
 " Plugins
 let g:coc_global_extensions = [
 	\'coc-json',
-	\'coc-pyright',
 	\'coc-snippets',
-	\'coc-html', 'coc-css',
-	\'coc-tsserver',
 \]
+"	\'coc-pyright',
+"	\'coc-html', 'coc-css',
+"	\'coc-tsserver',
 
 hi CocFloating ctermbg=8
 

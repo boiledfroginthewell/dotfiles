@@ -21,11 +21,13 @@ _fzf_config_insert() {
 	local input_value="${READLINE_LINE##* }"
 	input_value="${input_value/#\~/$HOME}"
 	if [[ -d "${input_value}" ]]; then
-		command="fd ."
+		#command="fd ."
+		opt=-H
 		query=
 		directory="${input_value}"
 	elif [[ "$input_value" = *"/"* && -d "$(dirname $input_value)" ]]; then
-		command="fd ."
+		#command="fd ."
+		opt=-H
 		query="$(basename $input_value)"
 		directory="$(dirname $input_value)"
 	else
@@ -33,11 +35,12 @@ _fzf_config_insert() {
 		directory=
 	fi
 
+	# "${command:-fzf-default-command} \"$directory\" | 
+				#sed "s:^$directory::" | 
 	local output=(
 		$(
 			eval \
-				"${command:-fzf-default-command} \"$directory\" | \
-				sed "s:^$directory::" | \
+				"fzf-default-command $opt \"$directory\" | \
 				fzf \
 				--height ${FZF_TMUX_HEIGHT:-40%} \
 				--query \"${query}\" \

@@ -11,6 +11,16 @@ compact() {
 	done
 }
 
+toLinuxPath() {
+	sed 's~\\~/~g' | xargs cygpath
+}
+
+if [[ $OS = *Windows* ]]; then
+	TO_LINUX_PATH="toLinuxPath"
+else
+	TO_LINUX_PATH="cat"
+fi
+
 get_project_root() {
 	if [ -n "$1" ]; then
 		cd "$1"
@@ -23,23 +33,27 @@ get_project_root() {
 		PROJECT_ROOT="$PARENT_DIR"
 	fi
 
-	while [ "$PARENT_DIR" != "/" ]; do
+	while [ "$PARENT_DIR" != "/" ] && [[ "$PARENT_DIR" != [A-Z]: ]]; do
 		PARENT_DIR=$(dirname "$PARENT_DIR")
 	done
 
 	echo "$PROJECT_ROOT"
 }
 
+if [ "$1" = "-H" ]; then
+	NO_HISTORY=1
+	shift
+fi
 
 directory="${1}"
 if [ -z "$directory" ]; then
 	directory=$(get_project_root "${directory}")
 fi
 
-# <(< "$ZSHZ_DATA" awk -d '|' -f 1 | tac | awk '{print $2}') \
 cat \
 	<(fd . ${directory}) \
-	<(< "${ZSHZ_DATA:-$XDG_CACHE_HOME/z}" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
+	<([ -z "$NO_HISTORY" ] && < "${ZSHZ_DATA:-$XDG_CACHE_HOME/z}" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
+$TO_LINUX_PATH | \
 compact |\
 awk '!x[$0]++' |\
 sed "s:$HOME:~:"

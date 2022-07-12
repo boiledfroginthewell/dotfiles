@@ -1,0 +1,9 @@
+#!/bin/sh
+
+defaultBranch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+git fetch -p
+git graph "$defaultBranch"..origin/"$defaultBranch"
+echo "##############"
+git diff --name-status "$defaultBranch" origin/"$defaultBranch"
+git sync
+
