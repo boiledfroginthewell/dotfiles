@@ -33,8 +33,8 @@ if [ -n "$bg_color" ]; then
 	else
 		export COLOR_MODE=dark
 	fi
-else
-	export COLOR_MODE=light
+elif [ -z "$COLOR_MODE" ]; then
+	export COLOR_MODE=dark
 fi
 
 # enable color support of ls and also add handy aliases
@@ -81,10 +81,17 @@ alias info="info --vi-keys"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 alias rg="rg --smart-case"
-alias g="git status"
 if type hub &> /dev/null; then
 	alias git=hub
 fi
+g() {
+	if [ $# -eq 0 ]; then
+		git status
+	else
+		git "$@"
+	fi
+}
+
 if [ "$COLOR_MODE" = "light" ]; then
 	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
 else
@@ -138,10 +145,14 @@ mybashrc::lazyLoad::loadLazily() {
 	$TRIGGER_COMMAND "$@"
 }
 
+EXTRA_RC=()
 if [ $(uname -s) = Darwin ]; then
-	MAC_RC="${CONF_DIR}/macrc/*.sh"
+	EXTRA_RC+=("${CONF_DIR}/macrc/*.sh")
 fi
-for x in ${CONF_DIR}/rc/*.sh $MAC_RC; do
+if [ "$OSTYPE" = msys ]; then
+	EXTRA_RC+=("${CONF_DIR}/winrc/*.sh")
+fi
+for x in ${CONF_DIR}/rc/*.sh ${EXTRA_RC[@]}; do
 	if [[ "$x" != *".lazy"* ]]; then
 		# T=$(gdate +'1%-S%N')
 		source $x
