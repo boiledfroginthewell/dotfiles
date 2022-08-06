@@ -22,10 +22,10 @@
     "body": ["_logger = logging.getLogger(__name__)"],
     "description": "Declare logger instance for this module"
   },
-  debugger: {
-    prefix: debugger,
-    body: ["import pdb; pdb.set_trace()"],
-    description: "add pdb debbuger"
+  "debugger": {
+    "prefix": "debugger",
+    "body": ["import pdb; pdb.set_trace()"],
+    "description": "add pdb debbuger"
   },
   "If main": {
     "prefix": ["ifmain", "main"],

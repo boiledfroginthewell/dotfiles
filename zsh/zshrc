@@ -76,6 +76,8 @@ alias cp="cp -r"
 alias info="info --vi-keys"
 alias g="git st"
 alias pgrep="pgrep -afl"
+alias rrrr="systemctl restart --user kmonad"
+alias pppp="systemctl restart --user kmonad"
 
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 if [ "$COLOR_MODE" = "light" ]; then
