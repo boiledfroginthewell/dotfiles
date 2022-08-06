@@ -74,11 +74,17 @@ export FIGNORE=__pycache__
 # ### Aliases
 alias cp="cp -r"
 alias info="info --vi-keys"
-alias g="git st"
 alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 
+g() {
+    if [ $# -eq 0 ]; then
+        git status
+    else
+        git "$@"
+    fi
+}
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 if [ "$COLOR_MODE" = "light" ]; then
 	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"

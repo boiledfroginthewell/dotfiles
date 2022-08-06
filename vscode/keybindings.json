@@ -117,11 +117,16 @@
         }
     },
     {
+        "key": "ctrl+shift+w",
+        "command": "workbench.action.closeGroup",
+    },
+    // Programming
+    {
         "key": "ctrl+f5",
         "command": "test-explorer.run-test-at-cursor",
         "when": "editorTextFocus"
     },
-    // Python
+    // Jupyter
     {
         "key": "ctrl+alt+enter",
         "command": "jupyter.runallcellsabove.palette",
