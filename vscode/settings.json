@@ -13,6 +13,7 @@
   "extensions.ignoreRecommendations": false,
   "workbench.editor.enablePreview": false,
   "workbench.editor.closeEmptyGroups": false,
+  "workbench.editor.splitInGroupLayout": "vertical",
   "workbench.tree.indent": 18,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
@@ -53,6 +54,11 @@
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.formatOnSave": false,
+    "editor.quickSuggestions": {
+      "other": "off",
+      "comments": "off",
+      "strings": "off"
+    }
   },
 
   // programming
