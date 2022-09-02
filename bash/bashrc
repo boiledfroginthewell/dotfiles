@@ -46,6 +46,10 @@ if [ -x /usr/bin/dircolors ]; then
 	alias egrep='egrep --color=auto'
 fi
 
+export DELTA_FEATURES="+theme:${COLOR_MODE:-dark}"
+if [ "$COLOR_MODE" = "light" ]; then
+	export BAT_THEME="Monokai Extended Light"
+fi
 
 # Terminal Configuration
 # -----------------------
@@ -91,20 +95,13 @@ g() {
 		git "$@"
 	fi
 }
+alias gg="git graph"
 
-if [ "$COLOR_MODE" = "light" ]; then
-	DELTA_THEME_SETTING="--light --theme 'Solarized (light)'"
-else
-	DELTA_THEME_SETTING="--dark --theme DarkNeon --file-color cyan"
+if type -t bat > /dev/null; then
+	export DELTA_PAGER=bat
+	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
-export DELTA_DEFAULT_OPTION="${DELT_THEME_SETTING} --hunk-style plain"
-alias delta="delta $DELTA_DEFAULT_OPTION"
 
-type -t bat > /dev/null && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-if [ "$COLOR_MODE" = "light" ]; then
-	export BAT_THEME="Monokai Extended Light"
-fi
 export BAT_STYLE="changes,header,grid"
 LESS_COMMAND=$(
 	type -t bat > /dev/null && echo bat \

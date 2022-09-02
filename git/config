@@ -5,16 +5,51 @@
 
 [alias]
 	graph = log --all --oneline --graph --pretty='format:%C(green bold)%d%Creset %s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' '--date=format-local:%Y-%m-%d %H:%M'
-	st = status
 
 [diff]
-  algorithm = histogram
+	algorithm = histogram
+	colorMoved = true
 
 [log]
 	follow = true
 
 [init]
 	defaultBranch = main
+
+[delta]
+	hunk-style = plain
+	line-numbers = true
+	color-moved = default
+	navigate = true
+	hyperlinks = true
+
+	file-added-label = ➕
+	file-copied-label = ✖
+	file-modified-label = 🔄
+	file-removed-label = ➖
+
+[delta "diff:side-by-side"]
+	side-by-side = true
+
+[delta "theme:light"]
+	light = true
+	theme = Solarized (light)
+
+[delta "theme:dark"]
+	dark = true
+	theme = DarkNeon
+	file-decoration-style = yellow ul ol
+	file-style = yellow
+	file-color = cyan
+	hunk-header-decoration-style = ul
+	hunk-header-line-number-style = cyan
+	hunk-header-file-style = cyan
+	inline-hint-style = cyan
+
+[interactive]
+    diffFilter = delta --color-only
+[add.interactive]
+    useBuiltin = false
 
 [hub]
 	protocol = https
