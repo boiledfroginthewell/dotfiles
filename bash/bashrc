@@ -81,8 +81,10 @@ shopt -s globstar
 
 
 # ### Aliases
+alias mkdir="mkdir -p"
+alias cp="cp -r"
 alias info="info --vi-keys"
-
+alias pgrep="pgrep -afl"
 alias diff="diff --ignore-space-change --ignore-trailing-space"
 alias rg="rg --smart-case"
 if type hub &> /dev/null; then
@@ -96,12 +98,10 @@ g() {
 	fi
 }
 alias gg="git graph"
-
 if type -t bat > /dev/null; then
 	export DELTA_PAGER=bat
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
-
 export BAT_STYLE="changes,header,grid"
 LESS_COMMAND=$(
 	type -t bat > /dev/null && echo bat \
@@ -122,6 +122,7 @@ LS_COMMAND=$(
 	|| echo ls
 )
 alias ls=$LS_COMMAND
+export LESS="--quit-if-one-screen"
 
 # time style for `ls -l` command output
 export TIME_STYLE=long-iso
