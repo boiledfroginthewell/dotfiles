@@ -207,6 +207,15 @@ if executable('ctags')
 	let g:tagbar_iconchars = ['>', 'V']
 	" sort by file order
 	let g:tagbar_sort = 0
+
+	let g:tagbar_type_zsh = {
+		\ 'ctagstype' : 'zsh',
+		\ 'kinds' : [
+			\ 'h:table of contents',
+			\ 'l:line'
+	\ ],
+	\ 'sort' : 0
+\ }
 endif
 
 Plug 'chaoren/vim-wordmotion'
