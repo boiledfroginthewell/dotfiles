@@ -1,0 +1,8 @@
+--langdef=zsh
+--regex-zsh=/^# # (.*)/# \1/h/
+--mline-regex-zsh=/^# (.*)[\n\r]{1,2}# ={3,}/## \1/h/{mgroup=1}
+--regex-zsh=/^# ## (.*)/## \1/h/
+--mline-regex-zsh=/^# (.*)(\n\r?|\r)# -{3,}/## \1/h/{mgroup=1}
+--regex-zsh=/^# ### (.*)/### \1/h/
+--mline-regex-zsh=/^(\n\r?|\r|#\s*)(\n\r?|\r)# -{3,}/-------/l/
+
