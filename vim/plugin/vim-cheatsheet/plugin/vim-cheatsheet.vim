@@ -8,7 +8,7 @@ if !exists('g:cheatsheet#vsplit_width')
 endif
 
 if !exists('g:cheatsheet#float_window')
-  let g:cheatsheet#float_window = 0
+let g:cheatsheet#float_window = 0
 endif
 
 if !exists('g:cheatsheet#float_window_width_ratio')
@@ -19,27 +19,41 @@ if !exists('g:cheatsheet#float_window_height_ratio')
   let g:cheatsheet#float_window_height_ratio = 0.9
 endif
 
+if !exists('g:cheatsheet#state_cache_seconds')
+  let g:cheatsheet#state_cache_seconds = 30 * 60
+endif
+
 command! -nargs=? -complete=command Cheat call <SID>toggle_cheat_sheet(<q-args>)
+command! -nargs=? -complete=command CheatInit call <SID>init_cheat_sheet()
 command! -nargs=? -complete=command CheatOpen call <SID>open_cheat_sheet(<q-args>)
 command! -nargs=? -complete=command CheatClose call <SID>close_cheat_sheet(<q-args>)
 
+" Save open state
+let s:cache_dir = ($XDG_CACHE_HOME ?? ("$HOME" . "/.config")) . "/vim-cheatsheet"
+let s:cache_file = s:cache_dir . "/state"
+
+function! s:write_state(state)
+ call  writefile([a:state, localtime()], s:cache_file)
+endfunction
+
+
 if !exists('g:cheatsheet#no_auto_open')
-	augroup cheatsheet
-		autocmd!
-		autocmd VimEnter * if winwidth(0) >= 90| Cheat| endif
-		autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
-		autocmd VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
-	augroup END
+    augroup cheatsheet
+        autocmd!
+        autocmd VimEnter * if winwidth(0) >= 90| CheatInit| endif
+        autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+        autocmd VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
+    augroup END
 endif
 
 function! s:resize_cheat_sheet()
-	if !exists('t:cheatbuf')
-		return
-	elseif g:cheatsheet#vsplit == 0
-		return
-	endif
+    if !exists('t:cheatbuf')
+        return
+    elseif g:cheatsheet#vsplit == 0
+        return
+    endif
 
-	execute 'vertical ' . t:returnWinnr . 'resize ' . g:cheatsheet#vsplit_width
+    execute 'vertical ' . t:returnWinnr . 'resize ' . g:cheatsheet#vsplit_width
 endfunction
 
 function! s:toggle_cheat_sheet(cmd)
@@ -55,6 +69,23 @@ function! s:toggle_cheat_sheet(cmd)
   endif
 endfunction
 
+function! s:init_cheat_sheet() abort
+  " read and create cache
+  if filereadable(s:cache_file)
+    let l:cache_state = readfile(s:cache_file)
+  else
+    let l:cache_state = [1, 0]
+    if !isdirectory(s:cache_dir)
+      call mkdir(s:cache_dir)
+    endif
+  endif
+
+  " Open cheatsheet if not recently closed
+  if l:cache_state[0] || localtime() - str2nr(l:cache_state[1]) > g:cheatsheet#state_cache_seconds
+    let t:cheatbuf = s:open_cheat_sheet()
+  endif
+endfunction
+
 function! s:open_cheat_sheet() abort
   let l:path = expand(g:cheatsheet#cheat_file)
 
@@ -62,6 +93,8 @@ function! s:open_cheat_sheet() abort
     echo 'not exists.'
     return
   endif
+
+  call s:write_state(1)
 
   let l:split_command = ':belowright sp'
   if g:cheatsheet#vsplit != 0
@@ -112,4 +145,5 @@ function! s:close_cheat_sheet(cheatbuf) abort
     execute 'bd' t:cheatbuf
     unlet! t:cheatbuf
   endif
+  call s:write_state(0)
 endfunction
