@@ -42,6 +42,8 @@
 	file-style = yellow
 	file-color = cyan
 	hunk-header-decoration-style = ul
+
+[delta "theme:dark-win"]
 	hunk-header-line-number-style = cyan
 	hunk-header-file-style = cyan
 	inline-hint-style = cyan
