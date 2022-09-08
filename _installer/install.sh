@@ -44,6 +44,8 @@ fi
 
 if [ $(uname -s) = Darwin ]; then
 	export OS=mac
+elif [[ $OS = Windows_* ]]; then
+	export OS=win
 else
 	export OS=linux
 fi
@@ -82,7 +84,7 @@ for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 		continue
 	fi
 
-	echo "### Custom Installer found: $confname"
+	echo "### Custom Installer found: $x"
 	$NO_DRY_MODE $x
 done
 

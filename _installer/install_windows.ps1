@@ -1,6 +1,6 @@
 $CFG_DIR = $PSScriptRoot
 
-if (! ($env:PATH -contains $CFG_DIR\bin)) {
+if (! ($env:PATH -contains "$CFG_DIR\bin")) {
 	# Setting PATH variable...
 	setx PATH "$CFG_DIR\bin;$CFG_DIR\opt;$env:PATH"
 }

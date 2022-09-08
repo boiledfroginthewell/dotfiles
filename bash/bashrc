@@ -99,7 +99,6 @@ g() {
 }
 alias gg="git graph"
 if type -t bat > /dev/null; then
-	export DELTA_PAGER=bat
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 export BAT_STYLE="changes,header,grid"
