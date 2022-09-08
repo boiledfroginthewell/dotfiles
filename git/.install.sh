@@ -6,6 +6,7 @@ set -u
 
 if [ -n "$XDG_CONFIG_HOME" ]; then
 	echo "Error: XDG_CONFIG_HOME is not defined. Set XDG_CONFIG_HOME explicitly since git does not use XDG Directories when they are blank. The default value of XDG_CONFIG_HOME is ~/.config" >&2
+	exit 1
 fi
 
 echo Enter Git default user name:

@@ -2,7 +2,13 @@
 
 CDIR=$(cd $(dirname $0); pwd)
 
-ln -s "$CDIR/profile" ~/.profile
-ln -s "$CDIR/bashrc" ~/.bashrc
-ln -s "$CDIR" "$XDG_CONFIG_HOME/"
+if [ "$OSTYPE" = "msys" ]; then
+	cmd="mklink"
+else
+	cmd="ln -s"
+fi
+
+$cmd "$CDIR/profile" ~/.profile
+$cmd "$CDIR/bashrc" ~/.bashrc
+$cmd "$CDIR" "$XDG_CONFIG_HOME/bash"
 
