@@ -84,6 +84,9 @@ for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 		continue
 	fi
 
+	if [ $(basename "$x") == .install.sh -a -e "$confname/.install.$OS.sh" ]; then
+		continue
+	fi
 	echo "### Custom Installer found: $x"
 	$NO_DRY_MODE $x
 done
