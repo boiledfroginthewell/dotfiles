@@ -2,13 +2,20 @@
 
 set -u
 
-READLINK=readlink
-type greadlink &> /dev/null && READLINK=greadlink
-
 help() {
-	echo "$0 [-t install_pattern] [install]"
+	echo "$0 -e [pattern]"
 	exit
 }
+
+highlight() {
+	tput bold
+	tput setaf 5
+	echo "$*"
+	tput sgr0
+}
+
+READLINK=readlink
+type greadlink &> /dev/null && READLINK=greadlink
 
 if ! type fd &>/dev/null; then
 	echo Error: fd is not found. Install fd first.
@@ -16,11 +23,11 @@ if ! type fd &>/dev/null; then
 fi
 
 
-target=""
-while getopts 't:h' ARG; do
+NO_DRY_MODE="echo dry run: "
+while getopts 'eh' ARG; do
 	case $ARG in
-	t)
-		target="$OPTARG"
+	e)
+		NO_DRY_MODE=
 		;;
 	h|\?)
 		help
@@ -29,10 +36,6 @@ while getopts 't:h' ARG; do
 done
 
 shift $(( OPTIND - 1 ))
-NO_DRY_MODE="echo dry run: "
-if [ "${1:-}" = "install" ]; then
-	NO_DRY_MODE=
-fi
 
 CONF_DIR=$(git rev-parse --show-toplevel)
 cd "$CONF_DIR"
@@ -48,26 +51,28 @@ else
 	export OS=linux
 fi
 
-echo "## Copying XDG directories based settings..."
-for x in $(fd "\.xdg_config_home(\.$OS)?" --maxdepth 2 -H); do
+
+for x in $(fd "\.xdg_config_home(\.$OS)?" --maxdepth 2 -H | sed 's:^\./::'); do
 	confname=$(dirname "$x")
-	if [[ $confname != *"$target"* ]]; then
+	if [[ ! $x =~ .*$*.* ]]; then
 		continue
 	fi
 
 	dest="$XDG_CONFIG_HOME/$confname"
-	status="not installed"
 	if [[ $($READLINK -f "$dest") = "$CONF_DIR/$confname" ]]; then
 		status="installed"
+	else
+		status="not installed"
 	fi
-	echo "### XDG_CONFIG found: $confname ($status)"
+	highlight "### XDG_CONFIG found: $confname ($status)"
 	if [[ "$status" = "installed" ]]; then
+		echo Skipping installation
 		continue
 	fi
 	if [ -f "$dest" ]; then
-		echo Warn: Overwriting $confname >&2
+		echo Warn: Overwriting file: $confname >&2
 	elif [ -d "$dest" ]; then
-		echo Warn: Overwriting $confname >&2
+		echo Warn: Overwriting directory: $confname >&2
 		$NO_DRY_MODE rm -rf "$dest"
 	fi
 	$NO_DRY_MODE ln -sf "$CONF_DIR/$confname" "$dest"
@@ -75,14 +80,14 @@ done
 echo ""
 
 
-echo "## Installing custom settings..."
+highlight "## Installing custom settings..."
 for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 	confname=$(dirname "$x")
-	if [[ $confname != *"$target"* ]]; then
+	if [[ ! $x =~ .*$*.* ]]; then
 		continue
 	fi
 
-	echo "### Custom Installer found: $confname"
+	highlight "### Custom Installer found: $confname"
 	$NO_DRY_MODE $x
 done
 
