@@ -27,8 +27,10 @@ keys = {
 
 
 return {
-	use_ime = true,
 	show_update_window = false,
+	check_for_updates = false,
+	check_for_updates_interval_seconds = 90 * 24 * 3600,
+	use_ime = true,
 	font = wezterm.font_with_fallback({
 		"JetBrains Mono",
 		-- "MesloLGS NF",
