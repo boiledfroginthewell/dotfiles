@@ -62,6 +62,10 @@ export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 # export AUTOSWITCH_SILENT=1
 zplug "darvid/zsh-poetry"
 
+# Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more 
+zplug "asdf-vm/asdf", use:asdf.sh
+fpath=(${ZPLUG_REPOS}/asdf-vm/asdf/completions $fpath)
+
 if [[ $OSTYPE = darwin* ]]; then
 	zplug "lukechilds/zsh-nvm"
 	export NVM_COMPLETION=true
@@ -131,17 +135,10 @@ stty sane
 stty stop undef
 setopt rmstarsilent
 autoload -Uz select-word-style
-select-word-style default
-zstyle ':zle:*' word-chars " _-./;@"
+select-word-style bash
+zstyle ':zle:*' word-chars " _./;@"
 zstyle ':zle:*' word-style unspecified
-# M-<BS> to delete one word like bash
-tcsh-backward-delete-word () {
-	local WORDCHARS="${WORDCHARS:s#/#}"
-	zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-bindkey '^[^?' tcsh-backward-delete-word
-bindkey '^u' backward-kill-line
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 export EDITOR=vim
 export FIGNORE=__pycache__
@@ -160,6 +157,8 @@ fi
 g() {
     if [ $# -eq 0 ]; then
         git status
+	elif [ "$!" = "-" ]; then
+		git switch -
     else
         git "$@"
     fi
@@ -217,6 +216,7 @@ if [[ -n ${ZDOTDIR:-HOME}/.zcompdump(#qN.mh+24) ]]; then
 else
 	compinit -C
 fi
+zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
 
 autoload -U bashcompinit && bashcompinit
 
