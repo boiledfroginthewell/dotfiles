@@ -1,5 +1,5 @@
 function pet-select() {
-  petResult=$(pet search --color --query "\"$BUFFER\"")
+  petResult=$(pet search --color --query "$BUFFER")
   if [ -n "$petResult" ]; then
     if [ "${petResult:0:1}" = "$" ]; then
       BUFFER="${LBUFFER% } ${petResult} ${RBUFFER# }"

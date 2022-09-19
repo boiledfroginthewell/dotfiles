@@ -1,5 +1,5 @@
 myrc_help() {
-	cmd=${BUFFER%% *}
+	cmd=$(<<<"${BUFFER}" sed -e 's/.*[;&|]\s*//' -e 's/^\(\S\+\).*/\1/')
 	if [ -z "$cmd" ]; then
 		return
 	fi
