@@ -4,6 +4,10 @@
   output = ""
 
 [[snippets]]
+  description = "Git initial empty commit"
+  command = "git commit --allow-empty -m \"initial empty commit\""
+
+[[snippets]]
   description = "Show project root directory of git."
   command = "git rev-parse --show-toplevel"
   output = ""
