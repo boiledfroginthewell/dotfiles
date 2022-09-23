@@ -1,0 +1,16 @@
+/*
+ * 独自のショートカットキー　設定例
+ */
+
+
+/* for Mozilla Firefox */
+[ MicrsoftPowePoint
+    {Ctrl}{Shift}Right        | {Alt}1r         
+    {Win}{Alt} f  o            | FireFox{!}    
+    {Win}{Alt} f  {Win}{Alt} o | <FireFox{!} 3>
+]
+
+/* for EmEditor */
+[ EmEditorMainFrame3
+    {Win}{Alt} s     | Test3
+]
