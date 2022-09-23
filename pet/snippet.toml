@@ -4,6 +4,11 @@
   output = ""
 
 [[snippets]]
+  description = "delete a remote branch in git"
+  command = "git push origin -d <branch>"
+  output = ""
+
+[[snippets]]
   description = "Git initial empty commit"
   command = "git commit --allow-empty -m \"initial empty commit\""
 

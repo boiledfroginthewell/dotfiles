@@ -243,6 +243,7 @@ unset P10K_FILE
 
 zplug load
 
+compdef g='git'
 if [ $(uname -s) = Darwin ]; then
 	# load nvm
 	nvm --version &> /dev/null

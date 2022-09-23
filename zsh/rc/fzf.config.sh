@@ -3,18 +3,10 @@ export FZF_DEFAULT_COMMAND=fzf-default-command
 
 KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.$(basename $SHELL)
 if [ -e "$KEY_BINDING_FILE" ]; then
-	# Change C-t to C-s
-	# source <(< $KEY_BINDING_FILE sed 's/\C-t/\C-s/')
 	# Disable C-t Mapping
 	source <(< $KEY_BINDING_FILE sed 's/.*bindkey .*\^T.*/:/')
 fi
 FZF_CTRL_T_OPTS='--bind "ctrl-l:execute(l {} > /dev/tty )"'
-
-# COMPLETION_FILE=/usr/share/bash-completion/completions/fzf
-# if [ -e "$COMPLETION_FILE" ]; then
-# 	source $COMPLETION_FILE
-# fi
-
 
 _fzf_config_insert_git() {
 	case "$(<<<"$LBUFFER" cut -d ' ' -f 2)" in
@@ -26,6 +18,10 @@ _fzf_config_insert_git() {
 			cut -c 4-
 			return
 			;;
+		branch|switch)
+			_fzf_config_select_git_ref
+			return
+			;;
 		*)
 			echo __fallback
 			return
@@ -33,7 +29,7 @@ _fzf_config_insert_git() {
 	esac
 }
 
-_fzf_config_insert() {
+_fzf_config_ctrl_s() {
 	local query directory command
 	local input_value="${LBUFFER##* }"
 	input_value="${input_value/#\~/$HOME}"
@@ -45,7 +41,7 @@ _fzf_config_insert() {
 		command="fd ."
 		query="$(basename $input_value)"
 		directory="$(dirname $input_value)"
-	elif [[ "$LBUFFER" = "git"* ]]; then
+	elif [[ "$LBUFFER" =~ "^\s*g(it)? " ]]; then
 		local output=$(_fzf_config_insert_git)
 		if [ "$output" = "__fallback" ]; then
 			output=
@@ -83,19 +79,33 @@ _fzf_config_insert() {
 	LBUFFER="${LBUFFER%${input_value}}${outputString}"
 	zle redisplay
 }
-# Customization
-zle -N _fzf_config_insert
-bindkey '^s' _fzf_config_insert
+zle -N _fzf_config_ctrl_s
+bindkey '^s' _fzf_config_ctrl_s
 
 
-_fzf_config_git_insert() {
+_fzf_config_select_git_hash() {
 	local selection=$(git graph --color=always | fzf --no-sort | sed -e 's;\s$;;' -e 's;.* ;;')
 	if [ -n "$selection" ]; then
 		LBUFFER="${LBUFFER}${selection}"
 		zle redisplay
 	fi
-
 }
-zle -N _fzf_config_git_insert
-bindkey '^g' _fzf_config_git_insert
+zle -N _fzf_config_select_git_hash
+bindkey '^g^h' _fzf_config_select_git_hash
+
+_fzf_config_select_git_ref() {
+	cat \
+		<(git branch -a --color | sed -e 's:remotes/::' -e 's:^:[branch] :') \
+		<(git tag -l | sed 's:^:[tag] :') \
+	| fzf --no-sort | sd '\[\w+\] [\s*]*' ''
+}
+_zle_fzf_config_select_git_ref() {
+	local selection=$(_fzf_config_select_git_ref)
+	if [ -n "$selection" ]; then
+		LBUFFER="${LBUFFER}${selection}"
+		zle redisplay
+	fi
+}
+zle -N _zle_fzf_config_select_git_ref
+bindkey '^g^r' _zle_fzf_config_select_git_ref
 
