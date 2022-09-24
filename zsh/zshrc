@@ -157,7 +157,7 @@ fi
 g() {
     if [ $# -eq 0 ]; then
         git status
-	elif [ "$!" = "-" ]; then
+	elif [ "$1" = "-" ]; then
 		git switch -
     else
         git "$@"

@@ -91,18 +91,19 @@ _fzf_config_select_git_hash() {
 	fi
 }
 zle -N _fzf_config_select_git_hash
-bindkey '^g^h' _fzf_config_select_git_hash
+bindkey '^g^l' _fzf_config_select_git_hash
 
 _fzf_config_select_git_ref() {
 	cat \
 		<(git branch -a --color | sed -e 's:remotes/::' -e 's:^:[branch] :') \
 		<(git tag -l | sed 's:^:[tag] :') \
-	| fzf --no-sort | sd '\[\w+\] [\s*]*' ''
+	| fzf --no-sort --preview 'git log --color --oneline $(echo {} | sd ".* " "")' --height 40% \
+	| sd '\[\w+\] [\s*]*' ''
 }
 _zle_fzf_config_select_git_ref() {
-	local selection=$(_fzf_config_select_git_ref)
+	local -a selection=( $(_fzf_config_select_git_ref) )
 	if [ -n "$selection" ]; then
-		LBUFFER="${LBUFFER}${selection}"
+		LBUFFER="${LBUFFER}${selection[@]}"
 		zle redisplay
 	fi
 }
