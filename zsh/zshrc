@@ -141,7 +141,6 @@ zstyle ':zle:*' word-style unspecified
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 export EDITOR=vim
-export FIGNORE=__pycache__
 
 # ### Aliases & Command Configurations
 alias mkdir="mkdir -p"
