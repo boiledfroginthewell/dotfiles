@@ -8,5 +8,6 @@ fi
 
 ln -sf "$CDIR/profile" ~/.profile
 ln -sf "$CDIR/zshrc" ~/.zshrc
+ln -sf "$CDIR/zshrc.zwc" ~/.zshrc.zwc
 ln -sf "$CDIR" "$XDG_CONFIG_HOME/"
 

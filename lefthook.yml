@@ -20,6 +20,9 @@ pre-commit:
     censor-sensitives:
       run: "! rg -f .sensitives.txt -- {staged_files}"
       skip: [merge, rebase]
+    compile-zsh:
+      glob: "zsh/**/*.z?sh"
+      run: zsh/compile.zsh
 
 pre-push:
   parallel: true

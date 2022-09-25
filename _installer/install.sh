@@ -47,7 +47,7 @@ fi
 
 if [ $(uname -s) = Darwin ]; then
 	export OS=mac
-elif [[ $OS = Windows_* ]]; then
+elif [[ ${OS:-} = Windows_* ]]; then
 	export OS=win
 else
 	export OS=linux

@@ -6,13 +6,17 @@ esac
 
 # enableProfiling=1
 
-[ -n "$enableProfiling" ] && zmodload zsh/zprof && zprof
-
 export XDG_CONFIG_HOME="${XDG_CONFIGHOME:-${HOME}/.config}"
 export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
 export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 CONF_DIR=${XDG_CONFIG_HOME}/zsh
 
+if [ ! -f ~/.zshrc.zwc -o ${XDG_CONFIG_HOME}/zshrc -nt ~/.zshrc.zwc ]; then
+   zcompile ~/.zshrc
+   isZshrcCompiled=1
+fi
+
+[ -n "$enableProfiling" ] && zmodload zsh/zprof && zprof
 
 # zplug
 # -----
@@ -42,7 +46,6 @@ zplug "zsh-users/zsh-completions"
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+m:{[:upper:]}={[:lower:]}'
 zplug "greymd/docker-zsh-completion"
 
-
 zplug "romkatv/powerlevel10k", as:theme
 
 zplug "wfxr/forgit"
@@ -60,11 +63,11 @@ export AUTOENV_ENABLE_LEAVE="set_null_to_disable"
 
 # zplug "MichaelAquilina/zsh-autoswitch-virtualenv"
 # export AUTOSWITCH_SILENT=1
-zplug "darvid/zsh-poetry"
+zplug "darvid/zsh-poetry", hook-build:"echo return 0 >> poetry.zsh"
 
 # Extendable version manager with support for Ruby, Node.js, Elixir, Erlang & more 
 zplug "asdf-vm/asdf", use:asdf.sh
-fpath=(${ZPLUG_REPOS}/asdf-vm/asdf/completions $fpath)
+fpath+=${ZPLUG_REPOS}/asdf-vm/asdf/completions
 
 if [[ $OSTYPE = darwin* ]]; then
 	zplug "lukechilds/zsh-nvm"
@@ -75,15 +78,13 @@ if [[ $OSTYPE = darwin* ]]; then
 	# export NVM_AUTO_USE=true
 fi
 
-zplug 'ekalinin/pip-bash-completion', use:pip
 zplug "lukechilds/zsh-better-npm-completion"
 
-zplug "junegunn/fzf", use:shell/completion.zsh
+zplug "junegunn/fzf", use:shell/completion.zsh, hook-build:"zcompile shell/completion.zsh"
 
-if ! zplug check --verbose; then
+if [ -n "$isZshrcCompiled" ] && ! zplug check --verbose; then
 	printf "Install? [y/N]: "
 	if read -q; then
-		echo; zplug install
 	fi
 fi
 
@@ -148,6 +149,7 @@ alias cp="cp -r"
 alias info="info --vi-keys"
 alias pgrep="pgrep -afl"
 alias diff="diff --ignore-space-change --ignore-trailing-space"
+alias dc=docker-compose
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 if type hub &> /dev/null; then
@@ -208,16 +210,7 @@ fi
 # Skip the not really helping Ubuntu global compinit
 fpath+=~/.zfunc
 skip_global_compinit=1
-# cached compinit
-autoload -Uz compinit
-if [[ -n ${ZDOTDIR:-HOME}/.zcompdump(#qN.mh+24) ]]; then
-	compinit
-else
-	compinit -C
-fi
 zstyle ':completion:*' list-colors 'di=34' 'ln=35' 'so=32' 'ex=31' 'bd=46;34' 'cd=43;34'
-
-autoload -U bashcompinit && bashcompinit
 
 setopt no_auto_menu
 setopt bash_auto_list
@@ -225,13 +218,15 @@ setopt bash_auto_list
 
 # ### Local plugins
 if [ $(uname -s) = Darwin ]; then
-	MAC_RC="${CONF_DIR}/macrc/*.sh"
+	source "$CONF_DIR/.macrc.zsh"
+else
+	source "$CONF_DIR/.rc.zsh"
 fi
-if [ -e "${CONF_DIR}/localrc" ]; then
-	LOCAL_RC="${CONF_DIR}/localrc"
-fi
-for x in ${CONF_DIR}/rc/*.sh $(eval echo $MAC_RC) $(eval echo $LOCAL_RC); do
-	source $x
+
+# lazily load functions from fpath
+fpath+="$CONF_DIR/fpath"
+for x in ${CONF_DIR}/fpath/*; do
+	autoload -Uz $x
 done
 
 ### Plugin Loadings
@@ -252,6 +247,5 @@ fi
 if type zprof &>/dev/null; then
 	zprof
 fi
-
 
 

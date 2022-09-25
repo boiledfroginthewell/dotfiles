@@ -1,7 +1,5 @@
 export HISTIGNORE=${HISTIGNORE}':mkscript *'
 
-function mkscript {
-
 if [ $# -eq 0 -o $# -gt 2 ]; then
 	cat <<EOS
 Convert commands executed so far to a bash script.
@@ -21,4 +19,3 @@ else
 	history | tail -n $(($1 + 1)) | head -n -1 | sed 's/ *[0-9]\+ *//'
 fi
 
-}
