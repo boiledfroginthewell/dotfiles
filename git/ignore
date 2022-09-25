@@ -344,5 +344,6 @@ tags
 
 .idea
 .ignore
+.lefthook-local/
 
 .DS_Store

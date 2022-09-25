@@ -1,0 +1,34 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/full_guide.md
+#
+# pre-commit:
+#   commands:
+#     rubocop:
+#       tags: backend style
+#       glob: "*.rb"
+#       exclude: "application.rb|routes.rb"
+#       run: bundle exec rubocop --force-exclusion {all_files}
+#   scripts:
+#     "hello.sh":
+#       runner: bash
+
+pre-commit:
+  parallel: true
+  commands:
+    censor-sensitives:
+      run: "! rg -f .sensitives.txt -- {staged_files}"
+      skip: [merge, rebase]
+
+pre-push:
+  parallel: true
+  commands:
+    censor-sensitives:
+      files: git diff --name-only HEAD @{push}
+      run: "! rg -f .sensitives.txt -- {files}"
+      skip: [merge, rebase]
+    censor-logs:
+      run: "! git log @{push}..HEAD | rg -f .sensitives.txt"
+      skip: [merge, rebase]
+
