@@ -1,11 +1,11 @@
 export FZF_DEFAULT_OPTS="--reverse --multi --cycle --ansi --bind "ctrl-a:toggle-all""
 export FZF_DEFAULT_COMMAND=fzf-default-command
 
-KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.$(basename $SHELL)
-if [ -e "$KEY_BINDING_FILE" ]; then
-	# Disable C-t Mapping
-	source <(< $KEY_BINDING_FILE sed 's/.*bindkey .*\^T.*/:/')
-fi
+# KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.$(basename $SHELL)
+# if [ -e "$KEY_BINDING_FILE" ]; then
+# 	# Disable C-t Mapping
+# 	source <(< $KEY_BINDING_FILE sed 's/.*bindkey .*\^T.*/:/')
+# fi
 FZF_CTRL_T_OPTS='--bind "ctrl-l:execute(l {} > /dev/tty )"'
 
 _fzf_config_insert_git() {
