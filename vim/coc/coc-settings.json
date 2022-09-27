@@ -8,6 +8,9 @@
 			"ignoredRootPaths": ["~"]
 		}
 	},
+	"suggest": {
+		"noselect": true
+	},
 	"snippets": {
 		"extends": {
 			"bash": ["sh"]
