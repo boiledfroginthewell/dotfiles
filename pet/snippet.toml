@@ -163,3 +163,9 @@
   description = "restart systemd's user unit"
   command = "systemctl restart --user kmonad.service"
   output = ""
+
+[[snippets]]
+  description = "update fish completion by parsin man documents"
+  command = "fish_update_completions"
+  output = ""
+
