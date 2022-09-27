@@ -70,6 +70,8 @@ for x in $(fd "\.xdg_config_home(\.$OS)?" --maxdepth 2 -H | sed 's:^\./::'); do
 	if [[ "$status" = "installed" ]]; then
 		echo Skipping installation
 		continue
+	else
+		echo installing...
 	fi
 	if [ -f "$dest" ]; then
 		echo Warn: Overwriting file: $confname >&2
