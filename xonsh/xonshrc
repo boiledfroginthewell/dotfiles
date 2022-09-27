@@ -1,0 +1,47 @@
+# XONSH WIZARD START
+source-zsh "echo loading xonsh foreign shell"
+# XONSH WIZARD END
+$_Z_DATA = f"{$XDG_CACHE_HOME}/z"
+xontrib load z
+
+import os
+
+$CASE_SENSITIVE_COMPLETIONS = False
+
+def alias(f):
+	# trim leading _ from function name
+	aliased_name = f.__name__[1:]
+	aliases[aliased_name] = f
+	return f
+
+@alias
+def _l(args):
+	target = None
+	for x in args:
+		if not x.startswith("-"):
+			target = x
+	if target is None or os.path.isdir(target):
+		ls @(args)
+	else:
+		less @(args)
+
+@alias
+def _g(args):
+	if not len(args):
+		git status
+	elif args[0] == "-":
+		git switch -
+	else:
+		git @(args)
+
+aliases["gg"] = "git graph"
+
+@events.on_ptk_create
+def custom_keybindings(bindings, **kw):
+	handler = bindings.add
+
+	@handler("c-p")
+	def insert_snippet(event):
+		pet search --color --query event
+		event.current_buffer.insert_text('hi')
+
