@@ -1,13 +1,18 @@
 not status -i || status -c && exit
 
-set -gx FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --bind "ctrl-a:toggle-all"
 set -gx FZF_DEFAULT_COMMAND fzf-default-command
+set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi \
+	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down"
+if not set -q FZF_DEFAULT_OPTS || [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
+	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
+end
 
-# KEY_BINDING_FILE=/usr/share/doc/fzf/examples/key-bindings.$(basename $SHELL)
-# if [ -e "$KEY_BINDING_FILE" ]
-# 	# Disable C-t Mapping
-# 	source <(< $KEY_BINDING_FILE sed 's/.*bindkey .*\^T.*/:/')
-# fi
+set -l KEY_BINDING_FILE /usr/share/doc/fzf/examples/key-bindings.fish
+if [ -r "$KEY_BINDING_FILE" ]
+	# Disable C-t Mapping
+	sed 's/.*bind \\\\ct.*/:/' $KEY_BINDING_FILE | source
+	fzf_key_bindings
+end
 
 [ -z "$FZF_HEIGHT" ] && set FZF_HEIGHT 40%
 
@@ -17,7 +22,7 @@ function _fzf_config_insert_git
 			git status --short | \
 			fzf \
 				--height $FZF_HEIGHT \
-				--preview "git diff --color=always -- \$(<<<{} cut -c 4-) | delta $DELTA_DEFAULT_OPTION" | \
+				--preview "git diff --color=always -- \$(echo {} | cut -c 4-) | delta" | \
 			cut -c 4-
 			return
         case branch switch checkout push
@@ -27,6 +32,7 @@ function _fzf_config_insert_git
 			echo __fallback
 			return
     end
+
 end
 
 function _fzf_config_ctrl_s

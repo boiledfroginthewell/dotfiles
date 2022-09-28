@@ -1,6 +1,11 @@
 if status is-interactive
 #
 
+# tmp
+set -gx SHELL (which fish)
+function fish_greeting; end
+
+
 set -p PATH (realpath "$__fish_config_dir/../bin")
 
 alias mkdir="mkdir -p"
@@ -39,6 +44,12 @@ else if type -q xdg-open
 else if start
     alias open start
 end
+
+function cursor-kill-bigword
+    commandline -f kill-bigword
+    commandline -f backward-kill-bigword
+end
+bind \cw cursor-kill-bigword
 
 
 end
