@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$#" = 0 ]; then
+	echo "Error: No files are specified. "
+	exit 2
+fi
+
+! rg '<<<<<<<|=======|>>>>>>>' -- "$@"
+
