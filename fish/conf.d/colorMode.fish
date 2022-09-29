@@ -9,11 +9,11 @@ if [ -n "$bg_color" ]
 		set -gx COLOR_MODE light
 	else
 		set -gx COLOR_MODE dark
-    end
+	end
 else
 	[ -z "$COLOR_MODE" ] && set -gx COLOR_MODE dark
 end
 
-set -gx DELTA_FEATURES "+theme:([ -n "$COLOR_MODE" && "$COLOR_MODE" || "-dark")"
+set -gx DELTA_FEATURES "+theme:$([ -n "$COLOR_MODE" ] && echo "$COLOR_MODE" || echo "dark")"
 [ "$COLOR_MODE" = "light" ] && set -gx BAT_THEME "Monokai Extended Light"
 
