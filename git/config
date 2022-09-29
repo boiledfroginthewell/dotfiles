@@ -1,6 +1,6 @@
 [core]
 	autocrlf = input
-	pager = delta $DELTA_DEFAULT_OPTION
+	pager = delta
 	quotepath = false
 
 [alias]
@@ -27,10 +27,19 @@
 	navigate = true
 	hyperlinks = true
 
-	file-added-label = ➕
-	file-copied-label = ✖
-	file-modified-label = 🔄
-	file-removed-label = ➖
+	file-added-label = "🔼"
+	file-copied-label = "🔀"
+	file-modified-label = "⏺️"
+	file-removed-label = "🔽"
+	file-renamed-label = "🔁"
+	# nerd fonts (they are not colorful)
+	# "", "", "", "", ""
+
+	merge-conflict-begin-symbol = "⍖"
+	merge-conflict-end-symbol = "⍏"
+	# Other interesting symbols for merge-conflict-begin/end
+	# " ", "ᚆ", "ﲔ", "⅄", "Ꮑ", "⍀"
+	# " ", "ᚁ", "ﲗ", "ϒ", "ѵ", "⍀"
 
 [delta "diff:side-by-side"]
 	side-by-side = true
@@ -53,9 +62,9 @@
 	inline-hint-style = cyan
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 [add.interactive]
-    useBuiltin = false
+	useBuiltin = false
 
 [hub]
 	protocol = https

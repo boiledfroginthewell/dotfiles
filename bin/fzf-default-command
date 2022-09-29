@@ -15,19 +15,8 @@ get_project_root() {
 	if [ -n "$1" ]; then
 		cd "$1"
 	fi
-	local PARENT_DIR="$(git rev-parse --show-toplevel 2>/dev/null)"
-	if [ -z "$PARENT_DIR" ]; then
-		PARENT_DIR="$PWD"
-		PROJECT_ROOT=""
-	else
-		PROJECT_ROOT="$PARENT_DIR"
-	fi
-
-	while [ "$PARENT_DIR" != "/" ]; do
-		PARENT_DIR=$(dirname "$PARENT_DIR")
-	done
-
-	echo "$PROJECT_ROOT"
+	local PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+	echo "${PROJECT_ROOT:-$PWD}"
 }
 
 
@@ -36,7 +25,6 @@ if [ -z "$directory" ]; then
 	directory=$(get_project_root "${directory}")
 fi
 
-# <(< "$ZSHZ_DATA" awk -d '|' -f 1 | tac | awk '{print $2}') \
 cat \
 	<(fd . ${directory}) \
 	<(< "${ZSHZ_DATA:-$XDG_CACHE_HOME/z}" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \

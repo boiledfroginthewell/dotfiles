@@ -18,7 +18,7 @@ if [ -n "$fullCompile" ]; then
 fi
 
 # zshrc
-zcompile ~/.zshrc
+zcompile .zshrc
 
 if [[ $OSTYPE = darwin* ]]; then
   cat rc/* macrc/* > .macrc.zsh

@@ -6,13 +6,10 @@ esac
 
 # enableProfiling=1
 
-export XDG_CONFIG_HOME="${XDG_CONFIGHOME:-${HOME}/.config}"
-export XDG_DATA_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}"
-export XDG_CACHE_HOME="${XDG_CACHE_HOME:-${HOME}/.cache}"
 CONF_DIR=${XDG_CONFIG_HOME}/zsh
 
-if [ ! -f ~/.zshrc.zwc -o ${XDG_CONFIG_HOME}/zshrc -nt ~/.zshrc.zwc ]; then
-   zcompile ~/.zshrc
+if [ ! -f $CONF_DIR/.zshrc.zwc -o $CONF_DIR/zshrc -nt $CONF_DIR/.zshrc.zwc ]; then
+   zcompile $CONF_DIR/.zshrc
    isZshrcCompiled=1
 fi
 
@@ -23,7 +20,7 @@ fi
 if [ -e "/usr/share/zplug/init.zsh" ]; then
 	export ZPLUG_HOME="$XDG_CACHE_HOME/zplug"
 	source /usr/share/zplug/init.zsh
-elif type brew &> /dev/null; then
+elif (( $+commands[brew] )); then
 	export ZPLUG_HOME=$(brew --prefix)/opt/zplug
 	source $ZPLUG_HOME/init.zsh
 fi
@@ -54,7 +51,7 @@ export FORGIT_PAGER="delta"
 export forgit_ignore=forgit_ignore
 
 zplug "agkozak/zsh-z"
-ZSHZ_DATA=$XDG_CACHE_HOME/z
+ZSHZ_DATA=$XDG_DATA_HOME/z/data
 ZSHZ_CASE=smart
 
 zplug "inishchith/autoenv", use:"activate.sh"
@@ -85,6 +82,7 @@ zplug "junegunn/fzf", use:shell/completion.zsh, hook-build:"zcompile shell/compl
 if [ -n "$isZshrcCompiled" ] && ! zplug check --verbose; then
 	printf "Install? [y/N]: "
 	if read -q; then
+		echo; zplug install
 	fi
 fi
 
@@ -99,7 +97,7 @@ setopt append_history
 setopt inc_append_history
 setopt hist_ignore_all_dups
 setopt hist_reduce_blanks
-type mcfly &> /dev/null && eval "$(mcfly init zsh)"
+(( $+commands[mcfly] )) && eval "$(mcfly init zsh)"
 
 
 # Color Configuration
@@ -140,6 +138,8 @@ select-word-style bash
 zstyle ':zle:*' word-chars " _./;@"
 zstyle ':zle:*' word-style unspecified
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+# do not expand * by tab completion
+bindkey "^I" complete-word
 
 export EDITOR=vim
 
@@ -149,10 +149,9 @@ alias cp="cp -r"
 alias info="info --vi-keys"
 alias pgrep="pgrep -afl"
 alias diff="diff --ignore-space-change --ignore-trailing-space"
-alias dc=docker-compose
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
-if type hub &> /dev/null; then
+if (( $+commands[hub])); then
 	alias git=hub
 fi
 g() {
@@ -165,7 +164,7 @@ g() {
     fi
 }
 alias gg="git graph"
-if type bat > /dev/null; then
+if (( $+commands[bat] )); then
 	export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 export BAT_STYLE="changes,header,grid,numbers"
@@ -176,14 +175,14 @@ LESS_COMMAND=$(
 )
 alias less=$LESS_COMMAND
 OPEN_COMMAND=$(
-	type exo-open > /dev/null  && echo exo-open \
-	|| (type xdg-open > /dev/null && echo xdg-open) \
-	|| (type start > /dev/null && echo start) \
+	(( $+commands[exo-open] ))  && echo exo-open \
+	|| ((( $+commands[xdg-open] )) && echo xdg-open) \
+	|| ((( $+commands[start] )) && echo start) \
 	|| echo open
 )
 alias open=$OPEN_COMMAND
 LS_COMMAND=$(
-	type exa > /dev/null && echo exa \
+	(( $+commands[exa] )) && echo exa \
 	|| ([ "$IS_COLOR_AVAILABLE" = 1 ] && echo ls --color=auto -p) \
 	|| echo ls
 )
@@ -217,7 +216,7 @@ setopt bash_auto_list
 
 
 # ### Local plugins
-if [ $(uname -s) = Darwin ]; then
+if [[ "$OSTYPE" = darwin* ]]; then
 	source "$CONF_DIR/.macrc.zsh"
 else
 	source "$CONF_DIR/.rc.zsh"
@@ -238,14 +237,8 @@ unset P10K_FILE
 zplug load
 
 compdef g='git'
-if [ $(uname -s) = Darwin ]; then
-	# load nvm
-	nvm --version &> /dev/null
-	_zsh_nvm_auto_use &> /dev/null
-fi
 
 if type zprof &>/dev/null; then
 	zprof
 fi
-
 

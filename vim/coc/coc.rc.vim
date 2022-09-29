@@ -1,5 +1,12 @@
 " Coc Configurations
 " ======================
+" NOTE: This file is based on the sample configuration written in the
+" README.md of coc.nvim
+" (https://github.com/neoclide/coc.nvim/blob/master/README.md). 
+" When upgrading coc, check the changes of this config. Coc often introduces
+" breaking changes and this config become broken.
+
+
 let g:coc_config_home = $XDG_CONFIG_HOME . '/vim/coc'
 
 " Vim configs to run coc-vim
@@ -11,7 +18,8 @@ set nowritebackup
 " Better display for messages
 set cmdheight=2
 
-" You will have bad experience for diagnostic messages when it's default 4000.
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
@@ -24,20 +32,15 @@ set signcolumn=yes
 " ----------------------
 " Map <tab> for trigger completion, completion confirm, snippet expand and jump
 inoremap <silent><expr> <TAB>
-	\ pumvisible() ? <SID>check_single_suggest() ? coc#_select_confirm() : "\<Down>" :
+	\ pumvisible() ? coc#pum#info().size == 1 ? coc#_select_confirm() : coc#pum#next(1) :
 	\ coc#expandableOrJumpable() ?
 	\ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-	\ <SID>check_back_space() ? "\<TAB>" :
+	\ CheckBackspace() ? "\<TAB>" :
 	\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<Up>" : "\<Down>"
-
-function! s:check_back_space() abort
+inoremap <expr><S-TAB> pumvisible() ? coc#pum#prev(1) : "\<Down>"
+function! CheckBackspace() abort
 	let col = col('.') - 1
 	return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! s:check_single_suggest() abort
-	return get(pum_getpos(), 'height', 0) == 1
 endfunction
 
 let g:coc_snippet_next = '<tab>'
@@ -49,9 +52,7 @@ inoremap <silent><expr> <a-/> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" Or use `complete_info` if your vim support it, like:
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <cr> pumvisible() ? coc#pum#confirm() : "\<C-g>u\<CR>"
 
 
 " Navigation Config

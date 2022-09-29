@@ -6,8 +6,9 @@ if [ ! -e "$XDG_CACHE_HOME/autoenv" ]; then
 	mkdir -v "$XDG_CACHE_HOME/autoenv"
 fi
 
+ln -sf "$CDIR/zshenv" ~/.zshenv
 ln -sf "$CDIR/profile" ~/.profile
-ln -sf "$CDIR/zshrc" ~/.zshrc
-ln -sf "$CDIR/zshrc.zwc" ~/.zshrc.zwc
-ln -sf "$CDIR" "$XDG_CONFIG_HOME/"
+ln -sf "$CDIR/zshrc" "$CDIR/.zshrc"
+
+./compile.zsh
 
