@@ -14,7 +14,7 @@ _fzf_config_insert_git() {
 			git status --short | \
 			fzf \
 				--height ${FZF_HEIGHT:-40%} \
-				--preview "git diff --color=always -- \$(<<<{} cut -c 4-) | delta $DELTA_DEFAULT_OPTION" | \
+				--preview "git diff --color=always -- \$(<<<{} cut -c 4-) | delta" | \
 			cut -c 4-
 			return
 			;;
