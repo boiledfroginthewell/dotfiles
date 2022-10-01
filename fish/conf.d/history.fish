@@ -1,10 +1,12 @@
 not status -i || status -c && exit
 
-set HISTIGNORE '^(l|ls|sudo|history)( .*|$)|^g\s*$|^\s.*'
+set HISTIGNORE '^(sudo|history)( .*|$)|^(l|g)\s*$|^\s.*'
 
 # HISTIGNORE support
 # https://github.com/fish-shell/fish-shell/issues/5924#issuecomment-499414422
 function should_add_history --on-event fish_postexec
+	status is-command-substitution && exit
+
 	string match -qr "$HISTIGNORE" -- $argv
 	and history delete --exact --case-sensitive -- (string trim -r $argv)
 end
@@ -19,7 +21,6 @@ function _history-prev
 end
 # up key
 bind \e\[A _history-prev
-
 
 # support !! and !$
 # https://superuser.com/questions/719530/what-is-the-equivalent-of-bashs-and-in-the-fish-shell/944589#944589
