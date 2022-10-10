@@ -27,6 +27,8 @@ keys = {
 
 
 return {
+	default_prog = { "/usr/bin/fish" },
+
 	show_update_window = false,
 	check_for_updates = false,
 	check_for_updates_interval_seconds = 90 * 24 * 3600,
