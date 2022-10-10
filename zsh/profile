@@ -10,11 +10,11 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_CACHE_HOME="${HOME}/.cache"
 
 
-# # Node.js (NVM)
-if ! echo $OSTYPE | grep -q darwin; then
-	export NVM_DIR="$XDG_CONFIG_HOME/nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-fi
+# # # Node.js (NVM)
+# if ! echo $OSTYPE | grep -q darwin; then
+# 	export NVM_DIR="$XDG_CONFIG_HOME/nvm"
+# 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# fi
 
 
 # Python (Pyenv)
@@ -35,8 +35,4 @@ export PATH="$HOME/opt/bin:/opt/bin:$PATH"
 [ -d "$HOME/bin" ] && PATH="$HOME/bin:$PATH"
 
 [ "$shell" = "zsh" ] && type pyenv > /dev/null && eval "$(pyenv virtualenv-init -)"
-
-if [[ $OSTYPE = *darwin* ]]; then
-	export PATH="$PATH:/Applications/Firefox.app/Contents/MacOS/"
-fi
 
