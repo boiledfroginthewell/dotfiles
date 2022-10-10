@@ -55,7 +55,7 @@
 
 [[snippets]]
   description = "Update local maseter branch"
-  command = "git push --no-verify . origin/<branch=master>:<branch=master>"
+  command = "git push --no-verify . origin/<branch=main>:<branch=main>"
   output = ""
 
 [[snippets]]
@@ -64,7 +64,7 @@
   output = ""
 
 [[snippets]]
-  description = ":"
+  description = ""
   command = "git push origin HEAD"
   output = ""
 
@@ -82,41 +82,49 @@
   description = "Substitute variable if it has value"
   command = "${<var>:+<string>}"
   output = ""
+  tag = ["bash", "zsh"]
 
 [[snippets]]
   description = "Trim the beginning of variable"
   command = "${<var>#<string>}"
   output = ""
+  tag = ["bash", "zsh"]
 
 [[snippets]]
   description = "Trim the ending of variable"
   command = "${<var>%<string>}"
   output = ""
+  tag = ["bash", "zsh"]
 
 [[snippets]]
   description = "Substring variable"
   command = "${name:offset:length}"
   output = ""
+  tag = ["bash", "zsh"]
 
 [[snippets]]
   description = "Replace variable"
   command = "${name/pattern/repl}"
   output = ""
+  tag = ["bash", "zsh"]
 
 [[snippets]]
-  description = "Capitalize variable (${var^} in bash)"
+  description = "Capitalize variable (${var^} in zsh)"
   command = "${(C)<var>}"
   output = ""
+  tag = ["zsh"]
 
 [[snippets]]
-  description = "Make variable upper case (${var^^} in bash)"
+  description = "Make variable upper case (${var^^} in zsh)"
   command = "${(U)<var>}"
   output = ""
+  tag = ["zsh"]
 
 [[snippets]]
-  description = "Make variable lowore case (${var,,} in bash)"
+  description = "Make variable lowore case (${var,,} in zsh)"
   command = "${(L)<var>}"
   output = ""
+  tag = ["zsh"]
 
 [[snippets]]
   description = "Postgres login"
@@ -134,25 +142,10 @@
   output = ""
 
 [[snippets]]
-  description = "replace previous command and run"
-  command = "!!:gs/<pattern>/<replacement>"
-  output = ""
-
-[[snippets]]
   description = "show installed packages"
   command = "apt list --installed"
   tag = ["dpkg", "debian", "ubuntu"]
   output = ""
-
-[[snippets]]
-  description = "show all available python versions"
-  command = "pyenv install --list | l"
-  output = ""
-
-[[snippets]]
-  description = "grep ps including arguments"
-  command = "pgrep -fa"
-  output = "1234 python app.py arg1 arg2"
 
 [[snippets]]
   description = "show systemd's user unit log"
