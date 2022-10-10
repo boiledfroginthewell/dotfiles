@@ -14,15 +14,12 @@
 #     "hello.sh":
 #       runner: bash
 
-funcs:
-    censor-sensitives: &censor-sensitives
-      run: "! rg -. -f .sensitives.txt -- {staged_files}"
-      skip: [merge, rebase]
-
 pre-commit:
   parallel: true
   commands:
-    censor-sensitives: *censor-sensitives
+    censor-sensitives: &censor-sensitives
+      run: "! rg -. -f .sensitives.txt -- {staged_files}"
+      skip: [merge, rebase, delete]
     no-local:
       run: "! rg -. $HOME -- {staged_files}"
       skip: [merge, rebase]
@@ -38,9 +35,8 @@ pre-push:
   commands:
     censor-sensitives:
       files: git diff --name-only HEAD @{push}
-      <<: *censor-sensitives
       run: "! rg -. -f .sensitives.txt -- {files}"
     censor-logs:
       run: "! git log @{push}..HEAD | rg -f .sensitives.txt"
-      skip: [merge, rebase]
+      skip: [merge, rebase, delete]
 
