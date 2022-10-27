@@ -1,5 +1,5 @@
+asdf
 bat
-cantino/mcfly/mcfly
 choose-rust
 fd
 git-delta
@@ -8,12 +8,11 @@ hub
 jq
 knqyf263/pet/pet
 postgresql
-pyenv-virtualenv
 ripgrep
 sd
 tree
+vim
 watchman
-zplug
 
 lefthook
 
@@ -21,3 +20,4 @@ lefthook
 coreutils
 exa
 pstree
+
