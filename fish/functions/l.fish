@@ -1,10 +1,10 @@
 # imgcat
 if type -q wezterm
 	set imageViewer wezterm imgcat
-else if type imgcat
+else if type -q imgcat
 	set imageViewer imgcat
 end
-if not string match "darwin*" $OSTYPE || readlink -m . &> /dev/null
+if readlink -m . &> /dev/null
 	# Gnu readlink (coreutils) is available
 	set READLINK_COMMAND readlink -m
 else
