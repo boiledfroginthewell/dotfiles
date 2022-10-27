@@ -2,12 +2,19 @@
 
 CDIR=$(cd $(dirname $0); pwd)
 
-# VSCode
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	VSCODE_CONF_DIR="$HOME/Library/Application Support/Code/User"
-else
+checkpath() {
 	VSCODE_CONF_DIR="$XDG_CONFIG_HOME/Code/User"
-fi
+	[ -e "$VSCODE_CONF_DIR" ] && return
+
+	VSCODE_CONF_DIR="$HOME/Library/Application Support/Code/User"
+	[ -e "$VSCODE_CONF_DIR" ] && return
+
+	VSCODE_CONF_DIR="$HOME/Library/Application Support/VSCodium/User"
+	[ -e "$VSCODE_CONF_DIR" ] && return
+}
+
+checkpath
+echo $VSCODE_CONF_DIR
 
 if [ -e "$VSCODE_CONF_DIR" ]; then
 	rmdir "$VSCODE_CONF_DIR/snippets"
