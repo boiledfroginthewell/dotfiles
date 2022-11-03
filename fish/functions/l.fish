@@ -29,7 +29,7 @@ function l
 		set mime (file --mime ($READLINK_COMMAND "$files[1]"))
 		if string match -q "*image/*" $mime
 			$imageViewer $opt $files
-		else if string match -q "*charset=binary*" $mime && not string match "*x-empty*" $mime
+		else if string match -q "*charset=binary*" $mime && not string match -q "*x-empty*" $mime
 			open $opt $files
 		else
 			less $opt $files
