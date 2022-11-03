@@ -96,5 +96,10 @@ for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 	fi
 	highlight "### Custom Installer found: $x"
 	$NO_DRY_MODE $x
+	statusCode=$?
+	if [ $statusCode -ne 0 ]; then
+		echo "Error: $x exited with non-zero status code ($statusCode)" >&2
+		exit 1
+	fi
 done
 

@@ -12,6 +12,7 @@
 
 [log]
 	follow = true
+	date = iso-local
 
 [init]
 	defaultBranch = main

@@ -1,0 +1,4 @@
+--map-syntax="*.hql:SQL"
+
+--style="changes,header,grid,numbers"
+

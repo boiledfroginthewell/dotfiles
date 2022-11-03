@@ -7,8 +7,12 @@ if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
 end
 
-set -l KEY_BINDING_FILE /usr/share/doc/fzf/examples/key-bindings.fish
-if [ -r "$KEY_BINDING_FILE" ]
+set -l KEY_BINDING_FILE (
+	nvl -f \
+		/usr/share/doc/fzf/examples/key-bindings.fish \
+		/opt/homebrew/opt/fzf/shell/key-bindings.fish
+)
+if [ -n "$KEY_BINDING_FILE" ]
 	# Disable C-t Mapping
 	sed 's/.*bind \\\\ct.*/:/' $KEY_BINDING_FILE | source
 	fzf_key_bindings
