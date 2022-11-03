@@ -3,7 +3,6 @@ if status is-interactive
 
 # tmp
 set -gx SHELL (which fish)
-function fish_greeting; end
 
 
 set -p PATH (realpath "$__fish_config_dir/../bin")
