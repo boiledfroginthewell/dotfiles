@@ -33,10 +33,12 @@ return {
 	check_for_updates = false,
 	check_for_updates_interval_seconds = 90 * 24 * 3600,
 	font = wezterm.font_with_fallback({
+		"Cica",
 		"JetBrains Mono",
 		-- "MesloLGS NF",
 		"Noto Sans CJK JP",
 	}),
+	font_size = 14.5,
 
 	colors = {
 		split = "#4444AA",

@@ -163,6 +163,9 @@ let g:polyglot_disabled = ['python-indent', 'csv']
 
 Plug 'tpope/vim-fugitive'
 
+Plug 'vim-airline/vim-airline'
+set noshowmode
+
 " Comment out
 Plug 'tyru/caw.vim'
 nmap <C-k> <Plug>(caw:hatpos:toggle)
