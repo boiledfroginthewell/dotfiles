@@ -1,5 +1,7 @@
 # set -g tide_left_prompt_items vi_mode pwd git
 # set -g tide_right_prompt_items status cmd_duration context jobs node virtual_env rustc java php pulumi chruby go kubectl distrobox toolbox terraform aws nix_shell crystal
+set -U tide_left_prompt_items vi_mode pwd git shlvl
+set -U tide_right_prompt_items status context jobs node virtual_env rustc java php chruby go toolbox terraform aws nix_shell crystal
 
 set -g tide_right_prompt_suffix \ue0b4
 

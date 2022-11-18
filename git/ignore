@@ -1,6 +1,7 @@
 .idea
 .ignore
 .lefthook-local/
+.lvimrc
 
 .DS_Store
 
