@@ -50,6 +50,9 @@ let mapleader=","
 nnoremap <S-CR> O<esc>
 nnoremap <CR> o<esc>
 noremap <F1> K
+noremap <c-]> g<c-]>
+noremap g<c-]> <c-]>
+noremap <c-[> <C-T>
 
 " Clipboard
 noremap <C-y> "+P

@@ -12,7 +12,13 @@ call plug#begin(s:vim_plug_dir)
 let g:cheatsheet#cheat_file = $XDG_CONFIG_HOME . '/vim/cheatsheet.md'
 let g:cheatsheet#vsplit = 1
 let g:cheatsheet#vsplit_width = 35
+let g:cheatsheet#state_cache_seconds = 4 * 60 * 60
 noremap <leader>? :Cheat<CR>
+
+Plug 'embear/vim-localvimrc'
+let g:localvimrc_ask = 0
+let g:localvimrc_sandbox = 0
+let g:localvimrc_persistent = 1
 
 Plug 'editorconfig/editorconfig-vim'
 
@@ -43,7 +49,7 @@ if !has('win32unix') && !has('win32')
 			if &background == "dark"
 				hi MyrcFzfPopup ctermbg=237
 				hi MyrcFzfPopupBorder term=bold cterm=bold ctermfg=blue
-				let g:fzf_colors = {
+				let g:Fzf_colors = {
 					\'bg': ['bg', 'MyrcFzfPopup'],
 					\'fg+': ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
 					\'bg+': ['bg', 'CursorLine', 'CursorColumn'],
@@ -55,8 +61,10 @@ if !has('win32unix') && !has('win32')
 		autocmd VimEnter * call s:configureFzfPopup()
 	augroup END
 	nmap <silent> <Leader>r :Rg<CR>
+	nmap <silent> <Leader>gr :call fzf#vim#grep('git grep --line-number -- ' . expand('<cword>'), 0, fzf#vim#with_preview())<CR>
 	nmap <silent> <Leader>c :Commands<CR>
 	nmap <silent> <Leader>b :Buffers<CR>
+	nmap <silent> <Leader>gf :call fzf#vim#gitfiles('', { 'options': '-q' . expand('<cword>') })<CR>
 	" Include all mode
 	command! Maps call fzf#vim#maps('', 0)<cr>
 	nmap <silent> <Leader>, :call fzf#run(fzf#wrap({
@@ -157,14 +165,13 @@ let g:gitgutter_diff_args = '--ignore-all-space'
 " A solid language pack for Vim.
 Plug 'sheerun/vim-polyglot'
 set conceallevel=0
+let g:vim_json_conceal = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:polyglot_disabled = ['python-indent', 'csv']
 
 Plug 'tpope/vim-fugitive'
 
-Plug 'vim-airline/vim-airline'
-set noshowmode
 
 " Comment out
 Plug 'tyru/caw.vim'
