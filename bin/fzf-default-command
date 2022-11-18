@@ -27,7 +27,7 @@ fi
 
 cat \
 	<(fd . ${directory}) \
-	<(< "${ZSHZ_DATA:-$XDG_CACHE_HOME/z}" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
+	<(< "${XDG_DATA_HOME}/z/data" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
 compact |\
 awk '!x[$0]++' |\
 sed "s:$HOME:~:"
