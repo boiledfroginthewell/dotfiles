@@ -14,6 +14,8 @@ noremap D H
 noremap H J
 noremap T K
 noremap N L
+noremap gj gF
+noremap gJ gf
 noremap gf gt
 noremap gF gT
 " delete
