@@ -31,7 +31,7 @@
   JP[ ]
   JP: '
   JP] \
-  JP\ /
+  JP\ ro
 )
 (defalias bar S-KeyYen)
 
@@ -59,7 +59,7 @@
   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc     ins  home pgup
   tab  q    w    e    r    t    y    u    i    o    p    [    ]    ret      del  end  pgdn
   caps a    s    d    f    g    h    j    k    l    ;    '    \
-  lsft z    x    c    v    b    n    m    ,    .    /    102d      rsft            up
+  lsft z    x    c    v    b    n    m    ,    .    /    102d      rsft           up
   lctl lmet lalt KeyMuhenkan spc KeyHenkan KeyKatakana ralt rmet cmp rctl   left down rght
 )
 
