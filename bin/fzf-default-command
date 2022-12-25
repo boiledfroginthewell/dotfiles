@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+if [[ "$1" = -i ]]; then
+	useIcons=1
+fi
+
 # Show absolute path or relative path, which is shorter
 compact() {
 	while read line; do
@@ -19,16 +23,47 @@ get_project_root() {
 	echo "${PROJECT_ROOT:-$PWD}"
 }
 
+iconify() {
+	if [ -z "$useIcons" ]; then
+		more
+		return
+	fi
+
+	while read line; do
+		emoji="　"
+		if [[ $line = *.sh ]]; then
+			emoji=🐚
+		elif [[ $line = *.fish ]]; then
+			emoji=🐟
+		elif [[ $line = *.vim ]]; then
+			emoji=
+		elif [[ $line = *.py ]]; then
+			emoji=
+		elif [[ $line = *.js ]]; then
+			emoji=
+		elif [[ $line = *.txt ]] || [[ $line = *.md ]]; then
+			emoji=📝
+		elif [[ $line = *.xml ]]; then
+			emoji=
+		elif [[ $line = *.exe ]] || [[ $line = *.ps1 ]]; then
+			emoji=
+		fi
+		echo "$emoji $line"
+	done
+}
 
 directory="${1}"
 if [ -z "$directory" ]; then
 	directory=$(get_project_root "${directory}")
 fi
 
+# <(< "${XDG_DATA_HOME}/z/data" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1 | sed 's/^/  /') | \
+
 cat \
 	<(fd . ${directory}) \
 	<(< "${XDG_DATA_HOME}/z/data" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
 compact |\
 awk '!x[$0]++' |\
-sed "s:$HOME:~:"
+sed "s:$HOME:~:" |\
+iconify
 

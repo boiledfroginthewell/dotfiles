@@ -39,9 +39,54 @@ function _fzf_config_insert_git
 
 end
 
+function iconify
+	while read line
+		set emoji "　"
+		if string match -q '*.sh' "$line"
+			set emoji 🐚
+		else if string match -q '*.fish' "$line"
+			set emoji 🐟
+		else if string match -q '*.vim' "$line"
+			set emoji 
+		else if string match -q '*.py' "$line"
+			set emoji 🐍
+		else if string match -qr '\\.(js|ts)$' "$line"
+			set emoji 
+		else if string match -q '*.java' "$line"
+			set emoji ☕
+		else if string match -q '*.cql' "$line"
+			set emoji 👁️
+		else if string match -qr '\\.[shc]ql$' "$line"
+			set emoji 🛢️
+		else if string match -qr '\\.(txt|md)$|README$' "$line"
+			set emoji 📝
+		else if string match -q '*.json' "$line"
+			set emoji ﬥ
+		else if string match -q '*.xml' "$line"
+			set emoji 
+		else if string match -qr '\\.(exe|ps1)$' "$line"
+			set emoji 
+		else if string match -qr '\\.[ct]sv$' "$line"
+			set emoji 
+		else if string match -qr 'git' "$line"
+			set emoji 
+		else if string match -qri 'docker' "$line"
+			set emoji 🐋
+		else if string match -qri 'aws' "$line"
+			set emoji 
+		else if string match -q '/opt/' "$line"
+			set emoji 🤖
+		else if string match -qr '/(\.?config|dotfiles)' "$line"
+			set emoji ⚙️
+		end
+		echo "$emoji $line"
+	end
+end
+
+
 function _fzf_config_ctrl_s
 	set -f inputValue (string replace -r $HOME '^~' (commandline -pct))
-	set -f searchCommand "fzf-default-command"
+	set -f searchCommand fzf-default-command
 	set -f query
 	set -f directory
 	if [ -d "$inputValue" ]
@@ -71,10 +116,12 @@ function _fzf_config_ctrl_s
 	if [ -z "$output" ]
 		set -f output (
 			$searchCommand $directory | \
+			iconify | \
 			fzf \
 			--height $FZF_HEIGHT \
 			--query "$query" \
-			--bind "ctrl-l:execute(less {})"
+			--bind "ctrl-l:execute(less {})" | \
+			string sub -s 3
 		)
 	end
 	if [ -z "$output" ]
