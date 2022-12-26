@@ -39,7 +39,9 @@ sleep 0.5
 xcape -t 200 -e '#62=space'
 
 # start kmonad
-< "$cdir/dvorak-logicalshift.kbd" sed "s:%INPUT_DEVICE_FILE%:$devFile:" > "$cdir/.rendered.kbd"
+# kbdName=dvorak-logicalshift
+kbdName=40keys.kbd
+< "$cdir/$kbdName" sed "s:%INPUT_DEVICE_FILE%:$devFile:" > "$cdir/.rendered.kbd"
 kmonad "$cdir/.rendered.kbd"
 
 wait
