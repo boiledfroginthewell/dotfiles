@@ -5,7 +5,7 @@ if status is-interactive
 set -gx SHELL (which fish)
 
 
-set -p PATH (realpath "$__fish_config_dir/../bin")
+set -px PATH (realpath "$__fish_config_dir/../bin")
 
 alias mkdir="mkdir -p"
 alias cp="cp -r"

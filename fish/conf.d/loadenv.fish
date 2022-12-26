@@ -33,12 +33,12 @@ function __loadenv --on-event chpwd
 	end
 
 	for envDir in $envDirs
-		__loadenv_sourceEnvFile "$envDir"/"$AUTO_ENV_FILE"
+		loadenv "$envDir"/"$AUTO_ENV_FILE"
 	end
 	__loadenv_log "loaded from ($envDirs)"
 end
 
-function __loadenv_sourceEnvFile
+function loadenv
 	grep -Ev '^(#|\s*$)' $argv[1] | \
 	sed -e 's/^/set -gx /' -e 's/=/ /' | \
 	source
