@@ -19,7 +19,7 @@ alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 type -q hub && alias git hub
 alias gg="git graph"
-alias dc=docker-compose
+alias dc="docker compose"
 alias ipython="ipython --no-confirm-exit"
 
 # less alternative

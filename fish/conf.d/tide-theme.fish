@@ -10,8 +10,11 @@ set -g tide_git_bg_color_unstable 3e56b3
 set -g tide_git_bg_color_urgent red
 
 set -g tide_jobs_color E69500
-set -g tide_jobs_icon \uf59f
-set -g tide_jobs_icon \Uff9b1
+if [ (uname) = Darwin ]
+	set -g tide_jobs_icon \uf59f
+else
+	set -g tide_jobs_icon \Uff9b1
+end
 
 
 # begin
