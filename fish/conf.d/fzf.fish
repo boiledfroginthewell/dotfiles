@@ -64,6 +64,12 @@ function iconify
 			set emoji ﬥ
 		else if string match -q '*.xml' "$line"
 			set emoji 
+		else if string match -qr '\\.ya?ml$' "$line"
+			set emoji 
+		else if string match -q '*.ini' "$line"
+			set emoji 
+		else if string match -q '*.properties' "$line"
+			set emoji 
 		else if string match -qr '\\.(exe|ps1)$' "$line"
 			set emoji 
 		else if string match -qr '\\.[ct]sv$' "$line"
@@ -78,6 +84,8 @@ function iconify
 			set emoji 🤖
 		else if string match -qr '/(\.?config|dotfiles)' "$line"
 			set emoji ⚙️
+		else if string match -qr '/$' "$line"
+			set emoji 📁
 		end
 		echo "$emoji $line"
 	end
