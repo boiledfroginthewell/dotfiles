@@ -102,11 +102,12 @@
   // python
   "jupyter.askForKernelRestart": false,
   // "python.analysis.typeCheckingMode": "basic",
+	"jupyter.notebookFileRoot": "${workspaceFolder}",
   "jupyter.runStartupCommands": [
     "%load_ext autoreload",
     "%autoreload 2",
   ],
-  "jupyter.alwaysScrollOnNewCell": true,
+  "interactiveWindow.alwaysScrollOnNewCell": true,
   "jupyter.widgetScriptSources": [
     "jsdelivr.com",
     "unpkg.com"
