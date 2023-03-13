@@ -39,7 +39,7 @@ function __loadenv --on-event chpwd
 end
 
 function loadenv
-	grep -Ev '^(#|\s*$)' $argv[1] | \
+	grep -Ev '^(#|\s*$)' (nvl -v $argv[1] .env) | \
 	sed -e 's/^/set -gx /' -e 's/=/ /' | \
 	source
 end

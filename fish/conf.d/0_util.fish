@@ -25,20 +25,22 @@ function nvl
 end
 
 function rootSearch
-	argparse "d/dir=" "q/quiet" -- $argv || return
+	argparse "d/dir=" "r/regex" "q/quiet" -- $argv || return
 
 	set searchPath (nvl -v $dir (pwd))
 	set searchingFile $argv[1]
 
 	while [ $searchPath != / ]
-		if [ -e "$searchPath/$searchingFile" ]
-			set -a results "$searchPath/$searchingFile" 
+		if set -q _flag_regex
+			set -a results (ls "$searchPath" | grep -E "$searchingFile" | sed "s:^:$searchPath/:")
+		else if [ -e "$searchPath/$searchingFile" ]
+			set -a results "$searchPath/$searchingFile"
 		end
 		set searchPath (dirname $searchPath)
 	end
 
 	if [ -n "$results" ]
-		set -q _flag_quiet || echo $results
+		set -q _flag_quiet || printf '%s\n' $results
 	else
 		return 1
 	end
