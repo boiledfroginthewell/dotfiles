@@ -45,3 +45,6 @@ ysi{TObj}" -- "で囲む
 ,b -- Buffer一覧
 ^p -- ctrlp
 
+## Speluncer
+Zl -- correct word
+Zg -- add word to dict

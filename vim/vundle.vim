@@ -22,11 +22,19 @@ let g:localvimrc_persistent = 1
 
 Plug 'editorconfig/editorconfig-vim'
 
+Plug 'scrooloose/nerdtree'
+
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 " Update v:oldfiles on opening buffer
 Plug 'gpanders/vim-oldfiles'
+
+" Improved vim spelling plugin (with camel case support)! 
+Plug 'kamykn/spelunker.vim'
+set nospell
+let g:enable_spelunker_vim_on_readonly = 1
+let g:spelunker_target_min_char_len = 3
 
 if !has('win32unix') && !has('win32')
 	" fzf heart vim
@@ -69,8 +77,9 @@ if !has('win32unix') && !has('win32')
 	command! Maps call fzf#vim#maps('', 0)<cr>
 	nmap <silent> <Leader>, :call fzf#run(fzf#wrap({
 		\'source': 'bash -c "'.
-			\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
+			\'fd '. expand('%:p:h') .';'.
 			\'fzf-default-command;'.
+			\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
 			\'"',
 		\'dir': '.',
 	\}))<CR>
@@ -79,8 +88,8 @@ if !has('win32unix') && !has('win32')
 		let l:BS = "\u08" " <C-h>
 		let l:list = fzf#run(fzf#wrap({
 			\'source': 'bash -c "'.
-				\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
 				\'fzf-default-command;'.
+				\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
 				\'"',
 			\'dir': '.',
 			\ 'sink': { lines -> lines },
@@ -223,9 +232,9 @@ if executable('ctags')
 		\ 'kinds' : [
 			\ 'h:table of contents',
 			\ 'l:line'
-	\ ],
-	\ 'sort' : 0
-\ }
+		\ ],
+		\ 'sort' : 0
+	\ }
 endif
 
 Plug 'chaoren/vim-wordmotion'
@@ -266,16 +275,12 @@ if executable('node')
 	Plug 'honza/vim-snippets'
 endif
 
-
-Plug 'vim-scripts/SingleCompile'
-nmap <F5> :w<cr>:SCCompile<cr>
-" nmap <F4> :w<cr>:SCCompileRun<cr>
-"* gnuplot support
-augroup vimrcSingleCompileGnuplot
-	autocmd!
-	autocmd FileType gnuplot * call SingleCompile#SetCompilerTemplate('gnuplot', 'gnuplot', 'gnuplotname', 'gnuplot', '', '')
-	autocmd FileType gnuplot * call SingleCompile#ChooseCompiler('gnuplot', 'gnuplot')
-augroup END
+" 🚀 Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
+Plug 'skywind3000/asyncrun.vim'
+let g:asyncrun_open = 12
+let g:asyncrun_bell = 1
+let g:asyncrun_save = 1
+nmap <F5> :AsyncRun ./%<CR>
 
 Plug 'janko/vim-test'
 nmap <silent> <F6> :TestNearest<CR>
