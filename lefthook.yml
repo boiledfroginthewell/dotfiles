@@ -27,7 +27,7 @@ pre-commit:
       run: "conflicts {staged_files}"
     compile-zsh:
       glob: "zsh/**/*.sh"
-      run: zsh/compile.zsh
+      run: zsh/compile.zsh {staged_files}
 
 
 pre-push:
