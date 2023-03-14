@@ -1,13 +1,12 @@
 {
-  "title": "Kana Mapping",
+  "title": "Change return to control",
   "rules": [
     {
-      "description": "Hold kana to input left_control",
+      "description": "Change return to control if pressed with other keys, to return if pressed alone",
       "manipulators": [
         {
-          "type": "basic",
           "from": {
-            "key_code": "japanese_kana",
+            "key_code": "return_or_enter",
             "modifiers": {
               "optional": [
                 "any"
@@ -21,9 +20,10 @@
           ],
           "to_if_alone": [
             {
-              "key_code": "japanese_kana"
+              "key_code": "return_or_enter"
             }
-          ]
+          ],
+          "type": "basic"
         }
       ]
     }
