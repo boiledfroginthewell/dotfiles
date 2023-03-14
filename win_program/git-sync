@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash
 
 if type hub &> /dev/null; then
 	hub sync
@@ -9,9 +9,11 @@ fi
 currentBranch="$(git symbolic-ref --short HEAD)"
 git fetch -q
 
-branches="main"
+branches=(
+	$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+)
 
-for x in $branches; do
+for x in "${branches[@]}"; do
 	if git rev-parse --verify $x &> /dev/null; then
 		if [ "$currentBranch" = "$x" ]; then
 			git merge --ff-only origin/$x

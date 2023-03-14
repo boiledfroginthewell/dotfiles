@@ -1,0 +1,25 @@
+#!/bin/bash
+
+help() {
+	echo "
+	$0 [-hs] [-t title] message
+"
+}
+
+while getopts 'ht:s' ARG; do
+	case ${ARG} in
+	t)
+		title="with title \"${OPTARG}\""
+		;;
+	s)
+		sound='sound name "Submarine"'
+		;;
+	h|\?)
+		help
+		;;
+	esac
+done
+shift $(( OPTIND - 1 ))
+
+osascript -e "display notification \"$1\" $title $sound"
+
