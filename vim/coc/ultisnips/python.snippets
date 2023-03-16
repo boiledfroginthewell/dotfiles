@@ -2,17 +2,11 @@ snippet Logger "logger" b
 _logger = logging.getLogger(__name__)
 endsnippet
 
-global !main
-if __name__ == "__main__" and "__file__" in globals():
-	
-endglobal
-
 snippet ifmain "main" b
-`!main
+if __name__ == "__main__" and "__file__" in globals():
 endsnippet
-
 snippet main "main" b
-`!main
+if __name__ == "__main__" and "__file__" in globals():
 endsnippet
 
 snippet plotly "Plot with Plotly" b
@@ -24,3 +18,4 @@ endsnippet
 snippet debug "Start debugger" b
 import pdb; pdb.set_trace()
 endsnippet
+

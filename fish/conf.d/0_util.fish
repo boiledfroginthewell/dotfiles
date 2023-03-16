@@ -24,3 +24,23 @@ function nvl
 	end
 end
 
+function rootSearch
+	argparse "d/dir=" "q/quiet" -- $argv || return
+
+	set searchPath (nvl -v $dir (pwd))
+	set searchingFile $argv[1]
+
+	while [ $searchPath != / ]
+		if [ -e "$searchPath/$searchingFile" ]
+			set -a results "$searchPath/$searchingFile" 
+		end
+		set searchPath (dirname $searchPath)
+	end
+
+	if [ -n "$results" ]
+		set -q _flag_quiet || echo $results
+	else
+		return 1
+	end
+end
+
