@@ -40,7 +40,7 @@ end
 
 function loadenv
 	grep -Ev '^(#|\s*$)' (nvl -v $argv[1] .env) | \
-	sed -e 's/^/set -gx /' -e 's/=/ /' | \
+	sed -e 's/^/set -gx /' -e 's/=/ "/' -e 's/$/"/' | \
 	source
 end
 
