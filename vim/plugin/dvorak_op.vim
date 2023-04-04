@@ -24,10 +24,10 @@ noremap kk dd
 vunmap kk
 noremap K D
 " jump
-noremap j f
-noremap J F
-noremap f t
-noremap F T
+" noremap j f
+" noremap J F
+" noremap f t
+" noremap F T
 noremap l n
 noremap L N
 " window movement

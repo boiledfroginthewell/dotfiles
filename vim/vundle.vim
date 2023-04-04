@@ -77,7 +77,7 @@ if !has('win32unix') && !has('win32')
 	command! Maps call fzf#vim#maps('', 0)<cr>
 	nmap <silent> <Leader>, :call fzf#run(fzf#wrap({
 		\'source': 'bash -c "'.
-			\'fd '. expand('%:p:h') .';'.
+			\'fd . '. expand('%:p:h') .' ;'.
 			\'fzf-default-command;'.
 			\'echo -e \"'.join(v:oldfiles, '\n').'\";'.
 			\'"',
@@ -256,6 +256,17 @@ omap b <Plug>WordMotion_b
 nnoremap gw w
 nnoremap ge e
 nnoremap gb b
+
+Plug 'rhysd/clever-f.vim'
+let g:clever_f_mark_direct = 1
+let g:clever_f_use_migemo = 1
+let g:clever_f_not_overwrites_standard_mappings = 1
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
+noremap j <Plug>(clever-f-f)
+noremap J <Plug>(clever-f-F)
+noremap f <Plug>(clever-f-t)
+noremap F <Plug>(clever-f-T)
 
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 let g:ale_disable_lsp = 1
