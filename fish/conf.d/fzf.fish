@@ -1,7 +1,7 @@
 not status -i || status -c && exit
 
 set -gx FZF_DEFAULT_COMMAND fzf-default-command
-set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi \
+set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --exact \
 	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down"
 if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS

@@ -22,6 +22,8 @@ alias gg="git graph"
 alias dc="docker compose"
 alias ipython="ipython --no-confirm-exit"
 
+abbr --add k kubectl
+
 # less alternative
 if type -q bat
     set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
@@ -41,6 +43,8 @@ function cursor-kill-bigword
     commandline -f backward-kill-bigword
 end
 bind \cw cursor-kill-bigword
+bind \cj forward-jump
+bind \cf backward-jump
 
 
 end

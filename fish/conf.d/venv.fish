@@ -6,6 +6,7 @@ function __activateVenv --on-event chpwd
 	if [ -z "$venvs" ]
 		if set -q VIRTUAL_ENV
 			deactivate
+			fish_add_path -p --path $fish_user_paths
 		end
 		return
 	end
