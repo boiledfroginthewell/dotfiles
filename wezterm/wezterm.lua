@@ -32,6 +32,7 @@ return {
 	show_update_window = false,
 	check_for_updates = false,
 	check_for_updates_interval_seconds = 90 * 24 * 3600,
+	warn_about_missing_glyphs = false,
 	font = wezterm.font_with_fallback({
 		"Cica",
 		"JetBrains Mono",
