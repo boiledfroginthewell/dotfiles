@@ -47,6 +47,5 @@ noremap _ $
 " vnoremap w e
 " snoremap w e
 noremap <A-k> "f0D
-noremap <M-k> "f0D
-noremap k "f0D
+" noremap <M-k> "f0D
 

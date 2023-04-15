@@ -21,6 +21,9 @@ type -q hub && alias git hub
 alias gg="git graph"
 alias dc="docker compose"
 alias ipython="ipython --no-confirm-exit"
+alias vi="nvim"
+# alias vim="nvim"
+set -x EDITOR nvim
 
 abbr --add k kubectl
 
@@ -45,7 +48,7 @@ end
 bind \cw cursor-kill-bigword
 bind \cj forward-jump
 bind \cf backward-jump
-
+bind \cz fg
 
 end
 

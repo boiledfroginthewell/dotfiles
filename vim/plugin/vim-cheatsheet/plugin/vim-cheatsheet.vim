@@ -29,7 +29,8 @@ command! -nargs=? -complete=command CheatOpen call <SID>open_cheat_sheet(<q-args
 command! -nargs=? -complete=command CheatClose call <SID>close_cheat_sheet(<q-args>)
 
 " Save open state
-let s:cache_dir = ($XDG_CACHE_HOME ?? ("$HOME" . "/.config")) . "/vim-cheatsheet"
+" let s:cache_dir = ("$XDG_CACHE_HOME" ?? ("$HOME" . "/.config")) . "/vim-cheatsheet"
+let s:cache_dir = $XDG_CACHE_HOME . "/vim-cheatsheet"
 let s:cache_file = s:cache_dir . "/state"
 
 function! s:write_state(state)
