@@ -1,7 +1,3 @@
-if filereadable($VIMRUNTIME . "/defaults.vim")
-	source $VIMRUNTIME/defaults.vim
-endif
-
 set encoding=utf8
 scriptencoding utf8
 
@@ -13,6 +9,10 @@ endif
 
 
 if !has("nvim")
+	if filereadable($VIMRUNTIME . "/defaults.vim")
+		source $VIMRUNTIME/defaults.vim
+	endif
+
 	set viminfo+='2000,n$XDG_CACHE_HOME/vim/viminfo
 endif
 
@@ -21,6 +21,7 @@ set display+=lastline
 set autochdir
 set cursorline
 set visualbell
+set termguicolors
 set splitright
 set splitbelow
 set noswapfile
@@ -48,17 +49,20 @@ let &background = ($COLOR_MODE != "" ? $COLOR_MODE : "dark")
 
 let mapleader=","
 
+nnoremap q: <nop>
+
 nnoremap <S-CR> O<esc>
 nnoremap <CR> o<esc>
 noremap <F1> K
 noremap <c-]> g<c-]>
 noremap g<c-]> <c-]>
-noremap <c-[> <C-T>
+noremap <c-}> <C-T>
 
 " Clipboard
 noremap <C-y> "+P
 inoremap <C-y> <C-r>+
 noremap <C-A-y> "*P
+vnoremap <C-c> "+y
 
 " go to the middle of a line by gm
 noremap gm :call cursor(0, virtcol('$')/2)<CR>

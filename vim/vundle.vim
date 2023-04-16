@@ -27,6 +27,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-scripts/ShowMarks'
 let g:showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
+" Forget Vim tabs – now you can have buffer tabs
+Plug 'ap/vim-buftabline'
+
 " Update v:oldfiles on opening buffer
 Plug 'gpanders/vim-oldfiles'
 
@@ -271,7 +274,7 @@ noremap F <Plug>(clever-f-T)
 " Check syntax in Vim asynchronously and fix files, with Language Server Protocol (LSP) support
 let g:ale_disable_lsp = 1
 Plug 'dense-analysis/ale'
-let g:ale_linters = { 'python': ['flake8', 'mypy', 'isort'] }
+let g:ale_linters = { 'python': ['pylint', 'mypy', 'isort'] }
 highlight ALEWarning ctermbg=None
 highlight ALEError ctermbg=None ctermfg=red
 " nmap <silent> <C-t> <Plug>(ale_previous_wrap)
@@ -292,13 +295,6 @@ let g:asyncrun_open = 12
 let g:asyncrun_bell = 1
 let g:asyncrun_save = 1
 nmap <F5> :AsyncRun ./%<CR>
-
-Plug 'janko/vim-test'
-nmap <silent> <F6> :TestNearest<CR>
-nmap <silent> <F7> :TestFile<CR>
-" nmap <silent> t<C-s> :TestSuite<CR>
-" nmap <silent> t<C-l> :TestLast<CR>
-" nmap <silent> t<C-g> :TestVisit<CR>
 
 
 " Language Specific Plugins
