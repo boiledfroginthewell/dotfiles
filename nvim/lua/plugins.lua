@@ -54,6 +54,14 @@ require("lazy").setup({
 	-- This neovim plugin creates missing folders on save.
 	'jghauser/mkdir.nvim',
 
+	{'embear/vim-localvimrc',
+		init = function()
+			vim.g.localvimrc_ask = 0
+			vim.g.localvimrc_sandbox = 0
+			vim.g.localvimrc_persistent = 1
+		end,
+	},
+
 	{'vim-scripts/ShowMarks',
 		init = function()
 			vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -63,6 +71,10 @@ require("lazy").setup({
 	{ "lewis6991/gitsigns.nvim",
 		opts = {
 			-- signcolumn = true
+			signs = {
+				add = { text = '+' },
+			},
+			attach_to_untracked = false,
 		},
 	},
 
@@ -94,17 +106,17 @@ require("lazy").setup({
 
 	-- Neovim plugin for locking a buffer to a window 
 	{'stevearc/stickybuf.nvim',
-		init = function()
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = {'help', 'qf', 'cheatsheet'},
-				callback = function()
-					local stickybuf = require("stickybuf")
-					-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
-						stickybuf.pin()
-					-- end
-				end
-			})
-		end,
+		-- init = function()
+		-- 	vim.api.nvim_create_autocmd('FileType', {
+		-- 		pattern = {'help', 'qf', 'cheatsheet'},
+		-- 		callback = function()
+		-- 			local stickybuf = require("stickybuf")
+		-- 			-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
+		-- 				stickybuf.pin()
+		-- 			-- end
+		-- 		end
+		-- 	})
+		-- end,
 		config = true,
 	},
 
@@ -129,15 +141,6 @@ require("lazy").setup({
 				triggers_nowait = {},
 			})
 		end,
-	},
-
-	{ "nvim-neo-tree/neo-tree.nvim",
-			branch = "v2.x",
-			dependencies = {
-			"nvim-lua/plenary.nvim",
-			"nvim-tree/nvim-web-devicons",
-			"MunifTanjim/nui.nvim",
-		}
 	},
 
 	-- Improved vim spelling plugin (with camel case support)! 
@@ -172,28 +175,57 @@ require("lazy").setup({
 	-- 'inkarkat/argtextobj.vim',
 	-- 'thalesmello/vim-textobj-methodcall',
 
-	-- Vim motions on speed!
-	{ 'easymotion/vim-easymotion',
+	-- -- Vim motions on speed!
+	-- { 'easymotion/vim-easymotion',
+	-- 	init = function()
+	-- 		vim.g.EasyMotion_do_mapping = 0
+	-- 		vim.g.EasyMotion_use_upper = 1
+	-- 		vim.g.EasyMotion_keys =
+	-- 			'EUOAI' ..
+	-- 			'F:L,R.C' ..
+	-- 			'234789' ..
+	-- 			';QJKXVZWMBY' ..
+	-- 			'DSNTH'
+	-- 		vim.g.EasyMotion_enter_jump_first = 1
+	-- 		vim.g.EasyMotion_add_search_history = 0
+	-- 		vim.g.EasyMotion_off_screen_search = 0
+	-- 		-- if has('mac')
+	-- 			-- nmap - <Plug>(easymotion-bd-w)
+	-- 		-- else
+	-- 			-- nmap - <Plug>(easymotion-overwin-w)
+	-- 		-- endif
+	-- 	end,
+	-- 	keys = {
+	-- 		{ "-", "<Plug>(easymotion-overwin-w)" },
+	-- 	},
+	-- },
+
+	-- Neovim motions on speed!
+	{'phaazon/hop.nvim',
+		branch = 'v2',
+		opts = {
+			keys = 'euoai' .. 'f:l,r.c' .. ';qjkxvzwmby' .. 'dsnth',
+			multi_windows = true,
+			uppercase_labels = true,
+		},
+		keys = {
+			{'-', '<cmd>HopWord<cr>' },
+		},
+	},
+
+	{"rhysd/clever-f.vim",
 		init = function()
-			vim.g.EasyMotion_do_mapping = 0
-			vim.g.EasyMotion_use_upper = 1
-			vim.g.EasyMotion_keys =
-				'EUOAI' ..
-				'F:L,R.C' ..
-				'234789' ..
-				';QJKXVZWMBY' ..
-				'DSNTH'
-			vim.g.EasyMotion_enter_jump_first = 1
-			vim.g.EasyMotion_add_search_history = 0
-			vim.g.EasyMotion_off_screen_search = 0
-			-- if has('mac')
-				-- nmap - <Plug>(easymotion-bd-w)
-			-- else
-				-- nmap - <Plug>(easymotion-overwin-w)
-			-- endif
+			vim.g.clever_f_mark_direct = 1
+			vim.g.clever_f_use_migemo = 1
+			vim.g.clever_f_not_overwrites_standard_mappings = 1
 		end,
 		keys = {
-			{ "-", "<Plug>(easymotion-overwin-w)" },
+			{";", "<Plug>(clever-f-repeat-forward)" },
+			-- {",", "<Plug>(clever-f-repeat-back)" },
+			{"j", "<Plug>(clever-f-f)" },
+			{"J", "<Plug>(clever-f-F)" },
+			{"f", "<Plug>(clever-f-t)" },
+			{"F", "<Plug>(clever-f-T)" },
 		},
 	},
 
@@ -220,6 +252,18 @@ require("lazy").setup({
 			vim.api.nvim_set_keymap('n', '<esc>', '<Cmd>noh<CR>', kopts)
 		end,
 		config = true,
+	},
+
+	{ "nvim-neo-tree/neo-tree.nvim",
+		branch = "v2.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"MunifTanjim/nui.nvim",
+		},
+		keys = {
+			{'<leader>e', '<cmd>NeoTreeFocusToggle<cr>', desc='NeoTree'},
+		},
 	},
 
 	-- fzf heart lua
@@ -256,10 +300,6 @@ require("lazy").setup({
 	-- A Vim plugin for more pleasant editing on commit messages 
 	"rhysd/committia.vim",
 
-
-	-- Programming Plugins
-	-- ======================
-
 	-- A small automated session manager for Neovim 
 	{'rmagatti/auto-session',
 		opts = {
@@ -270,76 +310,14 @@ require("lazy").setup({
 		},
 	},
 
+	 -- Vim plugin for automatic time tracking and metrics generated from your programming activity.
+	'wakatime/vim-wakatime',
+
+	-- Programming Plugins
+	-- ======================
+
 	-- sleuth.vim: Heuristically set buffer options
 	'tpope/vim-sleuth',
-
-	-- A starting point to setup some lsp related features in neovim. 
-	{ 'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		dependencies = {
-			{'neovim/nvim-lspconfig'},
-			{ 'williamboman/mason.nvim',
-				build = function()
-					pcall(vim.cmd, 'MasonUpdate')
-				end,
-			},
-			{'williamboman/mason-lspconfig',
-				opts = {
-					ensure_installed = {
-						'lua_ls',
-					},
-				},
-			},
-			-- Autocompletion
-			{'hrsh7th/nvim-cmp'},		-- Required
-			{'hrsh7th/cmp-nvim-lsp'}, -- Required
-			{'L3MON4D3/LuaSnip'},		-- Required
-		},
-		config = function()
-			local lsp = require('lsp-zero').preset({})
-
-			lsp.on_attach(function(client, bufnr)
-				lsp.default_keymaps({buffer = bufnr})
-			end)
-
-			-- (Optional) Configure lua language server for neovim
-			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-
-			lsp.setup()
-
-			-- customizations
-			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
-		end
-	},
-
-	{ 'nvim-treesitter/nvim-treesitter',
-		build = ":TSUpdate",
-		opts = {
-			ensure_installed = {
-				"lua", 'luadoc', 'vim', "vimdoc",
-				'json', 'markdown', 'yaml', 'toml', 'xml', 
-				'bash', "fish",
-				'python',
-			},
-			highlight = {enable = true },
-		},
-	},
-
-	{'nvim-treesitter/nvim-treesitter-textobjects',
-		dependencies = {"nvim-treesitter/nvim-treesitter"},
-		main = 'nvim-treesitter.configs',
-		opts = {
-			textobjects = {
-				select = {
-					enable = true,
-					keymaps = {
-						ia = '@parameter.inner',
-						aa = '@parameter.inner',
-					},
-				},
-			},
-		},
-	},
 
 	-- Comment out
 	{ 'tyru/caw.vim',
@@ -398,22 +376,6 @@ require("lazy").setup({
 		lazy = false,
 	},
 
-	{"rhysd/clever-f.vim",
-		init = function()
-			vim.g.clever_f_mark_direct = 1
-			vim.g.clever_f_use_migemo = 1
-			vim.g.clever_f_not_overwrites_standard_mappings = 1
-		end,
-		keys = {
-			{";", "<Plug>(clever-f-repeat-forward)" },
-			-- {",", "<Plug>(clever-f-repeat-back)" },
-			{"j", "<Plug>(clever-f-f)" },
-			{"J", "<Plug>(clever-f-F)" },
-			{"f", "<Plug>(clever-f-t)" },
-			{"F", "<Plug>(clever-f-T)" },
-		},
-	},
-
 	-- " 🚀 Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
 	{'skywind3000/asyncrun.vim',
 		init = function()
@@ -426,14 +388,126 @@ require("lazy").setup({
 		},
 	},
 
+	-- ### LSP Plugins
+
+	-- A starting point to setup some lsp related features in neovim. 
+	{ 'VonHeikemen/lsp-zero.nvim',
+		branch = 'v2.x',
+		dependencies = {
+			{'neovim/nvim-lspconfig'},
+			'onsails/lspkind.nvim',
+			{'williamboman/mason.nvim',
+				build = function()
+					pcall(vim.cmd, 'MasonUpdate')
+				end,
+			},
+			{'williamboman/mason-lspconfig',
+				opts = {
+					ensure_installed = {
+						'lua_ls',
+					},
+				},
+			},
+			-- Autocompletion
+			{'hrsh7th/nvim-cmp'},		-- Required
+			{'hrsh7th/cmp-nvim-lsp'}, -- Required
+			{'L3MON4D3/LuaSnip'},		-- Required
+		},
+		config = function()
+			local lsp = require('lsp-zero').preset({
+				manage_nvim_cmp = {
+					set_extra_mappings = true,
+				},
+			})
+
+			lsp.on_attach(function(client, bufnr)
+				lsp.default_keymaps({buffer = bufnr})
+			end)
+
+			-- (Optional) Configure lua language server for neovim
+			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+			lsp.setup()
+
+			local cmp = require('cmp')
+			local cmp_action = require('lsp-zero').cmp_action()
+			require('luasnip.loaders.from_vscode').lazy_load()
+
+			-- customizations
+			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
+			cmp.setup{
+				sources = {
+					{name = 'nvim_lsp'},
+					{name = 'luasnip'},
+				},
+				mapping = {
+					['<CR>'] = cmp.mapping.confirm{select = true},
+					-- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+					-- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+					['<Tab>'] = cmp_action.luasnip_supertab(),
+					['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+				},
+				formatting = {
+					fields = {'abbr', 'kind', 'menu'},
+					format = require('lspkind').cmp_format({
+						mode = 'symbol', -- show only symbol annotations
+						maxwidth = 50, -- prevent the popup from showing more than provided characters
+						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+					})
+				}
+			}
+		end
+	},
+
+	{ 'nvim-treesitter/nvim-treesitter',
+		build = ":TSUpdate",
+		opts = {
+			ensure_installed = {
+				"lua", 'luadoc', 'vim', "vimdoc",
+				'json', 'markdown', 'yaml', 'toml', 'xml', 
+				'bash', "fish",
+				'python',
+			},
+			highlight = {enable = true },
+		},
+	},
+
+	{'nvim-treesitter/nvim-treesitter-textobjects',
+		dependencies = {"nvim-treesitter/nvim-treesitter"},
+		main = 'nvim-treesitter.configs',
+		opts = {
+			textobjects = {
+				select = {
+					enable = true,
+					keymaps = {
+						ia = '@parameter.inner',
+						aa = '@parameter.inner',
+					},
+				},
+			},
+		},
+	},
+
+	-- A Neovim plugin to deal with treesitter units 
+	{'David-Kunz/treesitter-unit',
+		config = function ()
+			vim.api.nvim_set_keymap('x', 'iu', ':lua require"treesitter-unit".select()<CR>', {noremap=true, desc='Treesitter Unit'})
+			vim.api.nvim_set_keymap('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', {noremap=true, desc='Treesitter unit'})
+			vim.api.nvim_set_keymap('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', {noremap=true})
+			vim.api.nvim_set_keymap('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', {noremap=true})
+		end
+	},
+
+
 	-- Language specific plugins
 	------------------------------
 
+	-- Vim editing support for kmonad config files 
 	{'kmonad/kmonad-vim',
 		ft = 'kbd',
 	},
 
-	-- For neovim
+	-- For plugins.lua (lazy.nvim)
 	{'tyru/open-browser.vim',
 		keys = {
 			{
@@ -452,10 +526,5 @@ require("lazy").setup({
 			}
 		},
 	},
-
--- }, {
-	-- defaults = {
-	--	lazy = true
-	-- },
 })
 
