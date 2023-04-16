@@ -107,6 +107,7 @@ function! s:open_cheat_sheet() abort
   let returnBufnr = bufnr('%')
   set nonu
   set nocursorline
+  set ft=cheatsheet
   wincmd w
   return returnBufnr
 endfunction

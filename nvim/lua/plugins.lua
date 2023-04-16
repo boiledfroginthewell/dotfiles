@@ -5,10 +5,11 @@ require("lazy").setup({
 
 	-- Color Theme
 	{'folke/tokyonight.nvim',
+		priority = 1000,
 		config = function()
 			vim.cmd[[colorscheme tokyonight-moon]]
 		end,
-		opt = {
+		opts = {
 			terminal_colors = false,
 		},
 	},
@@ -16,6 +17,7 @@ require("lazy").setup({
 	-- A fancy, configurable, notification manager for NeoVim 
 	{'rcarriga/nvim-notify',
 		config = function()
+			require('notify').setup({})
 			vim.notify = require('notify')
 		end,
 	},
@@ -26,32 +28,107 @@ require("lazy").setup({
 			vim.opt.list = true
 			vim.opt.listchars:append('space:⋅')
 		end,
-		opt = {
+		opts = {
 			space_char_blankline = " ",
-			-- show_current_context = true,
-			-- show_current_context_start = true,
+			show_current_context = true,
+			show_current_context_start = true,
 		},
 	},
-
 
 	-- Basic Editing Plugins
 	-- =========================
 
-	-- This neovim plugin creates missing folders on save. 
+	 -- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single. 
+	 {'rbtnn/vim-ambiwidth',
+		init = function ()
+			vim.opt.ambiwidth = 'single'
+		end,
+	},
+
+	-- Vim plugin: Make blockwise Visual mode more useful
+	'kana/vim-niceblock',
+
+	-- Configure commands not to be registered in the command-line history
+	{'yutkat/history-ignore.nvim', },
+
+	-- This neovim plugin creates missing folders on save.
 	'jghauser/mkdir.nvim',
 
-	-- Forget Vim tabs – now you can have buffer tabs
-	'ap/vim-buftabline',
+	{'vim-scripts/ShowMarks',
+		init = function()
+			vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+		end,
+	},
+
+	{ "lewis6991/gitsigns.nvim",
+		opts = {
+			-- signcolumn = true
+		},
+	},
+
+	-- Extensible Neovim Scrollbar
+	"petertriho/nvim-scrollbar",
 
 	-- A snazzy bufferline for Neovim
-	'akinsho/bufferline.nvim',
+	{'akinsho/bufferline.nvim',
+		version = "v3.*",
+		dependencies = 'nvim-tree/nvim-web-devicons',
+		opts = {
+			options = {
+				buffer_close_icon = '',
+				-- separator_style = 'slant',
+			},
+		},
+	},
 
-	-- A neovim plugin that jump to previous and next buffer of the jumplist. 
+	-- A neovim plugin that jump to previous and next buffer of the jumplist.
 	{'kwkarlwang/bufjump.nvim',
-		opt = {
+		opts = {
 			forward = 'g<c-o>',
 			backward = 'g<c-i>',
 		},
+	},
+
+	-- Keep buffer dimensions in proportion when terminal window is resized
+	"kwkarlwang/bufresize.nvim",
+
+	-- Neovim plugin for locking a buffer to a window 
+	{'stevearc/stickybuf.nvim',
+		init = function()
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = {'help', 'qf', 'cheatsheet'},
+				callback = function()
+					local stickybuf = require("stickybuf")
+					-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
+						stickybuf.pin()
+					-- end
+				end
+			})
+		end,
+		config = true,
+	},
+
+	{
+		"folke/which-key.nvim",
+		config = function()
+			vim.o.timeout = true
+			vim.o.timeoutlen = 500
+			require("which-key").setup({
+				plugins = {
+					presets = {
+						motions = false,
+						operators = false,
+					},
+				},
+				operators = {
+					y='Yank', c='Change', k='Kill',
+					['>']='Indent', ['<']='Indent'
+				},
+				triggers_blacklist = {
+				},
+				triggers_nowait = {},
+			})
+		end,
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
@@ -65,10 +142,10 @@ require("lazy").setup({
 
 	-- Improved vim spelling plugin (with camel case support)! 
 	{ 'kamykn/spelunker.vim',
-		config = function()
+		init = function()
 			vim.g.enable_spelunker_vim_on_readonly = 1
 			vim.g.spelunker_target_min_char_len = 3
-		end
+		end,
 	},
 
 	-- quoting/parenthesizing made simple
@@ -122,7 +199,8 @@ require("lazy").setup({
 
 	-- Hlsearch Lens for Neovim
 	{'kevinhwang91/nvim-hlslens',
-		config = function()
+		enabled = false,
+		init = function()
 			local kopts = {noremap = true, silent = true}
 
 			vim.api.nvim_set_keymap(
@@ -137,29 +215,28 @@ require("lazy").setup({
 			)
 			vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
 			vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-			vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-			vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], kopts)
+			vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]], {noremap = false, silent = true})
+			vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]], {noremap = false, silent = true})
 			vim.api.nvim_set_keymap('n', '<esc>', '<Cmd>noh<CR>', kopts)
-
-			require('hlslens').setup()
-		end
+		end,
+		config = true,
 	},
 
 	-- fzf heart lua
 	{'ibhagwan/fzf-lua',
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		keys = {
-			{"<leader><leader>", ":lua require('fzf-lua').files()<cr>"},
-			{"<leader>o", ":lua require('fzf-lua').oldfiles()<cr>"},
-			{"<leader>b", ":lua require('fzf-lua').buffers()<cr>"},
-			{"<leader>r", ":lua require('fzf-lua').grep_project()<cr>"}, -- ripgrep
-			{"<leader>c", ":lua require('fzf-lua').commands()<cr>"},
+			{"<leader>,", ":lua require('fzf-lua').files()<cr>", desc='Files'},
+			{"<leader>o", ":lua require('fzf-lua').oldfiles()<cr>", desc='Oldfiles'},
+			{"<leader>b", ":lua require('fzf-lua').buffers()<cr>", desc='Buffers'},
+			{"<leader>r", ":lua require('fzf-lua').grep_project()<cr>", desc='Ripgrep'},
+			{"<leader>c", ":lua require('fzf-lua').commands()<cr>", desc='Command Pallet'},
 		},
 	},
 
 	-- A neovim lua plugin to help easily manage multiple terminal windows 
 	{ "akinsho/toggleterm.nvim",
-		tag = '*',
+		tag = 'v2.*',
 		config = true,
 		keys = {
 			{'<F7>', '<cmd>ToggleTerm<cr>', mode = {'n', 't'}},
@@ -174,12 +251,6 @@ require("lazy").setup({
 			highlights = { border = "Normal", background = "Normal" },
 			},
 		},
-		},
-
-	{ "lewis6991/gitsigns.nvim",
-		opt = {
-			signcolumn = true
-		},
 	},
 
 	-- A Vim plugin for more pleasant editing on commit messages 
@@ -188,6 +259,19 @@ require("lazy").setup({
 
 	-- Programming Plugins
 	-- ======================
+
+	-- A small automated session manager for Neovim 
+	{'rmagatti/auto-session',
+		opts = {
+			log_level = "error",
+			auto_session_suppress_dirs = {
+				"~/", "~/Projects", "~/Downloads", "/",
+			},
+		},
+	},
+
+	-- sleuth.vim: Heuristically set buffer options
+	'tpope/vim-sleuth',
 
 	-- A starting point to setup some lsp related features in neovim. 
 	{ 'VonHeikemen/lsp-zero.nvim',
@@ -200,7 +284,7 @@ require("lazy").setup({
 				end,
 			},
 			{'williamboman/mason-lspconfig',
-				opt = {
+				opts = {
 					ensure_installed = {
 						'lua_ls',
 					},
@@ -231,14 +315,20 @@ require("lazy").setup({
 	{ 'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = {"lua", "vimdoc", "fish" },
+			ensure_installed = {
+				"lua", 'luadoc', 'vim', "vimdoc",
+				'json', 'markdown', 'yaml', 'toml', 'xml', 
+				'bash', "fish",
+				'python',
+			},
 			highlight = {enable = true },
 		},
 	},
 
 	{'nvim-treesitter/nvim-treesitter-textobjects',
 		dependencies = {"nvim-treesitter/nvim-treesitter"},
-		opt = {
+		main = 'nvim-treesitter.configs',
+		opts = {
 			textobjects = {
 				select = {
 					enable = true,
@@ -259,14 +349,14 @@ require("lazy").setup({
 	},
 
 	{ 'sbdchd/vim-shebang',
-		config = function()
+		init = function()
 			vim.g["shebang#shebangs"] = {
 				sh='#!/bin/bash',
 				bash='#!/bin/bash',
 			}
 		end,
 		keys = {
-			{"<leader>#", ":ShebangInsert<CR>"},
+			{"<leader>#", ":ShebangInsert<CR>", desc='Shebang Insert'},
 		},
 	},
 
@@ -274,7 +364,7 @@ require("lazy").setup({
 		cond = function()
 			return vim.fn.executable("ctags")
 		end,
-		config = function()
+		init = function()
 			vim.g.tagbar_width = 30
 			vim.g.tagbar_compact = 1
 			vim.g.tagbar_iconchars = {'>', 'V'}
@@ -305,6 +395,7 @@ require("lazy").setup({
 			{ "gw", "w" },
 			{ "gb", "b" },
 		},
+		lazy = false,
 	},
 
 	{"rhysd/clever-f.vim",
@@ -315,7 +406,7 @@ require("lazy").setup({
 		end,
 		keys = {
 			{";", "<Plug>(clever-f-repeat-forward)" },
-			{",", "<Plug>(clever-f-repeat-back)" },
+			-- {",", "<Plug>(clever-f-repeat-back)" },
 			{"j", "<Plug>(clever-f-f)" },
 			{"J", "<Plug>(clever-f-F)" },
 			{"f", "<Plug>(clever-f-t)" },
@@ -325,7 +416,7 @@ require("lazy").setup({
 
 	-- " 🚀 Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
 	{'skywind3000/asyncrun.vim',
-		config = function()
+		init = function()
 			vim.g.asyncrun_open = 12
 			vim.g.asyncrun_bell = 1
 			vim.g.asyncrun_save = 1
@@ -334,12 +425,35 @@ require("lazy").setup({
 			{"<F5>", ":AsyncRun ./%<CR>"},
 		},
 	},
- 
+
 	-- Language specific plugins
 	------------------------------
-	'kmonad/kmonad-vim',
 
-}, {
+	{'kmonad/kmonad-vim',
+		ft = 'kbd',
+	},
+
+	-- For neovim
+	{'tyru/open-browser.vim',
+		keys = {
+			{
+				"git",
+				function ()
+					local line = vim.fn.getline('.')
+					local projectName = string.gsub(line, '["\'{}, \t]', '')
+					vim.notify(
+						"Opening \"" .. projectName .. "\"",
+						vim.log.levels.INFO,
+						{ title = 'open-browser.vim' }
+					)
+					vim.cmd.OpenBrowser("https://github.com/" .. projectName)
+				end,
+				desc = 'Open browser for vim plugin under cursor.'
+			}
+		},
+	},
+
+-- }, {
 	-- defaults = {
 	--	lazy = true
 	-- },

@@ -2,8 +2,6 @@
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.cursorline = true
--- vertical split line broken
--- vim.opt.ambiwidth = 'double'
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
@@ -12,6 +10,7 @@ vim.opt.infercase = true
 vim.opt.autochdir = true
 vim.opt.completeopt = { "menu", "preview", "longest" }
 vim.opt.wildmode = "list:longest"
+vim.cmd("autocmd BufEnter * set formatoptions-=o")
 
 -- Default Indent Config
 vim.opt.shiftwidth = 4
@@ -56,8 +55,6 @@ vim.g['cheatsheet#state_cache_seconds'] = 4 * 60 * 60
 vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 
 vim.cmd("source " .. vim.fn.stdpath("config") .. "/vim/plugin/dvorak_op.vim")
--- vim.cmd("source " .. vim.fn.stdpath("config") .. "/vim/autoload/plug.vim")
--- vim.cmd("source " .. vim.fn.stdpath("config") .. "/vim/vundle.vim")
 
-require("plugin")
+require("plugins")
 
