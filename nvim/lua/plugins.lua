@@ -1,4 +1,4 @@
-require("opt/lazynvim")
+require("copies/lazynvim")
 require("lazy").setup({
 	-- UI Plugins
 	-- ====================
@@ -75,6 +75,7 @@ require("lazy").setup({
 				add = { text = '+' },
 			},
 			attach_to_untracked = false,
+			on_attach = require('copies/gitsigns-keymaps').on_attach,
 		},
 	},
 

@@ -30,7 +30,7 @@ go -- Organize Import
 
 ## Git
 ,hs -- stage hunk
-,hu -- undo stating hunk
+,hp -- undo stating hunk
 [/]c -- next/previout changes
 
 ## Speluncer
