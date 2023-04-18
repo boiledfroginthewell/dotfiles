@@ -24,7 +24,7 @@ require("lazy").setup({
 
 	-- Indent guides for Neovim 
 	{"lukas-reineke/indent-blankline.nvim",
-		config = function()
+		init = function()
 			vim.opt.list = true
 			vim.opt.listchars:append('space:⋅')
 		end,
@@ -79,9 +79,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Extensible Neovim Scrollbar
-	"petertriho/nvim-scrollbar",
-
 	-- A snazzy bufferline for Neovim
 	{'akinsho/bufferline.nvim',
 		version = "v3.*",
@@ -101,9 +98,6 @@ require("lazy").setup({
 			backward = 'g<c-i>',
 		},
 	},
-
-	-- Keep buffer dimensions in proportion when terminal window is resized
-	"kwkarlwang/bufresize.nvim",
 
 	-- Neovim plugin for locking a buffer to a window 
 	{'stevearc/stickybuf.nvim',
@@ -176,31 +170,6 @@ require("lazy").setup({
 	-- 'inkarkat/argtextobj.vim',
 	-- 'thalesmello/vim-textobj-methodcall',
 
-	-- -- Vim motions on speed!
-	-- { 'easymotion/vim-easymotion',
-	-- 	init = function()
-	-- 		vim.g.EasyMotion_do_mapping = 0
-	-- 		vim.g.EasyMotion_use_upper = 1
-	-- 		vim.g.EasyMotion_keys =
-	-- 			'EUOAI' ..
-	-- 			'F:L,R.C' ..
-	-- 			'234789' ..
-	-- 			';QJKXVZWMBY' ..
-	-- 			'DSNTH'
-	-- 		vim.g.EasyMotion_enter_jump_first = 1
-	-- 		vim.g.EasyMotion_add_search_history = 0
-	-- 		vim.g.EasyMotion_off_screen_search = 0
-	-- 		-- if has('mac')
-	-- 			-- nmap - <Plug>(easymotion-bd-w)
-	-- 		-- else
-	-- 			-- nmap - <Plug>(easymotion-overwin-w)
-	-- 		-- endif
-	-- 	end,
-	-- 	keys = {
-	-- 		{ "-", "<Plug>(easymotion-overwin-w)" },
-	-- 	},
-	-- },
-
 	-- Neovim motions on speed!
 	{'phaazon/hop.nvim',
 		branch = 'v2',
@@ -222,7 +191,6 @@ require("lazy").setup({
 		end,
 		keys = {
 			{";", "<Plug>(clever-f-repeat-forward)" },
-			-- {",", "<Plug>(clever-f-repeat-back)" },
 			{"j", "<Plug>(clever-f-f)" },
 			{"J", "<Plug>(clever-f-F)" },
 			{"f", "<Plug>(clever-f-t)" },
@@ -298,9 +266,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- A Vim plugin for more pleasant editing on commit messages 
-	"rhysd/committia.vim",
-
 	-- A small automated session manager for Neovim 
 	{'rmagatti/auto-session',
 		opts = {
@@ -312,7 +277,10 @@ require("lazy").setup({
 	},
 
 	 -- Vim plugin for automatic time tracking and metrics generated from your programming activity.
-	'wakatime/vim-wakatime',
+	 {'wakatime/vim-wakatime',
+		 enabled = not vim.fn.has('mac'),
+		 cond = not vim.fn.has('mac')
+	 },
 
 	-- Programming Plugins
 	-- ======================
@@ -353,6 +321,7 @@ require("lazy").setup({
 		keys = {
 			{"<F8>", ":TagbarToggle<CR>"},
 		},
+		lazy = false,
 	},
 
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching. 
@@ -405,7 +374,8 @@ require("lazy").setup({
 			{'williamboman/mason-lspconfig',
 				opts = {
 					ensure_installed = {
-						'lua_ls',
+						'lua_ls', 'vimls',
+						'lemminx', 'jsonls', 'yamlls', 'taplo',
 					},
 				},
 			},

@@ -29,6 +29,7 @@ set showcmd
 set completeopt+=longest
 set wildmode=list:longest
 set ambiwidth=double
+set termguicolors
 set list
 set listchars=tab:⋮\ ,trail:⎵,extends:⟩,precedes:⟨,nbsp:⍽
 set hlsearch " highlight search word
