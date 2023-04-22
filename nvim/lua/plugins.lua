@@ -6,12 +6,13 @@ require("lazy").setup({
 	-- Color Theme
 	{'folke/tokyonight.nvim',
 		priority = 1000,
-		config = function()
-			vim.cmd[[colorscheme tokyonight-moon]]
-		end,
 		opts = {
 			terminal_colors = false,
 		},
+	},
+
+	{'EdenEast/nightfox.nvim',
+		priority = 1000,
 	},
 
 	-- A fancy, configurable, notification manager for NeoVim 
@@ -24,7 +25,7 @@ require("lazy").setup({
 
 	-- Indent guides for Neovim 
 	{"lukas-reineke/indent-blankline.nvim",
-		config = function()
+		init = function()
 			vim.opt.list = true
 			vim.opt.listchars:append('space:⋅')
 		end,
@@ -79,9 +80,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- Extensible Neovim Scrollbar
-	"petertriho/nvim-scrollbar",
-
 	-- A snazzy bufferline for Neovim
 	{'akinsho/bufferline.nvim',
 		version = "v3.*",
@@ -97,32 +95,40 @@ require("lazy").setup({
 	-- A neovim plugin that jump to previous and next buffer of the jumplist.
 	{'kwkarlwang/bufjump.nvim',
 		opts = {
-			forward = 'g<c-o>',
-			backward = 'g<c-i>',
+			forward = 'g<c-i>',
+			backward = 'g<c-o>',
 		},
 	},
 
-	-- Keep buffer dimensions in proportion when terminal window is resized
-	"kwkarlwang/bufresize.nvim",
-
 	-- Neovim plugin for locking a buffer to a window 
 	{'stevearc/stickybuf.nvim',
-		-- init = function()
-		-- 	vim.api.nvim_create_autocmd('FileType', {
-		-- 		pattern = {'help', 'qf', 'cheatsheet'},
-		-- 		callback = function()
-		-- 			local stickybuf = require("stickybuf")
-		-- 			-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
-		-- 				stickybuf.pin()
-		-- 			-- end
-		-- 		end
-		-- 	})
-		-- end,
+		init = function()
+			vim.api.nvim_create_autocmd('FileType', {
+				pattern = {'help', 'qf', 'cheatsheet'},
+				callback = function()
+					local stickybuf = require("stickybuf")
+					-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
+						stickybuf.pin()
+					-- end
+				end
+			})
+		end,
 		config = true,
+		enabled = false,
 	},
 
-	{
-		"folke/which-key.nvim",
+	{'ojroques/nvim-bufdel',
+		keys = {
+			{"BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete"},
+			{"BN", "<cmd>:bn<CR>", desc = "Buffer next"},
+			{"BP", "<cmd>:bp<CR>", desc = "Buffer previous"},
+		},
+	},
+
+	-- Better quickfix window in Neovim, polish old quickfix window.
+	"kevinhwang91/nvim-bqf",
+
+	{"folke/which-key.nvim",
 		config = function()
 			vim.o.timeout = true
 			vim.o.timeoutlen = 500
@@ -176,31 +182,6 @@ require("lazy").setup({
 	-- 'inkarkat/argtextobj.vim',
 	-- 'thalesmello/vim-textobj-methodcall',
 
-	-- -- Vim motions on speed!
-	-- { 'easymotion/vim-easymotion',
-	-- 	init = function()
-	-- 		vim.g.EasyMotion_do_mapping = 0
-	-- 		vim.g.EasyMotion_use_upper = 1
-	-- 		vim.g.EasyMotion_keys =
-	-- 			'EUOAI' ..
-	-- 			'F:L,R.C' ..
-	-- 			'234789' ..
-	-- 			';QJKXVZWMBY' ..
-	-- 			'DSNTH'
-	-- 		vim.g.EasyMotion_enter_jump_first = 1
-	-- 		vim.g.EasyMotion_add_search_history = 0
-	-- 		vim.g.EasyMotion_off_screen_search = 0
-	-- 		-- if has('mac')
-	-- 			-- nmap - <Plug>(easymotion-bd-w)
-	-- 		-- else
-	-- 			-- nmap - <Plug>(easymotion-overwin-w)
-	-- 		-- endif
-	-- 	end,
-	-- 	keys = {
-	-- 		{ "-", "<Plug>(easymotion-overwin-w)" },
-	-- 	},
-	-- },
-
 	-- Neovim motions on speed!
 	{'phaazon/hop.nvim',
 		branch = 'v2',
@@ -221,12 +202,11 @@ require("lazy").setup({
 			vim.g.clever_f_not_overwrites_standard_mappings = 1
 		end,
 		keys = {
-			{";", "<Plug>(clever-f-repeat-forward)" },
-			-- {",", "<Plug>(clever-f-repeat-back)" },
-			{"j", "<Plug>(clever-f-f)" },
-			{"J", "<Plug>(clever-f-F)" },
-			{"f", "<Plug>(clever-f-t)" },
-			{"F", "<Plug>(clever-f-T)" },
+			{";", "<Plug>(clever-f-repeat-forward)", mode = {'n', 'v'} },
+			{"j", "<Plug>(clever-f-f)", mode = {'n', 'v'} },
+			{"J", "<Plug>(clever-f-F)", mode = {'n', 'v'} },
+			{"f", "<Plug>(clever-f-t)", mode = {'n', 'v'} },
+			{"F", "<Plug>(clever-f-T)", mode = {'n', 'v'} },
 		},
 	},
 
@@ -298,9 +278,6 @@ require("lazy").setup({
 		},
 	},
 
-	-- A Vim plugin for more pleasant editing on commit messages 
-	"rhysd/committia.vim",
-
 	-- A small automated session manager for Neovim 
 	{'rmagatti/auto-session',
 		opts = {
@@ -312,7 +289,10 @@ require("lazy").setup({
 	},
 
 	 -- Vim plugin for automatic time tracking and metrics generated from your programming activity.
-	'wakatime/vim-wakatime',
+	 {'wakatime/vim-wakatime',
+		 enabled = not vim.fn.has('mac'),
+		 cond = not vim.fn.has('mac')
+	 },
 
 	-- Programming Plugins
 	-- ======================
@@ -325,6 +305,20 @@ require("lazy").setup({
 		keys = {
 			{ "<c-k>", "<Plug>(caw:hatpos:toggle)", mode = {"n", "v"}},
 		},
+		enabled = false
+	},
+
+	-- A comment toggler for Neovim, written in Lua 
+	{'terrortylor/nvim-comment',
+		opts = {
+			create_mappings = false,
+		},
+		keys = {
+			{'<c-k>', '<cmd>CommentToggle<cr>', mode = {'n'}},
+			{'<c-k>', ":CommentToggle<cr>", mode = {'v'}},
+		},
+		main = 'nvim_comment',
+		lazy = false,
 	},
 
 	{ 'sbdchd/vim-shebang',
@@ -352,6 +346,14 @@ require("lazy").setup({
 		end,
 		keys = {
 			{"<F8>", ":TagbarToggle<CR>"},
+		},
+		lazy = false,
+	},
+
+	--  A neovim plugin for peeking at tag definitions using the `nvim_open_win` "floating window" feature.
+	{'semanticart/tag-peek.vim',
+		keys = {
+			{'<leader>p', '<cmd>call tag_peek#ShowTag()<CR>', desc = 'Peek tag definition'},
 		},
 	},
 
@@ -385,7 +387,7 @@ require("lazy").setup({
 			vim.g.asyncrun_save = 1
 		end,
 		keys = {
-			{"<F5>", ":AsyncRun ./%<CR>"},
+			{"<F5>", "<cmd>AsyncRun ./%<CR>"},
 		},
 	},
 
@@ -405,10 +407,12 @@ require("lazy").setup({
 			{'williamboman/mason-lspconfig',
 				opts = {
 					ensure_installed = {
-						'lua_ls',
+						'lua_ls', 'vimls',
+						'lemminx', 'jsonls', 'yamlls', 'taplo',
 					},
 				},
 			},
+			{'jose-elias-alvarez/null-ls.nvim'},
 			-- Autocompletion
 			{'hrsh7th/nvim-cmp'},		-- Required
 			{'hrsh7th/cmp-nvim-lsp'}, -- Required
@@ -427,6 +431,15 @@ require("lazy").setup({
 
 			-- (Optional) Configure lua language server for neovim
 			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+
+			local lspconfig = require('lspconfig')
+			lspconfig.yamlls.setup({
+				settings = {
+					yaml = {
+						keyOrdering = false
+					}
+				}
+			})
 
 			lsp.setup()
 
@@ -457,6 +470,19 @@ require("lazy").setup({
 					})
 				}
 			}
+			-- vim.keymap.del('i', '<c-p>')
+			-- vim.keymap.del('i', '<c-n>')
+
+			-- null-ls
+			local null_ls = require('null-ls')
+			null_ls.setup({
+				sources = {
+					-- Replace these with the tools you have installed
+					--	 null_ls.builtins.formatting.prettier,
+					--	 null_ls.builtins.diagnostics.eslint,
+					null_ls.builtins.formatting.stylua,
+				}
+			})
 		end
 	},
 
@@ -471,6 +497,11 @@ require("lazy").setup({
 			},
 			highlight = {enable = true },
 		},
+		config = function(lazyPlugin, opts)
+			require('nvim-treesitter.configs').setup(opts)
+			vim.treesitter.language.register('sql', 'hive')
+			vim.treesitter.language.register('html', 'xml')
+		end,
 	},
 
 	{'nvim-treesitter/nvim-treesitter-textobjects',
