@@ -30,12 +30,13 @@ vim.keymap.set("n", "g<c-]>", "<c-]>")
 vim.keymap.set("n", "g<c-}>", "<c-T>")
 vim.keymap.set("n", "<c-u>", "<c-y>")
 
--- TODO: not work
 -- " カーソル下の単語を置換する
-vim.keymap.set("n", "g*", ":%s/<<C-r><C-w>>/")
-vim.keymap.set("n", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
+vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
+vim.keymap.set("v", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
 
 -- Clipboard
+vim.keymap.set("n", "<c-p>", "\"+P")
+vim.keymap.set("i", "<c-p>", "<C-r>+")
 vim.keymap.set("n", "<c-y>", "\"+P")
 vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-a-y>", "\"*P")
@@ -43,9 +44,6 @@ vim.keymap.set("n", "<c-c>", "\"+y")
 
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>")
-
-vim.keymap.set("n", "<c-w>t", "<c-w>k")
-vim.keymap.set("n", "<c-w>h", "<c-w>j")
 
 -- Plugins
 vim.g['cheatsheet#cheat_file'] = vim.fn.stdpath('config') .. '/cheatsheet.md'
