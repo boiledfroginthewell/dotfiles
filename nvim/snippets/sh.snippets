@@ -1,0 +1,25 @@
+snippet getopts "Parse arguments"
+	while getopts '${1:Options like f:h}' ARG; do
+		case $ARG in
+		${2:})
+			FILE=$OPTARG
+			;;
+		h|\?)
+			help()
+			;;
+		esac
+	done
+	shift $(( OPTIND - 1 ))
+
+snippet trap "Set trap on any exit"
+	trap "${1:command}" HUP INT QUIT TERM EXIT
+
+snippet trap "kill all child processes on exit"
+	trap "kill 0; wait; exit 0" HUP INT QUIT TERM EXIT
+
+snippet git-root "git root directory"
+	git rev-parse --show-toplevel
+
+snippet rev-parse "git root directory"
+	git rev-parse --show-toplevel
+

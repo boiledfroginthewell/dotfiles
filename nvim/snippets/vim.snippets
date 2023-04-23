@@ -1,0 +1,6 @@
+snippet au Auto Group
+	augroup ${1:group_name}
+		autocmd!
+		autocmd ${2:event} ${3:file_type} ${4:command}
+	augroup END
+

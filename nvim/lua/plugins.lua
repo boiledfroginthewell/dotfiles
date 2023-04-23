@@ -7,7 +7,9 @@ require("lazy").setup({
 	{'sainnhe/sonokai', priority = 1000},
 	{'glepnir/zephyr-nvim', priority = 1000},
 
-	'levouh/tint.nvim',
+	{'levouh/tint.nvim',
+		config = true,
+	},
 
 	-- A fancy, configurable, notification manager for NeoVim
 	{ 'rcarriga/nvim-notify',
@@ -21,26 +23,20 @@ require("lazy").setup({
 	{ "lukas-reineke/indent-blankline.nvim",
 		init = function()
 			vim.opt.list = true
-			vim.opt.listchars:append('space:⋅')
+			vim.opt.listchars = {
+				-- '␣', '⍽'
+				lead = '⋅',
+				trail = '⋅',
+				-- '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
+				tab = '↦ ',
+				-- nbsp = '▫',
+			}
 		end,
 		opts = {
 			space_char_blankline = " ",
 			show_current_context = true,
 			show_current_context_start = true,
 		},
-	},
-
-	-- Color brackets
-	{'luochen1990/rainbow',
-		-- init = function ()
-			-- vim.g.rainbow_active = 1
-			-- if &background == "light"
-			-- -- let darkcolors = ['DarkBlue', 'Magenta', 'Black', 'Red', 'DarkGray', 'DarkGreen', 'DarkYellow']
-			-- let g:rainbow_conf = {
-			-- 	\   'ctermfgs': darkcolors,
-			-- 	\   'guifgs': darkcolors
-			-- 	\}
-			-- end,
 	},
 
 	-- Basic Editing Plugins
@@ -293,6 +289,7 @@ require("lazy").setup({
 
 	{'kana/vim-submode',
 		config = function ()
+			vim.g.submode_timeoutlen = 300
 			vim.api.nvim_create_autocmd('VimEnter', {
 				callback = function ()
 					vim.cmd[[
@@ -409,8 +406,8 @@ require("lazy").setup({
 
 	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.
 	{ 'wakatime/vim-wakatime',
-		enabled = not vim.fn.has('mac'),
-		cond = not vim.fn.has('mac')
+		enabled = vim.fn.has('mac') == 0,
+		cond = vim.fn.has('mac') == 0
 	},
 
 	-- Programming Plugins
@@ -433,8 +430,8 @@ require("lazy").setup({
 			create_mappings = false,
 		},
 		keys = {
-			{ '<c-k>', '<cmd>CommentToggle<cr>', mode = { 'n' } },
-			{ '<c-k>', ":CommentToggle<cr>",     mode = { 'v' } },
+			{ '<c-k>', '<cmd>CommentToggle<cr>', mode = { 'n' }, silent = true },
+			{ '<c-k>', ":CommentToggle<cr>",     mode = { 'v' }, silent = true},
 		},
 		main = 'nvim_comment',
 		lazy = false,
@@ -533,27 +530,48 @@ require("lazy").setup({
 				},
 			},
 			{ 'jose-elias-alvarez/null-ls.nvim' },
+			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
+			{ 'folke/neodev.nvim' },
 			-- Autocompletion
-			{ 'hrsh7th/nvim-cmp' }, -- Required
-			{ 'hrsh7th/cmp-nvim-lsp' }, -- Required
-			{ 'L3MON4D3/LuaSnip' }, -- Required
+			'hrsh7th/nvim-cmp', -- Required by lsp-zero
+			'hrsh7th/cmp-nvim-lsp', -- Required by lsp-zero
+			'L3MON4D3/LuaSnip', -- Required by lsp-zero
+			{'saadparwaiz1/cmp_luasnip',
+				dependencies = {
+					{ "L3MON4D3/LuaSnip",
+						-- version = "1.*",
+						-- install jsregexp (optional!).
+						-- build = "make install_jsregexp"
+						dependencies = {
+							'rafamadriz/friendly-snippets',
+							-- 'honza/vim-snippets)',
+						}
+					},
+				},
+			},
+			{ 'delphinus/cmp-ctags' },
 		},
 		config = function()
+			-- LSP
 			local lsp = require('lsp-zero').preset({
 				manage_nvim_cmp = {
-					-- set_basic_mappings = true,
-					set_extra_mappings = true,
+					set_basic_mappings = false,
+					-- set_extra_mappings = true,
 				},
 			})
 
 			lsp.on_attach(function(client, bufnr)
 				lsp.default_keymaps({ buffer = bufnr })
 			end)
-
-			-- (Optional) Configure lua language server for neovim
-			require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+			lsp.set_sign_icons({
+				info = 'i',
+			-- 	warn = '⚠️',
+				error = '🔥',
+				hint = '🗨️',
+			})
 
 			local lspconfig = require('lspconfig')
+			lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
@@ -564,40 +582,87 @@ require("lazy").setup({
 
 			lsp.setup()
 
+			-- Autocompletion
 			local cmp = require('cmp')
 			local cmp_action = require('lsp-zero').cmp_action()
+			-- load friendly snippets
 			require('luasnip.loaders.from_vscode').lazy_load()
+			-- load my SnipMates
+			require('luasnip.loaders.from_snipmate').lazy_load()
 
 			-- customizations
 			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
 			cmp.setup {
 				sources = {
-					{ name = 'buffer' },
-					{ name = 'nvim_lsp' },
+					-- basic
 					{ name = 'luasnip' },
+					{ name = 'buffer' },
+					{ name = 'treesitter' },
+					{ name = 'ctags'},
+					-- nvim/lua
+					{ name = 'nvim_lsp' },
+					{ name = 'nvim_lua' },
 				},
 				mapping = {
-					['<CR>'] = cmp.mapping.confirm { select = true },
-					-- ['<C-f>'] = cmp_action.luasnip_jump_forward(),
-					-- ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+					-- lsp-zero.preset.manage_nvim_cmop.set_basic_mappings
+					['<C-d>'] = cmp.mapping.scroll_docs(4),
+					['<C-u>'] = cmp.mapping.scroll_docs(-4),
+					['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
+					['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
+					-- my custom mappings
+					['<PageUp>'] = cmp.mapping.select_prev_item({behavior = 'select', count = 10}),
+					['<PageDown>'] = cmp.mapping.select_next_item({behavior = 'select', count = 10}),
+					['<CR>'] = cmp.mapping.confirm { select = false },
 					['<Tab>'] = cmp_action.luasnip_supertab(),
 					['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+					['<C-Space>'] = cmp.mapping.complete(),
+					['<ESC>'] = cmp.mapping(function(fallback)
+						if cmp.get_selected_entry() ~= nil then
+							cmp.abort()
+						else
+							fallback()
+						end
+					end),
 				},
 				formatting = {
-					fields = { 'abbr', 'kind', 'menu' },
-					format = require('lspkind').cmp_format({
-						mode = 'symbol', -- show only symbol annotations
-						maxwidth = 50, -- prevent the popup from showing more than provided characters
-						ellipsis_char = '...', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
-					})
+					fields = { 'kind', 'abbr', 'menu' },
+					-- format = require('lspkind').cmp_format({
+					-- 	mode = 'symbol', -- show only symbol annotations
+					-- 	maxwidth = 80, -- prevent the popup from showing more than provided characters
+					-- 	ellipsis_char = ' ⃨', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
+					-- })
+
+					-- format = function(entry, vim_item)
+					-- 	if vim.tbl_contains({ 'path' }, entry.source.name) then
+					-- 		local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
+					-- 		if icon then
+					-- 			vim_item.kind = icon
+					-- 			vim_item.kind_hl_group = hl_group
+					-- 			return vim_item
+					-- 		end
+					-- 	end
+					-- 	return require('lspkind').cmp_format({ with_text = false })(entry, vim_item)
+					-- end
+
+					format = function(entry, vim_item)
+						local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+						local strings = vim.split(kind.kind, "%s", { trimempty = true })
+						kind.kind = " " .. (strings[1] or "") .. " "
+						kind.menu = "    (" .. (strings[2] or "") .. ")"
+					
+						return kind
+					end,
+				},
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
 				}
 			}
-			-- vim.keymap.del('i', '<c-p>')
-			-- vim.keymap.del('i', '<c-n>')
 
 			-- null-ls
 			local null_ls = require('null-ls')
 			null_ls.setup({
+				diagnostics_format = "#{m} (#{s}: #{c})",
 				sources = {
 					-- Replace these with the tools you have installed
 					--	 null_ls.builtins.formatting.prettier,
@@ -609,6 +674,9 @@ require("lazy").setup({
 	},
 
 	{ 'nvim-treesitter/nvim-treesitter',
+		dependencies = {
+			'HiPhish/nvim-ts-rainbow2',
+		},
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
@@ -623,6 +691,17 @@ require("lazy").setup({
 			require('nvim-treesitter.configs').setup(opts)
 			vim.treesitter.language.register('sql', 'hive')
 			vim.treesitter.language.register('html', 'xml')
+
+			require('nvim-treesitter.configs').setup {
+			rainbow = {
+				enable = true,
+				-- disable = { 'jsx', 'cpp' },
+				-- Which query to use for finding delimiters
+				query = 'rainbow-parens',
+				-- Highlight the entire buffer all at once
+				strategy = require('ts-rainbow').strategy.global,
+			}
+			}
 		end,
 	},
 
@@ -687,5 +766,6 @@ require("lazy").setup({
 	},
 })
 
-vim.cmd[[colorscheme habamax]]
-
+vim.cmd[[colorscheme desert]]
+vim.cmd[[highlight NonText guibg=none]]
+-- vim.cmd[[colorscheme habamax]]

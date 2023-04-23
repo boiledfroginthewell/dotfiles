@@ -35,15 +35,15 @@ vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
 vim.keymap.set("v", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
 
 -- Clipboard
-vim.keymap.set("n", "<c-p>", "\"+P")
-vim.keymap.set("i", "<c-p>", "<C-r>+")
+vim.keymap.set("n", "<c-y>", "\"+P")
+vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-y>", "\"+P")
 vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-a-y>", "\"*P")
 vim.keymap.set("n", "<c-c>", "\"+y")
 
 -- 検索ハイライトクリア
-vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
 -- Plugins
 vim.g['cheatsheet#cheat_file'] = vim.fn.stdpath('config') .. '/cheatsheet.md'

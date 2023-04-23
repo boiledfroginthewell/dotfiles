@@ -1,0 +1,4 @@
+snippet USER "Add non-root user in Dockerfile"
+	RUN groupadd -r ${1:dockerapp} && useradd -r -g ${1} ${1}
+	USER ${1}
+

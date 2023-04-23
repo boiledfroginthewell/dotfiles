@@ -108,6 +108,7 @@ function! s:open_cheat_sheet() abort
   set nonu
   set nocursorline
   set ft=cheatsheet
+  set nobuflisted
   wincmd w
   return returnBufnr
 endfunction
@@ -149,3 +150,4 @@ function! s:close_cheat_sheet(cheatbuf) abort
   endif
   call s:write_state(0)
 endfunction
+

@@ -1,0 +1,17 @@
+snippet Logger "logger"
+	_logger = logging.getLogger(__name__)
+endsnippet
+
+snippet ifmain "main"
+	if __name__ == "__main__" and "__file__" in globals():
+snippet main "main"
+	if __name__ == "__main__" and "__file__" in globals():
+
+snippet plotly "Plot with Plotly"
+	import plotly.express as px
+	fig = px.line(${1:df or x=[], y=[] or y=[[], []]})
+	fig.show()
+
+snippet debug "Start debugger"
+	import pdb; pdb.set_trace()
+

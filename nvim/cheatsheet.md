@@ -23,9 +23,9 @@ f -- 文字手前ジャンプ (like j)
 <F3> -- Format
 <F4> -- Code Actions
 gd -- Go to Definition
+gr -- Go to References
 gi -- Go to Implementations
-gr -- References
-gs -- Signature
+gs -- Signature Help
 go -- Organize Import
 
 ## Git
