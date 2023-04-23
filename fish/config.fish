@@ -48,7 +48,7 @@ end
 bind \cw cursor-kill-bigword
 bind \cj forward-jump
 bind \cf backward-jump
-bind \cz fg
+bind \cz 'fg; commandline -f repaint'
 
 end
 
