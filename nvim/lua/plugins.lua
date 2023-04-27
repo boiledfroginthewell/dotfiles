@@ -17,6 +17,7 @@ require("lazy").setup({
 			require('notify').setup({})
 			vim.notify = require('notify')
 		end,
+		-- enabled = false,
 	},
 
 	-- Indent guides for Neovim
