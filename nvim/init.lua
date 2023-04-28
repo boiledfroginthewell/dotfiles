@@ -11,6 +11,8 @@ vim.opt.autochdir = true
 vim.opt.completeopt = { "menu", "preview", "longest" }
 vim.opt.wildmode = "list:longest"
 vim.cmd("autocmd BufEnter * set formatoptions-=o")
+vim.opt.scrolloff = 5
+vim.opt.foldlevelstart = 99
 
 -- Default Indent Config
 vim.opt.shiftwidth = 4
@@ -28,7 +30,12 @@ vim.keymap.set("n", "<cr>", "o<esc>")
 vim.keymap.set("n", "<c-]>", "g<c-]>")
 vim.keymap.set("n", "g<c-]>", "<c-]>")
 vim.keymap.set("n", "g<c-}>", "<c-T>")
-vim.keymap.set("n", "<c-u>", "<c-y>")
+vim.keymap.set("n", "<c-e>", "<c-y>")
+vim.keymap.set("n", "<c-u>", "<c-e>")
+
+vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
+vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
+vim.keymap.set('n', 'QA', '<cmd>qa<cr>')
 
 -- " カーソル下の単語を置換する
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")

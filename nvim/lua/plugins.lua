@@ -17,6 +17,7 @@ require("lazy").setup({
 			require('notify').setup({})
 			vim.notify = require('notify')
 		end,
+		-- enabled = false,
 	},
 
 	-- Indent guides for Neovim
@@ -360,6 +361,7 @@ require("lazy").setup({
 		},
 		keys = {
 			{ '<leader>e', '<cmd>NeoTreeFocusToggle<cr>', desc = 'NeoTree' },
+			-- {'t', 'move_cursor_down'},
 		},
 	},
 
@@ -513,10 +515,9 @@ require("lazy").setup({
 	{ 'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
 		dependencies = {
-			{ 'neovim/nvim-lspconfig' },
+			'neovim/nvim-lspconfig',
 			'onsails/lspkind.nvim',
-			{
-				'williamboman/mason.nvim',
+			{ 'williamboman/mason.nvim',
 				build = function()
 					pcall(vim.cmd, 'MasonUpdate')
 				end,
@@ -529,9 +530,9 @@ require("lazy").setup({
 					},
 				},
 			},
-			{ 'jose-elias-alvarez/null-ls.nvim' },
+			'jose-elias-alvarez/null-ls.nvim',
 			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
-			{ 'folke/neodev.nvim' },
+			'folke/neodev.nvim',
 			-- Autocompletion
 			'hrsh7th/nvim-cmp', -- Required by lsp-zero
 			'hrsh7th/cmp-nvim-lsp', -- Required by lsp-zero
@@ -549,7 +550,9 @@ require("lazy").setup({
 					},
 				},
 			},
-			{ 'delphinus/cmp-ctags' },
+			'hrsh7th/cmp-buffer',
+			'delphinus/cmp-ctags',
+			'mtoohey31/cmp-fish',
 		},
 		config = function()
 			-- LSP
@@ -567,7 +570,7 @@ require("lazy").setup({
 				info = 'i',
 			-- 	warn = '⚠️',
 				error = '🔥',
-				hint = '🗨️',
+				hint = (vim.fn.has('mac') and '💬') or '🗨️',
 			})
 
 			local lspconfig = require('lspconfig')
@@ -602,6 +605,8 @@ require("lazy").setup({
 					-- nvim/lua
 					{ name = 'nvim_lsp' },
 					{ name = 'nvim_lua' },
+					-- misc
+					{ name = 'fish' },
 				},
 				mapping = {
 					-- lsp-zero.preset.manage_nvim_cmop.set_basic_mappings
@@ -769,3 +774,4 @@ require("lazy").setup({
 vim.cmd[[colorscheme desert]]
 vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme habamax]]
+
