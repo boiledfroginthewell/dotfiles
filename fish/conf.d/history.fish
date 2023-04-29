@@ -11,6 +11,9 @@ function should_add_history --on-event fish_postexec
 	and history delete --exact --case-sensitive -- (string trim -r $argv)
 end
 
+# sponge plugin
+set sponge_purge_only_on_exit true
+
 
 # bash/zsh like history selection (just select previous one)
 function _history-prev

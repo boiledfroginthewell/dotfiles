@@ -3,6 +3,7 @@ not status -i || status -c && exit
 set -gx FZF_DEFAULT_COMMAND fzf-default-command
 set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --exact \
 	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down"
+# --track
 if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
 end
@@ -93,19 +94,19 @@ end
 
 
 function _fzf_config_ctrl_s
-	set -f inputValue (string replace -r $HOME '^~' (commandline -pct))
+	set -f inputValue (string replace -r $HOME ~ (commandline -pct))
 	set -f searchCommand fzf-default-command
 	set -f query
 	set -f directory
-	if [ -d "$inputValue" ]
+	if [ -d $inputValue ]
 		set -f searchCommand fd .
 		set -fe query
 		set -f directory "$inputValue"
-	else if string match '*/*' $inputValue && [ -d (dirname $inputValue) ]
+	else if string match -q '*/*' $inputValue && [ -d (dirname $inputValue) ]
 		set -f searchCommand fd .
 		set -f query (basename $inputValue)
 		set -f directory (dirname $inputValue)
-	else if string match -r "g(it)?" (commandline -po)[1]
+	else if string match -qr "g(it)?" (commandline -po)[1]
 		set output (_fzf_config_insert_git)
 		if [ "$output" = "__fallback" ]
 			set -e output
