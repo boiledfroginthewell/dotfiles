@@ -4,7 +4,7 @@
   "editor.formatOnSaveMode": "modifications",
   "editor.suggest.localityBonus": true,
   "editor.minimap.enabled": false,
-  "editor.multiCursorModifier": "alt",
+  "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "boundary",
   "editor.tabCompletion": "on",
   "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?_",
@@ -25,6 +25,7 @@
     "**/.ipynb_checkpoints": true,
   },
   "cSpell.userWords": [
+    "bookbill",
     "callbackify",
     "csrf",
     "ipython",
@@ -115,4 +116,11 @@
 
   // Julia
   "julia.symbolCacheDownload": true,
+  "search.exclude": {
+    "**/*.ipynb": true,
+    "poetry.lock": true
+  },
+  "[python]": {
+    "editor.formatOnType": true
+  },
 }

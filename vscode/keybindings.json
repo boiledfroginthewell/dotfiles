@@ -89,11 +89,11 @@
     { "key": "alt+n", "command": "workbench.action.focusRightGroup" },
     {
         "key": "ctrl+e",
-        "command": "scrollLineDown"
+        "command": "scrollLineUp"
     },
     {
         "key": "ctrl+u",
-        "command": "scrollLineUp"
+        "command": "scrollLineDown"
     },
     {
         "key": "alt+h",
