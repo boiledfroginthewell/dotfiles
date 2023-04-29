@@ -1,0 +1,33 @@
+snippet plugin lazy.nvim plugin entry
+	{'$0',
+		init = function()
+			$1
+		end,
+		opts = {
+			$2
+		},
+	},
+
+snippet init lazy.nvim init option
+	init = function()
+		$0
+	end,
+	
+snippet dependencies lazy.nvim dependencies option
+	init = function()
+		$0
+	end,
+	
+snippet enabled lazy.nvim enabled option
+	enabled = ${1:false},
+	
+snippet opts lazy.nvim opts option
+	opts = {
+		$0
+	},
+	
+snippet config lazy.nvim config option
+	config = function(lazy, opts)
+		$0
+	end,
+	

@@ -13,6 +13,7 @@ vim.opt.wildmode = "list:longest"
 vim.cmd("autocmd BufEnter * set formatoptions-=o")
 vim.opt.scrolloff = 5
 vim.opt.foldlevelstart = 99
+vim.opt.equalalways = false
 
 -- Default Indent Config
 vim.opt.shiftwidth = 4
@@ -24,18 +25,20 @@ vim.opt.smartindent = true
 vim.g.mapleader = ","
 
 vim.keymap.set("n", "q:", "<nop>")
-vim.keymap.set("n", "q", "<nop><nowait>")
+vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "<s-cr>", "O<esc>")
 vim.keymap.set("n", "<cr>", "o<esc>")
 vim.keymap.set("n", "<c-]>", "g<c-]>")
 vim.keymap.set("n", "g<c-]>", "<c-]>")
 vim.keymap.set("n", "g<c-}>", "<c-T>")
+-- vim.keymap.set("n", "<c-u>", "<c-y>")
 vim.keymap.set("n", "<c-e>", "<c-y>")
 vim.keymap.set("n", "<c-u>", "<c-e>")
 
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
-vim.keymap.set('n', 'QA', '<cmd>qa<cr>')
+vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
+vim.keymap.set('n', 'QW', '<cmd>wq<cr>')
 
 -- " カーソル下の単語を置換する
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")

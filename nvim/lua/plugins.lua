@@ -53,6 +53,9 @@ require("lazy").setup({
 	-- Vim plugin: Make blockwise Visual mode more useful
 	'kana/vim-niceblock',
 
+	 -- Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
+	'ConradIrwin/vim-bracketed-paste',
+
 	-- Configure commands not to be registered in the command-line history
 	{ 'yutkat/history-ignore.nvim', },
 
@@ -118,9 +121,11 @@ require("lazy").setup({
 			})
 		end,
 		config = true,
+		-- not work well in some cases
 		enabled = false,
 	},
 
+	-- A Neovim plugin to improve buffer deletion
 	{ 'ojroques/nvim-bufdel',
 		keys = {
 			{ "BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
@@ -135,7 +140,7 @@ require("lazy").setup({
 	{ "folke/which-key.nvim",
 		config = function()
 			vim.o.timeout = true
-			vim.o.timeoutlen = 500
+			vim.o.timeoutlen = 1000
 			require("which-key").setup({
 				plugins = {
 					presets = {
@@ -272,25 +277,47 @@ require("lazy").setup({
 		},
 	},
 
+	-- A Vim plugin for indent-level based motion.
 	{ 'jeetsukumaran/vim-indentwise',
-		init = function ()
+		config = function(lazy, opts)
 			vim.g.indentwise_skip_blanks = 1
-			vim.cmd[[
-				map <silent><expr> <C-t> indentwise_is_top_level() ?
-					\ '{' : '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
-				map <silent><expr> <C-h> indentwise_is_top_level() ?
-					\ "}" : '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
-				function! s:indentwise_is_top_level() abort
-					let first_char = getline('.')[0]
-					return first_char == '' || first_char =~ '\S'
-				endfunction
-			]]
-		end,
+			local function indentwise_is_top_level()
+				local first_char = string.sub(vim.fn.getline('.'), 0, 1)
+				return first_char == '' or string.match(first_char, '\\S')
+			end
+			vim.keymap.set(
+				{'n', 'i', 'v'},
+				'<c-t>',
+				function()
+					return indentwise_is_top_level() and '{' or  '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
+				end,
+				{silent = true, expr = true}
+			)
+			vim.keymap.set(
+				{'n', 'i', 'v'},
+				'<c-h>',
+				function()
+					return indentwise_is_top_level() and '}' or  '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
+				end,
+				{silent = true, expr = true}
+			)
+		end
+	},
+
+	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
+	{'mrjones2014/smart-splits.nvim',
+		config = function ()
+			require('smart-splits').setup()
+			vim.keymap.set('n', '<A-d>', require('smart-splits').move_cursor_left)
+			vim.keymap.set('n', '<A-h>', require('smart-splits').move_cursor_down)
+			vim.keymap.set('n', '<A-t>', require('smart-splits').move_cursor_up)
+			vim.keymap.set('n', '<A-n>', require('smart-splits').move_cursor_right)
+		end
 	},
 
 	{'kana/vim-submode',
 		config = function ()
-			vim.g.submode_timeoutlen = 300
+			vim.g.submode_timeoutlen = 500
 			vim.api.nvim_create_autocmd('VimEnter', {
 				callback = function ()
 					vim.cmd[[
@@ -303,18 +330,10 @@ require("lazy").setup({
 						call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
 						call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
 						call submode#enter_with('window', 'n', '', '<c-w>>', '<c-w>>')
-						call submode#enter_with('window', 'n', '', '<c-w>d', '<c-w>h')
-						call submode#enter_with('window', 'n', '', '<c-w>h', '<c-w>j')
-						call submode#enter_with('window', 'n', '', '<c-w>t', '<c-w>k')
-						call submode#enter_with('window', 'n', '', '<c-w>n', '<c-w>l')
 						call submode#map('window', 'n', '', '-', '<c-w>-')
 						call submode#map('window', 'n', '', '+', '<c-w>+')
 						call submode#map('window', 'n', '', '<', '<c-w><')
 						call submode#map('window', 'n', '', '>', '<c-w>>')
-						call submode#map('window', 'n', '', 'd', '<c-w>h')
-						call submode#map('window', 'n', '', 'h', '<c-w>j')
-						call submode#map('window', 'n', '', 't', '<c-w>k')
-						call submode#map('window', 'n', '', 'n', '<c-w>l')
 						call submode#enter_with('buffer', 'n', '', 'BN', ':bn<cr>')
 						call submode#enter_with('buffer', 'n', '', 'BP', ':bp<cr>')
 						call submode#map('buffer', 'n', '', 'N', ':bn<cr>')
@@ -325,31 +344,15 @@ require("lazy").setup({
 		end,
 	},
 
-	-- Hlsearch Lens for Neovim
-	{'kevinhwang91/nvim-hlslens',
-		enabled = false,
+	-- 'scrooloose/nerdtree',
+	{'nvim-tree/nvim-tree.lua',
+		dependencies = {"nvim-tree/nvim-web-devicons"},
 		init = function()
-			local kopts = { noremap = true, silent = true }
-
-			vim.api.nvim_set_keymap(
-				'n', 'l',
-				[[<Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>]],
-				kopts
-			)
-			vim.api.nvim_set_keymap(
-				'n', 'L',
-				[[<Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>]],
-				kopts
-			)
-			vim.api.nvim_set_keymap('n', '*', [[*<Cmd>lua require('hlslens').start()<CR>]], kopts)
-			vim.api.nvim_set_keymap('n', '#', [[#<Cmd>lua require('hlslens').start()<CR>]], kopts)
-			vim.api.nvim_set_keymap('n', 'g*', [[g*<Cmd>lua require('hlslens').start()<CR>]],
-			{ noremap = false, silent = true })
-			vim.api.nvim_set_keymap('n', 'g#', [[g#<Cmd>lua require('hlslens').start()<CR>]],
-			{ noremap = false, silent = true })
-			vim.api.nvim_set_keymap('n', '<esc>', '<Cmd>noh<CR>', kopts)
+			vim.g.loaded_netrw = 1
+			vim.g.loaded_netrwPlugin = 1
 		end,
 		config = true,
+		enabled = false,
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
@@ -368,42 +371,51 @@ require("lazy").setup({
 	-- fzf heart lua
 	{'ibhagwan/fzf-lua',
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function(lazy, opts)
+			local fzf = require('fzf-lua')
+			fzf.setup(vim.tbl_deep_extend('force', {}, fzf.defaults, {
+				actions = {
+					files = {
+						['ctrl-e'] = function (selected)
+							-- copy selected to command line
+							local path = require "fzf-lua.path"
+							local files = path.entry_to_file(selected[1], opts).path
+							vim.api.nvim_feedkeys(':e ' .. files, 'n', true)
+						end,
+					},
+				},
+			}))
+		end,
 		keys = {
-			{ "<leader>,", ":lua require('fzf-lua').oldfiles()<cr>",     desc = 'Oldfiles' },
+			{ "<leader>,", function()
+				local fzf = require('fzf-lua')
+				local files = {}
+				for _, v in ipairs(vim.v.oldfiles) do
+					if not string.find(v, '^term://') and not string.find(v, '^/tmp/') then
+						table.insert(files, v)
+					end
+				end
+				return fzf.files({ cmd = 'fzf-default-command; echo -e "' .. table.concat(files, '\n') .. '"' })
+			end, desc = 'Any Files' },
 			{ "<leader>p", ":lua require('fzf-lua').files()<cr>",        desc = 'Files' },
 			{ "<leader>b", ":lua require('fzf-lua').buffers()<cr>",      desc = 'Buffers' },
 			{ "<leader>r", ":lua require('fzf-lua').grep_project()<cr>", desc = 'Ripgrep' },
 			{ "<leader>c", ":lua require('fzf-lua').commands()<cr>",     desc = 'Command Pallet' },
 		},
-	},
-
-	-- A neovim lua plugin to help easily manage multiple terminal windows
-	{ "akinsho/toggleterm.nvim",
-		tag = 'v2.*',
-		config = true,
-		keys = {
-			{ '<F7>', '<cmd>ToggleTerm<cr>', mode = { 'n', 't' } },
-		},
-		opts = {
-			size = 10,
-			open_mapping = nil,
-			shading_factor = 2,
-			direction = "float",
-			float_opts = {
-				border = "curved",
-				highlights = { border = "Normal", background = "Normal" },
-			},
-		},
-	},
-
-	-- A small automated session manager for Neovim
-	{ 'rmagatti/auto-session',
-		opts = {
-			log_level = "error",
-			auto_session_suppress_dirs = {
-				"~/", "~/Projects", "~/Downloads", "/",
-			},
-		},
+		-- config = function(lazy, opts)
+		-- 	local fzf = require('fzf-lua').setup(opts)
+		--
+		-- 	-- opts = fzf.config.normalize_opts(fzf.config.globals.git)
+		--
+		-- 	-- opts.cmd = fzf.path.git_cwd('git worktree list', opts)
+		-- 	local actionOpts
+		--
+		-- 	local action = fzf.core.fzf_wrap(actionOpts, actionOpts.cmd, function(selected)
+		-- 		if not selected then return end
+		-- 		fzf.actions.act(opts.actions, selected, opts)
+		-- 	end)()
+		-- 	vim.keymap.set('n', '<leader>,', action)
+		-- end,
 	},
 
 	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.
@@ -415,16 +427,8 @@ require("lazy").setup({
 	-- Programming Plugins
 	-- ======================
 
-	-- sleuth.vim: Heuristically set buffer options
-	'tpope/vim-sleuth',
-
-	-- Comment out
-	{ 'tyru/caw.vim',
-		keys = {
-			{ "<c-k>", "<Plug>(caw:hatpos:toggle)", mode = { "n", "v" } },
-		},
-		enabled = false
-	},
+	-- Automatic indentation style detection for Neovim
+	'NMAC427/guess-indent.nvim',
 
 	-- A comment toggler for Neovim, written in Lua
 	{ 'terrortylor/nvim-comment',
@@ -478,6 +482,16 @@ require("lazy").setup({
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
 	"RRethy/vim-illuminate",
 
+	{'haringsrob/nvim_context_vt',
+		init = function ()
+			vim.cmd[[autocmd ColorScheme * highlight ContextVt guifg='#707070']]
+		end,
+		opts = {
+				prefix = '',
+				disable_ft = {'python'},
+		},
+	},
+
 	{ 'chaoren/vim-wordmotion',
 		init = function()
 			vim.g.wordmotion_nomap = 1
@@ -529,8 +543,12 @@ require("lazy").setup({
 						'lemminx', 'jsonls', 'yamlls', 'taplo',
 					},
 				},
+
 			},
-			'jose-elias-alvarez/null-ls.nvim',
+			{'jose-elias-alvarez/null-ls.nvim',
+				dependencies = { 'nvim-lua/plenary.nvim' },
+			},
+
 			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
 			'folke/neodev.nvim',
 			-- Autocompletion
@@ -544,8 +562,7 @@ require("lazy").setup({
 						-- install jsregexp (optional!).
 						-- build = "make install_jsregexp"
 						dependencies = {
-							'rafamadriz/friendly-snippets',
-							-- 'honza/vim-snippets)',
+							'honza/vim-snippets',
 						}
 					},
 				},
@@ -623,7 +640,8 @@ require("lazy").setup({
 					['<C-Space>'] = cmp.mapping.complete(),
 					['<ESC>'] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
-							cmp.abort()
+							cmp.confirm()
+							fallback()
 						else
 							fallback()
 						end
@@ -679,9 +697,9 @@ require("lazy").setup({
 	},
 
 	{ 'nvim-treesitter/nvim-treesitter',
-		dependencies = {
-			'HiPhish/nvim-ts-rainbow2',
-		},
+		-- dependencies = {
+		-- 	'HiPhish/nvim-ts-rainbow2',
+		-- },
 		build = ":TSUpdate",
 		opts = {
 			ensure_installed = {
@@ -697,16 +715,16 @@ require("lazy").setup({
 			vim.treesitter.language.register('sql', 'hive')
 			vim.treesitter.language.register('html', 'xml')
 
-			require('nvim-treesitter.configs').setup {
-			rainbow = {
-				enable = true,
-				-- disable = { 'jsx', 'cpp' },
-				-- Which query to use for finding delimiters
-				query = 'rainbow-parens',
-				-- Highlight the entire buffer all at once
-				strategy = require('ts-rainbow').strategy.global,
-			}
-			}
+			-- require('nvim-treesitter.configs').setup {
+			-- 	rainbow = {
+			-- 		enable = true,
+			-- 		-- disable = { 'jsx', 'cpp' },
+			-- 		-- Which query to use for finding delimiters
+			-- 		query = 'rainbow-parens',
+			-- 		-- Highlight the entire buffer all at once
+			-- 		-- strategy = require('ts-rainbow').strategy.global,
+			-- 	}
+			-- }
 		end,
 	},
 
