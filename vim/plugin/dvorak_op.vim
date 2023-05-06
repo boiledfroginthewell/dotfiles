@@ -20,9 +20,12 @@ noremap gf gt
 noremap gF gT
 " delete
 noremap k d
-noremap kk dd
+noremap k "_d
+" noremap kk dd
+noremap kk "_dd
 vunmap kk
 noremap K D
+
 " jump
 " noremap j f
 " noremap J F

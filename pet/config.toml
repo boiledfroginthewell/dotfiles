@@ -1,6 +1,6 @@
 [General]
   snippetfile = "~/.config/pet/snippet.toml"
-  editor = "vim"
+  editor = "nvim"
   column = 40
   selectcmd = "fzf --ansi"
   backend = "gist"

@@ -38,11 +38,17 @@ vim.keymap.set("n", "<c-u>", "<c-e>")
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
 vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
-vim.keymap.set('n', 'QW', '<cmd>wq<cr>')
 
 -- " カーソル下の単語を置換する
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
 vim.keymap.set("v", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
+
+-- Registers
+vim.keymap.set("n", "c", [["_c]])
+vim.keymap.set("n", "s", [["_s]])
+vim.keymap.set("n", "S", [["_S]])
+vim.keymap.set("n", "r", [["_r]])
+vim.keymap.set("n", "R", [["_R]])
 
 -- Clipboard
 vim.keymap.set("n", "<c-y>", "\"+P")

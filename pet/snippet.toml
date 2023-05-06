@@ -9,6 +9,11 @@
   output = ""
 
 [[snippets]]
+  description = "Force push"
+  command = "git push -f --force-with-lease --force-if-includes"
+  output = ""
+
+[[snippets]]
   description = "Git initial empty commit"
   command = "git commit --allow-empty -m \"initial empty commit\""
 

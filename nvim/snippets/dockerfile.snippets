@@ -1,4 +1,12 @@
-snippet USER "Add non-root user in Dockerfile"
+snippet USER Add non-root user in Dockerfile
 	RUN groupadd -r ${1:dockerapp} && useradd -r -g ${1} ${1}
 	USER ${1}
+
+snippet apt install packages by apt
+	RUN \
+		apt-get update && \
+		apt-get install -y \
+			$1 && \
+		apt-get clean \
+		&& rm -rf /var/lib/apt/lists/*
 

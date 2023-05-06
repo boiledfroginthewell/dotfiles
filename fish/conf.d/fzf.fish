@@ -30,13 +30,13 @@ function _fzf_config_insert_git
 				--preview "git diff --color=always -- \$(echo {} | cut -c 4-) | delta" | \
 			cut -c 4-
 			return
-        case branch switch checkout push
+		case branch switch checkout push
 			_fzf_config_select_git_ref
 			return
-        case '*'
+		case '*'
 			echo __fallback
 			return
-    end
+	end
 
 end
 

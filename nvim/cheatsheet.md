@@ -31,6 +31,7 @@ go -- Organize Import
 ## Git
 ,hs -- stage hunk
 ,hp -- undo stating hunk
+,hr -- reset hunk
 [/]c -- next/previout changes
 
 ## Speluncer

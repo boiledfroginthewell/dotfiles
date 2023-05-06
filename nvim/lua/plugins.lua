@@ -170,6 +170,29 @@ require("lazy").setup({
 		end,
 	},
 
+
+	{'jiangmiao/auto-pairs',
+		init = function()
+			vim.g.AutoPairsMapCh = 0
+		end,
+		enabled =  false,
+	},
+
+	-- 'windwp/nvim-autopairs',
+
+	{'ZhiyuanLck/smart-pairs',
+		events = {'InsertEnter'},
+		enabled = false,
+	},
+
+	{'m4xshen/autoclose.nvim',
+		opts = {
+			options = {
+				disable_when_touch = true,
+			},
+		},
+	},
+
 	-- quoting/parenthesizing made simple
 	{ 'tpope/vim-surround',
 		init = function()
@@ -267,6 +290,8 @@ require("lazy").setup({
 			vim.g.clever_f_mark_direct = 1
 			vim.g.clever_f_use_migemo = 1
 			vim.g.clever_f_not_overwrites_standard_mappings = 1
+			vim.g.clever_f_across_no_line = 1
+			-- vim.g.clever_f_smart_case = 1
 		end,
 		keys = {
 			{ ";", "<Plug>(clever-f-repeat-forward)", mode = { 'n', 'v' } },
@@ -345,13 +370,28 @@ require("lazy").setup({
 	},
 
 	-- 'scrooloose/nerdtree',
+
 	{'nvim-tree/nvim-tree.lua',
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		init = function()
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
 		end,
-		config = true,
+		keys = {
+			{ '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Nvim-Tree' },
+		},
+		-- config = true,
+		config = {
+			on_attach = function (bufnr)
+				local api = require('nvim-tree.api')
+				api.config.mappings.default_on_attach(bufnr)
+				-- vim.keymap.set('n', )
+				vim.keymap.del('n', 'h', { buffer = bufnr })
+				vim.keymap.del('n', 'j', { buffer = bufnr })
+				vim.keymap.del('n', 'k', { buffer = bufnr })
+				vim.keymap.del('n', 'l', { buffer = bufnr })
+			end
+		},
 		enabled = false,
 	},
 
@@ -363,9 +403,10 @@ require("lazy").setup({
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
-			{ '<leader>e', '<cmd>NeoTreeFocusToggle<cr>', desc = 'NeoTree' },
-			-- {'t', 'move_cursor_down'},
+			{ '<leader>e', '<cmd>NeoTreeShowToggle<cr>', desc = 'NeoTree' },
+			{'t', false },
 		},
+		-- enabled = false,
 	},
 
 	-- fzf heart lua
@@ -570,6 +611,11 @@ require("lazy").setup({
 			'hrsh7th/cmp-buffer',
 			'delphinus/cmp-ctags',
 			'mtoohey31/cmp-fish',
+			{ 'tzachar/cmp-tabnine',
+				build = './install.sh',
+				-- dependencies = 'hrsh7th/nvim-cmp',
+				cond = vim.fn.has('mac') ~= 0,
+			},
 		},
 		config = function()
 			-- LSP
