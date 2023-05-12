@@ -1,5 +1,7 @@
 not status -i || status -c && exit
 
+set AUTO_ENV_FILES .env .env.local
+
 function __loadenv_log
 	set chipFgColor black
 	set chipBgColor green
@@ -18,24 +20,26 @@ function __loadenv_log
 end
 
 function __loadenv --on-event chpwd
-	set -q AUTO_ENV_FILE || set AUTO_ENV_FILE .env
+	set -q AUTO_ENV_FILES || set AUTO_ENV_FILES .env
 
 	set dirStack $PWD
 	while [ $dirStack != / ]
-		if [ -r "$dirStack"/"$AUTO_ENV_FILE" ]
-			set -fp envDirs $dirStack
+		for x in $AUTO_ENV_FILES[-1..1]
+			if [ -r "$dirStack"/"$x" ]
+				set -fp envFiles $dirStack/$x
+			end
 		end
 		set dirStack (dirname $dirStack)
 	end
 
-	if [ -z "$envDirs" ]
+	if [ -z "$envFiles" ]
 		return
 	end
 
-	for envDir in $envDirs
-		loadenv "$envDir"/"$AUTO_ENV_FILE"
+	for envFile in $envFiles
+		loadenv "$envFile"
 	end
-	__loadenv_log "loaded from ($envDirs)"
+	__loadenv_log "loaded from ($envFiles)"
 end
 
 function loadenv

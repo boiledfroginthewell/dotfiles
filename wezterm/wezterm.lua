@@ -1,66 +1,84 @@
 local wezterm = require 'wezterm';
-
+local config = wezterm.config_builder()
+local is_mac = false
+if wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'aarch64-apple-darwin' then
+	is_mac = true
+end
 local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
-local keys = {
+config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
+config.use_ime = true
+config.show_update_window = false
+config.check_for_updates = false
+config.check_for_updates_interval_seconds = 90 * 24 * 3600
+config.warn_about_missing_glyphs = false
+config.send_composed_key_when_left_alt_is_pressed = false
+config.send_composed_key_when_right_alt_is_pressed = false
+
+-- config.color_scheme = 'Builtin Dark'
+config.color_scheme = 'Breeze'
+-- font = wezterm.font_with_fallback({
+-- 	"Cica",
+-- 	"JetBrains Mono",
+-- 	-- "MesloLGS NF",
+-- 	"Noto Sans CJK JP",
+-- })
+config.font_size = 14.5
+config.colors = {
+	split = "#4444AA",
+	compose_cursor = "orange",
+}
+config.inactive_pane_hsb = {
+	saturation = 0.7,
+	brightness = 0.53,
+}
+config.window_padding = {
+	left = 0,
+	right = 0,
+}
+
+config.keys = {
 	-- Pane Operations
-	-- " and % mapping doesn't work. But the default CTRL|SHIFT|ALT mods works.
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
 	{ key = "%",        mods = "CTRL|SHIFT", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
 	{ key = "w",        mods = "CTRL|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = false } } },
-	{ key = "LeftArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Left" } },
-	{ key = "DownArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Down" } },
-	{ key = "UpArrow",  mods = "ALT",      action = wezterm.action { ActivatePaneDirection = "Up" } },
-	{ key = "RightArrow", mods = "ALT",    action = wezterm.action { ActivatePaneDirection = "Right" } },
+	-- { key = "LeftArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Left" } },
+	-- { key = "DownArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Down" } },
+	-- { key = "UpArrow",  mods = "ALT",      action = wezterm.action { ActivatePaneDirection = "Up" } },
+	-- { key = "RightArrow", mods = "ALT",    action = wezterm.action { ActivatePaneDirection = "Right" } },
 
 	-- Copy & Paste
 	{ key = "C",        mods = "CTRL|SHIFT", action = wezterm.action { CopyTo = "ClipboardAndPrimarySelection" } },
 	{ key = "V",        mods = "CTRL|SHIFT", action = wezterm.action { PasteFrom = "Clipboard" } },
 	{ key = "-",        mods = "CTRL",     action = "QuickSelect" },
-	-- {key="V", mods="CTRL|SHIFT", action=wezterm.action{PasteFrom="PrimarySelection"}},
+
+	{ key = "PageUp", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+	{ key = "PageDown", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 }
 for _, v in ipairs(require('nvim-smart-splits')) do
-	table.insert(keys, v)
+	table.insert(config.keys, v)
 end
 
 -- if not is_gnome_shell
--- 	table.insert(keys, { key = "RightArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Right"}})
+-- 	table.insert(config.keys, { key = "RightArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Right"}})
 -- end
 
-local hyperlink_rules = wezterm.default_hyperlink_rules()
+config.mouse_bindings = {
+	{
+		event = { Down = { streak = 3, button = "Left" } },
+		action = wezterm.action.SelectTextAtMouseCursor "SemanticZone",
+		mods = "NONE",
+	},
+}
+
+config.hyperlink_rules = wezterm.default_hyperlink_rules()
 -- GitHub repostory
-table.insert(hyperlink_rules, {
+table.insert(config.hyperlink_rules, {
 	regex = '["\']([a-zA-Z0-9._-]+/[a-zA-Z0-9._-]+)["\']',
 	format = 'https://github.com/$1',
 	highlight = 1
 })
+require('local').setup(config.hyperlink_rules)
 
-return {
-	default_prog = { "/usr/bin/fish" },
-	use_ime = true,
-	show_update_window = false,
-	check_for_updates = false,
-	check_for_updates_interval_seconds = 90 * 24 * 3600,
-	warn_about_missing_glyphs = false,
-	font = wezterm.font_with_fallback({
-		"Cica",
-		"JetBrains Mono",
-		-- "MesloLGS NF",
-		"Noto Sans CJK JP",
-	}),
-	font_size = 14.5,
-	colors = {
-		split = "#4444AA",
-		compose_cursor = "orange",
-	},
-	inactive_pane_hsb = {
-		saturation = 0.7,
-		brightness = 0.53,
-	},
-	keys = keys,
-	window_padding = {
-		left = 0,
-		right = 0,
-	},
-	hyperlink_rules = hyperlink_rules
-}
+return config
+

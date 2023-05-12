@@ -333,10 +333,10 @@ require("lazy").setup({
 	{'mrjones2014/smart-splits.nvim',
 		config = function ()
 			require('smart-splits').setup()
-			vim.keymap.set('n', '<A-d>', require('smart-splits').move_cursor_left)
-			vim.keymap.set('n', '<A-h>', require('smart-splits').move_cursor_down)
-			vim.keymap.set('n', '<A-t>', require('smart-splits').move_cursor_up)
-			vim.keymap.set('n', '<A-n>', require('smart-splits').move_cursor_right)
+			vim.keymap.set('n', '<A-Left>', require('smart-splits').move_cursor_left)
+			vim.keymap.set('n', '<A-Down>', require('smart-splits').move_cursor_down)
+			vim.keymap.set('n', '<A-Up>', require('smart-splits').move_cursor_up)
+			vim.keymap.set('n', '<A-Right>', require('smart-splits').move_cursor_right)
 		end
 	},
 
@@ -529,7 +529,7 @@ require("lazy").setup({
 		end,
 		opts = {
 				prefix = '',
-				disable_ft = {'python'},
+				disable_ft = {'python', 'yaml'},
 		},
 	},
 

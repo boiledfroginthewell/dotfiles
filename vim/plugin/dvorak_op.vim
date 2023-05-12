@@ -14,17 +14,16 @@ noremap D H
 noremap H J
 noremap T K
 noremap N L
-noremap gj gF
-noremap gJ gf
-noremap gf gt
-noremap gF gT
+" noremap gj gF
+" noremap gJ gf
+" noremap gf gt
+" noremap gF gT
 " delete
 noremap k d
-noremap k "_d
-" noremap kk dd
-noremap kk "_dd
+noremap kk dd
 vunmap kk
-noremap K D
+noremap K "_D
+noremap c "_c
 
 " jump
 " noremap j f
