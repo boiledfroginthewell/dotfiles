@@ -7,7 +7,6 @@ vim.opt.splitbelow = true
 vim.opt.swapfile = false
 vim.opt.termencoding = 'utf-8'
 vim.opt.infercase = true
-vim.opt.autochdir = true
 vim.opt.completeopt = { "menu", "preview", "longest" }
 vim.opt.wildmode = "list:longest"
 vim.cmd("autocmd BufEnter * set formatoptions-=o")

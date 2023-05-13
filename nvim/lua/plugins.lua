@@ -4,8 +4,8 @@ require("lazy").setup({
 	-- ====================
 
 	-- Color Theme
-	{'sainnhe/sonokai', priority = 1000},
-	{'glepnir/zephyr-nvim', priority = 1000},
+	{'sainnhe/sonokai', priority = 1000, lazy = true},
+	{'glepnir/zephyr-nvim', priority = 1000, lazy = true},
 
 	{'levouh/tint.nvim',
 		config = true,
@@ -14,10 +14,20 @@ require("lazy").setup({
 	-- A fancy, configurable, notification manager for NeoVim
 	{ 'rcarriga/nvim-notify',
 		config = function()
-			require('notify').setup({})
+			require('notify').setup({
+				render = 'compact',
+				stages = 'slide',
+				timeout = 4000,
+			})
 			vim.notify = require('notify')
+			for _, level in ipairs{'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'} do
+				for _, section in ipairs{'Border', 'Title', 'Body'} do
+					-- vim.api.nvim_set_hl(0, 'Notify' .. level .. section, {bg='#888888'})
+					vim.cmd('hi Notify'..level..section..'guibg=#888888')
+				end
+			end
 		end,
-		-- enabled = false,
+		enabled = false,
 	},
 
 	-- Indent guides for Neovim
@@ -178,7 +188,11 @@ require("lazy").setup({
 		enabled =  false,
 	},
 
-	-- 'windwp/nvim-autopairs',
+	{'windwp/nvim-autopairs',
+		opts = {
+			-- ignored_next_char = 
+		},
+	},
 
 	{'ZhiyuanLck/smart-pairs',
 		events = {'InsertEnter'},
@@ -191,6 +205,8 @@ require("lazy").setup({
 				disable_when_touch = true,
 			},
 		},
+		-- touch target chars are not enough
+		enabled = false,
 	},
 
 	-- quoting/parenthesizing made simple
@@ -209,10 +225,22 @@ require("lazy").setup({
 			{ "ySS", "<Plug>YSsurround" },
 			{ "S",   "<Plug>VSurround",  mode = 'x' },
 			{ "gS",  "<Plug>VgSurround", mode = 'x' },
+			
+		},
+		enabled = false,
+	},
+
+	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
+	{ "kylechui/nvim-surround",
+		event = "VeryLazy",
+		opts = {
+			keymaps = {
+				delete = 'ks'
+			}
 		},
 	},
 
-	-- vim-textobj-user - Create your own text objects
+-- vim-textobj-user - Create your own text objects
 	{'kana/vim-textobj-user',
 		init = function()
 			vim.api.nvim_create_autocmd(

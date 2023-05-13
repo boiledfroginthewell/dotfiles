@@ -17,13 +17,7 @@ config.send_composed_key_when_right_alt_is_pressed = false
 
 -- config.color_scheme = 'Builtin Dark'
 config.color_scheme = 'Breeze'
--- font = wezterm.font_with_fallback({
--- 	"Cica",
--- 	"JetBrains Mono",
--- 	-- "MesloLGS NF",
--- 	"Noto Sans CJK JP",
--- })
-config.font_size = 14.5
+config.font_size = 13.5
 config.colors = {
 	split = "#4444AA",
 	compose_cursor = "orange",
@@ -42,10 +36,6 @@ config.keys = {
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
 	{ key = "%",        mods = "CTRL|SHIFT", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
 	{ key = "w",        mods = "CTRL|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = false } } },
-	-- { key = "LeftArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Left" } },
-	-- { key = "DownArrow", mods = "ALT",     action = wezterm.action { ActivatePaneDirection = "Down" } },
-	-- { key = "UpArrow",  mods = "ALT",      action = wezterm.action { ActivatePaneDirection = "Up" } },
-	-- { key = "RightArrow", mods = "ALT",    action = wezterm.action { ActivatePaneDirection = "Right" } },
 
 	-- Copy & Paste
 	{ key = "C",        mods = "CTRL|SHIFT", action = wezterm.action { CopyTo = "ClipboardAndPrimarySelection" } },
@@ -78,7 +68,11 @@ table.insert(config.hyperlink_rules, {
 	format = 'https://github.com/$1',
 	highlight = 1
 })
-require('local').setup(config.hyperlink_rules)
+
+local ok, localConfig = pcall(require, 'local')
+if ok then
+	localConfig.setup(config.hyperlink_rules)
+end
 
 return config
 
