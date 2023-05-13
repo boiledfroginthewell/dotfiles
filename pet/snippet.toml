@@ -10,7 +10,7 @@
 
 [[snippets]]
   description = "Force push"
-  command = "git push -f --force-with-lease --force-if-includes"
+  command = "git push -f --force-with-lease --force-if-includes origin HEAD"
   output = ""
 
 [[snippets]]

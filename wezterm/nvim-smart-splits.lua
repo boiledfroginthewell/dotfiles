@@ -15,15 +15,15 @@ local function is_vim(pane)
 end
 
 local direction_keys = {
-	Left = 'd',
-	Down = 'h',
-	Up = 't',
-	Right = 'n',
+	Left = 'LeftArrow',
+	Down = 'DownArrow',
+	Up = 'UpArrow',
+	Right = 'RightArrow',
 	-- reverse lookup
-	d = 'Left',
-	h = 'Down',
-	t = 'Up',
-	n = 'Right',
+	LeftArrow = 'Left',
+	DownArrow = 'Down',
+	UpArrow = 'Up',
+	RightArrow = 'Right',
 }
 
 local function split_nav(resize_or_move, key)
@@ -50,9 +50,9 @@ local function split_nav(resize_or_move, key)
 end
 
 return {
-	split_nav('move', 'd'),
-	split_nav('move', 'h'),
-	split_nav('move', 't'),
-	split_nav('move', 'n'),
+	split_nav('move', 'LeftArrow'),
+	split_nav('move', 'UpArrow'),
+	split_nav('move', 'DownArrow'),
+	split_nav('move', 'RightArrow'),
 }
 

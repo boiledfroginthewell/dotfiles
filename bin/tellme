@@ -1,0 +1,10 @@
+#!/bin/bash
+
+time while true; do
+	if eval "$*" > /dev/null; then
+		notify "✅Finished!\n $*"
+		break
+	fi
+	sleep 5
+done
+
