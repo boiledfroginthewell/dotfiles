@@ -6,6 +6,11 @@ if wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'a
 end
 local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
+-- https://wezfurlong.org/wezterm/config/lua/window/toast_notification.html
+wezterm.on('window-config-reloaded', function(window, pane)
+  window:toast_notification('wezterm', 'configuration reloaded!', nil, 3000)
+end)
+
 config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
 config.use_ime = true
 config.show_update_window = false

@@ -1,5 +1,7 @@
 require("copies/lazynvim")
-require("lazy").setup({
+
+---@type LazySpec
+local config = {
 	-- UI Plugins
 	-- ====================
 
@@ -679,8 +681,6 @@ require("lazy").setup({
 			-- Autocompletion
 			local cmp = require('cmp')
 			local cmp_action = require('lsp-zero').cmp_action()
-			-- load friendly snippets
-			require('luasnip.loaders.from_vscode').lazy_load()
 			-- load my SnipMates
 			require('luasnip.loaders.from_snipmate').lazy_load()
 
@@ -688,16 +688,16 @@ require("lazy").setup({
 			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
 			cmp.setup {
 				sources = {
-					-- basic
-					{ name = 'luasnip' },
-					{ name = 'buffer' },
-					{ name = 'treesitter' },
-					{ name = 'ctags'},
 					-- nvim/lua
 					{ name = 'nvim_lsp' },
 					{ name = 'nvim_lua' },
 					-- misc
 					{ name = 'fish' },
+					-- basic
+					{ name = 'luasnip' },
+					{ name = 'treesitter' },
+					{ name = 'buffer' },
+					{ name = 'ctags'},
 				},
 				mapping = {
 					-- lsp-zero.preset.manage_nvim_cmop.set_basic_mappings
@@ -861,7 +861,8 @@ require("lazy").setup({
 			}
 		},
 	},
-})
+}
+require("lazy").setup(config)
 
 vim.cmd[[colorscheme desert]]
 vim.cmd[[highlight NonText guibg=none]]
