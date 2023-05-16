@@ -1,10 +1,22 @@
 #!/bin/bash
 
+while getopts 't:' ARG; do
+	case ARG in
+	t)
+		timeInterval=$ARG
+		;;
+	h|\?)
+		help
+		;;
+	esac
+done
+shift $(( OPTIND - 1 ))
+
 time while true; do
 	if eval "$*" > /dev/null; then
 		notify "✅Finished!\n $*"
 		break
 	fi
-	sleep 5
+	sleep ${timeInterval:-5}
 done
 
