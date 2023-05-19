@@ -324,11 +324,11 @@ local config = {
 			-- vim.g.clever_f_smart_case = 1
 		end,
 		keys = {
-			{ ";", "<Plug>(clever-f-repeat-forward)", mode = { 'n', 'v' } },
-			{ "j", "<Plug>(clever-f-f)",              mode = { 'n', 'v' } },
-			{ "J", "<Plug>(clever-f-F)",              mode = { 'n', 'v' } },
-			{ "f", "<Plug>(clever-f-t)",              mode = { 'n', 'v' } },
-			{ "F", "<Plug>(clever-f-T)",              mode = { 'n', 'v' } },
+			{ ";", "<Plug>(clever-f-repeat-forward)", mode = { 'n', 'v', 'o' } },
+			{ "j", "<Plug>(clever-f-f)",              mode = { 'n', 'v', 'o' } },
+			{ "J", "<Plug>(clever-f-F)",              mode = { 'n', 'v', 'o' } },
+			{ "f", "<Plug>(clever-f-t)",              mode = { 'n', 'v', 'o' } },
+			{ "F", "<Plug>(clever-f-T)",              mode = { 'n', 'v', 'o' } },
 		},
 	},
 
@@ -645,6 +645,7 @@ local config = {
 				build = './install.sh',
 				-- dependencies = 'hrsh7th/nvim-cmp',
 				cond = vim.fn.has('mac') ~= 0,
+				enabled = vim.fn.has('mac') ~= 0,
 			},
 		},
 		config = function()
