@@ -12,9 +12,11 @@ while getopts 't:' ARG; do
 done
 shift $(( OPTIND - 1 ))
 
+startedAt=$(date +%s)
 time while true; do
 	if eval "$*" > /dev/null; then
-		notify "✅Finished!\n $*"
+		ellapsed=$(( $(date +%s) - $startedAt ))
+		notify "✅Finished! (time: $(TZ= date -r $ellapsed +%M:%S))\n $*"
 		break
 	fi
 	sleep ${timeInterval:-5}
