@@ -1,6 +1,6 @@
 # set -g tide_left_prompt_items vi_mode pwd git
 # set -g tide_right_prompt_items status cmd_duration context jobs node virtual_env rustc java php pulumi chruby go kubectl distrobox toolbox terraform aws nix_shell crystal
-set -U tide_left_prompt_items vi_mode pwd git shlvl
+set -U tide_left_prompt_items vi_mode pwd kubectl git shlvl
 set -U tide_right_prompt_items status context jobs node virtual_env rustc java php chruby go toolbox terraform aws nix_shell crystal
 
 set -g tide_right_prompt_suffix \ue0b4
@@ -16,6 +16,8 @@ else
 	set -g tide_jobs_icon \Uff9b1
 end
 
+set -gx tide_kubectl_color 316CE6
+set -gx tide_kubectl_bg_color d9d9d9
 
 # begin
 # 	set -l prompt_bg_color 303030
