@@ -6,10 +6,10 @@ if wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'a
 end
 local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
--- https://wezfurlong.org/wezterm/config/lua/window/toast_notification.html
-wezterm.on('window-config-reloaded', function(window, pane)
-  window:toast_notification('wezterm', 'configuration reloaded!', nil, 3000)
-end)
+-- -- https://wezfurlong.org/wezterm/config/lua/window/toast_notification.html
+-- wezterm.on('window-config-reloaded', function(window, pane)
+--   window:toast_notification('wezterm', 'configuration reloaded!', nil, 3000)
+-- end)
 
 config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
 config.use_ime = true
@@ -21,12 +21,11 @@ config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
 -- config.color_scheme = 'Builtin Dark'
-config.color_scheme = 'Breeze'
--- config.color_scheme = 'Andromeda'
+config.color_scheme = 'Andromeda'
 config.font = wezterm.font_with_fallback {
 	'MesloLGS NF'
 }
-config.font_size = 16
+config.font_size = 13.5
 -- config.colors = {
 -- 	split = "#4444AA",
 -- 	compose_cursor = "orange",
