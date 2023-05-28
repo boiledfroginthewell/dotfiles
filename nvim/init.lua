@@ -39,7 +39,7 @@ vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
 vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
 
--- " カーソル下の単語を置換する
+-- カーソル下の単語を置換する
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
 vim.keymap.set("v", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
 

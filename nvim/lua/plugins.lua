@@ -1,5 +1,6 @@
 require("copies/lazynvim")
 
+
 ---@type LazySpec
 local config = {
 	-- UI Plugins
@@ -12,6 +13,8 @@ local config = {
 	{'levouh/tint.nvim',
 		config = true,
 	},
+
+	-- 'github/copilot.vim',
 
 	-- A fancy, configurable, notification manager for NeoVim
 	{ 'rcarriga/nvim-notify',
@@ -119,24 +122,6 @@ local config = {
 		},
 	},
 
-	-- Neovim plugin for locking a buffer to a window
-	{ 'stevearc/stickybuf.nvim',
-		init = function()
-			vim.api.nvim_create_autocmd('FileType', {
-				pattern = { 'help', 'qf', 'cheatsheet' },
-				callback = function()
-					local stickybuf = require("stickybuf")
-					-- if not stickybuf.is_pinned() and (vim.wo.winfixwidth or vim.wo.winfixheight) then
-					stickybuf.pin()
-					-- end
-				end
-			})
-		end,
-		config = true,
-		-- not work well in some cases
-		enabled = false,
-	},
-
 	-- A Neovim plugin to improve buffer deletion
 	{ 'ojroques/nvim-bufdel',
 		keys = {
@@ -172,6 +157,7 @@ local config = {
 				triggers_nowait = {},
 			})
 		end,
+		enabled = false,
 	},
 
 	-- Improved vim spelling plugin (with camel case support)!
@@ -208,27 +194,6 @@ local config = {
 			},
 		},
 		-- touch target chars are not enough
-		enabled = false,
-	},
-
-	-- quoting/parenthesizing made simple
-	{ 'tpope/vim-surround',
-		init = function()
-			vim.g.surround_no_mappings = 1
-		end,
-		keys = {
-			{ "ks",  "<Plug>Dsurround" },
-			{ "cs",  "<Plug>Csurround" },
-			{ "cS",  "<Plug>CSurround" },
-			{ "ys",  "<Plug>Ysurround" },
-			{ "yS",  "<Plug>YSurround" },
-			{ "yss", "<Plug>Yssurround" },
-			{ "ySs", "<Plug>YSsurround" },
-			{ "ySS", "<Plug>YSsurround" },
-			{ "S",   "<Plug>VSurround",  mode = 'x' },
-			{ "gS",  "<Plug>VgSurround", mode = 'x' },
-			
-		},
 		enabled = false,
 	},
 
@@ -626,6 +591,17 @@ local config = {
 			'hrsh7th/nvim-cmp', -- Required by lsp-zero
 			'hrsh7th/cmp-nvim-lsp', -- Required by lsp-zero
 			'L3MON4D3/LuaSnip', -- Required by lsp-zero
+			{ "zbirenbaum/copilot.lua",
+				name = 'copilot',
+				config = function(lazy, opts)
+					require("copilot").setup({
+						suggestion = { enabled = false },
+						panel = { enabled = false },
+					})
+				end,
+				enabled = vim.fn.has('mac') == 0,
+				cond = vim.fn.has('mac') == 0
+			},
 			{'saadparwaiz1/cmp_luasnip',
 				dependencies = {
 					{ "L3MON4D3/LuaSnip",
@@ -641,6 +617,14 @@ local config = {
 			'hrsh7th/cmp-buffer',
 			'delphinus/cmp-ctags',
 			'mtoohey31/cmp-fish',
+			{ "zbirenbaum/copilot-cmp",
+				after = { "copilot.lua" },
+				config = function ()
+					require("copilot_cmp").setup()
+				end,
+				enabled = vim.fn.has('mac') == 0,
+				cond = vim.fn.has('mac') == 0
+			},
 			{ 'tzachar/cmp-tabnine',
 				build = './install.sh',
 				-- dependencies = 'hrsh7th/nvim-cmp',
@@ -668,7 +652,23 @@ local config = {
 			})
 
 			local lspconfig = require('lspconfig')
-			lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+			lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
+				-- useless?
+				settings = {
+					runtime = {
+						path = {
+							'?.lua',
+							'?/init.lua',
+							vim.fn.stdpath('data') .. 'lazy/lazy.nvim/lua',
+							vim.fn.stdpath('data') .. 'lazy/lazy.nvim/lua/lazy',
+						}
+					},
+					workspace = {
+						-- Make the server aware of Neovim runtime files
+						library = vim.api.nvim_get_runtime_file("", true),
+					},
+				}
+			}))
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
@@ -695,6 +695,8 @@ local config = {
 					-- misc
 					{ name = 'fish' },
 					-- basic
+					{ name = 'copilot' },
+					{ name = 'cmp_tabnine' },
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
 					{ name = 'buffer' },
@@ -722,7 +724,8 @@ local config = {
 						end
 					end),
 				},
-				formatting = {
+				-- TODO
+				xformatting = {
 					fields = { 'kind', 'abbr', 'menu' },
 					-- format = require('lspkind').cmp_format({
 					-- 	mode = 'symbol', -- show only symbol annotations
