@@ -6,12 +6,19 @@ function emitChpwd --on-variable PWD
 
 	# on-variable hook is called even if the same value is set again
 	if [ "$__chpwd_prev" != "$PWD" ]
+		emit chpwd1 $argv "$__chpwd_prev" "$PWD"
 		emit chpwd $argv "$__chpwd_prev" "$PWD"
 		set -g __chpwd_prev "$PWD"
 	end
 end
 
-function autols --on-event chpwd
+function emitChpwdFirst --on-event fish_prompt
+	emit chpwd0
+	emit chpwd
+	functions --erase emitChpwdFirst
+end
+
+function autols --on-event chpwd1
 	ls
 end
 
