@@ -45,8 +45,8 @@ function cursor-kill-bigword
 	commandline -f backward-kill-bigword
 end
 bind \cw cursor-kill-bigword
-bind \cb backward-bigword
-bind \cf forward-bigword
+bind \et backward-bigword
+bind \eh forward-bigword
 bind \cj forward-jump
 bind \cf backward-jump
 bind \cz 'fg; commandline -f repaint'
