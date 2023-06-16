@@ -48,5 +48,3 @@ function loadenv
 	source
 end
 
-__loadenv
-

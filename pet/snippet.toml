@@ -16,6 +16,7 @@
 [[snippets]]
   description = "Git initial empty commit"
   command = "git commit --allow-empty -m \"initial empty commit\""
+  output = ""
 
 [[snippets]]
   description = "Show project root directory of git."
@@ -86,50 +87,50 @@
 [[snippets]]
   description = "Substitute variable if it has value"
   command = "${<var>:+<string>}"
-  output = ""
   tag = ["bash", "zsh"]
+  output = ""
 
 [[snippets]]
   description = "Trim the beginning of variable"
   command = "${<var>#<string>}"
-  output = ""
   tag = ["bash", "zsh"]
+  output = ""
 
 [[snippets]]
   description = "Trim the ending of variable"
   command = "${<var>%<string>}"
-  output = ""
   tag = ["bash", "zsh"]
+  output = ""
 
 [[snippets]]
   description = "Substring variable"
   command = "${name:offset:length}"
-  output = ""
   tag = ["bash", "zsh"]
+  output = ""
 
 [[snippets]]
   description = "Replace variable"
   command = "${name/pattern/repl}"
-  output = ""
   tag = ["bash", "zsh"]
+  output = ""
 
 [[snippets]]
   description = "Capitalize variable (${var^} in zsh)"
   command = "${(C)<var>}"
-  output = ""
   tag = ["zsh"]
+  output = ""
 
 [[snippets]]
   description = "Make variable upper case (${var^^} in zsh)"
   command = "${(U)<var>}"
-  output = ""
   tag = ["zsh"]
+  output = ""
 
 [[snippets]]
   description = "Make variable lowore case (${var,,} in zsh)"
   command = "${(L)<var>}"
-  output = ""
   tag = ["zsh"]
+  output = ""
 
 [[snippets]]
   description = "Postgres login"
@@ -165,5 +166,15 @@
 [[snippets]]
   description = "update fish completion by parsin man documents"
   command = "fish_update_completions"
+  output = ""
+
+[[snippets]]
+  description = "run git status disabling .gitignore"
+  command = "git status --ignored"
+  output = ""
+
+[[snippets]]
+  description = "search words over git history"
+  command = "git grep <regexp> $(git rev-list --all)"
   output = ""
 

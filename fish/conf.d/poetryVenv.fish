@@ -38,5 +38,3 @@ function __enter_venv
 	source "$venvPath"/bin/activate.fish
 end
 
-__update_active_venv
-

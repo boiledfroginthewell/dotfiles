@@ -16,5 +16,3 @@ function __activateVenv --on-event chpwd
 	end
 end
 
-__activateVenv
-
