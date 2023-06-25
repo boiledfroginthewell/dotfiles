@@ -376,7 +376,7 @@ local config = {
 			{ '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Nvim-Tree' },
 		},
 		-- config = true,
-		config = {
+		opts = {
 			on_attach = function (bufnr)
 				local api = require('nvim-tree.api')
 				api.config.mappings.default_on_attach(bufnr)
@@ -484,6 +484,7 @@ local config = {
 			vim.g["shebang#shebangs"] = {
 				sh = '#!/bin/bash',
 				bash = '#!/bin/bash',
+				javascript = '#!/usr/bin/env node',
 			}
 		end,
 		keys = {
@@ -524,7 +525,7 @@ local config = {
 		end,
 		opts = {
 				prefix = '',
-				disable_ft = {'python', 'yaml'},
+				disable_ft = {'python', 'yaml', 'md'},
 		},
 	},
 
@@ -568,9 +569,11 @@ local config = {
 			'neovim/nvim-lspconfig',
 			'onsails/lspkind.nvim',
 			{ 'williamboman/mason.nvim',
+				name = 'mason',
 				build = function()
 					pcall(vim.cmd, 'MasonUpdate')
 				end,
+				config = true,
 			},
 			{ 'williamboman/mason-lspconfig',
 				opts = {
@@ -579,7 +582,7 @@ local config = {
 						'lemminx', 'jsonls', 'yamlls', 'taplo',
 					},
 				},
-
+				after = { 'mason' },
 			},
 			{'jose-elias-alvarez/null-ls.nvim',
 				dependencies = { 'nvim-lua/plenary.nvim' },
