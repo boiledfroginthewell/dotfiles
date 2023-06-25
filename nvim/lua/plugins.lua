@@ -488,7 +488,10 @@ local config = {
 			}
 		end,
 		keys = {
-			{ "<leader>#", ":ShebangInsert<CR>", desc = 'Shebang Insert' },
+			{ "<leader>#", function()
+				vim.cmd(":ShebangInsert")
+				vim.cmd(":! chmod u+x %")
+			end, desc = 'Shebang Insert' },
 		},
 	},
 
