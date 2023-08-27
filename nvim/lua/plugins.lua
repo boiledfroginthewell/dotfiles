@@ -398,7 +398,7 @@ local config = {
 			"MunifTanjim/nui.nvim",
 		},
 		keys = {
-			{ '<leader>e', '<cmd>NeoTreeShowToggle<cr>', desc = 'NeoTree' },
+			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 			{'t', false },
 		},
 		-- enabled = false,

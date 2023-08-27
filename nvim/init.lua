@@ -35,6 +35,7 @@ vim.keymap.set("n", "g<c-}>", "<c-T>")
 vim.keymap.set("n", "<c-e>", "<c-y>")
 vim.keymap.set("n", "<c-u>", "<c-e>")
 
+vim.keymap.set('n', '<leader>o', ':e <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
 vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
