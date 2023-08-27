@@ -49,7 +49,7 @@
 ;; (defalias rmt (tap-hold-next-release 300 ret (tap-hold-next 10 ret rmet)))
 ;; (defalias rmt (tap-hold-next-release 300 ret (tap-hold-next 10 ret (layer-toggle symbol-layer))))
 ;; (defalias rl3 (tap-hold-next-release 300 ret (tap-hold-next 10 ret (layer-toggle logical-symbol-layer))))
-(defalias rmt (tap-hold-next-release 200 ret (tap-hold-next 10 ret rctl)))
+(defalias rmt (tap-hold-next-release 230 ret (tap-hold-next 10 ret rctl)))
 
 ;; Henkan and Muhenkan keys
 (defalias lgs (layer-toggle logical-shift))
@@ -78,7 +78,7 @@
 
 (deflayer logical-shift
   _    esc  del  home  end _         _    _    ret  _    @bar _
-  _    C-a  C-s  pgup pgdn _         left down up   rght _    _
+  back C-a  C-s  pgup pgdn _         left down up   rght _    _
        C-z  C-x  C-c  C-v  _         _    _    _    _    _
                  _         _         @ch2      _
        _                                                 _
