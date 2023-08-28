@@ -43,6 +43,11 @@ if !has('win32unix') && !has('win32')
 	" fzf heart vim
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
+	" let g:fzf_preview_window_option = 'up:60%'
+	let g:fzf_preview_window = ['down,50%', 'ctrl-/']
+	function! s:delete_buffer(lines)
+		exec 'bd '.a:lines[0]
+	endfunction
 	function! s:swap_buffer(lines)
 		let l:buf = bufnr('%')
 		exec 'e '.a:lines[0]
@@ -52,6 +57,7 @@ if !has('win32unix') && !has('win32')
 		call feedkeys(':e ' . join(a:lines, ' '))
 	endfunction
 	let g:fzf_action = {
+		\'ctrl-d': function('s:delete_buffer'),
 		\'ctrl-n': function('s:swap_buffer'),
 		\'ctrl-e': function('s:edit_selection'),
 	\ }

@@ -22,7 +22,7 @@ noremap N L
 noremap k d
 noremap kk dd
 vunmap kk
-noremap K "_D
+noremap K D
 noremap c "_c
 
 " jump

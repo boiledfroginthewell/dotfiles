@@ -7,6 +7,8 @@ function g --wrap $_GIT
         $_GIT switch $argv
     else if [ "$argv[1]" = "addi" ]
         ga $argv[2..]
+    else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
+        $_GIT pr checkout $argv[3..]
     else
         $_GIT $argv
     end
