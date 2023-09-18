@@ -160,4 +160,9 @@
         "command": "jupyter.changeCellToCode",
         "when": "editorLangId == 'python'",
     },
+    {
+        "key": "right",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
 ]
