@@ -33,6 +33,7 @@ abbr --add k kubectl
 # less alternative
 if type -q bat
 	set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+	set -gx MANROFFOPT "-c"
 end
 set -gx LESS "--quit-if-one-screen"
 alias less=(nvl -c bat lv less)
