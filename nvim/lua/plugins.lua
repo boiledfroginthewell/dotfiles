@@ -672,7 +672,10 @@ local config = {
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
-						keyOrdering = false
+						keyOrdering = false,
+						schemas = {
+							["https://taskfile.dev/schema.json"] = "**/Taskfile.*yml",
+						}
 					}
 				}
 			})
