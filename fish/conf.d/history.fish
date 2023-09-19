@@ -1,6 +1,6 @@
 not status -i || status -c && exit
 
-set HISTIGNORE '^(sudo|history)( .*|$)|^(l|g)\s*$|^\s.*|^g push .*-f'
+set HISTIGNORE '^(history)( .*|$)|^(l|g)\s*$|^\s.*|^g push .*-f'
 
 # HISTIGNORE support
 # https://github.com/fish-shell/fish-shell/issues/5924#issuecomment-499414422
