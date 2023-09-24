@@ -3,13 +3,13 @@ not status -i || status -c && exit
 set -gx FZF_DEFAULT_COMMAND fzf-default-command
 set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --exact \
 	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down,ctrl-f:replace-query"
-# --track
 if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
 end
 
 set -l KEY_BINDING_FILE (
 	nvl -f \
+		/usr/share/fish/vendor_functions.d/fzf_key_bindings.fish \
 		/usr/share/doc/fzf/examples/key-bindings.fish \
 		/opt/homebrew/opt/fzf/shell/key-bindings.fish
 )
@@ -17,6 +17,8 @@ if [ -n "$KEY_BINDING_FILE" ]
 	# Disable C-t Mapping
 	sed 's/.*bind \\\\ct.*/:/' $KEY_BINDING_FILE | source
 	fzf_key_bindings
+else
+	echo "WARN: fzf key-bindings.fish file is not found." >&2
 end
 
 [ -z "$FZF_HEIGHT" ] && set FZF_HEIGHT 40%
