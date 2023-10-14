@@ -1,8 +1,7 @@
-# set -g tide_left_prompt_items vi_mode pwd git
-# set -g tide_right_prompt_items status cmd_duration context jobs node virtual_env rustc java php pulumi chruby go kubectl distrobox toolbox terraform aws nix_shell crystal
-set -U tide_left_prompt_items vi_mode pwd git shlvl
-# set -U tide_left_prompt_items vi_mode pwd kubectl git
-set -U tide_right_prompt_items status context jobs node virtual_env rustc java php chruby go toolbox terraform aws kubectl nix_shell crystal cmd_duration time
+set -U tide_left_prompt_items vi_mode pwd kubectl git shlvl
+set jobItem (type -q wakatime || echo jobs)
+set timeItem ([ "$CONFIG_MODE" = "job" ] && echo time)
+set -U tide_right_prompt_items status context $jobItem node virtual_env rustc java php chruby go toolbox terraform aws kubectl nix_shell crystal cmd_duration $timeItem
 
 set -g tide_right_prompt_suffix \ue0b4
 
@@ -11,11 +10,7 @@ set -g tide_git_bg_color_unstable 3e56b3
 set -g tide_git_bg_color_urgent red
 
 set -g tide_jobs_color E69500
-if [ (uname) = Darwin ]
-	set -g tide_jobs_icon \uf59f
-else
-	set -g tide_jobs_icon \Uff9b1
-end
+set -g tide_jobs_icon \uf59f
 
 set -gx tide_kubectl_color 316CE6
 set -gx tide_kubectl_bg_color d9d9d9
