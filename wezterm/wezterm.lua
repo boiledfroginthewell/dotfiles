@@ -22,9 +22,6 @@ config.send_composed_key_when_right_alt_is_pressed = false
 
 config.color_scheme = 'Builtin Dark'
 -- config.color_scheme = 'Andromeda'
--- config.font = wezterm.font_with_fallback {
--- 	'MesloLGS NF'
--- }
 config.font_size = 13.5
 config.colors = {
 	split = "#4444AA",
@@ -48,9 +45,8 @@ config.keys = {
 	-- Copy & Paste
 	{ key = "C",        mods = "CTRL|SHIFT", action = wezterm.action { CopyTo = "ClipboardAndPrimarySelection" } },
 	{ key = "V",        mods = "CTRL|SHIFT", action = wezterm.action { PasteFrom = "Clipboard" } },
-	{ key = "-",        mods = "CTRL",     action = "QuickSelect" },
-
-	{ key = "PageUp", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+	{ key = "-",        mods = "CTRL",       action = "QuickSelect" },
+	{ key = "PageUp",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "PageDown", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 }
 for _, v in ipairs(require('nvim-smart-splits')) do

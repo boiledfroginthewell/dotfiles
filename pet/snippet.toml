@@ -178,3 +178,9 @@
   command = "git grep <regexp> $(git rev-list --all)"
   output = ""
 
+[[snippets]]
+  description = "initialize virtual env"
+  command = "python -m venv .venv && source .venv/bin/activate.fish"
+  output = ""
+
+
