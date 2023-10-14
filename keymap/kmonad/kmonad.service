@@ -1,14 +1,14 @@
 [Unit]
 Description=Kmonad keyboard config
-BindsTo=dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D6FF313431474843257220\x2devent\x2dkbd.device dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D8FF303037484843148234\x2devent\x2dkbd.device
-OnFailure=failure-handler@%N.service
+#BindsTo=dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D6FF313431474843257220\x2devent\x2dkbd.device dev-input-by\x2did-usb\x2dwww.BeyondQ.com_DuMang_KeyBoard_DK6_05D8FF303037484843148234\x2devent\x2dkbd.device
+#OnFailure=failure-handler@%N.service
 
 [Service]
 Restart=always
 RestartSec=3
 # ExecStart=/usr/bin/kmonad ${XDG_CONFIG_HOME}/kmonad/.%i.kbd -ldebug
 # ExecStart=/usr/bin/kmonad %E/kmonad/.%i.kbd -linfo
-ExecStart=%h/config/keymap/kmonad/start.sh
+ExecStart=%h/config/dotfiles/keymap/kmonad/start.sh
 Nice=-20
 
 [Install]

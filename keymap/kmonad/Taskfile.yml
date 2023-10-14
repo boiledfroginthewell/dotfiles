@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: '3'
+
+tasks:
+  log:
+    cmd: journalctl -e --user -u kmonad
+
+  system-install:
+    # cmds:
+    #   - systemctl enable --user $PWD/kmonad.service
+    #   - systemctl start --user kmonad.service
+    cmds:
+      - < "$kbdName" sed "s:%INPUT_DEVICE_FILE%:$devFile:" > "$dest"
+      - systemctl restart kmonad
+    env:
+      kbdName: 40keys.kbd
+      devFile: /dev/input/by-path/platform-i8042-serio-0-event-kbd
+      dest: /etc/kmonad/config.kbd
+
+  install:
+    cmds:
+      - ./scripts/install.sh
+
+  status:
+    cmd: systemctl status --user kmonad
+
