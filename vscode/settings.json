@@ -26,6 +26,7 @@
   },
   "cSpell.userWords": [
     "bookbill",
+    "boto",
     "callbackify",
     "consts",
     "csrf",
@@ -45,6 +46,7 @@
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
     // "editorWhitespace.foreground": "#00CC00",
+    "editorInlayHint.foreground": "#999999"
   },
   "editor.bracketPairColorization.enabled": true,
   "trailing-spaces.regexp": "[ \t　]+",
@@ -101,6 +103,7 @@
   "terminal.integrated.commandsToSkipShell": [
     "language-julia.interrupt"
   ],
+  "editor.inlineSuggest.enabled": true,
 
   // python
   "jupyter.askForKernelRestart": false,
@@ -125,5 +128,4 @@
   "[python]": {
     "editor.formatOnType": true
   },
-  "editor.inlineSuggest.enabled": true,
 }

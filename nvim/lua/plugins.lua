@@ -16,25 +16,6 @@ local config = {
 
 	-- 'github/copilot.vim',
 
-	-- A fancy, configurable, notification manager for NeoVim
-	{ 'rcarriga/nvim-notify',
-		config = function()
-			require('notify').setup({
-				render = 'compact',
-				stages = 'slide',
-				timeout = 4000,
-			})
-			vim.notify = require('notify')
-			for _, level in ipairs{'ERROR', 'WARN', 'INFO', 'DEBUG', 'TRACE'} do
-				for _, section in ipairs{'Border', 'Title', 'Body'} do
-					-- vim.api.nvim_set_hl(0, 'Notify' .. level .. section, {bg='#888888'})
-					vim.cmd('hi Notify'..level..section..'guibg=#888888')
-				end
-			end
-		end,
-		enabled = false,
-	},
-
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
 		init = function()
@@ -270,6 +251,10 @@ local config = {
 	-- Neovim motions on speed!
 	{ 'phaazon/hop.nvim',
 		branch = 'v2',
+		config = function()
+			require('hop').setup()
+			vim.api.nvim_set_hl(0, "HopNextKey2", { fg='#00c7e6', ctermfg=33, })
+		end,
 		opts = {
 			keys = 'euoai' .. 'f:l,r.c' .. ';qjkxvzwmby' .. 'dsnth',
 			multi_windows = true,
@@ -528,7 +513,7 @@ local config = {
 		end,
 		opts = {
 				prefix = '',
-				disable_ft = {'python', 'yaml', 'md'},
+				disable_ft = {'python', 'yaml', 'md', 'markdown'},
 		},
 	},
 
@@ -687,7 +672,10 @@ local config = {
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
-						keyOrdering = false
+						keyOrdering = false,
+						schemas = {
+							["https://taskfile.dev/schema.json"] = "**/Taskfile.*yml",
+						}
 					}
 				}
 			})

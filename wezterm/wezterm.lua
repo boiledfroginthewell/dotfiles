@@ -69,6 +69,11 @@ config.mouse_bindings = {
 	},
 }
 
+config.quick_select_alphabet = "dvorak"
+config.quick_select_patterns = {
+	'[a-zA-Z/][0-9a-fA-Z_:/.]{20,}',
+}
+
 config.hyperlink_rules = wezterm.default_hyperlink_rules()
 -- GitHub repostory
 table.insert(config.hyperlink_rules, {

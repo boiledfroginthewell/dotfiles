@@ -2,6 +2,10 @@
 .ignore
 .lefthook-local/
 .lvimrc
+ctags.sh
+hoge
+foo
+bar
 
 .DS_Store
 
@@ -78,9 +82,6 @@ local.properties
 ### Java ###
 # Compiled class file
 *.class
-
-# Log file
-*.log
 
 # BlueJ files
 *.ctxt
