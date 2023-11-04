@@ -1,9 +1,13 @@
+# tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Light --show_time=No --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
+
 set -U tide_left_prompt_items vi_mode pwd kubectl git shlvl
 set jobItem (type -q wakatime || echo jobs)
 set timeItem ([ "$CONFIG_MODE" = "job" ] && echo time)
-set -U tide_right_prompt_items status context $jobItem node virtual_env rustc java php chruby go toolbox terraform aws kubectl nix_shell crystal cmd_duration $timeItem
+set -U tide_right_prompt_items status context $jobItem node python rustc java php go toolbox terraform aws kubectl nix_shell crystal cmd_duration $timeItem
 
 set -g tide_right_prompt_suffix \ue0b4
+
+set -e tide_pwd_icon
 
 set -g tide_git_icon \ufbd9
 set -g tide_git_bg_color_unstable 3e56b3
