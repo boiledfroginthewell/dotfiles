@@ -18,21 +18,48 @@ local config = {
 
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
 		init = function()
 			vim.opt.list = true
 			vim.opt.listchars = {
-				-- '␣', '⍽'
-				lead = '⋅',
+				-- '␣', '⍽', "⋅"
+				lead = '␣',
 				trail = '⋅',
-				-- '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
-				tab = '↦ ',
-				-- nbsp = '▫',
+				-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
+				tab = '│ ',
+				nbsp = '▫',
 			}
+
+			local function setupHighlight()
+				vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+				vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+				vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+				vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+			end
+			setupHighlight()
+			local hooks = require "ibl.hooks"
+			hooks.register(hooks.type.HIGHLIGHT_SETUP, setupHighlight)
 		end,
 		opts = {
-			space_char_blankline = " ",
-			show_current_context = true,
-			show_current_context_start = true,
+			indent = {
+				highlight = {
+					"RainbowRed",
+					"RainbowYellow",
+					"RainbowBlue",
+					"RainbowOrange",
+					"RainbowGreen",
+					"RainbowViolet",
+					"RainbowCyan",
+				}
+			},
+			scope = {
+				enabled = true,
+				char = "▎",
+				show_start = true,
+			}
 		},
 	},
 
@@ -49,7 +76,7 @@ local config = {
 	-- Vim plugin: Make blockwise Visual mode more useful
 	'kana/vim-niceblock',
 
-	 -- Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
+	-- Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
 	'ConradIrwin/vim-bracketed-paste',
 
 	-- Configure commands not to be registered in the command-line history
