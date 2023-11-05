@@ -1,5 +1,6 @@
 {
   "LuaSnip": { "branch": "master", "commit": "80a8528f084a97b624ae443a6f50ff8074ba486b" },
+  "SchemaStore.nvim": { "branch": "main", "commit": "686687585c040529f7efa68aa433282068c9d78b" },
   "ShowMarks": { "branch": "master", "commit": "ef22709d8ebba137819ab0e60db5463b480934cd" },
   "asyncrun.vim": { "branch": "master", "commit": "61cc3081963a12048e00e89f8cedc8bd1cb83b8c" },
   "bufferline.nvim": { "branch": "main", "commit": "243893ba9d5d1049dd451a25cab32ec7f8f67bcf" },

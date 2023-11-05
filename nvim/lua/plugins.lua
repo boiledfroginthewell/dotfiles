@@ -579,6 +579,7 @@ local config = {
 			{'jose-elias-alvarez/null-ls.nvim',
 				dependencies = { 'nvim-lua/plenary.nvim' },
 			},
+			'b0o/SchemaStore.nvim',
 
 			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
 			'folke/neodev.nvim',
@@ -677,9 +678,7 @@ local config = {
 				settings = {
 					yaml = {
 						keyOrdering = false,
-						schemas = {
-							["https://taskfile.dev/schema.json"] = "**/Taskfile.*yml",
-						}
+						schemas = require('schemastore').yaml.schemas()
 					}
 				}
 			})
