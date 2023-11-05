@@ -128,4 +128,6 @@
   "[python]": {
     "editor.formatOnType": true
   },
+  "editor.inlineSuggest.enabled": true,
+  "jupyter.interactiveWindow.creationMode": "perFile",
 }

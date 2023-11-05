@@ -23,7 +23,7 @@ local config = {
 			vim.opt.list = true
 			vim.opt.listchars = {
 				-- '␣', '⍽', "⋅"
-				lead = '␣',
+				-- lead = '␣',
 				trail = '⋅',
 				-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
 				tab = '│ ',
@@ -176,33 +176,10 @@ local config = {
 		end,
 	},
 
-
-	{'jiangmiao/auto-pairs',
-		init = function()
-			vim.g.AutoPairsMapCh = 0
-		end,
-		enabled =  false,
-	},
-
 	{'windwp/nvim-autopairs',
 		opts = {
 			-- ignored_next_char = 
 		},
-	},
-
-	{'ZhiyuanLck/smart-pairs',
-		events = {'InsertEnter'},
-		enabled = false,
-	},
-
-	{'m4xshen/autoclose.nvim',
-		opts = {
-			options = {
-				disable_when_touch = true,
-			},
-		},
-		-- touch target chars are not enough
-		enabled = false,
 	},
 
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
