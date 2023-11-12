@@ -9,10 +9,10 @@ f -- 文字手前ジャンプ (like j)
 */g* -- 単語検索／置換
 ^w{+-<>} -- リサイズ
 :'<,'>! -- Shellコマンド置換
+ysiw" -- Surrund word
 
 ## Programming
 <F5> -- :AsyncRun
-<F7> -- :ToggleTerm
 <F8> -- :TagbarToggle
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
