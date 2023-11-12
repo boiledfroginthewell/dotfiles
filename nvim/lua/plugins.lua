@@ -142,32 +142,6 @@ local config = {
 	-- Better quickfix window in Neovim, polish old quickfix window.
 	"kevinhwang91/nvim-bqf",
 
-	{ "folke/which-key.nvim",
-		config = function()
-			vim.o.timeout = true
-			vim.o.timeoutlen = 1000
-			require("which-key").setup({
-				plugins = {
-					presets = {
-						motions = false,
-						operators = false,
-					},
-				},
-				operators = {
-					y = 'Yank',
-					c = 'Change',
-					k = 'Kill',
-					['>'] = 'Indent',
-					['<'] = 'Indent'
-				},
-				triggers_blacklist = {
-				},
-				triggers_nowait = {},
-			})
-		end,
-		enabled = false,
-	},
-
 	-- Improved vim spelling plugin (with camel case support)!
 	{ 'kamykn/spelunker.vim',
 		init = function()
@@ -180,6 +154,7 @@ local config = {
 		opts = {
 			-- ignored_next_char = 
 		},
+		enabled = false,
 	},
 
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
