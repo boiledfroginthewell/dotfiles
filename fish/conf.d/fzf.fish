@@ -6,6 +6,10 @@ set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --exact \
 if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
 end
+set -gx FZF_CTRL_R_OPTS "
+	--bind 'ctrl-d:execute-silent(history delete --exact --case-sensitive {})+reload(history -z)+ignore'
+	--header 'ctrl-d: Delete history'
+"
 
 set -l KEY_BINDING_FILE (
 	nvl -f \
