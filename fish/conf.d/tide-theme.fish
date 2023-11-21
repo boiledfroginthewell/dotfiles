@@ -1,9 +1,14 @@
-# tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Light --show_time=No --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
+function reset_tide_config
+	tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Light --show_time=No --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
+	# tide configure --auto --style=Classic --prompt_colors='True color' --classic_prompt_color=Lightest --show_time='24-hour format' --classic_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='One line' --prompt_spacing=Compact --icons='Many icons' --transient=No
+end
 
-set -U tide_left_prompt_items vi_mode pwd kubectl git shlvl
+set -U tide_left_prompt_items vi_mode pwd git shlvl
 set jobItem (type -q wakatime || echo jobs)
 set timeItem ([ "$CONFIG_MODE" = "job" ] && echo time)
 set -U tide_right_prompt_items status context $jobItem node python rustc java php go toolbox terraform aws kubectl nix_shell crystal cmd_duration $timeItem
+
+set -U -e tide_pwd_icon 
 
 set -g tide_right_prompt_suffix \ue0b4
 
