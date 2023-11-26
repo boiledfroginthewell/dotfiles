@@ -14,6 +14,7 @@ if [ (uname) = Darwin ]
 else
 	alias diff="diff --ignore-space-change --ignore-trailing-space"
 end
+alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 type -q hub && alias git hub

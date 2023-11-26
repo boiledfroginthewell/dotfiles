@@ -34,8 +34,7 @@ pre-push:
   parallel: true
   commands:
     censor-sensitives:
-      files: git diff --name-only HEAD @{push}
-      run: "! rg -. -f .sensitives.txt -- {files}"
+      run: "! rg -. -f .sensitives.txt -- {push_files}"
     censor-logs:
       run: "! git log @{push}..HEAD | rg -f .sensitives.txt"
       skip: [merge, rebase, delete]
