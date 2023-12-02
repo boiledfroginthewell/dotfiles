@@ -183,4 +183,8 @@
   command = "python -m venv .venv && source .venv/bin/activate.fish"
   output = ""
 
+[[snippets]]
+  description = "install without any interaction"
+  command = "yay --noconfirm"
+  output = ""
 

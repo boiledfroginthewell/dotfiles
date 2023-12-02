@@ -20,8 +20,8 @@ config.warn_about_missing_glyphs = false
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 
-config.color_scheme = 'Builtin Dark'
--- config.color_scheme = 'Andromeda'
+-- config.color_scheme = 'Builtin Dark'
+config.color_scheme = 'Andromeda'
 config.font_size = 13.5
 config.colors = {
 	split = "#4444AA",
