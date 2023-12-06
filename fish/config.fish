@@ -4,8 +4,8 @@ if status is-interactive
 # tmp
 set -gx SHELL (which fish)
 
-
-set -px PATH (realpath "$__fish_config_dir/../bin")
+fish_add_path --prepend /usr/local/bin
+fish_add_path --prepend (realpath "$__fish_config_dir/../bin")
 
 alias mkdir="mkdir -p"
 alias cp="cp -r"
