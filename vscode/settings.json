@@ -24,6 +24,7 @@
     "**/.pytest_cache": true,
     "**/.ipynb_checkpoints": true,
   },
+  "terminal.integrated.hideOnStartup": "always",
   "cSpell.userWords": [
     "bookbill",
     "boto",

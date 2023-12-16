@@ -339,19 +339,8 @@ local config = {
 		keys = {
 			{ '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Nvim-Tree' },
 		},
-		-- config = true,
-		opts = {
-			on_attach = function (bufnr)
-				local api = require('nvim-tree.api')
-				api.config.mappings.default_on_attach(bufnr)
-				-- vim.keymap.set('n', )
-				vim.keymap.del('n', 'h', { buffer = bufnr })
-				vim.keymap.del('n', 'j', { buffer = bufnr })
-				vim.keymap.del('n', 'k', { buffer = bufnr })
-				vim.keymap.del('n', 'l', { buffer = bufnr })
-			end
-		},
-		enabled = false,
+		config = true,
+		-- enabled = false,
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
@@ -363,7 +352,6 @@ local config = {
 		},
 		keys = {
 			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
-			{'t', false },
 		},
 		-- enabled = false,
 	},

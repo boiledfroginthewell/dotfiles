@@ -9,6 +9,22 @@
         "command": "workbench.action.previousEditor"
     },
     {
+        "key": "alt+up",
+        "command": "workbench.action.focusAboveGroup"
+    },
+    {
+        "key": "alt+right",
+        "command": "workbench.action.focusRightGroup"
+    },
+    {
+        "key": "alt+left",
+        "command": "workbench.action.focusLeftGroup"
+    },
+    {
+        "key": "alt+down",
+        "command": "workbench.action.focusBelowGroup"
+    },
+    {
         "key": "ctrl+pagedown",
         "command": "-scrollLineDown",
         "when": "textInputFocus"
@@ -164,5 +180,15 @@
         "key": "right",
         "command": "editor.action.inlineSuggest.commit",
         "when": "inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorHoverFocused && !editorTabMovesFocus && !suggestWidgetVisible"
+    },
+    {
+        "key": "browserback",
+        "command": "workbench.action.navigateBack",
+        "when": "canNavigateBack"
+    },
+    {
+        "key": "shift+browserback",
+        "command": "workbench.action.navigateForward",
+        "when": "canNavigateForward"
     },
 ]
