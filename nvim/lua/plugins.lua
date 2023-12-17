@@ -335,12 +335,26 @@ local config = {
 		init = function()
 			vim.g.loaded_netrw = 1
 			vim.g.loaded_netrwPlugin = 1
+			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowClosed", { fg = "grey"})
+			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowOpen", { fg = "gray" })
 		end,
 		keys = {
 			{ '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Nvim-Tree' },
 		},
 		config = true,
-		-- enabled = false,
+		opts = {
+			renderer = {
+				icons = {
+					glyphs = {
+						folder = {
+							arrow_closed = "⮞",
+							arrow_open = "⮟",
+						},
+					},
+				},
+			},
+		},
+		enabled = false,
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
@@ -349,6 +363,20 @@ local config = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
+		},
+		opts = {
+			use_libuv_file_watcher = true,
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+					hide_gitignored = false,
+				},
+			},
+			window = {
+				mappings = {
+					["t"] = false,
+				},
+			},
 		},
 		keys = {
 			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
@@ -389,6 +417,9 @@ local config = {
 			{ "<leader>b", ":lua require('fzf-lua').buffers()<cr>",      desc = 'Buffers' },
 			{ "<leader>r", ":lua require('fzf-lua').grep_project()<cr>", desc = 'Ripgrep' },
 			{ "<leader>c", ":lua require('fzf-lua').commands()<cr>",     desc = 'Command Pallet' },
+		},
+		cmd = {
+			"FzfLua",
 		},
 		-- config = function(lazy, opts)
 		-- 	local fzf = require('fzf-lua').setup(opts)
