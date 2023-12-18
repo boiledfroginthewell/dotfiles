@@ -671,8 +671,10 @@ local config = {
 			lspconfig.yamlls.setup({
 				settings = {
 					yaml = {
-						keyOrdering = false,
-						schemas = require('schemastore').yaml.schemas()
+						SchemaStore = {
+							enabled = true,
+							url = "https://json.schemastore.org/schema-catalog",
+						},
 					}
 				}
 			})
