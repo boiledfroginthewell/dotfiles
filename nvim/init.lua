@@ -69,7 +69,6 @@ vim.g['cheatsheet#vsplit_width'] = 35
 vim.g['cheatsheet#state_cache_seconds'] = 4 * 60 * 60
 vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 
-vim.cmd("source " .. vim.fn.stdpath("config") .. "/vim/plugin/dvorak_op.vim")
 
 require("plugins")
 

@@ -140,7 +140,9 @@ local config = {
 	},
 
 	-- Better quickfix window in Neovim, polish old quickfix window.
-	"kevinhwang91/nvim-bqf",
+	{ "kevinhwang91/nvim-bqf",
+		ft = "qf",
+	},
 
 	-- Improved vim spelling plugin (with camel case support)!
 	{ 'kamykn/spelunker.vim',
@@ -167,7 +169,7 @@ local config = {
 		},
 	},
 
--- vim-textobj-user - Create your own text objects
+	-- vim-textobj-user - Create your own text objects
 	{'kana/vim-textobj-user',
 		init = function()
 			vim.api.nvim_create_autocmd(
@@ -328,8 +330,6 @@ local config = {
 		end,
 	},
 
-	-- 'scrooloose/nerdtree',
-
 	{'nvim-tree/nvim-tree.lua',
 		dependencies = {"nvim-tree/nvim-web-devicons"},
 		init = function()
@@ -379,6 +379,7 @@ local config = {
 			},
 		},
 		keys = {
+			{ '<c-b>', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 		},
 		-- enabled = false,
@@ -515,6 +516,20 @@ local config = {
 		},
 	},
 
+	{ "dgagn/diagflow.nvim",
+		opts = {
+			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
+				error = "DiagnosticFloatingError",
+				warning = "DiagnosticFloatingWarn",
+				info = "DiagnosticFloatingInfo",
+				hint = "DiagnosticFloatingHint",
+			},
+			show_sign = true,
+			show_borders = true,
+		},
+		-- enabled = false,
+	},
+
 	{ 'chaoren/vim-wordmotion',
 		init = function()
 			vim.g.wordmotion_nomap = 1
@@ -573,7 +588,6 @@ local config = {
 			{'jose-elias-alvarez/null-ls.nvim',
 				dependencies = { 'nvim-lua/plenary.nvim' },
 			},
-			'b0o/SchemaStore.nvim',
 
 			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
 			'folke/neodev.nvim',
@@ -647,8 +661,13 @@ local config = {
 				info = 'i',
 			-- 	warn = '⚠️',
 				error = '🔥',
-				hint = (vim.fn.has('mac') and '💬') or '🗨️',
+				hint = (vim.fn.has('mac') == 1 and '💬') or '🗨️',
 			})
+
+			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+			  vim.lsp.handlers.hover, { focusable = false }
+			)
+
 
 			local lspconfig = require('lspconfig')
 			lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
@@ -844,6 +863,12 @@ local config = {
 	{ 'kmonad/kmonad-vim',
 		ft = 'kbd',
 	},
+
+	-- ### YAML
+	{ 'pedrohdz/vim-yaml-folds' },
+
+	 -- YAML syntax/indent plugin for Vim
+	'mrk21/yaml-vim',
 
 	-- ### Linux
 	-- 'wgwoods/vim-systemd-syntax',
