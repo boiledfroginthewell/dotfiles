@@ -8,5 +8,3 @@ set -U fisher_path $XDG_DATA_HOME/fisher
 set -Ux GOPATH $XDG_CACHE_HOME/go
 set -Ux VIRTUAL_ENV_DISABLE_PROMPT 1
 
-# set -U CONFIG_MODE job
-

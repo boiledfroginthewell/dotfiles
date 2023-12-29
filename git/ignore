@@ -6,6 +6,7 @@ ctags.sh
 hoge
 foo
 bar
+.env*.local
 
 .DS_Store
 
