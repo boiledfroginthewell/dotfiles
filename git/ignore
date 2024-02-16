@@ -2,6 +2,7 @@
 .ignore
 .lefthook-local/
 .lvimrc
+.task/
 ctags.sh
 hoge
 foo
