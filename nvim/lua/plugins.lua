@@ -532,6 +532,7 @@ local config = {
 			},
 			show_sign = true,
 			show_borders = true,
+			scope = "line",
 		},
 		-- enabled = false,
 	},
@@ -565,9 +566,19 @@ local config = {
 		keys = {
 			{ "<F5>", "<cmd>AsyncRun ./%<CR>" },
 		},
+		lazy = false,
 	},
 
 	-- ### LSP Plugins
+
+	-- Neovim plugin to manage global and project-local settings 
+	{ 'folke/neoconf.nvim',
+		main = 'neoconf',
+		opts = {},
+		-- should be run before nvim-lspconfig
+		priority = 100,
+		lazy = false,
+	},
 
 	-- A starting point to setup some lsp related features in neovim.
 	{ 'VonHeikemen/lsp-zero.nvim',
@@ -624,7 +635,7 @@ local config = {
 			{'saadparwaiz1/cmp_luasnip',
 				dependencies = {
 					{ "L3MON4D3/LuaSnip",
-						-- version = "1.*",
+						version = "v2.*",
 						-- install jsregexp (optional!).
 						-- build = "make install_jsregexp"
 						dependencies = {
@@ -699,6 +710,8 @@ local config = {
 						SchemaStore = {
 							enabled = true,
 							url = "https://json.schemastore.org/schema-catalog",
+						},
+						schemas = {
 						},
 					}
 				}
