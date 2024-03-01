@@ -704,18 +704,6 @@ local config = {
 					},
 				}
 			}))
-			lspconfig.yamlls.setup({
-				settings = {
-					yaml = {
-						SchemaStore = {
-							enabled = true,
-							url = "https://json.schemastore.org/schema-catalog",
-						},
-						schemas = {
-						},
-					}
-				}
-			})
 
 			lsp.setup()
 
