@@ -1,4 +1,5 @@
 .idea
+.neoconf.json
 .ignore
 .lefthook-local/
 .lvimrc

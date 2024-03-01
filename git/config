@@ -20,6 +20,7 @@
 [rebase]
 	autoSquash = true
 	autoStash = true
+	autoFixup = true
 
 [delta]
 	hunk-style = plain
