@@ -19,7 +19,7 @@ function __loadenv_log
 	echo $argv
 end
 
-function __loadenv --on-event chpwd
+function __loadenv_pwd --on-event chpwd
 	set -q AUTO_ENV_FILES || set AUTO_ENV_FILES .env
 
 	set dirStack $PWD
@@ -37,14 +37,23 @@ function __loadenv --on-event chpwd
 	end
 
 	for envFile in $envFiles
-		loadenv "$envFile"
+		__loadenv_from "$envFile"
 	end
 	__loadenv_log "loaded from ($envFiles)"
 end
 
-function loadenv
+function __loadenv_from
 	grep -Ev '^(#|\s*$)' (nvl -v $argv[1] .env) | \
 	sed -e 's/^/set -gx /' -e 's/=/ "/' -e 's/$/"/' | \
 	source
 end
 
+function loadenv
+	if [ (count $argv) = 0 ]
+		__loadenv_pwd
+	else
+		for x in $argv
+			__loadenv_from "$x"
+		end
+	end
+end
