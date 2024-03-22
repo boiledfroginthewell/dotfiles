@@ -59,6 +59,19 @@ vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-a-y>", "\"*P")
 vim.keymap.set("n", "<c-c>", "\"+y")
 
+function splitWezRun()
+	vim.cmd[[:w]]
+	local paneId
+	if not vim.g.splitWezRunPaneId then
+		-- paneId = io.popen("wezterm cli split-pane --bottom --percent 30; wezterm cli activate-pane"):read()
+		paneId = io.popen("wezterm cli split-pane --bottom --percent 30"):read()
+		vim.g.splitWezRunPaneId = paneId
+	else
+		paneId = vim.g.splitWezRunPaneId
+		io.popen("echo '!!\r\n' | wezterm cli send-text --no-paste --pane-id " .. paneId)
+	end
+end
+vim.keymap.set("n", "<F5>", splitWezRun)
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 

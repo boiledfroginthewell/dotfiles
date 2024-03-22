@@ -470,6 +470,16 @@ local config = {
 		lazy = false,
 	},
 
+	-- A plugin to visualise and resolve merge conflicts in neovim 
+	{ 'akinsho/git-conflict.nvim',
+		version = "*",
+		config = {
+			highlights = {
+				current = 'DiffDelete',
+			},
+		},
+	},
+
 	{ 'sbdchd/vim-shebang',
 		init = function()
 			vim.g["shebang#shebangs"] = {
@@ -568,6 +578,7 @@ local config = {
 			{ "<F5>", "<cmd>AsyncRun ./%<CR>" },
 		},
 		lazy = false,
+		enabled = false,
 	},
 
 	-- ### LSP Plugins
@@ -724,8 +735,8 @@ local config = {
 					-- misc
 					{ name = 'fish' },
 					-- basic
-					{ name = 'copilot' },
-					{ name = 'cmp_tabnine' },
+					-- { name = 'copilot' },
+					-- { name = 'cmp_tabnine' },
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
 					{ name = 'buffer' },
@@ -903,7 +914,8 @@ local config = {
 }
 require("lazy").setup(config)
 
-vim.cmd[[colorscheme desert]]
+-- vim.cmd[[colorscheme desert]]
 vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme habamax]]
+vim.cmd[[colorscheme sonokai]]
 
