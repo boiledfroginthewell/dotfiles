@@ -5,8 +5,15 @@ end
 
 set jobItem (type -q wakatime || echo jobs)
 set timeItem ([ "$CONFIG_MODE" = "job" ] && echo time)
-set -U tide_left_prompt_items vi_mode pwd git shlvl
-set -U tide_right_prompt_items status context $jobItem node python rustc java php go toolbox terraform kubectl nix_shell crystal cmd_duration $timeItem
+set tmp_tide_left_prompt_items vi_mode pwd git shlvl
+set tmp_tide_right_prompt_items status context $jobItem node python rustc java php go toolbox terraform kubectl nix_shell crystal cmd_duration $timeItem
+# setting universal variable on every start up leaves garbage files (fishd.tmp.XXXXXX)
+if [ "$tide_left_prompt_items" != "$tmp_tide_left_prompt_items" ]
+	set -U tide_left_prompt_items "$tmp_tide_left_prompt_items"
+end
+if [ "$tide_right_prompt_items" != "$tmp_tide_right_prompt_items" ]
+	set -U tide_right_prompt_items $tmp_tide_right_prompt_items
+end
 
 set -g tide_right_prompt_suffix \ue0b4
 

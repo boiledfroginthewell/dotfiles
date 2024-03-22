@@ -12,6 +12,8 @@ bar
 
 .DS_Store
 
+.*token
+
 
 # Created by https://www.toptal.com/developers/gitignore/api/zsh,vim,java,node,maven,python,windows,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=zsh,vim,java,node,maven,python,windows,eclipse

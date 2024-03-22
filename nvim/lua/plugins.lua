@@ -23,7 +23,7 @@ local config = {
 			vim.opt.list = true
 			vim.opt.listchars = {
 				-- '␣', '⍽', "⋅"
-				-- lead = '␣',
+				lead = '⋅',
 				trail = '⋅',
 				-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
 				tab = '│ ',
@@ -38,6 +38,7 @@ local config = {
 				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
 				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
 				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+				vim.api.nvim_set_hl(0, "Whitespace", { fg = "grey" })
 			end
 			setupHighlight()
 			local hooks = require "ibl.hooks"
