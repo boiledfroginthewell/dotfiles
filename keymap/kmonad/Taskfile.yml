@@ -6,6 +6,14 @@ tasks:
   log:
     cmd: journalctl -e --user -u kmonad
 
+  install:dumang:
+    desc: Install systemd (and udev) config for Dumang Keyboards.
+    cmds:
+      - sudo cp ./dist/etc/udev/rules.d/91-dumang-udev.rules /etc/udev/rules.d/
+      - sudo udevadm control --reload-rules
+    sources:
+      - ./dist/etc/udev/rules.d/
+
   system-install:
     # cmds:
     #   - systemctl enable --user $PWD/kmonad.service
@@ -25,3 +33,5 @@ tasks:
   status:
     cmd: systemctl status --user kmonad
 
+  status:dumang:
+    cmd: systemctl status --user kmonad-dumang

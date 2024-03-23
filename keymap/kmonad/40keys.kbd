@@ -54,8 +54,8 @@
 ;; Henkan and Muhenkan keys
 (defalias lgs (layer-toggle logical-shift))
 (defalias lmh (tap-hold-next 300 KeyMuhenkan @lgs))
-(defalias chn (tap-hold-next 300 KeyHenkan rctl))
-;;(defalias chn (tap-hold-next 300 KeyHenkan (layer-toggle symbol-layer)))
+;; (defalias chn (tap-hold-next 300 KeyHenkan rctl))
+(defalias chn (tap-hold-next 300 KeyHenkan (layer-toggle symbol-layer)))
 (defalias ch2 (tap-hold-next 300 KeyHenkan (layer-toggle logical-symbol-layer)))
 
 (defalias ll3 (tap-hold-next-release 300 ret (tap-hold-next 10 ret (layer-toggle logical-symbol-layer))))
