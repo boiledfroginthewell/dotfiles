@@ -23,7 +23,7 @@ local config = {
 			vim.opt.list = true
 			vim.opt.listchars = {
 				-- '␣', '⍽', "⋅"
-				-- lead = '␣',
+				lead = '⋅',
 				trail = '⋅',
 				-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
 				tab = '│ ',
@@ -38,6 +38,7 @@ local config = {
 				vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
 				vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
 				vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+				vim.api.nvim_set_hl(0, "Whitespace", { fg = "grey" })
 			end
 			setupHighlight()
 			local hooks = require "ibl.hooks"
@@ -469,6 +470,16 @@ local config = {
 		lazy = false,
 	},
 
+	-- A plugin to visualise and resolve merge conflicts in neovim 
+	{ 'akinsho/git-conflict.nvim',
+		version = "*",
+		config = {
+			highlights = {
+				current = 'DiffDelete',
+			},
+		},
+	},
+
 	{ 'sbdchd/vim-shebang',
 		init = function()
 			vim.g["shebang#shebangs"] = {
@@ -532,6 +543,7 @@ local config = {
 			},
 			show_sign = true,
 			show_borders = true,
+			scope = "line",
 		},
 		-- enabled = false,
 	},
@@ -565,9 +577,20 @@ local config = {
 		keys = {
 			{ "<F5>", "<cmd>AsyncRun ./%<CR>" },
 		},
+		lazy = false,
+		enabled = false,
 	},
 
 	-- ### LSP Plugins
+
+	-- Neovim plugin to manage global and project-local settings 
+	{ 'folke/neoconf.nvim',
+		main = 'neoconf',
+		opts = {},
+		-- should be run before nvim-lspconfig
+		priority = 100,
+		lazy = false,
+	},
 
 	-- A starting point to setup some lsp related features in neovim.
 	{ 'VonHeikemen/lsp-zero.nvim',
@@ -624,7 +647,7 @@ local config = {
 			{'saadparwaiz1/cmp_luasnip',
 				dependencies = {
 					{ "L3MON4D3/LuaSnip",
-						-- version = "1.*",
+						version = "v2.*",
 						-- install jsregexp (optional!).
 						-- build = "make install_jsregexp"
 						dependencies = {
@@ -693,16 +716,6 @@ local config = {
 					},
 				}
 			}))
-			lspconfig.yamlls.setup({
-				settings = {
-					yaml = {
-						SchemaStore = {
-							enabled = true,
-							url = "https://json.schemastore.org/schema-catalog",
-						},
-					}
-				}
-			})
 
 			lsp.setup()
 
@@ -722,8 +735,8 @@ local config = {
 					-- misc
 					{ name = 'fish' },
 					-- basic
-					{ name = 'copilot' },
-					{ name = 'cmp_tabnine' },
+					-- { name = 'copilot' },
+					-- { name = 'cmp_tabnine' },
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
 					{ name = 'buffer' },
@@ -901,7 +914,8 @@ local config = {
 }
 require("lazy").setup(config)
 
-vim.cmd[[colorscheme desert]]
+-- vim.cmd[[colorscheme desert]]
 vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme habamax]]
+vim.cmd[[colorscheme sonokai]]
 

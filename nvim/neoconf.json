@@ -1,0 +1,11 @@
+{
+	"lspconfig": {
+		"yamlls": {
+			"yaml.schemaStore.enable": true,
+			"yaml.schemaStore.url": "https://www.schemastore.org/api/json/catalog.json",
+			"yaml.schemas": {
+				"https://raw.githubusercontent.com/argoproj/argo-workflows/master/api/jsonschema/schema.json": ["*workflow*.y?ml"]
+			}
+		}
+	}
+}
