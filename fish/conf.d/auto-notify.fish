@@ -8,7 +8,12 @@ function __check_time -e fish_postexec
 		if string match -r "$NOTIFY_EXCLUDE" "$argv"
 			return
 		end
-		notify -t "🐟Fish" "⏱️$(printf '%.0f' (math $CMD_DURATION / 60)) s\n> $argv"
+		set body "⏱️$(printf '%.0f' (math $CMD_DURATION / 60)) s\n> $argv"
+		if type -q notify-send
+			notify-send -a "Fish" -i "~/images/fish.png" "Command Notification" "$body"
+		else
+			notify -t "🐟Fish" "$body"
+		end
 	end
 end
 
