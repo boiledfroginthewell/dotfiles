@@ -1,0 +1,78 @@
+% git
+# Show files skipped by git update-index --skip-worktree command.
+git ls-files -v . | grep ^S
+
+# delete a remote branch in git
+git push origin -d <remote_branch>
+
+$ remote_branch: git branch -r
+$ branch: git branch | string trim --- --query main
+
+# Force push
+git push -f --force-with-lease --force-if-includes origin HEAD
+
+# Git initial empty commit
+git commit --allow-empty -m \"initial empty commit\"
+
+# Show project root directory of git.
+git rev-parse --show-toplevel
+
+# Show file content of a git revision.
+git cat-file -p <revision=HEAD>:<path>
+
+# amend commit
+git commit --amend --no-edit
+
+# Update local maseter branch
+git push --no-verify . origin/<branch>:<branch>
+
+# 
+git push origin HEAD
+
+# run git status disabling .gitignore
+git status --ignored
+
+# search words over git history
+git grep <regexp> $(git rev-list --all)
+
+% awk
+# Unique without sort
+awk '!x[$0]++'
+
+# Change delimiter of awk command by argument
+awk -F "<delimiter>"
+
+$ delimiter: echo ,
+
+% stdout, stderr
+# Discard standard output and standard error
+&> /dev/null
+
+% python
+# 
+pip install -r requirements.txt
+
+# initialize virtual env
+python -m venv .venv && source .venv/bin/activate.fish
+
+% docker
+# Run shell in docker image
+docker run --rm -it <image> ash
+
+# Run shell in running docker
+docker exec -it <container> ash
+
+# Clean up docker files to address 'no space left on device' error
+docker system prune
+
+# Show previous stash content
+git stash show -p -- stash@{1}
+
+% postgres
+# Postgres login
+psql -h <host=localhost> -p <port=5432> -U <user> -d <database> <schema>
+
+% fish
+# update fish completion by parsin man documents
+fish_update_completions
+
