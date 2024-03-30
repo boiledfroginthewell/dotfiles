@@ -132,4 +132,10 @@
   },
   "editor.inlineSuggest.enabled": true,
   "jupyter.interactiveWindow.creationMode": "perFile",
+  "notebook.output.scrolling": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/argoproj/argo-workflows/main/api/jsonschema/schema.json": [
+      "**/*workflow*.yaml"
+    ]
+  },
 }
