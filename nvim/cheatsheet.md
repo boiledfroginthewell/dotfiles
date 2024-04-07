@@ -18,7 +18,6 @@ ysiw" -- Surrund word
 ,# -- :ShebangInsert
 
 ## LSP
-<F1> -- doc
 <F2> -- Rename
 <F3> -- Format
 <F4> -- Code Actions

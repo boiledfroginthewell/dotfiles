@@ -11,7 +11,7 @@ vim.opt.infercase = true
 vim.opt.completeopt = { "menu", "preview", "longest" }
 vim.opt.wildmode = "list:longest"
 vim.cmd("autocmd BufEnter * set formatoptions-=o")
-vim.opt.scrolloff = 5
+vim.opt.scrolloff = 0
 vim.opt.foldlevelstart = 99
 vim.opt.equalalways = false
 
@@ -58,6 +58,9 @@ vim.keymap.set("n", "<c-y>", "\"+P")
 vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-a-y>", "\"*P")
 vim.keymap.set("n", "<c-c>", "\"+y")
+
+vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
+vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
 
 function splitWezRun()
 	vim.cmd[[:w]]

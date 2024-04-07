@@ -141,9 +141,9 @@ local config = {
 	{ 'ojroques/nvim-bufdel',
 		keys = {
 			{ "BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
-			{ "BN", "<cmd>:bn<CR>",     desc = "Buffer next" },
-			{ "BP", "<cmd>:bp<CR>",     desc = "Buffer previous" },
 		},
+		-- 	{ "BN", "<cmd>:bn<CR>",     desc = "Buffer next" },
+		-- 	{ "BP", "<cmd>:bp<CR>",     desc = "Buffer previous" },
 	},
 
 	-- Better quickfix window in Neovim, polish old quickfix window.
@@ -327,10 +327,10 @@ local config = {
 						call submode#map('window', 'n', '', '+', '<c-w>+')
 						call submode#map('window', 'n', '', '<', '<c-w><')
 						call submode#map('window', 'n', '', '>', '<c-w>>')
-						call submode#enter_with('buffer', 'n', '', 'BN', ':bn<cr>')
-						call submode#enter_with('buffer', 'n', '', 'BP', ':bp<cr>')
-						call submode#map('buffer', 'n', '', 'N', ':bn<cr>')
-						call submode#map('buffer', 'n', '', 'P', ':bp<cr>')
+						; call submode#enter_with('buffer', 'n', '', 'BN', ':bn<cr>')
+						; call submode#enter_with('buffer', 'n', '', 'BP', ':bp<cr>')
+						; call submode#map('buffer', 'n', '', 'N', ':bn<cr>')
+						; call submode#map('buffer', 'n', '', 'P', ':bp<cr>')
 					]]
 				end
 			})
