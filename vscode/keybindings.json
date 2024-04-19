@@ -142,6 +142,21 @@
         "command": "test-explorer.run-test-at-cursor",
         "when": "editorTextFocus"
     },
+    {
+        "key": "f5",
+        "command": "testing.coverageAtCursor",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "editor.action.organizeImports",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "editor.action.formatDocument",
+        "when": "editorTextFocus"
+    },
     // Jupyter
     {
         "key": "ctrl+alt+enter",
