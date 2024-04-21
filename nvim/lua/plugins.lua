@@ -221,19 +221,37 @@ local config = {
 							\     'scan': 'line',
 							\   }
 							\ })
+						call textobj#user#plugin('bigwords', {
+							\   'big-words': {
+							\     'pattern': '[a-zA-Z0-9_-]\+',
+							\     'select': ['aW', 'iW'],
+							\     'scan': 'cursor',
+							\   }
+							\ })
 					]]
 				end
 			})
 		end,
 	},
 
-	{'beloglazov/vim-textobj-quotes',
-		dependencies = {
-			'kana/vim-textobj-user',
-		},
-	},
-
 	{"chrisgrieser/nvim-various-textobjs",
+		lazy = false,
+		config = function ()
+			require("various-textobjs").setup {
+				useDefaultKeymaps = true,
+			}
+
+			vim.keymap.set(
+				{ "o", "x" },
+				"i<Tab>",
+				'<cmd>lua require("various-textobjs").indentation("inner", "inner")<CR>'
+			)
+			vim.keymap.set(
+				{ "o", "x" },
+				"a<Tab>",
+				'<cmd>lua require("various-textobjs").indentation("outer", "inner")<CR>'
+			)
+		end
 	},
 
 	-- Neovim motions on speed!
@@ -419,7 +437,7 @@ local config = {
 						table.insert(files, v)
 					end
 				end
-				return fzf.files({ cmd = 'fzf-default-command; echo -e "' .. table.concat(files, '\n') .. '"' })
+				return fzf.files({ cmd = '( echo -e "' .. table.concat(files, '\n') .. '"; fzf-default-command | grep -Ev "/\\$") | awk "!x[\\$0]++" ' })
 			end, desc = 'Any Files' },
 			{ "<leader>p", ":lua require('fzf-lua').files()<cr>",        desc = 'Files' },
 			{ "<leader>b", ":lua require('fzf-lua').buffers()<cr>",      desc = 'Buffers' },
@@ -448,14 +466,17 @@ local config = {
 	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.
 	{ 'wakatime/vim-wakatime',
 		enabled = vim.fn.has('mac') == 0,
-		cond = vim.fn.has('mac') == 0
+		cond = vim.fn.has('mac') == 0,
+		lazy = false,
 	},
 
 	-- Programming Plugins
 	-- ======================
 
 	-- Automatic indentation style detection for Neovim
-	'NMAC427/guess-indent.nvim',
+	{ 'NMAC427/guess-indent.nvim',
+		config = true,
+	},
 
 	-- A comment toggler for Neovim, written in Lua
 	{ 'terrortylor/nvim-comment',
@@ -559,7 +580,7 @@ local config = {
 			{ "b",  "<Plug>WordMotion_b" },
 			{ "e",  "<Plug>WordMotion_e", mode = { "o" } },
 			{ "w",  "<Plug>WordMotion_w", mode = { "o" } },
-			{ "b",  "<Plug>WordMotion_b", mode = { "o" } },
+			-- { "b",  "<Plug>WordMotion_b", mode = { "o" } },
 			{ "ge", "e" },
 			{ "gw", "w" },
 			{ "gb", "b" },
