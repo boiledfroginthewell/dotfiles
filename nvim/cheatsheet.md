@@ -17,6 +17,11 @@ ysiw" -- Surrund word
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
 
+## Text Objects
+<Tab> -- Indent
+b -- any bracket
+W -- big word
+
 ## LSP
 <F2> -- Rename
 <F3> -- Format
