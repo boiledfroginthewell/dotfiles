@@ -1,0 +1,12 @@
+[Unit]
+Description=Xremap
+
+[Service]
+Restart=always
+RestartSec=1
+ExecStart=xremap %h/config/dotfiles/keymap/xremap/config.yaml
+Nice=-20
+
+[Install]
+WantedBy=default.target
+

@@ -1,0 +1,19 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - systemctl enable --user ./xremap.service
+      - systemctl start --user xremap
+
+  restart:
+    - systemctl restart --user xremap
+
+  stop:
+    - systemctl stop --user xremap
+    - systemctl disable --user xremap
+
+  status: systemctl status --user xremap
+
+  log: ournalctl -e --user xremap
+
