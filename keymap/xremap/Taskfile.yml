@@ -1,8 +1,15 @@
 version: '3'
 
+vars:
+  CONFIG_FILE: $PWD/config.yaml $PWD/g502.yaml
+
 tasks:
   default:
+    aliases:
+      - start
     cmds:
+      # wait key releases
+      - sleep 1
       - systemctl enable --user ./xremap.service
       - systemctl start --user xremap
 
@@ -10,10 +17,27 @@ tasks:
     - systemctl restart --user xremap
 
   stop:
-    - systemctl stop --user xremap
-    - systemctl disable --user xremap
+    cmds:
+      - cmd: systemctl stop --user xremap
+        ignore_error: true
+      - systemctl disable --user xremap
 
   status: systemctl status --user xremap
 
-  log: ournalctl -e --user xremap
+  log: journalctl -e --user xremap
+
+  debug:
+    cmds:
+      - defer:
+          task: default
+      - task: stop
+      - cmd: xremap --watch=device,config {{.CONFIG_FILE}}
+        ignore_error: true
+    env:
+      RUST_LOG: debug
+
+  scan:
+    cmd: xremap dummy.yaml
+    env:
+      RUST_LOG: debug
 

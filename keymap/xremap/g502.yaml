@@ -1,0 +1,14 @@
+modmap:
+  - name: Mouse
+    device: &g520
+      only: Logitech G502 HERO Gaming Mouse Keyboard
+    remap:
+      # F21: RIGHTSHIFT
+      F22: RIGHTCTRL
+
+keymap:
+  - name: Mouse
+    device: *g520
+    remap:
+      F21: SUPER-a
+

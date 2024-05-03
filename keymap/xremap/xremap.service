@@ -4,7 +4,7 @@ Description=Xremap
 [Service]
 Restart=always
 RestartSec=1
-ExecStart=xremap %h/config/dotfiles/keymap/xremap/config.yaml
+ExecStart=xremap --watch=device %h/config/dotfiles/keymap/xremap/config.yaml %h/config/dotfiles/keymap/xremap/g502.yaml
 Nice=-20
 
 [Install]

@@ -63,11 +63,29 @@ modmap:
         alone: MUHENKAN
         held: F23
         <<: *timeout
+
+  - device:
+      not: &dumang
+        - "www.BeyondQ.com DuMang KeyBoard DK6"
+    remap:
       HENKAN:
         alone: HENKAN
         held: RIGHTCTRL
         <<: *timeout
       KEY_KATAKANAHIRAGANA: RIGHTALT
+
+  - name: Dumang
+    device:
+      only: *dumang
+    remap:
+      ENTER:
+        alone: ENTER
+        held: RIGHTCTRL
+        <<: *timeout
+      HENKAN:
+        alone: HENKAN
+        held: F24
+        <<: *timeout
 
 virtual_modifiers:
   - F23
@@ -98,7 +116,7 @@ keymap:
       # 3rd row
       F23-BACKSPACE: BACK
       F23-a: C-a
-      F23-o: C-o
+      F23-o: C-s
       F23-e: PAGEUP
       F23-u: PAGEDOWN
       
@@ -113,6 +131,41 @@ keymap:
       F23-j: C-c
       F23-k: C-v
 
+  - name: Symbol Layer
+    remap:
+      F24-p: EQUAL  # ^
+      F24-g: RO  # \
+      F24-c: RIGHTBRACE  # [
+      F24-r: BACKSLASH  # ]
+      F24-l: SHIFT-YEN  # |
+
+      F24-a: "1"
+      F24-o: "2"
+      F24-e: "3"
+      F24-u: "4"
+      F24-i: "5"
+      F24-d: "6"
+      F24-h: "7"
+      F24-t: "8"
+      F24-n: "9"
+      F24-s: "0"
+      F23-F24-a: F1
+      F23-F24-o: F2
+      F23-F24-e: F3
+      F23-F24-u: F4
+      F23-F24-i: F5
+      F23-F24-d: F6
+      F23-F24-h: F7
+      F23-F24-t: F8
+      F23-F24-n: F9
+      F23-F24-s: F10
+      F23-F24-c: F11
+      F23-F24-r: F12
+
+      F24-q: LEFTBRACE  # @
+      F24-b: SHIFT-RO  # _
+
   - remap:
       SHIFT-0: SHIFT-YEN
+      SHIFT-F24-s: SHIFT-YEN
 
