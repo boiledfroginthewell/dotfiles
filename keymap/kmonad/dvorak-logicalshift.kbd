@@ -39,12 +39,12 @@
 ;; (defalias s&s (tap-hold-next 150 spc rsft :timeout-button spc))
 
 ;; SandS
-(defalias s&s rsft)
+;; (defalias s&s rsft)
 ;; (defalias s&s (tap-hold-next 141 spc rsft))
 ;; original ones does not work with the following sequence (spc disappears): Pa Pspc Ra Rspc
 ;; (defalias s&s (tap-hold-next-release 141 spc rsft))
 ;; https://github.com/kmonad/kmonad/issues/407#issuecomment-966527870
-;; (defalias s&s (tap-hold-next-release 141 spc (tap-hold-next 40 spc rsft)))
+(defalias s&s (tap-hold-next-release 141 spc (tap-hold-next 40 spc rsft)))
 
 ;; (defalias rmt (tap-hold-next 300 ret rmet))
 (defalias rmt (tap-hold-next-release 300 ret (tap-hold-next 10 ret rmet)))
@@ -69,7 +69,7 @@
   tab  @JP: ,    .    p    y    f    g    c    r    l    /    _    _         _    _    _
   bspc a    o    e    u    i    d    h    t    n    s    min  _
   lsft ;    q    j    k    x    b    m    w    v    z    _         _              _
-  _    _    _    @lmh      @s&s           XX   @chn ralt _    @rmt _         _    _    _
+  _    _    _    @lmh      @s&s           @chn ralt ralt _    @rmt _         _    _    _
 )
 
 (deflayer logical-shift
