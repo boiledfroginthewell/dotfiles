@@ -141,9 +141,10 @@ local config = {
 	{ 'ojroques/nvim-bufdel',
 		keys = {
 			{ "BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
-		},
+			{ "<a-w>", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
 		-- 	{ "BN", "<cmd>:bn<CR>",     desc = "Buffer next" },
 		-- 	{ "BP", "<cmd>:bp<CR>",     desc = "Buffer previous" },
+		},
 	},
 
 	-- Better quickfix window in Neovim, polish old quickfix window.
