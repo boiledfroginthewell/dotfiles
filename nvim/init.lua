@@ -6,7 +6,6 @@ vim.opt.cursorline = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
-vim.opt.termencoding = 'utf-8'
 vim.opt.infercase = true
 vim.opt.completeopt = { "menu", "preview", "longest" }
 vim.opt.wildmode = "list:longest"
@@ -34,6 +33,8 @@ vim.keymap.set("n", "g<c-}>", "<c-T>")
 -- vim.keymap.set("n", "<c-u>", "<c-y>")
 vim.keymap.set("n", "<c-e>", "<c-y>")
 vim.keymap.set("n", "<c-u>", "<c-e>")
+vim.keymap.set("n", "<c-k>", "gcc", { remap = true })
+vim.keymap.set({"v", "x"}, "<c-k>", "gc", { remap = true })
 
 vim.keymap.set('n', '<leader>o', ':e <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')

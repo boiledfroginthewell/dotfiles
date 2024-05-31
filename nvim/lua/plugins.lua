@@ -113,7 +113,6 @@ local config = {
 
 	-- A snazzy bufferline for Neovim
 	{ 'akinsho/bufferline.nvim',
-		version = "v3.*",
 		dependencies = 'nvim-tree/nvim-web-devicons',
 		opts = {
 			options = {
@@ -477,19 +476,6 @@ local config = {
 		config = true,
 	},
 
-	-- A comment toggler for Neovim, written in Lua
-	{ 'terrortylor/nvim-comment',
-		opts = {
-			create_mappings = false,
-		},
-		keys = {
-			{ '<c-k>', '<cmd>CommentToggle<cr>', mode = { 'n' }, silent = true },
-			{ '<c-k>', ":CommentToggle<cr>",     mode = { 'v' }, silent = true},
-		},
-		main = 'nvim_comment',
-		lazy = false,
-	},
-
 	-- A plugin to visualise and resolve merge conflicts in neovim 
 	{ 'akinsho/git-conflict.nvim',
 		version = "*",
@@ -690,8 +676,8 @@ local config = {
 			{ 'tzachar/cmp-tabnine',
 				build = './install.sh',
 				-- dependencies = 'hrsh7th/nvim-cmp',
-				cond = vim.fn.has('mac') ~= 0,
-				enabled = vim.fn.has('mac') ~= 0,
+				cond = vim.fn.has('mac') == 0,
+				enabled = vim.fn.has('mac') == 0,
 			},
 		},
 		config = function()
