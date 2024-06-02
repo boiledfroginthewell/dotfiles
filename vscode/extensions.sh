@@ -11,6 +11,7 @@ code --install-extension tranhl.find-then-jump
 code --install-extension usernamehw.errorlens
 code --install-extension saikou9901.evilinspector
 code --install-extension atEaE.my-cheatsheet
+code --install-extension editorconfig.editorconfig
 
 # JS
 code --install-extension dbaeumer.vscode-eslint
@@ -19,5 +20,8 @@ code --install-extension formulahendry.auto-rename-tag
 code --install-extension Orta.vscode-jest
 
 # Python
-code --install-extension ms-python.vscode-pylance
+code --install-extension ms-python.python
+code --install-extension charliermarsh.ruff
+code --install-extension njpwerner.autodocstring
+code --install-extension zeshuaro.vscode-python-poetry
 

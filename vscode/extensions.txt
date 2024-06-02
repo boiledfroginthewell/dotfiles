@@ -1,7 +1,4 @@
-aaronpowell.vscode-profile-switcher@0.3.3
 atEaE.my-cheatsheet@1.0.0
-bungcip.better-toml@0.3.2
-canadaduane.vscode-kmonad@0.2.0
 coolbear.systemd-unit-file@1.0.6
 dbaeumer.vscode-eslint@2.2.2
 EditorConfig.EditorConfig@0.16.4
