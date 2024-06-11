@@ -41,7 +41,7 @@ set -gx LESS "--quit-if-one-screen"
 alias less=(nvl -c bat lv less)
 
 # ls alternative
-type -q exa && alias ls=exa
+alias ls=(nvl -c eza lv less)
 # time style for `ls -l` command output
 set -gx TIME_STYLE long-iso
 
