@@ -5,6 +5,9 @@ function g --wrap $_GIT
         $_GIT status $argv
     else if [ "$argv[1]" = "-" ]
         $_GIT switch $argv
+    else if [ "$argv[1]" = "cd" ]
+        set worktree (g worktree list | fzf | choose 0)
+        set -q worktree && cd "$worktree"
     else if [ "$argv[1]" = "addi" ]
         git forgit add $argv[2..]
     else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
