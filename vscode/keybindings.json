@@ -67,6 +67,11 @@
         "command": "editor.action.formatSelection",
         "when": "editorHasSelection"
     },
+    {
+        "key": "ctrl+b",
+        "command": "workbench.files.action.focusFilesExplorer",
+        "when": "editorTextFocus"
+    },
 
     // VScode
     {

@@ -29,7 +29,8 @@
   "cSpell.userWords": [
     "bookbill",
     "boto",
-    "callbackify",
+    "pycache",
+    "ipynb",
     "consts",
     "csrf",
     "hdfs",
@@ -48,7 +49,8 @@
     "tab.activeBackground": "#4A4A4A",
     "editor.lineHighlightBackground": "#FFFFFF1A",
     // "editorWhitespace.foreground": "#00CC00",
-    "editorInlayHint.foreground": "#999999"
+    "editorInlayHint.foreground": "#999999",
+    "editorOverviewRuler.modifiedForeground": "#053f00"
   },
   "editor.bracketPairColorization.enabled": true,
   "trailing-spaces.regexp": "[ \t　]+",
@@ -129,6 +131,7 @@
   },
   "[python]": {
     "editor.formatOnType": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
   },
   "editor.inlineSuggest.enabled": true,
   "jupyter.interactiveWindow.creationMode": "perFile",
@@ -137,5 +140,10 @@
     "https://raw.githubusercontent.com/argoproj/argo-workflows/main/api/jsonschema/schema.json": [
       "**/*workflow*.yaml"
     ]
+  },
+
+  "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.enable": {
+    "env": "false"
   },
 }
