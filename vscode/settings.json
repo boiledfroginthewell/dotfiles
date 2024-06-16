@@ -50,6 +50,8 @@
     "editor.lineHighlightBackground": "#FFFFFF1A",
     // "editorWhitespace.foreground": "#00CC00",
     "editorInlayHint.foreground": "#999999",
+    "editorOverviewRuler.addedForeground": "#03bb002e",
+    "editorOverviewRuler.deletedForeground": "#00000000",
     "editorOverviewRuler.modifiedForeground": "#053f00"
   },
   "editor.bracketPairColorization.enabled": true,

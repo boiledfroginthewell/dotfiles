@@ -58,7 +58,7 @@ vim.keymap.set("i", "<c-y>", "<C-r>+")
 vim.keymap.set("n", "<c-s-y>", "\"+p")
 vim.keymap.set("n", "<c-a-y>", "\"*P")
 vim.keymap.set("n", "<c-c>", "\"+y")
-vim.keymap.set("n", "<a-c>", "\"+y")
+vim.keymap.set({"n", "v"}, "<a-c>", "\"+y")
 vim.keymap.set("n", "<a-v>", "\"+P")
 
 vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")

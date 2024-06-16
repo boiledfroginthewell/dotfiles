@@ -1,0 +1,14 @@
+alt-tab
+bruno
+clipy
+coteditor
+firefox
+google-japanese-ime
+intellij-idea-ce
+itsycal
+karabiner-elements
+spectacle
+visual-studio-code
+visualvm
+wezterm
+wireshark
