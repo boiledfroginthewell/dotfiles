@@ -1,5 +1,8 @@
+set -eu -o pipefail
+
 cdir=$(cd $(dirname $0); pwd)
 
-mkdir -p ~/Library/Preferences/pypoetry/
-ln -sf "$cdir/config.toml" ~/Library/Preferences/pypoetry/
+poetryConfigDir="$HOME/Library/Application Support/pypoetry"
+mkdir -p "$poetryConfigDir"
+ln -sf "$cdir/config.toml" "$poetryConfigDir/"
 

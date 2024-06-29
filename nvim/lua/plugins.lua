@@ -892,9 +892,6 @@ local config = {
 	-- ### YAML
 	{ 'pedrohdz/vim-yaml-folds' },
 
-	 -- YAML syntax/indent plugin for Vim
-	'mrk21/yaml-vim',
-
 	-- ### Linux
 	-- 'wgwoods/vim-systemd-syntax',
 

@@ -14,6 +14,7 @@ local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
 config.use_ime = true
 config.show_update_window = false
+config.window_close_confirmation = 'NeverPrompt'
 config.check_for_updates = false
 config.check_for_updates_interval_seconds = 90 * 24 * 3600
 config.warn_about_missing_glyphs = false
