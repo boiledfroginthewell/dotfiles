@@ -14,6 +14,9 @@ vim.opt.scrolloff = 0
 vim.opt.foldlevelstart = 99
 vim.opt.equalalways = false
 
+-- filename completion for dotenv files
+vim.opt.isfname:remove("=")
+
 -- Default Indent Config
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4

@@ -16,6 +16,14 @@ local config = {
 
 	-- 'github/copilot.vim',
 
+	{'Exafunction/codeium.vim',
+		event = 'BufEnter',
+		enabled = vim.fn.has('mac') == 0,
+		config = function ()
+			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+		end
+	},
+
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -883,6 +891,16 @@ local config = {
 
 	-- Language specific plugins
 	------------------------------
+	{
+		'MeanderingProgrammer/markdown.nvim',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter', -- Mandatory
+			'nvim-tree/nvim-web-devicons', -- Optional but recommended
+		},
+		config = function()
+			require('render-markdown').setup({})
+		end,
+	},
 
 	-- Vim editing support for kmonad config files
 	{ 'kmonad/kmonad-vim',
