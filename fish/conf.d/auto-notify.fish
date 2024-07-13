@@ -1,7 +1,10 @@
 not status -i || status -c && exit
 
 set NOTIFY_THREASHOLD 60000
-set NOTIFY_EXCLUDE '^(ssh|n?vim?|l|fzf|m[ae]n|watchexec|gg?|diff|lazygit)( |$)'
+if not set -q AUTO_NOTIFY_EXCLUDE_PATTERNS
+	set AUTO_NOTIFY_EXCLUDE_PATTERNS l 'gg?' diff watchexec fzf 'm[ae]n' lazygit
+end
+set NOTIFY_EXCLUDE '^('(string join '|' $AUTO_NOTIFY_EXCLUDE_PATTERNS)')( |$)'
 
 function __check_time -e fish_postexec
 	if [ $CMD_DURATION -gt 60000 ]
@@ -12,7 +15,7 @@ function __check_time -e fish_postexec
 		if type -q notify-send
 			notify-send -a "Fish" -i "~/images/fish.png" "Command Notification" "$body"
 		else
-			notify -t "🐟Fish" "$body"
+			notify -s -t "🐟Fish" "$body"
 		end
 	end
 end
