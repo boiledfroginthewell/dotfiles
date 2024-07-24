@@ -108,6 +108,11 @@ local config = {
 		end,
 	},
 
+	-- A vim plugin to perform diffs on blocks of code
+	{ 'AndrewRadev/linediff.vim',
+		lazy = false,
+	},
+
 	{ "lewis6991/gitsigns.nvim",
 		opts = {
 			-- signcolumn = true
@@ -891,17 +896,6 @@ local config = {
 
 	-- Language specific plugins
 	------------------------------
-	{
-		'MeanderingProgrammer/markdown.nvim',
-		dependencies = {
-			'nvim-treesitter/nvim-treesitter', -- Mandatory
-			'nvim-tree/nvim-web-devicons', -- Optional but recommended
-		},
-		config = function()
-			require('render-markdown').setup({})
-		end,
-	},
-
 	-- Vim editing support for kmonad config files
 	{ 'kmonad/kmonad-vim',
 		ft = 'kbd',
@@ -933,6 +927,10 @@ local config = {
 		},
 	},
 }
+local ok, localConfig = pcall(require, 'local_plugins')
+if ok then
+	config = vim.list_extend(config, localConfig)
+end
 require("lazy").setup(config)
 
 -- vim.cmd[[colorscheme desert]]
