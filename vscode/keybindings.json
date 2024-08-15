@@ -149,7 +149,7 @@
     },
     {
         "key": "f5",
-        "command": "testing.coverageAtCursor",
+        "command": "testing.runAtCursor",
         "when": "editorTextFocus"
     },
     {

@@ -16,6 +16,7 @@ g<C-a/x> -- inc/dec sequence
 <F8> -- :TagbarToggle
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
+<C-down> -- Accept Codeium Suggestion
 
 ## Text Objects
 <Tab> -- Indent
@@ -24,7 +25,6 @@ W -- big word
 
 ## LSP
 <F2> -- Rename
-<F3> -- Format
 <F4> -- Code Actions
 gd -- Go to Definition
 gr -- Go to References

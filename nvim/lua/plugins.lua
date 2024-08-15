@@ -14,12 +14,13 @@ local config = {
 		config = true,
 	},
 
-	-- 'github/copilot.vim',
-
 	{'Exafunction/codeium.vim',
 		event = 'BufEnter',
 		enabled = vim.fn.has('mac') == 0,
 		config = function ()
+			vim.g.codeium_filetypes = {
+				sh = false,
+			}
 			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
 		end
 	},
@@ -318,7 +319,28 @@ local config = {
 				end,
 				{silent = true, expr = true}
 			)
-		end
+		end,
+		enabled = false,
+	},
+
+	-- Fast vertical navigation in Neovim using folds
+	{
+		"domharries/foldnav.nvim",
+		version = "*",
+		config = function()
+			vim.g.foldnav = {
+				flash = {
+					enabled = true,
+				},
+			}
+		end,
+		keys = {
+			{ "<C-d>", function() require("foldnav").goto_start() end },
+			{ "<C-h>", function() require("foldnav").goto_next() end },
+			{ "<C-t>", function() require("foldnav").goto_prev_start() end },
+			-- { "<C-k>", function() require("foldnav").goto_prev_end() end },
+			{ "<C-n>", function() require("foldnav").goto_end() end },
+		},
 	},
 
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
@@ -581,6 +603,14 @@ local config = {
 		lazy = false,
 	},
 
+	-- enhanced increment/decrement plugin for Neovim. 
+	{ 'monaqa/dial.nvim',
+		keys = {
+			{ "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" } },
+			{ "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" } },
+		},
+	},
+
 	-- " 🚀 Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
 	{ 'skywind3000/asyncrun.vim',
 		init = function()
@@ -638,26 +668,6 @@ local config = {
 			'hrsh7th/nvim-cmp', -- Required by lsp-zero
 			'hrsh7th/cmp-nvim-lsp', -- Required by lsp-zero
 			'L3MON4D3/LuaSnip', -- Required by lsp-zero
-			{ "zbirenbaum/copilot.lua",
-				name = 'copilot',
-				config = function(lazy, opts)
-					require("copilot").setup({
-						suggestion = { enabled = false },
-						panel = { enabled = false },
-						filetypes = {
-							sh = function ()
-								if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
-									-- disable for .env files
-									return false
-								end
-								return true
-							end
-						}
-					})
-				end,
-				enabled = vim.fn.has('mac') == 0,
-				cond = vim.fn.has('mac') == 0
-			},
 			{'saadparwaiz1/cmp_luasnip',
 				dependencies = {
 					{ "L3MON4D3/LuaSnip",
@@ -673,20 +683,12 @@ local config = {
 			'hrsh7th/cmp-buffer',
 			'delphinus/cmp-ctags',
 			'mtoohey31/cmp-fish',
-			{ "zbirenbaum/copilot-cmp",
-				after = { "copilot.lua" },
-				config = function ()
-					require("copilot_cmp").setup()
-				end,
-				enabled = vim.fn.has('mac') == 0,
-				cond = vim.fn.has('mac') == 0
-			},
-			{ 'tzachar/cmp-tabnine',
-				build = './install.sh',
-				-- dependencies = 'hrsh7th/nvim-cmp',
-				cond = vim.fn.has('mac') == 0,
-				enabled = vim.fn.has('mac') == 0,
-			},
+			-- { 'tzachar/cmp-tabnine',
+			-- 	build = './install.sh',
+			-- 	-- dependencies = 'hrsh7th/nvim-cmp',
+			-- 	cond = vim.fn.has('mac') == 0,
+			-- 	enabled = vim.fn.has('mac') == 0,
+			-- },
 		},
 		config = function()
 			-- LSP
@@ -749,7 +751,6 @@ local config = {
 					-- misc
 					{ name = 'fish' },
 					-- basic
-					-- { name = 'copilot' },
 					-- { name = 'cmp_tabnine' },
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
@@ -888,6 +889,22 @@ local config = {
 		end
 	},
 
+	-- A Neovim plugin that provides a simple way to run and visualize code actions with Telescope.
+	{
+		"rachartier/tiny-code-action.nvim",
+		dependencies = {
+			{"nvim-lua/plenary.nvim"},
+			{"nvim-telescope/telescope.nvim"},
+		},
+		event = "LspAttach",
+		config = function()
+			require('tiny-code-action').setup()
+		end,
+		keys = {
+			{ "<leader>ca", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Code Action" },
+			{ "<F4>", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Code Action" },
+		},
+	},
 
 	-- Language specific plugins
 	------------------------------
