@@ -12,7 +12,7 @@ $ branch: git branch | string trim --- --query main
 git push -f --force-with-lease --force-if-includes origin HEAD
 
 # Git initial empty commit
-git commit --allow-empty -m \"initial empty commit\"
+git commit --allow-empty -m "initial empty commit"
 
 # Show project root directory of git.
 git rev-parse --show-toplevel
