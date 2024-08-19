@@ -1,7 +1,6 @@
 {
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.acceptSuggestionOnEnter": "on",
-  "editor.formatOnSaveMode": "modifications",
   "editor.suggest.localityBonus": true,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
@@ -14,6 +13,10 @@
   "extensions.ignoreRecommendations": false,
   "workbench.editor.enablePreview": false,
   "workbench.editor.closeEmptyGroups": false,
+  "workbench.editor.customLabels.patterns": {
+    "**/index.*": "${dirname} .../${dirname(1)}",
+    "**/__init__.py": "${dirname}/__init__.py",
+  },
   "workbench.editor.splitInGroupLayout": "vertical",
   "workbench.tree.indent": 18,
   "files.trimFinalNewlines": true,
@@ -35,6 +38,8 @@
     "csrf",
     "hdfs",
     "ipython",
+    "pytest",
+    "numpy",
     "noreferrer",
     "postgres",
     "scrollable",
@@ -52,7 +57,7 @@
     "editorInlayHint.foreground": "#999999",
     "editorOverviewRuler.addedForeground": "#03bb002e",
     "editorOverviewRuler.deletedForeground": "#00000000",
-    "editorOverviewRuler.modifiedForeground": "#053f00"
+    "editorOverviewRuler.modifiedForeground": "#053f00",
   },
   "editor.bracketPairColorization.enabled": true,
   "trailing-spaces.regexp": "[ \t　]+",
@@ -148,4 +153,5 @@
   "github.copilot.enable": {
     "env": "false"
   },
+  "interactiveWindow.executeWithShiftEnter": true,
 }
