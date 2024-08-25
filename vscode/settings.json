@@ -29,23 +29,18 @@
     "**/.ipynb_checkpoints": true,
   },
   "terminal.integrated.hideOnStartup": "always",
-  "cSpell.userWords": [
-    "bookbill",
-    "boto",
-    "pycache",
-    "ipynb",
-    "consts",
-    "csrf",
-    "hdfs",
-    "ipython",
-    "pytest",
-    "numpy",
-    "noreferrer",
-    "postgres",
-    "scrollable",
-    "upsert",
-    "YYYYMMDD"
-  ],
+  "cSpell.customDictionaries": {
+    "programming": {
+      "name": "programming",
+      "path": "~/.config/Code/User/cspell/programming.txt",
+      "scope": "user"
+    },
+    "python": {
+      "name": "python-extended",
+      "path": "~/.config/Code/User/cspell/python-extended.txt",
+      "scope": "user"
+    }
+  },
   // Theme
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontFamily": "MesloLGS NF",
@@ -99,7 +94,7 @@
   "typescript.autoClosingTags": false,
   "emmet.showExpandedAbbreviation": "never",
 
-  // JavaScriptp / TypeScript
+  // JavaScript / TypeScript
   "eslint.alwaysShowStatus": true,
   "eslint.lintTask.enable": true,
   "[javascript]": {
@@ -140,7 +135,6 @@
     "editor.formatOnType": true,
     "editor.defaultFormatter": "charliermarsh.ruff",
   },
-  "editor.inlineSuggest.enabled": true,
   "jupyter.interactiveWindow.creationMode": "perFile",
   "notebook.output.scrolling": true,
   "yaml.schemas": {

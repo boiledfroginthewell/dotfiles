@@ -21,6 +21,7 @@ if [ -e "$VSCODE_CONF_DIR" ]; then
 	rm "$VSCODE_CONF_DIR/settings.json"
 	ln -s "$CDIR/settings.json" "$VSCODE_CONF_DIR/"
 	ln -s "$CDIR/snippets" "$VSCODE_CONF_DIR/"
+	ln -s "$CDIR/cspell" "$VSCODE_CONF_DIR/"
 	ln -sf "$CDIR/keybindings.json" "$VSCODE_CONF_DIR/"
 	ln -s "$CDIR/cheatsheats" "$HOME/.cheatsheets"
 	echo Installed VSCode config
