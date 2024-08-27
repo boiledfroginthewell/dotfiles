@@ -1,0 +1,8 @@
+pyproject
+numpy
+scipy
+boto3
+pycache
+ipynb
+ipython
+pytest
