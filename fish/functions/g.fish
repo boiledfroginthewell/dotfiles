@@ -9,8 +9,11 @@ function g --wrap $_GIT
 		set worktree (g worktree list | fzf | choose 0)
 		set -q worktree && cd "$worktree"
 	else if [ "$argv[1]" = "addi" ]
-		forgit::add $argv[2..]
-		#git forgit add $argv[2..]
+		if type forgit::add &> /dev/null
+			forgit::add $argv[2..]
+		else
+			git forgit add $argv[2..]
+		end
 	else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
 		$_GIT pr checkout $argv[3..]
 	else
