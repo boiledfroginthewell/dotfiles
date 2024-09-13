@@ -569,8 +569,9 @@ local config = {
 			vim.cmd[[autocmd ColorScheme * highlight ContextVt guifg='#707070']]
 		end,
 		opts = {
-				prefix = '',
+				prefix = '󰨿',
 				disable_ft = {'python', 'yaml', 'md', 'markdown'},
+				highlight = 'SpecialKey',
 		},
 	},
 
