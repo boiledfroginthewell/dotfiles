@@ -20,6 +20,7 @@ alias pppp="systemctl restart --user kmonad"
 type -q hub && alias git hub
 alias gg="git graph"
 alias t=task
+alias d=docker
 if type -q docker-compose
 	alias dc=docker-compose
 else if type -q docker
