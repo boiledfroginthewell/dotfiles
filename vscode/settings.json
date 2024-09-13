@@ -5,6 +5,7 @@
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "boundary",
+  "editor.suggest.selectionMode": "never",
   "editor.tabCompletion": "on",
   "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?_",
   "explorer.autoReveal": "focusNoScroll",
@@ -15,7 +16,7 @@
   "workbench.editor.closeEmptyGroups": false,
   "workbench.editor.customLabels.patterns": {
     "**/index.*": "${dirname} .../${dirname(1)}",
-    "**/__init__.py": "${dirname}/__init__.py",
+    "**/__init__.py": "${dirname}/__init__.py"
   },
   "workbench.editor.splitInGroupLayout": "vertical",
   "workbench.tree.indent": 18,
@@ -26,9 +27,10 @@
     "**/.vim": true,
     "**/*.pyc": true,
     "**/.pytest_cache": true,
-    "**/.ipynb_checkpoints": true,
+    "**/.ipynb_checkpoints": true
   },
   "terminal.integrated.hideOnStartup": "always",
+  "cSpell.allowCompoundWords": true,
   "cSpell.customDictionaries": {
     "programming": {
       "name": "programming",
@@ -39,8 +41,18 @@
       "name": "python-extended",
       "path": "~/.config/Code/User/cspell/python-extended.txt",
       "scope": "user"
+    },
+    "container": {
+      "name": "container",
+      "path": "~/.config/Code/User/cspell/container.txt",
+      "scope": "user"
     }
   },
+  "search.exclude": {
+    "**/*.ipynb": true,
+    "poetry.lock": true
+  },
+
   // Theme
   "terminal.integrated.fontSize": 13,
   "terminal.integrated.fontFamily": "MesloLGS NF",
@@ -52,16 +64,20 @@
     "editorInlayHint.foreground": "#999999",
     "editorOverviewRuler.addedForeground": "#03bb002e",
     "editorOverviewRuler.deletedForeground": "#00000000",
-    "editorOverviewRuler.modifiedForeground": "#053f00",
+    "editorOverviewRuler.modifiedForeground": "#053f00"
   },
   "editor.bracketPairColorization.enabled": true,
   "trailing-spaces.regexp": "[ \t　]+",
   "trailing-spaces.backgroundColor": "rgba(0,255,0,0.15)",
   "trailing-spaces.borderColor": "rgba(100, 255,100,0.2)",
 
+  "todo-tree.general.tags": ["BUG", "HACK", "FIXME", "TODO", "XXX"],
+
+  // file type
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+
   "[markdown]": {
     "files.trimTrailingWhitespace": false,
     "editor.formatOnSave": false,
@@ -72,19 +88,11 @@
     }
   },
 
-  // programming
-  "tabnine.experimentalAutoImports": true,
-  "tabnine.disableFileRegex": [
-    "*.cf.ya?ml",
-    "*.md"
-  ],
-  "todo-tree.general.tags": [
-    "BUG",
-    "HACK",
-    "FIXME",
-    "TODO",
-    "XXX"
-  ],
+  "[tsv]": {
+    // "editor.renderWhitespace":
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false
+  },
 
   // HTML / JSX
   "auto-close-tag.SublimeText3Mode": true,
@@ -106,46 +114,36 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "terminal.integrated.commandsToSkipShell": [
-    "language-julia.interrupt"
-  ],
+  "terminal.integrated.commandsToSkipShell": ["language-julia.interrupt"],
   "editor.inlineSuggest.enabled": true,
 
   // python
-  "jupyter.askForKernelRestart": false,
-  // "python.analysis.typeCheckingMode": "basic",
-	"jupyter.notebookFileRoot": "${workspaceFolder}",
-  "jupyter.runStartupCommands": [
-    "%load_ext autoreload",
-    "%autoreload 2",
-  ],
-  "interactiveWindow.alwaysScrollOnNewCell": true,
-  "jupyter.widgetScriptSources": [
-    "jsdelivr.com",
-    "unpkg.com"
-  ],
-
-  // Julia
-  "julia.symbolCacheDownload": true,
-  "search.exclude": {
-    "**/*.ipynb": true,
-    "poetry.lock": true
-  },
   "[python]": {
     "editor.formatOnType": true,
     "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
+    "notebook.codeActionsOnSave": {
+      "source.organizeImports.ruff": "explicit",
+      "source.convertImportFormat": "explicit",
+      "source.organizeImports": "explicit"
+    }
   },
+  "jupyter.askForKernelRestart": false,
+  // "python.analysis.typeCheckingMode": "basic",
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "jupyter.runStartupCommands": ["%load_ext autoreload", "%autoreload 2"],
+  "interactiveWindow.alwaysScrollOnNewCell": true,
+  "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
   "jupyter.interactiveWindow.creationMode": "perFile",
   "notebook.output.scrolling": true,
+  "interactiveWindow.executeWithShiftEnter": true,
+
+  // Julia
+  "julia.symbolCacheDownload": true,
   "yaml.schemas": {
     "https://raw.githubusercontent.com/argoproj/argo-workflows/main/api/jsonschema/schema.json": [
       "**/*workflow*.yaml"
     ]
   },
 
-  "github.copilot.editor.enableAutoCompletions": false,
-  "github.copilot.enable": {
-    "env": "false"
-  },
-  "interactiveWindow.executeWithShiftEnter": true,
 }
