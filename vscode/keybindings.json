@@ -149,12 +149,20 @@
     },
     {
         "key": "f5",
-        "command": "testing.runAtCursor",
+        // "command": "testing.runAtCursor",
+        "command": "testing.reRunLastRun",
         "when": "editorTextFocus"
     },
     {
         "key": "ctrl+shift+o",
-        "command": "editor.action.organizeImports",
+        "command": "runCommands",
+        "args": {
+            "commands": [
+                "editor.action.organizeImports",
+                // Remove unused import (by Ruff)
+                "editor.action.fixAll"
+            ]
+        },
         "when": "editorTextFocus"
     },
     {
