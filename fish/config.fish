@@ -18,7 +18,7 @@ alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 type -q hub && alias git hub
-alias gg="git graph"
+alias gg="git forest | less -p"
 alias t=task
 alias d=docker
 if type -q docker-compose

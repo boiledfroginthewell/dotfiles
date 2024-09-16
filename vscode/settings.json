@@ -1,6 +1,7 @@
 {
   "editor.acceptSuggestionOnCommitCharacter": false,
   "editor.acceptSuggestionOnEnter": "on",
+  "editor.autoClosingQuotes": "never",
   "editor.suggest.localityBonus": true,
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
