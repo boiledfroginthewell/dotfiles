@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
+set -eu -o pipefail
 
-if [[ "$1" = -i ]]; then
+if [[ "${1:-}" = -i ]]; then
 	useIcons=1
 fi
 
 # Show absolute path or relative path, which is shorter
 compact() {
-	while read line; do
+	while read -r line; do
 		local ABS="$line"
-		local REL=${ABS#$PWD/}
+		local REL=${ABS#"$PWD"/}
 		REL=${REL:-.}
 
 		echo ${REL}
@@ -19,17 +20,18 @@ get_project_root() {
 	if [ -n "$1" ]; then
 		cd "$1"
 	fi
-	local PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+	local PROJECT_ROOT
+	PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
 	echo "${PROJECT_ROOT:-$PWD}"
 }
 
 iconify() {
-	if [ -z "$useIcons" ]; then
+	if [ -z "${useIcons:-}" ]; then
 		more
 		return
 	fi
 
-	while read line; do
+	while read -r line; do
 		emoji="　"
 		if [[ $line = *.sh ]]; then
 			emoji=🐚
@@ -52,7 +54,7 @@ iconify() {
 	done
 }
 
-directory="${1}"
+directory="${1:-}"
 if [ -z "$directory" ]; then
 	directory=$(get_project_root "${directory}")
 fi

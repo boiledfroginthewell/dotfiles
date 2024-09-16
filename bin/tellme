@@ -1,7 +1,7 @@
 #!/bin/bash
 
-while getopts 't:' ARG; do
-	case ARG in
+while getopts 't:h' ARG; do
+	case $ARG in
 	t)
 		timeInterval=$ARG
 		;;
@@ -15,10 +15,10 @@ shift $(( OPTIND - 1 ))
 startedAt=$(date +%s)
 time while true; do
 	if eval "$*" > /dev/null; then
-		ellapsed=$(( $(date +%s) - $startedAt ))
-		notify "✅Finished! (time: $(TZ= date -r $ellapsed +%M:%S))\n $*"
+		ellapsed=$(( $(date +%s) - startedAt ))
+		notify "✅Finished! (time: $(TZ="" date -r $ellapsed +%M:%S))\n $*"
 		break
 	fi
-	sleep ${timeInterval:-5}
+	sleep "${timeInterval:-5}"
 done
 

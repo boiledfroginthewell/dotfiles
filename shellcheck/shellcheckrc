@@ -1,0 +1,5 @@
+# forcing style `ERASE_VAR= echo`
+# disable=SC1007
+
+# it's often intentional not to quote variables
+disable=SC2086

@@ -660,6 +660,7 @@ local config = {
 					ensure_installed = {
 						'lua_ls', 'vimls',
 						'lemminx', 'jsonls', 'yamlls', 'taplo',
+						'bashls',
 					},
 				},
 				after = { 'mason' },
