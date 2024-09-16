@@ -17,6 +17,7 @@ g<C-a/x> -- inc/dec sequence
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
 <C-down> -- Accept Codeium Suggestion
+<C-t> -- tag peek
 
 ## Text Objects
 <Tab> -- Indent

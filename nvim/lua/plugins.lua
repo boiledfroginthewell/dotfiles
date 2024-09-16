@@ -1,6 +1,5 @@
 require("copies/lazynvim")
 
-
 ---@type LazySpec
 local config = {
 	-- UI Plugins
@@ -511,10 +510,10 @@ local config = {
 		config = true,
 	},
 
-	-- A plugin to visualise and resolve merge conflicts in neovim 
+	-- A plugin to visualise and resolve merge conflicts in neovim
 	{ 'akinsho/git-conflict.nvim',
 		version = "*",
-		config = {
+		opts = {
 			highlights = {
 				current = 'DiffDelete',
 			},
@@ -539,7 +538,7 @@ local config = {
 
 	{ 'majutsushi/tagbar',
 		cond = function()
-			return vim.fn.executable("ctags")
+			return vim.fn.executable("ctags") == 1
 		end,
 		init = function()
 			vim.g.tagbar_width = 30
@@ -664,9 +663,6 @@ local config = {
 				},
 				after = { 'mason' },
 			},
-			{'jose-elias-alvarez/null-ls.nvim',
-				dependencies = { 'nvim-lua/plenary.nvim' },
-			},
 
 			-- Neovim setup for init.lua and plugin development with full signature help, docs and completion for the nvim lua API.
 			'folke/neodev.nvim',
@@ -689,12 +685,6 @@ local config = {
 			'hrsh7th/cmp-buffer',
 			'delphinus/cmp-ctags',
 			'mtoohey31/cmp-fish',
-			-- { 'tzachar/cmp-tabnine',
-			-- 	build = './install.sh',
-			-- 	-- dependencies = 'hrsh7th/nvim-cmp',
-			-- 	cond = vim.fn.has('mac') == 0,
-			-- 	enabled = vim.fn.has('mac') == 0,
-			-- },
 		},
 		config = function()
 			-- LSP
@@ -719,35 +709,27 @@ local config = {
 			  vim.lsp.handlers.hover, { focusable = false }
 			)
 
-
 			local lspconfig = require('lspconfig')
 			lspconfig.lua_ls.setup(lsp.nvim_lua_ls({
-				-- useless?
 				settings = {
-					runtime = {
-						path = {
-							'?.lua',
-							'?/init.lua',
-							vim.fn.stdpath('data') .. 'lazy/lazy.nvim/lua',
-							vim.fn.stdpath('data') .. 'lazy/lazy.nvim/lua/lazy',
-						}
+					Lua = {
+						workspace = {
+							-- Make the server aware of Neovim runtime files
+							library = vim.api.nvim_get_runtime_file("", true),
+						},
 					},
-					workspace = {
-						-- Make the server aware of Neovim runtime files
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-				}
+				},
 			}))
 
 			lsp.setup()
 
 			-- Autocompletion
-			local cmp = require('cmp')
-			local cmp_action = require('lsp-zero').cmp_action()
 			-- load my SnipMates
 			require('luasnip.loaders.from_snipmate').lazy_load()
 
 			-- customizations
+			local cmp = require('cmp')
+			local cmp_action = require('lsp-zero').cmp_action()
 			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
 			cmp.setup {
 				sources = {
@@ -757,7 +739,6 @@ local config = {
 					-- misc
 					{ name = 'fish' },
 					-- basic
-					-- { name = 'cmp_tabnine' },
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
 					{ name = 'buffer' },
@@ -773,8 +754,18 @@ local config = {
 					['<PageUp>'] = cmp.mapping.select_prev_item({behavior = 'select', count = 10}),
 					['<PageDown>'] = cmp.mapping.select_next_item({behavior = 'select', count = 10}),
 					['<CR>'] = cmp.mapping.confirm { select = false },
-					['<Tab>'] = cmp_action.luasnip_supertab(),
-					['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+					['<Tab>'] = cmp.mapping(function(fallback)
+						if cmp.get_selected_entry() ~= nil then
+							cmp.confirm()
+						elseif cmp.visible() then
+							cmp.select_next_item()
+							cmp.confirm()
+						else
+							fallback()
+						end
+					end),
+					-- ['<Tab>'] = cmp_action.luasnip_supertab(),
+					-- ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
 					['<C-Space>'] = cmp.mapping.complete(),
 					['<ESC>'] = cmp.mapping(function(fallback)
 						if cmp.get_selected_entry() ~= nil then
@@ -785,53 +776,11 @@ local config = {
 						end
 					end),
 				},
-				-- TODO
-				xformatting = {
-					fields = { 'kind', 'abbr', 'menu' },
-					-- format = require('lspkind').cmp_format({
-					-- 	mode = 'symbol', -- show only symbol annotations
-					-- 	maxwidth = 80, -- prevent the popup from showing more than provided characters
-					-- 	ellipsis_char = ' ⃨', -- when popup menu exceed maxwidth, the truncated part would show ellipsis_char instead
-					-- })
-
-					-- format = function(entry, vim_item)
-					-- 	if vim.tbl_contains({ 'path' }, entry.source.name) then
-					-- 		local icon, hl_group = require('nvim-web-devicons').get_icon(entry:get_completion_item().label)
-					-- 		if icon then
-					-- 			vim_item.kind = icon
-					-- 			vim_item.kind_hl_group = hl_group
-					-- 			return vim_item
-					-- 		end
-					-- 	end
-					-- 	return require('lspkind').cmp_format({ with_text = false })(entry, vim_item)
-					-- end
-
-					format = function(entry, vim_item)
-						local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
-						local strings = vim.split(kind.kind, "%s", { trimempty = true })
-						kind.kind = " " .. (strings[1] or "") .. " "
-						kind.menu = "    (" .. (strings[2] or "") .. ")"
-					
-						return kind
-					end,
-				},
 				window = {
 					completion = cmp.config.window.bordered(),
 					documentation = cmp.config.window.bordered(),
 				}
 			}
-
-			-- null-ls
-			local null_ls = require('null-ls')
-			null_ls.setup({
-				diagnostics_format = "#{m} (#{s}: #{c})",
-				sources = {
-					-- Replace these with the tools you have installed
-					--	 null_ls.builtins.formatting.prettier,
-					--	 null_ls.builtins.diagnostics.eslint,
-					null_ls.builtins.formatting.stylua,
-				}
-			})
 		end
 	},
 
