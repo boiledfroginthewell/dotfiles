@@ -28,7 +28,7 @@ else if type -q docker
 end
 alias ipython="ipython --no-confirm-exit"
 alias vi="nvim"
-# alias vim="nvim"
+alias v=nvim
 set -x EDITOR nvim
 
 abbr --add k kubectl

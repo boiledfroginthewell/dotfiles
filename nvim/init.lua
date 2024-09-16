@@ -26,6 +26,16 @@ vim.opt.smartindent = true
 -- Key mappings
 vim.g.mapleader = ","
 
+-- sesnible defaults
+vim.keymap.set("n", "x", "\"_x")
+vim.keymap.set("n", "p", "P")
+vim.keymap.set("n", "U", "<c-R>")
+vim.keymap.set("x", "y", "mZy`Z")
+vim.keymap.set("x", "<", "<gv")
+vim.keymap.set("x", ">", ">gv")
+vim.keymap.set({"n", "v"}, "{", "<Cmd>keepjumps normal! {<CR>")
+vim.keymap.set({"n", "v"}, "}", "<Cmd>keepjumps normal! }<CR>")
+
 vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "<s-cr>", "O<esc>")
