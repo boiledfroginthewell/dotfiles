@@ -32,6 +32,10 @@ function l
 		else if string match -q "*charset=binary*" $mime && not string match -q "*x-empty*" $mime
 			open $opt $files
 		else
+			if contains -- -l $opt
+				echo "Bad option: -l" >&2
+				return 1
+			end
 			less $opt $files
 		end
 	end

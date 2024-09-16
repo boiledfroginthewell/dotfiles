@@ -1,6 +1,8 @@
 not status -i || status -c && exit
 
 function __activateVenv --on-event chpwd
+	status is-command-substitution && return
+
 	set venvs (rootSearch .venv)
 
 	if [ -z "$venvs" ]

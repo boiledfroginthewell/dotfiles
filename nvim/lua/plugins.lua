@@ -587,7 +587,6 @@ local config = {
 			show_borders = true,
 			scope = "line",
 		},
-		-- enabled = false,
 	},
 
 	{ 'chaoren/vim-wordmotion',
