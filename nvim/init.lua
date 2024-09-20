@@ -28,9 +28,6 @@ vim.g.mapleader = ","
 
 -- sesnible defaults
 vim.keymap.set("n", "U", "<c-R>")
-vim.keymap.set("x", "y", "mZy`Z")
-vim.keymap.set("x", "<", "<gv")
-vim.keymap.set("x", ">", ">gv")
 vim.keymap.set({"n", "v"}, "{", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "}", "<Cmd>keepjumps normal! }<CR>")
 
