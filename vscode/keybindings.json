@@ -143,6 +143,18 @@
     },
     // Programming
     {
+        "key": "tab",
+        // "command": "acceptSelectedSuggestion",
+        // "when": "suggestWidgetHasFocusedSuggestion"
+        "command": "focusAndAcceptSuggestion",
+        "when": "suggestWidgetVisible"
+    },
+    {
+        "key": "tab",
+        "command": "acceptSelectedSuggestion",
+        "when": "suggestWidgetHasFocusedSuggestion"
+    },
+    {
         "key": "ctrl+f5",
         "command": "test-explorer.run-test-at-cursor",
         "when": "editorTextFocus"
