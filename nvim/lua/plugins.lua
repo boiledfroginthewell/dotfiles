@@ -6,8 +6,14 @@ local config = {
 	-- ====================
 
 	-- Color Theme
-	{'sainnhe/sonokai', priority = 1000, lazy = true},
+	-- {'sainnhe/sonokai', priority = 1000, lazy = true},
 	{'glepnir/zephyr-nvim', priority = 1000, lazy = true},
+	{'navarasu/onedark.nvim', priority = 1000, lazy = true,
+		opts = {
+			style = "darker",
+		},
+	},
+	{'ChristianChiarulli/nvcode-color-schemes.vim', priority = 1000, lazy = true},
 
 	{'levouh/tint.nvim',
 		config = true,
@@ -900,8 +906,10 @@ if ok then
 end
 require("lazy").setup(config)
 
--- vim.cmd[[colorscheme desert]]
-vim.cmd[[highlight NonText guibg=none]]
+-- vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme habamax]]
-vim.cmd[[colorscheme sonokai]]
+-- vim.cmd[[colorscheme sonokai]]
+-- vim.cmd[[colorscheme slate]]
+-- vim.cmd[[colorscheme zephyr]]
+vim.cmd[[colorscheme onedark]]
 

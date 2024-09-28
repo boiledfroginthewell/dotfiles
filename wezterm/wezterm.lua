@@ -84,6 +84,21 @@ table.insert(config.hyperlink_rules, {
 	highlight = 1
 })
 
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	if name ~= "WEZTERM_PROG" then
+		return
+	end
+
+	local overrides = window:get_config_overrides() or {}
+	if value == "nvim" then
+		overrides.force_reverse_video_cursor = true
+		overrides.default_cursor_style = "SteadyBlock"
+	else
+		overrides = nil
+	end
+	window:set_config_overrides(overrides)
+end)
+
 local ok, localConfig = pcall(require, 'local')
 if ok then
 	localConfig.setup(config)

@@ -96,6 +96,25 @@ augroup myvimrc
 augroup END
 ]])
 
+-- Notify WezTerm that nvim is started.
+-- https://www.reddit.com/r/neovim/comments/1fqjltg/change_wezterm_font_when_entering_and_exiting/
+local init_lua_group = vim.api.nvim_create_augroup('wezterm', {clear = true})
+vim.api.nvim_create_autocmd(
+	{ "VimEnter", "VimResume" }, {
+		group = init_lua_group,
+		callback = function()
+			io.write("\027]1337;SetUserVar=WEZTERM_PROG=bnZpbQ==\a")
+		end,
+})
+vim.api.nvim_create_autocmd(
+	{ "VimLeave", "VimSuspend" }, {
+		group = init_lua_group,
+		callback = function()
+			io.write("\027]1337;SetUserVar=WEZTERM_PROG=\a")
+		end,
+	}
+)
+
 -- Plugins
 vim.g['cheatsheet#cheat_file'] = vim.fn.stdpath('config') .. '/cheatsheet.md'
 vim.g['cheatsheet#vsplit'] = 1
