@@ -27,6 +27,7 @@ local config = {
 				sh = false,
 			}
 			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<C-i>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
 		end
 	},
 
@@ -513,7 +514,12 @@ local config = {
 
 	-- Automatic indentation style detection for Neovim
 	{ 'NMAC427/guess-indent.nvim',
-		config = true,
+		config = function ()
+			-- https://github.com/NMAC427/guess-indent.nvim/issues/3
+			require("guess-indent").setup({autocmd = false})
+			vim.cmd([[ autocmd BufReadPost * :silent GuessIndent ]])
+		end,
+		lazy = false,
 	},
 
 	-- A plugin to visualise and resolve merge conflicts in neovim
