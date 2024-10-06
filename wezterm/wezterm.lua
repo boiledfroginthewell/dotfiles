@@ -42,6 +42,16 @@ config.window_padding = {
 	right = 0,
 }
 
+local function copy_last_output(window, pane)
+	local cursor = pane:get_cursor_position()
+	local zone = pane:get_semantic_zone_at(0, cursor.y - 1)
+	if not zone then
+		return
+	end
+	local output = pane:get_text_from_semantic_zone(zone)
+	window:copy_to_clipboard(output)
+end
+
 config.keys = {
 	-- Pane Operations
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
@@ -54,6 +64,7 @@ config.keys = {
 	{ key = "-",        mods = "CTRL",       action = "QuickSelect" },
 	{ key = "PageUp",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "PageDown", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
+	{ key = "n", mods = "CTRL|SHIFT", action = wezterm.action_callback(copy_last_output) },
 }
 for _, v in ipairs(require('nvim-smart-splits')) do
 	table.insert(config.keys, v)
