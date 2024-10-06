@@ -6,14 +6,11 @@ local config = {
 	-- ====================
 
 	-- Color Theme
-	-- {'sainnhe/sonokai', priority = 1000, lazy = true},
 	{'glepnir/zephyr-nvim', priority = 1000, lazy = true},
-	{'navarasu/onedark.nvim', priority = 1000, lazy = true,
-		opts = {
-			style = "darker",
-		},
-	},
 	{'ChristianChiarulli/nvcode-color-schemes.vim', priority = 1000, lazy = true},
+	{'ribru17/bamboo.nvim', priority = 1000, lazy = true},
+	{"scottmckendry/cyberdream.nvim", priority = 1000, lazy = true},
+	{"Mofiqul/vscode.nvim", priority = 1000, lazy = true},
 
 	{'levouh/tint.nvim',
 		config = true,
@@ -522,6 +519,9 @@ local config = {
 		lazy = false,
 	},
 
+	-- sleuth.vim: Heuristically set buffer options
+	-- "tpope/vim-sleuth",
+
 	-- A plugin to visualise and resolve merge conflicts in neovim
 	{ 'akinsho/git-conflict.nvim',
 		version = "*",
@@ -883,7 +883,7 @@ local config = {
 	},
 
 	-- ### YAML
-	{ 'pedrohdz/vim-yaml-folds' },
+	{ 'pedrohdz/vim-yaml-folds', ft="yaml" },
 
 	-- ### Linux
 	-- 'wgwoods/vim-systemd-syntax',
@@ -915,9 +915,8 @@ end
 require("lazy").setup(config)
 
 -- vim.cmd[[highlight NonText guibg=none]]
--- vim.cmd[[colorscheme habamax]]
--- vim.cmd[[colorscheme sonokai]]
 -- vim.cmd[[colorscheme slate]]
 -- vim.cmd[[colorscheme zephyr]]
-vim.cmd[[colorscheme onedark]]
+-- vim.cmd[[colorscheme cyberdream]]
+vim.cmd[[colorscheme bamboo]]
 

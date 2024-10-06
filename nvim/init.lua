@@ -23,6 +23,9 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = false
 vim.opt.smartindent = true
 
+vim.opt.viminfo:append("'0")
+vim.opt.viminfo:remove("'100")
+
 -- Key mappings
 vim.g.mapleader = ","
 
