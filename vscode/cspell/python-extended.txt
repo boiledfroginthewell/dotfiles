@@ -1,8 +1,10 @@
-pyproject
-numpy
-scipy
+asfreq
+bfill
 boto3
-pycache
 ipynb
 ipython
+numpy
+pycache
+pyproject
 pytest
+scipy

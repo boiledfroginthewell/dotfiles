@@ -178,11 +178,21 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+shift+f",
-        "command": "editor.action.formatDocument",
-        "when": "editorTextFocus"
+        "key": "ctrl+i",
+        "command": "editor.action.inlineSuggest.acceptNextLine",
+        "when": "editorTextFocus && inlineSuggestionVisible"
     },
     // Jupyter
+    {
+        "key": "shift+enter",
+        "command": "jupyter.execSelectionInteractive",
+        "when": "notebookCellEditorFocused"
+    },
+    {
+        "key": "shift+enter",
+        "command": "jupyter.runcurrentcell",
+        "when": "editorTextFocus && editorLangId == 'python'"
+    },
     {
         "key": "ctrl+alt+enter",
         "command": "jupyter.runallcellsabove.palette",
