@@ -155,6 +155,24 @@
         "when": "suggestWidgetHasFocusedSuggestion"
     },
     {
+        "key": "down",
+        "command": "-selectNextSuggestion",
+    },
+    {
+        "key": "ctrl+t",
+        "command": "selectPrevSuggestion",
+        "when": "suggestWidgetVisible"
+    },
+    {
+        "key": "up",
+        "command": "-selectPrevSuggestion",
+    },
+    {
+        "key": "ctrl+n",
+        "command": "selectNextSuggestion",
+        "when": "suggestWidgetVisible"
+    },
+    {
         "key": "ctrl+f5",
         "command": "test-explorer.run-test-at-cursor",
         "when": "editorTextFocus"
