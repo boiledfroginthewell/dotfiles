@@ -33,7 +33,11 @@
     "**/.vim": true,
     "**/*.pyc": true,
     "**/.pytest_cache": true,
-    "**/.ipynb_checkpoints": true
+    "**/.ipynb_checkpoints": true,
+    ".mypy_cache/": true,
+    "**/.task/": true,
+    "**/.ruff_cache/": true,
+    "**/.idea/": true,
   },
   "terminal.integrated.hideOnStartup": "always",
   "cSpell.allowCompoundWords": true,

@@ -23,7 +23,7 @@ function l
 
 	if [ ! -t 0 ]
 		less
-	else if [ -z "$files" -o -d "$files[1]" ]
+	else if [ -z "$files" ] || [ -d "$files[1]" ] || contains -- -l $opt
 		ls $opt $files
 	else
 		set mime (file --mime ($READLINK_COMMAND "$files[1]") | cut -d : -f 2)
@@ -32,10 +32,6 @@ function l
 		else if string match -q "*charset=binary*" $mime && not string match -q "*x-empty*" $mime
 			open $opt $files
 		else
-			if contains -- -l $opt
-				echo "Bad option: -l" >&2
-				return 1
-			end
 			less $opt $files
 		end
 	end
