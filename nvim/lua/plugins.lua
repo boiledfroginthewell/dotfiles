@@ -582,7 +582,7 @@ local config = {
 		opts = {
 				prefix = '󰨿',
 				disable_ft = {'python', 'yaml', 'md', 'markdown'},
-				highlight = 'SpecialKey',
+				-- highlight = 'SpecialKey',
 		},
 	},
 
@@ -888,26 +888,24 @@ local config = {
 	-- ### Linux
 	-- 'wgwoods/vim-systemd-syntax',
 
-	-- For plugins.lua (lazy.nvim)
-	{ 'tyru/open-browser.vim',
+	-- Minimal plugin allow you to open url under cursor in neovim without netrw with default browser of your system and highlight url
+	{
+		"sontungexpt/url-open",
+		event = "VeryLazy",
+		cmd = "URLOpenUnderCursor",
+		config = function()
+			local status_ok, url_open = pcall(require, "url-open")
+			if not status_ok then
+				return
+			end
+			url_open.setup ({})
+		end,
 		keys = {
-			{
-				"git",
-				function()
-					local line = vim.fn.getline('.')
-					local projectName = string.gsub(line, '["\'{}, \t]', '')
-					vim.notify(
-						"Opening \"" .. projectName .. "\"",
-						vim.log.levels.INFO,
-						{ title = 'open-browser.vim' }
-					)
-					vim.cmd.OpenBrowser("https://github.com/" .. projectName)
-				end,
-				desc = 'Open browser for vim plugin under cursor.'
-			}
+			{ "gx", "<cmd>URLOpenUnderCursor<cr>", desc = "Open URL under cursor" },
 		},
 	},
 }
+
 local ok, localConfig = pcall(require, 'local_plugins')
 if ok then
 	config = vim.list_extend(config, localConfig)
@@ -917,6 +915,6 @@ require("lazy").setup(config)
 -- vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme slate]]
 -- vim.cmd[[colorscheme zephyr]]
--- vim.cmd[[colorscheme cyberdream]]
-vim.cmd[[colorscheme bamboo]]
+vim.cmd[[colorscheme cyberdream]]
+-- vim.cmd[[colorscheme bamboo]]
 
