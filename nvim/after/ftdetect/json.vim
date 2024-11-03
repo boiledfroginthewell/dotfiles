@@ -1,2 +1,2 @@
-autocmd BufRead,BufNewFile .json set ft=json5
+autocmd BufRead,BufNewFile *vscode/*.json, set ft=jsonc
 

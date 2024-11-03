@@ -742,7 +742,13 @@ local config = {
 			-- customizations
 			local cmp = require('cmp')
 			local cmp_action = require('lsp-zero').cmp_action()
-			vim.keymap.set('n', '<F1>', ':lua vim.lsp.buf.hover()<cr>')
+			vim.keymap.set('n', '<F1>', function ()
+				if #vim.diagnostic.get(0, {lnum=vim.api.nvim_win_get_cursor(0)[1]}) ~= 0 then
+					vim.diagnostic.open_float()
+				else
+					vim.lsp.buf.hover()
+				end
+			end)
 			cmp.setup {
 				sources = {
 					-- nvim/lua
