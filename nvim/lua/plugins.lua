@@ -16,18 +16,6 @@ local config = {
 		config = true,
 	},
 
-	{'Exafunction/codeium.vim',
-		event = 'BufEnter',
-		enabled = vim.fn.has('mac') == 0,
-		config = function ()
-			vim.g.codeium_filetypes = {
-				sh = false,
-			}
-			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-			vim.keymap.set("i", "<C-i>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-		end
-	},
-
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -75,6 +63,9 @@ local config = {
 			}
 		},
 	},
+
+	-- Neovim plugin to improve the default vim.ui interfaces 
+	'stevearc/dressing.nvim',
 
 	-- Basic Editing Plugins
 	-- =========================
@@ -625,6 +616,18 @@ local config = {
 			{ "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" } },
 			{ "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" } },
 		},
+	},
+
+	{'Exafunction/codeium.vim',
+		event = 'BufEnter',
+		enabled = vim.fn.has('mac') == 0,
+		config = function ()
+			vim.g.codeium_filetypes = {
+				sh = false,
+			}
+			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<C-i>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+		end
 	},
 
 	-- " 🚀 Run Async Shell Commands in Vim 8.0 / NeoVim and Output to the Quickfix Window !!
