@@ -104,6 +104,10 @@
     "editor.insertSpaces": false
   },
 
+  "[yaml]": {
+    "editor.formatOnType": true,
+  },
+
   // HTML / JSX
   "auto-close-tag.SublimeText3Mode": true,
   "auto-close-tag.enableAutoCloseSelfClosingTag": true,
