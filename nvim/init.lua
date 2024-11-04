@@ -75,19 +75,30 @@ vim.keymap.set("n", "<a-v>", "\"+P")
 vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
 vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
 
-function splitWezRun()
-	vim.cmd[[:w]]
-	local paneId
-	if not vim.g.splitWezRunPaneId then
-		-- paneId = io.popen("wezterm cli split-pane --bottom --percent 30; wezterm cli activate-pane"):read()
-		paneId = io.popen("wezterm cli split-pane --bottom --percent 30"):read()
-		vim.g.splitWezRunPaneId = paneId
-	else
-		paneId = vim.g.splitWezRunPaneId
-		io.popen("echo '!!\r\n' | wezterm cli send-text --no-paste --pane-id " .. paneId)
+local function splitWezRun()
+	vim.cmd[[:update]]
+	local paneId = io.popen("wezterm cli get-pane-direction down"):read()
+	local command = vim.b.splitWezRun_command
+	local fileName = vim.fn.expand("%")
+	if not paneId then
+		io.popen("wezterm cli split-pane --bottom --percent 30; wezterm cli activate-pane")
+		if not command then
+			if vim.fn.fileexecutable(fileName) ~= 1 then
+				return
+			end
+			command = "'./" .. fileName .. "'"
+		end
 	end
+
+	if command then
+		command = command:gsub("%%", vim.fn.expand("%")):gsub("'", "\\'")
+	else
+		command = "!!"
+	end
+	io.popen("echo -e '\\x15" .. command .. "\r\n' | wezterm cli send-text --no-paste --pane-id " .. paneId)
 end
 vim.keymap.set("n", "<F5>", splitWezRun)
+
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
