@@ -745,13 +745,15 @@ local config = {
 			-- customizations
 			local cmp = require('cmp')
 			local cmp_action = require('lsp-zero').cmp_action()
-			vim.keymap.set('n', '<F1>', function ()
+			local diagnostic = function()
 				if #vim.diagnostic.get(0, {lnum=vim.api.nvim_win_get_cursor(0)[1]}) ~= 0 then
 					vim.diagnostic.open_float()
 				else
 					vim.lsp.buf.hover()
 				end
-			end)
+			end
+			vim.keymap.set('n', '<F1>', diagnostic)
+			vim.api.nvim_create_autocmd("CursorHold", { callback = function() vim.diagnostic.open_float() end})
 			cmp.setup {
 				sources = {
 					-- nvim/lua
