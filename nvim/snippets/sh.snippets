@@ -1,6 +1,6 @@
 snippet getopts "Parse arguments"
 	while getopts '${1:Options like f:h}' ARG; do
-		case $ARG in
+		case "\$ARG" in
 		${2:})
 			FILE=$OPTARG
 			;;
