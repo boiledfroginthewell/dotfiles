@@ -64,40 +64,24 @@ vim.keymap.set("n", "r", [["_r]])
 vim.keymap.set("n", "R", [["_R]])
 
 -- Clipboard
-vim.keymap.set("n", "<c-y>", "\"+P")
-vim.keymap.set("i", "<c-y>", "<C-r>+")
-vim.keymap.set("n", "<c-s-y>", "\"+p")
-vim.keymap.set("n", "<c-a-y>", "\"*P")
+local function paste(cmd)
+	return function ()
+		vim.opt.paste = true
+		vim.cmd.normal(cmd)
+		vim.opt.paste = false
+	end
+end
+-- vim.keymap.set("n", "<c-y>", paste)
+vim.keymap.set("n", "<c-y>", paste("\"+P"))
+vim.keymap.set("i", "<c-y>", paste("<C-r>+"))
+vim.keymap.set("n", "<c-s-y>", paste("\"+p"))
+vim.keymap.set("n", "<c-a-y>", paste("\"*P"))
 vim.keymap.set("n", "<c-c>", "\"+y")
 vim.keymap.set({"n", "v"}, "<a-c>", "\"+y")
-vim.keymap.set("n", "<a-v>", "\"+P")
+vim.keymap.set("n", "<a-v>", paste("\"+P"))
 
 vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
 vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
-
-local function splitWezRun()
-	vim.cmd[[:update]]
-	local paneId = io.popen("wezterm cli get-pane-direction down"):read()
-	local command = vim.b.splitWezRun_command
-	local fileName = vim.fn.expand("%")
-	if not paneId then
-		io.popen("wezterm cli split-pane --bottom --percent 30; wezterm cli activate-pane")
-		if not command then
-			if vim.fn.fileexecutable(fileName) ~= 1 then
-				return
-			end
-			command = "'./" .. fileName .. "'"
-		end
-	end
-
-	if command then
-		command = command:gsub("%%", vim.fn.expand("%")):gsub("'", "\\'")
-	else
-		command = "!!"
-	end
-	io.popen("echo -e '\\x15" .. command .. "\r\n' | wezterm cli send-text --no-paste --pane-id " .. paneId)
-end
-vim.keymap.set("n", "<F5>", splitWezRun)
 
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
@@ -145,4 +129,31 @@ vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 
 
 require("plugins")
+
+local bit = require("plenary.bit")
+local function splitWezRun()
+	vim.cmd[[:update]]
+	local paneId = io.popen("wezterm cli get-pane-direction down"):read()
+	local command = vim.b.splitWezRun_command
+	local fileName = vim.fn.expand("%")
+
+	if not paneId then
+		paneId = io.popen("wezterm cli split-pane --bottom --percent 30"):read()
+		if not command then
+			if bit.band(vim.uv.fs_stat(fileName).mode, 64) == 0  then
+				return
+			end
+			vim.cmd[[sleep 200m]]
+			command = "./'%'"
+		end
+	end
+
+	if command then
+		command = command:gsub("%%", vim.fn.expand("%")) -- :gsub("'", "\\'")
+	else
+		command = "!!"
+	end
+	io.popen("echo -e '\\x15" .. command .. "\\r\\n' | wezterm cli send-text --no-paste --pane-id " .. paneId)
+end
+vim.keymap.set("n", "<F5>", splitWezRun)
 

@@ -261,10 +261,10 @@ local config = {
 	},
 
 	-- Neovim motions on speed!
-	{ 'phaazon/hop.nvim',
-		branch = 'v2',
+	{ 'smoka7/hop.nvim',
+		version = "*",
 		config = function()
-			require('hop').setup()
+			require("hop").setup()
 			vim.api.nvim_set_hl(0, "HopNextKey2", { fg='#00c7e6', ctermfg=33, })
 		end,
 		opts = {
