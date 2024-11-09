@@ -2,6 +2,7 @@
 .neoconf.json
 .ignore
 lefthook-local.yml
+lefthook-local.yaml
 .lefthook-local/
 .lvimrc
 .task/

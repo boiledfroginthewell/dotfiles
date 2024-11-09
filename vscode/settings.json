@@ -6,6 +6,7 @@
   "editor.minimap.enabled": false,
   "editor.multiCursorModifier": "ctrlCmd",
   "editor.renderWhitespace": "boundary",
+  "editor.suggestSelection": "recentlyUsedByPrefix",
   "editor.suggest.selectionMode": "never",
   "editor.tabCompletion": "on",
   "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?_",
@@ -133,7 +134,7 @@
 
   // python
   "[python]": {
-    "editor.formatOnType": true,
+    "editor.formatOnType": false,
     "editor.defaultFormatter": "charliermarsh.ruff",
     "editor.formatOnSave": true,
     "notebook.codeActionsOnSave": {
@@ -142,6 +143,7 @@
       "source.organizeImports": "explicit"
     }
   },
+  "python.analysis.autoImportCompletions": true,
   "jupyter.askForKernelRestart": false,
   // "python.analysis.typeCheckingMode": "basic",
   "jupyter.notebookFileRoot": "${workspaceFolder}",
@@ -159,5 +161,6 @@
       "**/*workflow*.yaml"
     ]
   },
+  "vscodemacros.macroFilePath": "{XDG_CONFIG_HOME}/Code/User/macros/index.js",
 
 }

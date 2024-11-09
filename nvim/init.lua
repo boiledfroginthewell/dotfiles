@@ -110,6 +110,13 @@ augroup myvimrc
 augroup END
 ]])
 
+-- https://github.com/neovim/nvim-lspconfig/issues/3144#issuecomment-2102626442
+vim.filetype.add({
+  extension = {
+    env = 'env',
+  },
+})
+
 -- Notify WezTerm that nvim is started.
 -- https://www.reddit.com/r/neovim/comments/1fqjltg/change_wezterm_font_when_entering_and_exiting/
 local init_lua_group = vim.api.nvim_create_augroup('wezterm', {clear = true})
