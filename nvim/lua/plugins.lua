@@ -9,7 +9,18 @@ local config = {
 	{'glepnir/zephyr-nvim', priority = 1000, lazy = true},
 	{'ChristianChiarulli/nvcode-color-schemes.vim', priority = 1000, lazy = true},
 	{'ribru17/bamboo.nvim', priority = 1000, lazy = true},
-	{"scottmckendry/cyberdream.nvim", priority = 1000, lazy = true},
+	{"scottmckendry/cyberdream.nvim",
+		priority = 1000,
+		lazy = true,
+		opts = {
+			borderless_telescope = false,
+			theme = {
+				highlights = {
+					Comment = { fg = "#91FFFE", bg = "NONE", italic = true },
+				}
+			},
+		},
+	},
 	{"Mofiqul/vscode.nvim", priority = 1000, lazy = true},
 
 	{'levouh/tint.nvim',
@@ -64,7 +75,7 @@ local config = {
 		},
 	},
 
-	-- Neovim plugin to improve the default vim.ui interfaces 
+	-- Neovim plugin to improve the default vim.ui interfaces
 	'stevearc/dressing.nvim',
 
 	-- Basic Editing Plugins
@@ -881,7 +892,7 @@ local config = {
 			require('tiny-code-action').setup()
 		end,
 		keys = {
-			{ "<leader>ca", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Code Action" },
+			{ "<leader>a", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Code Action" },
 			{ "<F4>", "<cmd>lua require('tiny-code-action').code_action()<cr>", desc = "Code Action" },
 		},
 	},
@@ -925,6 +936,7 @@ require("lazy").setup(config)
 
 -- vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme slate]]
+-- vim.cmd[[hi Comment guifg=#90FFaF]]
 -- vim.cmd[[colorscheme zephyr]]
 vim.cmd[[colorscheme cyberdream]]
 -- vim.cmd[[colorscheme bamboo]]

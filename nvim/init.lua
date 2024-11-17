@@ -23,9 +23,6 @@ vim.opt.tabstop = 4
 vim.opt.expandtab = false
 vim.opt.smartindent = true
 
-vim.opt.viminfo:append("'0")
-vim.opt.viminfo:remove("'100")
-
 -- Key mappings
 vim.g.mapleader = ","
 
@@ -67,13 +64,16 @@ vim.keymap.set("n", "R", [["_R]])
 local function paste(cmd)
 	return function ()
 		vim.opt.paste = true
-		vim.cmd.normal(cmd)
+		vim.api.nvim_feedkeys(cmd, "n", true)
 		vim.opt.paste = false
 	end
 end
+
+local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
 -- vim.keymap.set("n", "<c-y>", paste)
 vim.keymap.set("n", "<c-y>", paste("\"+P"))
-vim.keymap.set("i", "<c-y>", paste("<C-r>+"))
+vim.keymap.set("i", "<c-y>", paste(ctrl_r .. "+"))
+vim.keymap.set("i", "<a-v>", paste(ctrl_r .. "+"))
 vim.keymap.set("n", "<c-s-y>", paste("\"+p"))
 vim.keymap.set("n", "<c-a-y>", paste("\"*P"))
 vim.keymap.set("n", "<c-c>", "\"+y")
@@ -86,11 +86,15 @@ vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
+vim.keymap.set("n", "g<space>add", ":!git add %<CR>", {silent=true})
+
 vim.cmd([[
 augroup myvimrc
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
+	autocmd!
+	autocmd QuickFixCmdPost [^l]* cwindow
+	autocmd QuickFixCmdPost l*    lwindow
+
+	autocmd VimEnter * silent! delmarks!
 augroup END
 ]])
 
@@ -103,17 +107,17 @@ vim.filetype.add({
 
 -- Notify WezTerm that nvim is started.
 -- https://www.reddit.com/r/neovim/comments/1fqjltg/change_wezterm_font_when_entering_and_exiting/
-local init_lua_group = vim.api.nvim_create_augroup('wezterm', {clear = true})
+local wezterm_group = vim.api.nvim_create_augroup('wezterm', {clear = true})
 vim.api.nvim_create_autocmd(
 	{ "VimEnter", "VimResume" }, {
-		group = init_lua_group,
+		group = wezterm_group,
 		callback = function()
 			io.write("\027]1337;SetUserVar=WEZTERM_PROG=bnZpbQ==\a")
 		end,
 })
 vim.api.nvim_create_autocmd(
 	{ "VimLeave", "VimSuspend" }, {
-		group = init_lua_group,
+		group = wezterm_group,
 		callback = function()
 			io.write("\027]1337;SetUserVar=WEZTERM_PROG=\a")
 		end,

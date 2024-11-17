@@ -60,8 +60,8 @@ noremap g<c-]> <c-]>
 noremap <c-}> <C-T>
 
 " Clipboard
-noremap <C-y> "+P
-inoremap <C-y> <C-r>+
+"noremap <C-y> "+P
+"inoremap <C-y> <C-r>+
 noremap <C-A-y> "*P
 vnoremap <C-c> "+y
 
