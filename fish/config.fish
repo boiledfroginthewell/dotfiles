@@ -21,6 +21,7 @@ type -q hub && alias git hub
 alias gg="git forest --all | less -p"
 alias t=task
 alias d=docker
+alias tf=terraform
 if type -q docker-compose
 	alias dc=docker-compose
 else if type -q docker
