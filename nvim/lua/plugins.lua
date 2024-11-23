@@ -25,6 +25,16 @@ local config = {
 
 	{'levouh/tint.nvim',
 		config = true,
+		opts = {
+			tint = -50,
+			saturation = 0.5
+		}
+	},
+
+	-- Make your nvim window separators colorful
+	{ "nvim-zh/colorful-winsep.nvim",
+		config = true,
+		event = { "WinLeave" },
 	},
 
 	-- Indent guides for Neovim
