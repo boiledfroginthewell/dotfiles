@@ -8,11 +8,11 @@ function g --wrap $_GIT
 	else if [ "$argv[1]" = "cd" ]
 		set worktrees (git worktree list)
 		if [ (count $worktrees) = 2 ]
-			cd (
+			cd "$(
 				printf "%s\n" $worktrees \
 				| cut -d " " -f 1 \
-				| grep -v (git rev-parse --show-toplevel)
-			)
+				| grep -Ev "^$(git rev-parse --show-toplevel)\$"
+			)"
 			return
 		end
 		set worktree (printf "%s\n" $worktrees | fzf | choose 0)
