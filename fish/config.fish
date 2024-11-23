@@ -18,7 +18,7 @@ alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user kmonad"
 alias pppp="systemctl restart --user kmonad"
 type -q hub && alias git hub
-alias gg="git forest --all | less -p"
+alias gg="git forest --exclude=refs/stash --pretty='format:%s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' '--date=format-local:%Y-%m-%d %H:%M' --color=always | less -p"
 alias t=task
 alias d=docker
 alias tf=terraform
