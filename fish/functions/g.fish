@@ -1,10 +1,8 @@
-set _GIT (nvl -c hub git)
-
-function g --wrap $_GIT
+function g --wrap git
 	if [ -z "$argv" -o "$argv[1]" = "--" ]
-		$_GIT status $argv
+		git status $argv
 	else if [ "$argv[1]" = "-" ]
-		$_GIT switch $argv
+		git switch $argv
 	else if [ "$argv[1]" = "cd" ]
 		set worktrees (git worktree list)
 		if [ (count $worktrees) = 2 ]
@@ -23,13 +21,22 @@ function g --wrap $_GIT
 		else
 			git forgit add $argv[2..]
 		end
-	else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
-		$_GIT pr checkout $argv[3..]
+ 	else if [ "$argv[1]" = "add" ] && [ (count $argv) = 1 ]
+		forgit::add
 	else if [ "$argv[1]" = "switch" ] && [ (count $argv) = 1 ]
-		set branch ($_GIT branch -a --color | fzf | cut -c 3-)
-		set -q branch && g switch "$branch"
+		set branch (git branch -a --color | fzf | cut -c 3-)
+		set -q branch && git switch "$branch"
+	else if [ "$argv[1]" = "switch" ] && string match -qr "$argv[2]" '^\\d+$'
+		gh pr checkout $argv[2]
+	else if [ "$argv[1]" = "sync" ]
+		git-sync
+	#else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
+	#	gh pr checkout $argv[3..]
+	else if string match -qr "$argv[1]" '^auth|api|browse|gist|pr|release|repo$'
+		gh $argv[1..]
+	else if [ "$argv[1]" = "open" ]
+		gh browse
 	else
-		$_GIT $argv
+		git $argv
 	end
 end
-

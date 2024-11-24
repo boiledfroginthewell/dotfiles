@@ -1,0 +1,28 @@
+#!/bin/bash
+set -eu -o pipefail
+
+heading() {
+	tput setaf 6
+	echo "$@"
+	tput sgr0
+}
+
+git fetch -p --progress
+
+tab="%09"
+git for-each-ref --format="%(refname:short)$tab%(upstream:short)$tab%(worktreepath)" refs/heads \
+	| while read -r line; do
+		set -- $line
+		localBranch="$1"
+		remoteBranch="${2:-}"
+		worktree="${3:-}"
+		if [ -z "$remoteBranch" ]; then
+			continue
+		fi
+		if [ -n "${worktree:-}" ] && [ "${worktree:-}" != "$(git rev-parse --show-toplevel)" ]; then
+			continue
+		fi
+
+		heading "Sync $remoteBranch --> $localBranch:"
+		git push . "$remoteBranch" "$localBranch" --no-verify
+	done
