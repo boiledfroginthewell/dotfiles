@@ -1,5 +1,0 @@
-#!/bin/zsh
-
-source "${ZPLUG_HOME}/repos/wfxr/forgit/forgit.plugin.zsh"
-forgit::add "$@"
-
