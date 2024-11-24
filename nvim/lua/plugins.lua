@@ -403,33 +403,6 @@ local config = {
 		end,
 	},
 
-	{'nvim-tree/nvim-tree.lua',
-		dependencies = {"nvim-tree/nvim-web-devicons"},
-		init = function()
-			vim.g.loaded_netrw = 1
-			vim.g.loaded_netrwPlugin = 1
-			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowClosed", { fg = "grey"})
-			vim.api.nvim_set_hl(0, "NvimTreeFolderArrowOpen", { fg = "gray" })
-		end,
-		keys = {
-			{ '<leader>e', '<cmd>NvimTreeFindFileToggle<cr>', desc = 'Nvim-Tree' },
-		},
-		config = true,
-		opts = {
-			renderer = {
-				icons = {
-					glyphs = {
-						folder = {
-							arrow_closed = "⮞",
-							arrow_open = "⮟",
-						},
-					},
-				},
-			},
-		},
-		enabled = false,
-	},
-
 	{ "nvim-neo-tree/neo-tree.nvim",
 		branch = "v2.x",
 		dependencies = {
@@ -455,7 +428,6 @@ local config = {
 			{ '<c-b>', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 		},
-		-- enabled = false,
 	},
 
 	-- fzf heart lua
@@ -477,16 +449,20 @@ local config = {
 			}))
 		end,
 		keys = {
-			{ "<leader>,", function()
-				local fzf = require('fzf-lua')
-				local files = {}
-				for _, v in ipairs(vim.v.oldfiles) do
-					if not string.find(v, '^term://') and not string.find(v, '^/tmp/') then
-						table.insert(files, v)
+			{
+				"<leader>,",
+				function()
+					local fzf = require('fzf-lua')
+					local files = {}
+					for _, v in ipairs(vim.v.oldfiles) do
+						if not string.find(v, '^term://') and not string.find(v, '^/tmp/') then
+							table.insert(files, v)
+						end
 					end
-				end
-				return fzf.files({ cmd = '( echo -e "' .. table.concat(files, '\n') .. '"; fzf-default-command | grep -Ev "/\\$") | awk "!x[\\$0]++" ' })
-			end, desc = 'Any Files' },
+					return fzf.files({ cmd = '( echo -e "' .. table.concat(files, '\n') .. '"; fzf-default-command | grep -Ev "/\\$") | awk "!x[\\$0]++" ' })
+				end,
+				desc = 'Any Files'
+			},
 			{ "<leader>p", ":lua require('fzf-lua').files()<cr>",        desc = 'Files' },
 			{ "<leader>b", ":lua require('fzf-lua').buffers()<cr>",      desc = 'Buffers' },
 			{ "<leader>r", ":lua require('fzf-lua').grep_project()<cr>", desc = 'Ripgrep' },
