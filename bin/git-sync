@@ -23,6 +23,18 @@ git for-each-ref --format="%(refname:short)$tab%(upstream:short)$tab%(worktreepa
 			continue
 		fi
 
-		heading "Sync $remoteBranch --> $localBranch:"
-		git push . "$remoteBranch" "$localBranch" --no-verify
+		if ! [[ "$remoteBranch" =~ origin/* ]]; then
+			continue
+		fi
+		if git ls-remote --exit-code origin "${remoteBranch#origin/}" &> /dev/null; then
+			heading "Sync $remoteBranch --> $localBranch"
+			if [ "$localBranch" = "$(git rev-parse --abbrev-ref HEAD)" ]; then
+				git merge "$remoteBranch" --ff-only --no-verify
+			else
+				git push . "$remoteBranch":"$localBranch" --no-verify || true
+			fi
+		else
+			heading "Deleting $localBranch"
+			git branch -d "$localBranch" || true
+		fi
 	done

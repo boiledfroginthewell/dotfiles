@@ -11,6 +11,7 @@ hoge
 foo
 bar
 .env*.local
+.terraform
 
 .DS_Store
 

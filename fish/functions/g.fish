@@ -26,7 +26,7 @@ function g --wrap git
 	else if [ "$argv[1]" = "switch" ] && [ (count $argv) = 1 ]
 		set branch (git branch -a --color | fzf | cut -c 3-)
 		set -q branch && git switch "$branch"
-	else if [ "$argv[1]" = "switch" ] && string match -qr "$argv[2]" '^\\d+$'
+	else if [ "$argv[1]" = "switch" ] && string match -qr -- "$argv[2]" '^\\d+$'
 		gh pr checkout $argv[2]
 	else if [ "$argv[1]" = "sync" ]
 		git-sync
