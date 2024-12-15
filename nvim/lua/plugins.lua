@@ -457,20 +457,20 @@ local config = {
 			}))
 		end,
 		keys = {
-			{
-				"<leader>,",
-				function()
-					local fzf = require('fzf-lua')
-					local files = {}
-					for _, v in ipairs(vim.v.oldfiles) do
-						if not string.find(v, '^term://') and not string.find(v, '^/tmp/') then
-							table.insert(files, v)
-						end
-					end
-					return fzf.files({ cmd = '( echo -e "' .. table.concat(files, '\n') .. '"; fzf-default-command | grep -Ev "/\\$") | awk "!x[\\$0]++" ' })
-				end,
-				desc = 'Any Files'
-			},
+			-- {
+			-- 	"<leader>,",
+			-- 	function()
+			-- 		local fzf = require('fzf-lua')
+			-- 		local files = {}
+			-- 		for _, v in ipairs(vim.v.oldfiles) do
+			-- 			if not string.find(v, '^term://') and not string.find(v, '^/tmp/') then
+			-- 				table.insert(files, v)
+			-- 			end
+			-- 		end
+			-- 		return fzf.files({ cmd = '( echo -e "' .. table.concat(files, '\n') .. '"; fzf-default-command | grep -Ev "/\\$") | awk "!x[\\$0]++" ' })
+			-- 	end,
+			-- 	desc = 'Any Files'
+			-- },
 			{ "<leader>p", ":lua require('fzf-lua').files()<cr>",        desc = 'Files' },
 			{ "<leader>b", ":lua require('fzf-lua').buffers()<cr>",      desc = 'Buffers' },
 			{ "<leader>r", ":lua require('fzf-lua').grep_project()<cr>", desc = 'Ripgrep' },
@@ -493,6 +493,24 @@ local config = {
 		-- 	end)()
 		-- 	vim.keymap.set('n', '<leader>,', action)
 		-- end,
+	},
+
+	{
+		"danielfalk/smart-open.nvim",
+		branch = "0.2.x",
+		config = function()
+			require("telescope").load_extension("smart_open")
+		end,
+		dependencies = {
+			"kkharji/sqlite.lua",
+			-- Only required if using match_algorithm fzf
+			-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
+			-- { "nvim-telescope/telescope-fzy-native.nvim" },
+		},
+		keys = {
+			{ "<leader>,", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
+		},
 	},
 
 	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.
