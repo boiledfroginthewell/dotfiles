@@ -528,6 +528,8 @@ local config = {
 		},
 	},
 
+	"tpope/vim-fugitive",
+
 	{ 'sbdchd/vim-shebang',
 		init = function()
 			vim.g["shebang#shebangs"] = {
