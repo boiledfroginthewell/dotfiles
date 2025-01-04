@@ -22,6 +22,9 @@ git for-each-ref --format="%(refname:short)$tab%(upstream:short)$tab%(worktreepa
 		if [ -n "${worktree:-}" ] && [ "${worktree:-}" != "$(git rev-parse --show-toplevel)" ]; then
 			continue
 		fi
+		if [ "$(git rev-parse "$localBranch")" = "$(git rev-parse "$remoteBranch")" ]; then
+			continue
+		fi
 
 		if ! [[ "$remoteBranch" =~ origin/* ]]; then
 			continue
