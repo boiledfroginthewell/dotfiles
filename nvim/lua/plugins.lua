@@ -22,6 +22,8 @@ local config = {
 		},
 	},
 	{"Mofiqul/vscode.nvim", priority = 1000, lazy = true},
+	{"idbrii/vim-sandydune", priority = 1000, lazy = true},
+	{"rose-pine/neovim", priority = 1000, lazy = true},
 
 	{'levouh/tint.nvim',
 		config = true,
@@ -273,7 +275,9 @@ local config = {
 		lazy = false,
 		config = function ()
 			require("various-textobjs").setup {
-				useDefaultKeymaps = true,
+				keymaps = {
+					useDefaults = true,
+				},
 			}
 
 			vim.keymap.set(
