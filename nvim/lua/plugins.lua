@@ -167,6 +167,22 @@ local config = {
 		},
 	},
 
+	{
+		'stevearc/oil.nvim',
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {
+			keymaps = {
+				['<BS>'] = { "actions.parent", mode = "n" },
+				['<C-s>'] = { ":w<CR>", mode = "n" },
+			},
+		},
+		-- Optional dependencies
+		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+		lazy = false,
+	},
+
 	-- A neovim plugin that jump to previous and next buffer of the jumplist.
 	{ 'kwkarlwang/bufjump.nvim',
 		opts = {
