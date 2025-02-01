@@ -501,14 +501,27 @@ local config = {
 
 	{
 		"danielfalk/smart-open.nvim",
-		branch = "0.2.x",
+		branch = "0.3.x",
 		config = function()
+			require("smart-open").setup({
+				match_algorithm = "fzf",
+				mappings = {
+					i = {
+						["<C-u>"] = function()
+							vim.api.nvim_input("<C-S-u>")
+						end,
+						-- ["<C-k>"] = function()
+						-- 	vim.api.nvim_input("<C-S-k>")
+						-- end,
+					}
+				},
+			})
 			require("telescope").load_extension("smart_open")
 		end,
 		dependencies = {
 			"kkharji/sqlite.lua",
 			-- Only required if using match_algorithm fzf
-			-- { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
 			-- { "nvim-telescope/telescope-fzy-native.nvim" },
 		},
@@ -835,7 +848,7 @@ local config = {
 			}
 		end
 	},
-
+	
 	{ 'nvim-treesitter/nvim-treesitter',
 		-- dependencies = {
 		-- 	'HiPhish/nvim-ts-rainbow2',
