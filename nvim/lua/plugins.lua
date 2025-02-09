@@ -13,11 +13,9 @@ local config = {
 		priority = 1000,
 		lazy = true,
 		opts = {
-			borderless_telescope = false,
-			theme = {
-				highlights = {
-					Comment = { fg = "#91FFFE", bg = "NONE", italic = true },
-				}
+			borderless_pickers = false,
+			highlights = {
+				Comment = { fg = "#91FFFE", bg = "NONE", italic = true },
 			},
 		},
 	},
