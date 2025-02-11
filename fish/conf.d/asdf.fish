@@ -1,15 +1,22 @@
 not status -i || status -c && exit
 
-if not set -q ASDF_DIF && test -e "$HOME/.asdf"
-	set -gx ASDF_DIR "$HOME/.asdf"
-end
 set -gx ASDF_DATA_DIR "$XDG_DATA_HOME/asdf"
 set -gx ASDF_CONFIG_FILE "$XDG_CONFIG_HOME/asdf/asdfrc"
 
-if type -q brew
-	source (brew --prefix asdf)/libexec/asdf.fish
+
+# https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
+
+# ASDF configuration code
+if test -z $ASDF_DATA_DIR
+    set _asdf_shims "$HOME/.asdf/shims"
 else
-	source "$ASDF_DIR"/asdf.fish
-	set -p fish_complete_path "$ASDF_DIR/completions"
+    set _asdf_shims "$ASDF_DATA_DIR/shims"
 end
+
+# Do not use fish_add_path (added in Fish 3.2) because it
+# potentially changes the order of items in PATH
+if not contains $_asdf_shims $PATH
+    set -gx --prepend PATH $_asdf_shims
+end
+set --erase _asdf_shims
 
