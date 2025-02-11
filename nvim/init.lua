@@ -113,6 +113,8 @@ vim.g['cheatsheet#state_cache_seconds'] = 4 * 60 * 60
 vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 
 require("copies/lazynvim")
+require("copies/lsp")
+require("lsp")
 require("wezterm-integration")
 
 -- vim.cmd[[highlight NonText guibg=none]]

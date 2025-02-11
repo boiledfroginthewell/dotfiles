@@ -39,6 +39,7 @@ return {
 		"chentoast/marks.nvim",
 		event = "VeryLazy",
 		opts = {},
+		-- enabled = false,
 	},
 
 	-- A vim plugin to perform diffs on blocks of code
@@ -275,7 +276,7 @@ return {
 				{silent = true, expr = true}
 			)
 		end,
-		enabled = false,
+		-- enabled = false,
 	},
 
 	-- Fast vertical navigation in Neovim using folds
@@ -296,6 +297,7 @@ return {
 			-- { "<C-k>", function() require("foldnav").goto_prev_end() end },
 			{ "<C-n>", function() require("foldnav").goto_end() end },
 		},
+		enabled = false,
 	},
 
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
@@ -442,7 +444,13 @@ return {
 			require("telescope").load_extension("smart_open")
 		end,
 		dependencies = {
+			{
+				"nvim-telescope/telescope.nvim",
+				branch = "0.1.x",
+				dependencies = { "nvim-lua/plenary.nvim" },
+			},
 			"kkharji/sqlite.lua",
+			"nvim-telescope/telescope-fzf-native.nvim",
 			-- Only required if using match_algorithm fzf
 			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy

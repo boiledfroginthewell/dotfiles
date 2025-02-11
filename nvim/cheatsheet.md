@@ -18,6 +18,7 @@ g<C-a/x> -- inc/dec sequence
 ,# -- :ShebangInsert
 <C-down> -- Accept Codeium Suggestion
 <C-t> -- tag peek
+za  -- fold
 
 ## Text Objects
 <Tab> -- Indent
@@ -27,9 +28,10 @@ W -- big word
 ## LSP
 <F2> -- Rename
 <F4> -- Code Actions
-gd -- Go to Definition
-gr -- Go to References
-gi -- Go to Implementations
+T  -- hover()
+gd -- definition()
+gr -- references()
+gi -- implementation()
 gs -- Signature Help
 go -- Organize Import
 
