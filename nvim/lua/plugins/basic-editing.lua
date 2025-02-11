@@ -38,7 +38,9 @@ return {
 	{
 		"chentoast/marks.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			default_mappings = false
+		},
 		-- enabled = false,
 	},
 
@@ -80,6 +82,10 @@ return {
 		---@module 'oil'
 		---@type oil.SetupOpts
 		opts = {
+			win_options = {
+				-- for oil-git-status
+				signcolumn = "yes:2"
+			},
 			keymaps = {
 				['<BS>'] = { "actions.parent", mode = "n" },
 				['<C-s>'] = { ":w<CR>", mode = "n" },
@@ -89,6 +95,13 @@ return {
 		dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
 		lazy = false,
+	},
+
+	{ "refractalize/oil-git-status.nvim",
+		dependencies = {
+			"stevearc/oil.nvim",
+		},
+		config = true,
 	},
 
 	-- A neovim plugin that jump to previous and next buffer of the jumplist.

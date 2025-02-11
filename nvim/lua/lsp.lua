@@ -41,6 +41,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			return orig_util_open_floating_preview(contents, syntax, opts, ...)
 		end
 		vim.keymap.set('n', 'T', '<cmd>lua vim.lsp.buf.hover()<cr>', keymapOpts)
+
+		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+			vim.lsp.handlers.hover, { focusable = false }
+		)
 	end
 })
 
