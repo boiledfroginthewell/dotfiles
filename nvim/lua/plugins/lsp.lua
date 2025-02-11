@@ -19,6 +19,7 @@ return {
 			pcall(vim.cmd, 'MasonUpdate')
 		end,
 		config = true,
+		enabled = false,
 	},
 	{ 'williamboman/mason-lspconfig',
 		opts = {
@@ -34,12 +35,20 @@ return {
 			},
 		},
 		after = {
-			'mason',
+		'mason',
 			'nvim-cmp',
 			'hrsh7th/cmp-nvim-lsp',
 		},
+		enabled = false,
 	},
 
+	{
+		"dundalek/lazy-lsp.nvim",
+		dependencies = { "neovim/nvim-lspconfig" },
+		opts = {
+			prefer_local = false
+		},
+	},
 
 	-- A completion plugin for neovim coded in Lua. 
 	{ 'hrsh7th/nvim-cmp',
