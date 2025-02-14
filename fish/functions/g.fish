@@ -5,7 +5,11 @@ function g --wrap git
 		git switch $argv
 	else if [ "$argv[1]" = "cd" ]
 		set worktrees (git worktree list)
-		if [ (count $worktrees) = 2 ]
+		set worktreeCount (count $worktrees)
+		if [ $worktreeCount = 1 ]
+			echo "Only one worktree" >&2
+			return 1
+		else if [ $worktreeCount = 2 ]
 			cd "$(
 				printf "%s\n" $worktrees \
 				| cut -d " " -f 1 \
@@ -28,10 +32,6 @@ function g --wrap git
 		set -q branch && git switch "$branch"
 	else if [ "$argv[1]" = "switch" ] && string match -qr -- "$argv[2]" '^\\d+$'
 		gh pr checkout $argv[2]
-	else if [ "$argv[1]" = "sync" ]
-		git-sync
-	#else if [ "$argv[1]" = "pr" ] && [ "$argv[2]" = "switch" ]
-	#	gh pr checkout $argv[3..]
 	else if string match -qr "$argv[1]" '^auth|api|browse|gist|pr|release|repo$'
 		gh $argv[1..]
 	else if [ "$argv[1]" = "open" ]
