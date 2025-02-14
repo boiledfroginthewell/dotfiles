@@ -21,7 +21,7 @@ while getopts 'ht:s' ARG; do
 done
 shift $(( OPTIND - 1 ))
 
-message=${1:-Done}
+message="${@:-Done}"
 
 osascript -e "display notification \"$message\" $title $sound"
 
