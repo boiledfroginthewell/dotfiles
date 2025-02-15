@@ -89,6 +89,7 @@ return {
 			keymaps = {
 				['<BS>'] = { "actions.parent", mode = "n" },
 				['<C-s>'] = { ":w<CR>", mode = "n" },
+				['_'] = { "$", mode = "n" },
 			},
 		},
 		-- Optional dependencies
