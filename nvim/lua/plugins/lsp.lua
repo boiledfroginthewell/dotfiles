@@ -137,7 +137,8 @@ return {
 
 	-- 💫 Extensible UI for Neovim notifications and LSP progress messages. 
 	{ "j-hui/fidget.nvim",
-		opts = {}
+		event = "LspAttach",
+		opts = true
 	},
 
 	-- LSP signature hint as you type 

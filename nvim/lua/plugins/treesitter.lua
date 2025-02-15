@@ -35,6 +35,7 @@ return {
 	{ 'HiPhish/rainbow-delimiters.nvim' },
 
 	{ 'nvim-treesitter/nvim-treesitter-textobjects',
+		event = "VeryLazy",
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
 		main = 'nvim-treesitter.configs',
 		opts = {

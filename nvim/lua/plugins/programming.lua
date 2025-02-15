@@ -22,7 +22,9 @@ return {
 		},
 	},
 
-	"tpope/vim-fugitive",
+	{ "tpope/vim-fugitive",
+		event = "VeryLazy",
+	},
 
 	{ 'sbdchd/vim-shebang',
 		init = function()
@@ -78,6 +80,7 @@ return {
 	},
 
 	{ "dgagn/diagflow.nvim",
+		event = "LspAttach",
 		opts = {
 			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
 				error = "DiagnosticFloatingError",
@@ -92,6 +95,7 @@ return {
 	},
 
 	{ 'chaoren/vim-wordmotion',
+		event = "VeryLazy",
 		init = function()
 			vim.g.wordmotion_nomap = 1
 			vim.g.wordmotion_spaces = '_-.'
@@ -107,7 +111,6 @@ return {
 			{ "gw", "w" },
 			{ "gb", "b" },
 		},
-		lazy = false,
 	},
 
 	-- enhanced increment/decrement plugin for Neovim. 

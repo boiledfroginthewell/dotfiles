@@ -8,7 +8,9 @@ return {
 	},
 
 	-- Vim plugin: Make blockwise Visual mode more useful
-	'kana/vim-niceblock',
+	{ 'kana/vim-niceblock',
+		event = "VeryLazy",
+	},
 
 	-- Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
 	'ConradIrwin/vim-bracketed-paste',
@@ -50,6 +52,7 @@ return {
 	},
 
 	{ "lewis6991/gitsigns.nvim",
+		event = "VeryLazy",
 		opts = {
 			-- signcolumn = true
 			signs = {
@@ -107,6 +110,7 @@ return {
 
 	-- A neovim plugin that jump to previous and next buffer of the jumplist.
 	{ 'kwkarlwang/bufjump.nvim',
+		event = "VeryLazy",
 		opts = {
 			forward = 'g<c-i>',
 			backward = 'g<c-o>',
@@ -131,6 +135,7 @@ return {
 		init = function()
 			vim.g.enable_spelunker_vim_on_readonly = 1
 			vim.g.spelunker_target_min_char_len = 3
+			vim.g.spelunker_check_type = 2
 		end,
 	},
 
@@ -210,6 +215,7 @@ return {
 	},
 
 	{"chrisgrieser/nvim-various-textobjs",
+		event = "VeryLazy",
 		lazy = false,
 		config = function ()
 			require("various-textobjs").setup {
@@ -316,13 +322,12 @@ return {
 
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
 	{'mrjones2014/smart-splits.nvim',
-		config = function ()
-			require('smart-splits').setup()
-			vim.keymap.set('n', '<A-Left>', require('smart-splits').move_cursor_left)
-			vim.keymap.set('n', '<A-Down>', require('smart-splits').move_cursor_down)
-			vim.keymap.set('n', '<A-Up>', require('smart-splits').move_cursor_up)
-			vim.keymap.set('n', '<A-Right>', require('smart-splits').move_cursor_right)
-		end
+		keys = {
+			{ '<A-Left>', function() require("smart-splits").move_cursor_left() end },
+			{ '<A-Down>', function() require("smart-splits").move_cursor_down() end },
+			{ '<A-Up>', function() require("smart-splits").move_cursor_up() end },
+			{ '<A-Right>', function() require("smart-splits").move_cursor_right() end },
+		},
 	},
 
 	{'kana/vim-submode',
@@ -485,7 +490,6 @@ return {
 	-- Minimal plugin allow you to open url under cursor in neovim without netrw with default browser of your system and highlight url
 	{
 		"sontungexpt/url-open",
-		event = "VeryLazy",
 		cmd = "URLOpenUnderCursor",
 		config = function()
 			local status_ok, url_open = pcall(require, "url-open")
