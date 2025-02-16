@@ -252,6 +252,18 @@ return {
 		keys = {
 			{ '-', '<cmd>HopWord<cr>' },
 		},
+		enabled = false,
+	},
+
+	{ "ggandor/leap.nvim",
+		init = function()
+			vim.api.nvim_set_hl(0, "LeapBackdroup", { fg='#00c7e6', })
+		end,
+		opts = {
+		},
+		keys = {
+			{ '-', '<plug>(leap)', mode = { 'n', 'v' } },
+		},
 	},
 
 	{ "rhysd/clever-f.vim",
