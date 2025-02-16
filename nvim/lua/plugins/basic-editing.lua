@@ -524,4 +524,8 @@ return {
 		},
 	},
 
+	-- Not UFO in the sky, but an ultra fold in Neovim.
+	{ "kevinhwang91/nvim-ufo",
+		event = "VeryLazy",
+	}
 }
