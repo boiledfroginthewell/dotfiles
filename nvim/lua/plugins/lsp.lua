@@ -46,7 +46,13 @@ return {
 		"dundalek/lazy-lsp.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
 		opts = {
-			prefer_local = false
+			excluded_servers = {},
+			preferred_servers = {
+				html = { "html" },
+				python = { "basedpyright", "ruff" },
+			},
+			-- prefer_local = false
+			prefer_local = true
 		},
 	},
 
@@ -138,7 +144,7 @@ return {
 	-- 💫 Extensible UI for Neovim notifications and LSP progress messages. 
 	{ "j-hui/fidget.nvim",
 		event = "LspAttach",
-		opts = true
+		opts = {}
 	},
 
 	-- LSP signature hint as you type 
@@ -153,6 +159,83 @@ return {
 	{ "kosayoda/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true }
+		},
+	},
+
+	-- Display references, definitions and implementations of document symbols
+	{ "Wansmer/symbol-usage.nvim",
+		event = "LspAttach",
+		-- config = true,
+		opts = function ()
+			local SymbolKind = vim.lsp.protocol.SymbolKind
+			---@type UserOpts
+			return {
+				hl = { link = "LspCodeLens" },
+				vt_position = "end_of_line",
+				kinds = {
+					SymbolKind.Class,
+					SymbolKind.Method,
+					SymbolKind.Field,
+					SymbolKind.Enum,
+					SymbolKind.Interface,
+					SymbolKind.Function,
+					SymbolKind.Constant,
+				},
+				request_pending_text = "󱤤",
+				text_format = function(symbol)
+					local fragments = {}
+
+					-- Indicator that shows if there are any other symbols in the same line
+					local stacked_functions = symbol.stacked_count > 0
+							and (' | +%s'):format(symbol.stacked_count)
+							or ''
+
+					if symbol.references then
+						table.insert(fragments, '' .. symbol.references)
+					end
+
+					return table.concat(fragments, ' ') .. stacked_functions
+				end
+			}
+		end
+	},
+
+	-- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
+	{
+		"folke/trouble.nvim",
+		opts = {},
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>xx",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (Trouble)",
+			},
+			{
+				"<leader>xX",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>cs",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>cl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>xL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>xQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
 		},
 	},
 }
