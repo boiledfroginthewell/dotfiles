@@ -59,7 +59,6 @@
   "oil-git-status.nvim": { "branch": "main", "commit": "293021c42f9d725981616c26c05964c7e5a88a08" },
   "oil.nvim": { "branch": "master", "commit": "7cde5aab10f564408e9ac349d457d755422d58cd" },
   "plenary.nvim": { "branch": "master", "commit": "857c5ac632080dba10aae49dba902ce3abf91b35" },
-  "pymple.nvim": { "branch": "main", "commit": "110cc9499b89f2b7230a0c3a7332b3e4b1ac5b7b" },
   "rainbow-delimiters.nvim": { "branch": "master", "commit": "011d98eaa3a73b5a51d82ce5bc6b1397dde95562" },
   "smart-open.nvim": { "branch": "0.3.x", "commit": "824f6482aea635fcefb90a02aabae14fa368c34f" },
   "smart-splits.nvim": { "branch": "master", "commit": "9d4f6b36553b417128f984fc10c7e47145d211bb" },
