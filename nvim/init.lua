@@ -63,7 +63,8 @@ vim.keymap.set("n", "R", [["_R]])
 -- Clipboard
 local function paste(cmd)
 	return function ()
-		vim.opt.paste = true
+		-- vim.opt.paste = true
+		vim.cmd[[:set paste]]
 		vim.api.nvim_feedkeys(cmd, "n", true)
 		vim.opt.paste = false
 	end
