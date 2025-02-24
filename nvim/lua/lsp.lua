@@ -1,9 +1,9 @@
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(event)
-		local keymapOpts = {buffer = event.buf}
+		local keymapOpts = { buffer = event.buf }
 
 		local diagnostic = function()
-			if #vim.diagnostic.get(0, {lnum=vim.api.nvim_win_get_cursor(0)[1]}) ~= 0 then
+			if #vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] }) ~= 0 then
 				vim.diagnostic.open_float()
 			else
 				vim.lsp.buf.hover()
@@ -25,14 +25,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 		-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization
 		local border = {
-			{"🭽", "FloatBorder"},
-			{"▔", "FloatBorder"},
-			{"🭾", "FloatBorder"},
-			{"▕", "FloatBorder"},
-			{"🭿", "FloatBorder"},
-			{"▁", "FloatBorder"},
-			{"🭼", "FloatBorder"},
-			{"▏", "FloatBorder"},
+			{ "🭽", "FloatBorder" },
+			{ "▔", "FloatBorder" },
+			{ "🭾", "FloatBorder" },
+			{ "▕", "FloatBorder" },
+			{ "🭿", "FloatBorder" },
+			{ "▁", "FloatBorder" },
+			{ "🭼", "FloatBorder" },
+			{ "▏", "FloatBorder" },
 		}
 		local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
 		function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
@@ -47,4 +47,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		)
 	end
 })
-
