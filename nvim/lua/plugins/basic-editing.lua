@@ -479,15 +479,23 @@ return {
 				"nvim-telescope/telescope.nvim",
 				branch = "0.1.x",
 				dependencies = { "nvim-lua/plenary.nvim" },
-				opts = {
-					defaults = {
-						sorting_strategy = "ascending",
-						layout_strategy = "horizontal",
-						layout_config = {
-							prompt_position = "top",
+				config = function()
+					local actions = require("telescope.actions")
+					require("telescope").setup{
+						defaults = {
+							sorting_strategy = "ascending",
+							layout_strategy = "horizontal",
+							layout_config = {
+								prompt_position = "top",
+							},
+							mappings = {
+								i = {
+									['<esc>'] = actions.close
+								}
+							}
 						}
 					}
-				},
+				end,
 			},
 			"kkharji/sqlite.lua",
 			"nvim-telescope/telescope-fzf-native.nvim",
