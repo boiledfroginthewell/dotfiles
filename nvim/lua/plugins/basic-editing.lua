@@ -256,11 +256,12 @@ return {
 	},
 
 	{ "ggandor/leap.nvim",
-		init = function()
-			vim.api.nvim_set_hl(0, "LeapBackdroup", { fg='#00c7e6', })
+		config = function(opts)
+			require("leap").setup(opts)
+			-- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg='#FFc7e6', })
+			vim.api.nvim_set_hl(0, "LeapBackdrop", { })
 		end,
-		opts = {
-		},
+		opts = {},
 		keys = {
 			{ '-', '<plug>(leap)', mode = { 'n', 'v' } },
 		},
