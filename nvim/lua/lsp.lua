@@ -11,6 +11,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 		vim.keymap.set('n', '<F1>', diagnostic, keymapOpts)
 
+		vim.keymap.set("n", "<c-s-f>", function() vim.lsp.buf.format { async = true } end, keymapOpts)
+
 		local signs = {
 			Error = "🔥",
 			Warn = "⚠️",
@@ -40,6 +42,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 			opts.border = opts.border or border
 			return orig_util_open_floating_preview(contents, syntax, opts, ...)
 		end
+
 		vim.keymap.set('n', 'T', '<cmd>lua vim.lsp.buf.hover()<cr>', keymapOpts)
 
 		vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(

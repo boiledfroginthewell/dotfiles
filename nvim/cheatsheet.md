@@ -9,7 +9,6 @@ f -- 文字手前ジャンプ (like j)
 */g* -- 単語検索／置換
 ^w{+-<>} -- リサイズ
 :'<,'>! -- Shellコマンド置換
-g<C-a/x> -- inc/dec sequence
 
 ## Programming
 <F5> -- :AsyncRun
@@ -28,12 +27,12 @@ W -- big word
 ## LSP
 <F2> -- Rename
 <F4> -- Code Actions
+<C-S-f> -- format
 T  -- hover()
 gd -- definition()
 gr -- references()
 gi -- implementation()
 gs -- Signature Help
-go -- Organize Import
 
 ## Git
 ,hs -- stage hunk

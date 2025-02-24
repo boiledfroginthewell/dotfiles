@@ -200,6 +200,22 @@ return {
 		end
 	},
 
+	{
+		'stevearc/conform.nvim',
+		opts = {
+			formatters_by_ft = {
+				python = {
+					"ruff_fix", "ruffformat", "ruff_organize_import"
+				},
+			},
+			format_on_save = {
+				-- These options will be passed to conform.format()
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			},
+		},
+	},
+
 	-- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
 	{
 		"folke/trouble.nvim",
