@@ -97,6 +97,7 @@ return {
 				disable_ft = {'python', 'yaml', 'md', 'markdown'},
 				-- highlight = 'SpecialKey',
 		},
+		enabled = false,
 	},
 
 	{ "dgagn/diagflow.nvim",

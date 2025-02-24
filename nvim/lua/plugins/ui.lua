@@ -81,7 +81,8 @@ return {
 				}
 			},
 			scope = {
-				enabled = true,
+				-- enabled = true,
+				enabled = false,
 				char = "▎",
 				show_start = true,
 			}
