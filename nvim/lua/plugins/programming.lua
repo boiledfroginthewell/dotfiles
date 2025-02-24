@@ -124,7 +124,8 @@ return {
 		keys = {
 			{ "e",  "<Plug>WordMotion_w" },
 			{ "w",  "<Plug>WordMotion_e" },
-			{ "b",  "<Plug>WordMotion_b" },
+			-- { "b",  "<Plug>WordMotion_b" },
+			{ "b",  "<Plug>WordMotion_ge" },
 			{ "e",  "<Plug>WordMotion_e", mode = { "o" } },
 			{ "w",  "<Plug>WordMotion_w", mode = { "o" } },
 			-- { "b",  "<Plug>WordMotion_b", mode = { "o" } },
