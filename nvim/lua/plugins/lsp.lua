@@ -56,14 +56,17 @@ return {
 		},
 	},
 
-	-- A completion plugin for neovim coded in Lua. 
-	{ 'hrsh7th/nvim-cmp',
+	-- A completion plugin for neovim coded in Lua.
+	{
+		'hrsh7th/nvim-cmp',
 		name = 'nvim-cmp',
 		dependencies = {
 			'onsails/lspkind.nvim',
-			{'saadparwaiz1/cmp_luasnip',
+			{
+				'saadparwaiz1/cmp_luasnip',
 				dependencies = {
-					{ "L3MON4D3/LuaSnip",
+					{
+						"L3MON4D3/LuaSnip",
 						version = "v2.*",
 						-- install jsregexp (optional!).
 						-- build = "make install_jsregexp"
@@ -76,7 +79,19 @@ return {
 					require("luasnip.loaders.from_snipmate").lazy_load()
 				end,
 			},
-			'hrsh7th/cmp-nvim-lsp',
+			{ 'hrsh7th/cmp-nvim-lsp',
+				after = { 'neovim/nvim-lspconfig' },
+				init = function()
+					-- Add cmp_nvim_lsp capabilities settings to lspconfig
+					-- This should be executed before you configure any language server
+					local lspconfig_defaults = require('lspconfig').util.default_config
+					lspconfig_defaults.capabilities = vim.tbl_deep_extend(
+						'force',
+						lspconfig_defaults.capabilities,
+						require('cmp_nvim_lsp').default_capabilities()
+					)
+				end,
+			},
 			'hrsh7th/cmp-buffer',
 			'delphinus/cmp-ctags',
 			'mtoohey31/cmp-fish',
@@ -96,7 +111,7 @@ return {
 					{ name = 'luasnip' },
 					{ name = 'treesitter' },
 					{ name = 'buffer' },
-					{ name = 'ctags'},
+					{ name = 'ctags' },
 				},
 				snippet = {
 					expand = function(args)
@@ -212,7 +227,20 @@ return {
 				-- These options will be passed to conform.format()
 				timeout_ms = 500,
 				lsp_format = "fallback",
+
+	{ "dgagn/diagflow.nvim",
+		event = "LspAttach",
+		opts = {
+			toggle_event = { "InsertEnter", "InsertLeave" },
+			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
+				error = "DiagnosticFloatingError",
+				warning = "DiagnosticFloatingWarn",
+				info = "DiagnosticFloatingInfo",
+				hint = "DiagnosticFloatingHint",
 			},
+			show_sign = true,
+			show_borders = true,
+			scope = "line",
 		},
 	},
 

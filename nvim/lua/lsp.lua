@@ -1,3 +1,5 @@
+require("copies/lsp")
+
 vim.api.nvim_create_autocmd('LspAttach', {
 	callback = function(event)
 		local keymapOpts = { buffer = event.buf }

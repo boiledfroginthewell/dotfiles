@@ -100,21 +100,6 @@ return {
 		enabled = false,
 	},
 
-	{ "dgagn/diagflow.nvim",
-		event = "LspAttach",
-		opts = {
-			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
-				error = "DiagnosticFloatingError",
-				warning = "DiagnosticFloatingWarn",
-				info = "DiagnosticFloatingInfo",
-				hint = "DiagnosticFloatingHint",
-			},
-			show_sign = true,
-			show_borders = true,
-			scope = "line",
-		},
-	},
-
 	{ 'chaoren/vim-wordmotion',
 		event = "VeryLazy",
 		init = function()
