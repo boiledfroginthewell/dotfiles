@@ -350,10 +350,10 @@ return {
 				callback = function ()
 					vim.cmd[[
 						let g:submode_keep_leaving_key=1
-						call submode#enter_with('tab', 'n', '', 'gt', 'gt')
-						call submode#enter_with('tab', 'n', '', 'gT', 'gT')
-						call submode#map('tab', 'n', '', 't', 'gt')
-						call submode#map('tab', 'n', '', 'T', 'gT')
+						call submode#enter_with('tab', 'n', '', 'gl', 'gt')
+						call submode#enter_with('tab', 'n', '', 'gL', 'gT')
+						call submode#map('tab', 'n', '', 'l', 'gt')
+						call submode#map('tab', 'n', '', 'L', 'gT')
 						call submode#enter_with('window', 'n', '', '<c-w>-', '<c-w>-')
 						call submode#enter_with('window', 'n', '', '<c-w>+', '<c-w>+')
 						call submode#enter_with('window', 'n', '', '<c-w><', '<c-w><')
@@ -407,6 +407,7 @@ return {
 			fzf.setup(vim.tbl_deep_extend('force', {}, fzf.defaults, {
 				actions = {
 					files = {
+						true,
 						['ctrl-e'] = function (selected)
 							-- copy selected to command line
 							local path = require "fzf-lua.path"
