@@ -12,36 +12,6 @@ return {
 		lazy = false,
 	},
 
-	-- Portable package manager for Neovim that runs everywhere Neovim runs. Easily install and manage LSP servers, DAP servers, linters, and formatters. 
-	{ 'williamboman/mason.nvim',
-		name = 'mason',
-		build = function()
-			pcall(vim.cmd, 'MasonUpdate')
-		end,
-		config = true,
-		enabled = false,
-	},
-	{ 'williamboman/mason-lspconfig',
-		opts = {
-			ensure_installed = {
-				'lua_ls', 'vimls',
-				'lemminx', 'jsonls', 'yamlls', 'taplo',
-				'bashls',
-			},
-			handlers = {
-				function(server_name)
-					require('lspconfig')[server_name].setup({})
-				end,
-			},
-		},
-		after = {
-		'mason',
-			'nvim-cmp',
-			'hrsh7th/cmp-nvim-lsp',
-		},
-		enabled = false,
-	},
-
 	{
 		"dundalek/lazy-lsp.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
