@@ -20,6 +20,7 @@ config.check_for_updates_interval_seconds = 90 * 24 * 3600
 config.warn_about_missing_glyphs = false
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
+config.scrollback_lines = 30000
 
 config.default_cursor_style = "SteadyBar"
 -- config.force_reverse_video_cursor = true
