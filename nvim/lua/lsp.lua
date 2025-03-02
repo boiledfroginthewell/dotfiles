@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		end
 		vim.keymap.set('n', '<F1>', diagnostic, keymapOpts)
 
-		vim.keymap.set("n", "<c-s-f>", function() vim.lsp.buf.format { async = true } end, keymapOpts)
+		vim.keymap.set("n", "<leader>f", function() vim.lsp.buf.format { async = true } end, keymapOpts)
 
 		local signs = {
 			Error = "🔥",

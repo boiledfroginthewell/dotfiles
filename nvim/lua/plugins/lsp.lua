@@ -193,10 +193,22 @@ return {
 					"ruff_fix", "ruffformat", "ruff_organize_import"
 				},
 			},
-			format_on_save = {
-				-- These options will be passed to conform.format()
-				timeout_ms = 500,
-				lsp_format = "fallback",
+			format_on_save = function(bufnr)
+				if vim.g.conform_enable_autoformat or vim.b[bufnr].conform_enable_autoformat then
+					return { timeout_ms = 500, lsp_format = "fallback" }
+				end
+			end,
+		},
+		keys = {
+			{
+				"<leader>f",
+				function()
+					require("conform").format({ async = true, lsp_format = "fallback" })
+				end,
+				desc = "Format File",
+			},
+		},
+	},
 
 	{ "dgagn/diagflow.nvim",
 		event = "LspAttach",

@@ -27,7 +27,7 @@ W -- big word
 ## LSP
 <F2> -- Rename
 <F4> -- Code Actions
-<C-S-f> -- format
+,f -- format
 T  -- hover()
 gd -- definition()
 gr -- references()
