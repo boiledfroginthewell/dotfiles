@@ -18,6 +18,7 @@ return {
 		opts = {
 			excluded_servers = {},
 			preferred_servers = {
+				gitcommit = {},
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
 			},

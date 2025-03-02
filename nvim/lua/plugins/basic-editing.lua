@@ -255,15 +255,32 @@ return {
 		enabled = false,
 	},
 
-	{ "ggandor/leap.nvim",
-		config = function(opts)
-			require("leap").setup(opts)
-			-- vim.api.nvim_set_hl(0, "LeapBackdrop", { fg='#FFc7e6', })
-			vim.api.nvim_set_hl(0, "LeapBackdrop", { })
-		end,
-		opts = {},
+	-- Navigate your code with search labels, enhanced character motions and Treesitter integration
+	{
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		---@type Flash.Config
+		opts = {
+			modes = {
+				search = {
+					enabled = true,
+				},
+				char = {
+					enabled = false,
+				}
+			},
+			label = {
+				rainbow = {
+					enabled = true,
+				}
+			},
+		},
+		-- stylua: ignore
 		keys = {
-			{ '-', '<plug>(leap)', mode = { 'n', 'v' } },
+			{ "-", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+			{ "g-", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+			-- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
 		},
 	},
 
