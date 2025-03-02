@@ -63,15 +63,15 @@ vim.keymap.set("n", "R", [["_R]])
 -- Clipboard
 local function paste(cmd)
 	return function ()
-		-- vim.opt.paste = true
-		vim.cmd[[:set paste]]
-		vim.api.nvim_feedkeys(cmd, "n", true)
-		vim.opt.paste = false
+		vim.opt.paste = true
+		vim.api.nvim_feedkeys(cmd, "nt", true)
+		vim.schedule(function()
+			vim.opt.paste = false
+		end)
 	end
 end
 
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
--- vim.keymap.set("n", "<c-y>", paste)
 vim.keymap.set("n", "<c-y>", paste("\"+P"))
 vim.keymap.set("i", "<c-y>", paste(ctrl_r .. "+"))
 vim.keymap.set("i", "<a-v>", paste(ctrl_r .. "+"))
