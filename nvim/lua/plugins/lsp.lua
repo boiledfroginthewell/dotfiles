@@ -224,6 +224,9 @@ return {
 			show_sign = true,
 			show_borders = true,
 			scope = "line",
+			format = function(diagnostic)
+				return string.format("%s [%s]", diagnostic.message, diagnostic.code)
+			end,
 		},
 	},
 
