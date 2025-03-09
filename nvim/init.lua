@@ -87,7 +87,8 @@ vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
 -- 検索ハイライトクリア
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
-vim.keymap.set("n", "g<space>add", ":!git add %<CR>", {silent=true})
+vim.keymap.set("n", "gadd", ":!git add %<CR>", {silent=true})
+vim.keymap.set("n", "gcommit", ":!Git commit<CR>", {silent=true})
 
 vim.cmd([[
 augroup myvimrc
