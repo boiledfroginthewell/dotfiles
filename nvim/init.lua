@@ -12,6 +12,7 @@ vim.opt.wildmode = "list:longest"
 vim.cmd("autocmd BufEnter * set formatoptions-=o")
 vim.opt.scrolloff = 0
 vim.opt.foldlevelstart = 99
+vim.opt.foldmethod = "indent"
 vim.opt.equalalways = false
 
 -- filename completion for dotenv files

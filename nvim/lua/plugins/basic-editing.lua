@@ -302,13 +302,17 @@ return {
 				},
 				char = {
 					enabled = false,
-				}
+				},
 			},
 			label = {
 				rainbow = {
 					enabled = true,
+					shade = 8
 				}
 			},
+			jump = {
+				autojump = true
+			}
 		},
 		-- stylua: ignore
 		keys = {

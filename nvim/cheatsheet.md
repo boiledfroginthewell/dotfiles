@@ -21,7 +21,7 @@ za  -- fold
 
 ## Text Objects
 <Tab> -- Indent
-b -- any bracket
+o -- any bracket
 W -- big word
 
 ## LSP
@@ -31,6 +31,7 @@ W -- big word
 T  -- hover()
 gd -- definition()
 gr -- references()
+gH -- call hierarchy
 gi -- implementation()
 gs -- Signature Help
 
