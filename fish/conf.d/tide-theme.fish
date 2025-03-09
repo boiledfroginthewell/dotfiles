@@ -26,7 +26,7 @@ set -g tide_git_bg_color_stash $tide_git_bg_color
 set -g tide_git_truncation_length 15
 
 set -g tide_jobs_color E69500
-set -g tide_jobs_icon \uf59f
+set -g tide_jobs_icon "\uf59f"
 
 set -g tide_kubectl_color 316CE6
 set -g tide_kubectl_bg_color d9d9d9

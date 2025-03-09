@@ -8,5 +8,5 @@ function myrc_help
 	end
 end
 
-bind F1 myrc_help
+bind f1 myrc_help
 

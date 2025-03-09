@@ -51,13 +51,13 @@ set -gx TIME_STYLE long-iso
 
 alias open=(nvl -c exo-open xdg-open start open)
 
-function cursor-kill-bigword
-	commandline -f kill-bigword
-	commandline -f backward-kill-bigword
+function cursor-kill-token
+	commandline -f kill-token
+	commandline -f backward-kill-token
 end
-bind \cw cursor-kill-bigword
-bind \et backward-bigword
-bind \eh forward-bigword
+bind \cw cursor-kill-token
+bind \et backward-token
+bind \eh forward-token
 bind \cj forward-jump
 bind \cf backward-jump
 bind \cz 'fg; commandline -f repaint'
