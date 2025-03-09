@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -u
+set -eu
 
 help() {
 	echo "$0 -e [pattern]"
@@ -45,7 +45,7 @@ if [ -z "${XDG_CONFIG_HOME}" ]; then
 	exit 1
 fi
 
-if [ $(uname -s) = Darwin ]; then
+if [ "$(uname -s)" = Darwin ]; then
 	export OS=mac
 elif [[ ${OS:-} = Windows_* ]]; then
 	export OS=win
@@ -91,7 +91,7 @@ for x in $(fd "\.install(\.$OS)?\.sh" --maxdepth 2 -H); do
 		continue
 	fi
 
-	if [ $(basename "$x") == .install.sh -a -e "$confname/.install.$OS.sh" ]; then
+	if [ "$(basename "$x")" == .install.sh ] && [ -e "$confname/.install.$OS.sh" ]; then
 		continue
 	fi
 	highlight "### Custom Installer found: $x"
