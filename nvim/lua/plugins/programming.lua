@@ -100,23 +100,16 @@ return {
 		enabled = false,
 	},
 
-	{ 'chaoren/vim-wordmotion',
-		event = "VeryLazy",
-		init = function()
-			vim.g.wordmotion_nomap = 1
-			vim.g.wordmotion_spaces = '_-.'
-		end,
+	-- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
+	{ "chrisgrieser/nvim-spider",
 		keys = {
-			{ "e",  "<Plug>WordMotion_w" },
-			{ "w",  "<Plug>WordMotion_e" },
-			-- { "b",  "<Plug>WordMotion_b" },
-			{ "b",  "<Plug>WordMotion_ge" },
-			{ "e",  "<Plug>WordMotion_e", mode = { "o" } },
-			{ "w",  "<Plug>WordMotion_w", mode = { "o" } },
-			-- { "b",  "<Plug>WordMotion_b", mode = { "o" } },
-			{ "ge", "e" },
-			{ "gw", "w" },
-			{ "gb", "b" },
+			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "x" } },
+			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "x" } },
+			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "x" } },
+			{ "e",
+				"<cmd>lua require('spider').motion('w', { skipInsignificantPunctuation = false })<CR>",
+				mode = { "o" }
+			},
 		},
 	},
 
