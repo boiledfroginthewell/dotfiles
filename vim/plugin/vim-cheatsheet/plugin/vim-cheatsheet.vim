@@ -109,6 +109,7 @@ function! s:open_cheat_sheet() abort
   set nocursorline
   set ft=cheatsheet
   set nobuflisted
+  set winfixbuf
   wincmd w
   return returnBufnr
 endfunction
