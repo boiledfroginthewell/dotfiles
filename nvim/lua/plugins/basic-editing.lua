@@ -29,6 +29,16 @@ return {
 		end,
 	},
 
+	{
+		'rmagatti/auto-session',
+		lazy = false,
+		---@module "auto-session"
+		---@type AutoSession.Config
+		opts = {
+			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
+		}
+	},
+
 	{ 'vim-scripts/ShowMarks',
 		init = function()
 			vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -128,6 +138,22 @@ return {
 	-- Better quickfix window in Neovim, polish old quickfix window.
 	{ "kevinhwang91/nvim-bqf",
 		ft = "qf",
+		init = function()
+			vim.api.nvim_set_hl(0, "BqfPreviewFloat", { bg = "#666666" })
+		end,
+		opts = {
+			preview = {
+				win_height = 8,
+			}
+		},
+	},
+
+	-- general key bindings for quickfix window
+	{ "wsdjeg/quickfix.nvim",
+		init = function()
+			vim.g.quickfix_mapping_delete = "kk"
+			vim.g.quickfix_mapping_visual_delete = "k"
+		end,
 	},
 
 	-- Improved vim spelling plugin (with camel case support)!
