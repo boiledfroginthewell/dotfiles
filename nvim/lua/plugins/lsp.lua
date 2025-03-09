@@ -231,11 +231,18 @@ return {
 	},
 
 	{
-    'lafarr/hierarchy.nvim',
+		'lafarr/hierarchy.nvim',
 		opts = {},
 		cmd = {
 			"FunctionReferences",
-		}
+		},
+		keys = {
+			{
+				"<leader>H",
+				":FunctionReferences<cr>",
+				desc = "Hierarchy",
+			},
+		},
 	},
 
 	-- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.

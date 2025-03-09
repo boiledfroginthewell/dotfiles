@@ -31,6 +31,7 @@ W -- big word
 T  -- hover()
 gd -- definition()
 gr -- references()
+gH -- call hierarchy
 gi -- implementation()
 gs -- Signature Help
 
