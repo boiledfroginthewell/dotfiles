@@ -76,6 +76,7 @@ return {
 		keys = {
 			{ "<F8>", ":TagbarToggle<CR>" },
 		},
+		lazy = false,
 	},
 
 	--  A neovim plugin for peeking at tag definitions using the `nvim_open_win` "floating window" feature.

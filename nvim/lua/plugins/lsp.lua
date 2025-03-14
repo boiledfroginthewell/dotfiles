@@ -195,7 +195,7 @@ return {
 				},
 			},
 			format_on_save = function(bufnr)
-				if vim.g.conform_enable_autoformat or vim.b[bufnr].conform_enable_autoformat then
+				if vim.g.conform_enable_autoformat == 1 or vim.b[bufnr].conform_enable_autoformat == 1 then
 					return { timeout_ms = 500, lsp_format = "fallback" }
 				end
 			end,
