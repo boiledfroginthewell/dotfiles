@@ -363,7 +363,7 @@ return {
 				{silent = true, expr = true}
 			)
 		end,
-		-- enabled = false,
+		enabled = false,
 	},
 
 	-- Fast vertical navigation in Neovim using folds
