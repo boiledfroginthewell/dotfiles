@@ -39,21 +39,19 @@ return {
 		}
 	},
 
-	{ 'vim-scripts/ShowMarks',
-		init = function()
-			vim.g.showmarks_include = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-		end,
-		enabled = false,
-	},
-
-	-- A better user experience for viewing and interacting with Vim marks. 
+	-- Better marks for Neovim 🏹📌
 	{
-		"chentoast/marks.nvim",
-		event = "VeryLazy",
+    '2kabhishek/markit.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
 		opts = {
-			default_mappings = false
+			mappings = {
+				set = false,
+				toggle_mark = "m"
+			},
 		},
-		-- enabled = false,
+		init = function()
+			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
+		end
 	},
 
 	-- A vim plugin to perform diffs on blocks of code
@@ -365,7 +363,7 @@ return {
 				{silent = true, expr = true}
 			)
 		end,
-		-- enabled = false,
+		enabled = false,
 	},
 
 	-- Fast vertical navigation in Neovim using folds

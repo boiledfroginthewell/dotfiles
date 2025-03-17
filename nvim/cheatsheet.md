@@ -21,7 +21,7 @@ za  -- fold
 
 ## Text Objects
 <Tab> -- Indent
-b -- any bracket
+o -- any bracket
 W -- big word
 
 ## LSP
