@@ -1,5 +1,26 @@
 ---@type LazySpec
 return {
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			quickfile = {},
+			input = {
+				win = {
+					relative = "cursor",
+					title_pos = "left",
+					width = 40,
+					keys = {
+						i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+					}
+				}
+			},
+			image = {},
+		},
+	},
+
 	-- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single.
 	{ 'rbtnn/vim-ambiwidth',
 		init = function()
@@ -464,6 +485,7 @@ return {
 	-- fzf heart lua
 	{'ibhagwan/fzf-lua',
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
 		config = function(lazy, opts)
 			local fzf = require('fzf-lua')
 			fzf.setup(vim.tbl_deep_extend('force', {}, fzf.defaults, {
@@ -479,6 +501,7 @@ return {
 					},
 				},
 			}))
+			fzf.register_ui_select()
 		end,
 		keys = {
 			-- {
