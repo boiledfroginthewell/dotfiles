@@ -41,14 +41,25 @@ return {
 
 	-- Better marks for Neovim 🏹📌
 	{
-    '2kabhishek/markit.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-		opts = {
-			mappings = {
-				set = false,
-				toggle_mark = "m"
-			},
-		},
+		'2kabhishek/markit.nvim',
+		event = { 'BufReadPre', 'BufNewFile' },
+		opts = function()
+			local opts = {
+				default_mappings = true,
+				mappings = {
+					set = false,
+					toggle_mark = "m",
+					delete = false,
+					delete_line = "km-",
+					delete_bookmark= "km=",
+					delete_buf = "km<space>",
+				},
+			}
+			for i = 0, 9 do
+				opts.mappings["delete_bookmark" .. i] = "km" .. i
+			end
+			return opts
+		end,
 		init = function()
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
 		end
