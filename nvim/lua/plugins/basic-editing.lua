@@ -306,9 +306,6 @@ return {
 		---@type Flash.Config
 		opts = {
 			modes = {
-				search = {
-					enabled = true,
-				},
 				char = {
 					enabled = false,
 				},
