@@ -127,6 +127,11 @@ return {
 					augend.integer.alias.hex,
 					augend.date.alias["%Y/%m/%d"],
 					augend.constant.alias.bool,
+					augend.constant.new {
+						elements = { "True", "False" },
+						word = true,
+						cyclic = true,
+					},
 					augend.semver.alias.semver,
 				},
 			}
