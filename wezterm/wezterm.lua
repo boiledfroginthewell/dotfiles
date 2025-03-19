@@ -27,7 +27,7 @@ config.default_cursor_style = "SteadyBar"
 
 -- config.color_scheme = 'Builtin Dark'
 config.color_scheme = 'Andromeda'
-config.font_size = 13.5
+config.font_size = 13.8
 config.colors = {
 	split = "#4444AA",
 	compose_cursor = "#000099",
