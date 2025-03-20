@@ -151,4 +151,15 @@ return {
 		enabled = vim.fn.has('mac') == 0,
 		cond = vim.fn.has('mac') == 0,
 	},
+
+	{ 'pwntester/octo.nvim',
+		deps = {
+			'nvim-lua/plenary.nvim',
+			'ibhagwan/fzf-lua',
+			'nvim-tree/nvim-web-devicons',
+		},
+		opts = {
+			github_hostname = "",
+		},
+	},
 }
