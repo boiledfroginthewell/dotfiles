@@ -15,6 +15,16 @@ vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "indent"
 vim.opt.equalalways = false
 
+vim.opt.list = true
+vim.opt.listchars = {
+	-- '␣', '⍽', "⋅"
+	lead = '⋅',
+	trail = '⋅',
+	-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
+	tab = '│ ',
+	nbsp = '▫',
+}
+
 -- filename completion for dotenv files
 vim.opt.isfname:remove("=")
 

@@ -103,7 +103,7 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 
 	local overrides = window:get_config_overrides() or {}
 	if value == "nvim" then
-		overrides.force_reverse_video_cursor = true
+		-- overrides.force_reverse_video_cursor = true
 		overrides.default_cursor_style = "SteadyBlock"
 	else
 		overrides = nil

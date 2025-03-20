@@ -18,6 +18,13 @@ return {
 				}
 			},
 			image = {},
+			indent = {
+				animate = {
+					duration = {
+						total = 200
+					}
+				}
+			},
 		},
 	},
 

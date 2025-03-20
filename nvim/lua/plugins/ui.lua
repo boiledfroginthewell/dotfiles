@@ -11,6 +11,7 @@ return {
 			borderless_pickers = false,
 			highlights = {
 				Comment = { fg = "#91FFFE", bg = "NONE", italic = true },
+				-- CursorLine = { bg = "NONE", underline = true},
 			},
 		},
 	},
@@ -42,6 +43,7 @@ return {
 
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
+		enabled = false,
 		main = "ibl",
 		init = function()
 			vim.opt.list = true
