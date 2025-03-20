@@ -57,6 +57,7 @@ return {
 		keys = {
 			{ "<leader>#", function()
 				vim.cmd(":ShebangInsert")
+				vim.cmd(":update")
 				vim.cmd(":! chmod u+x %")
 			end, desc = 'Shebang Insert' },
 		},

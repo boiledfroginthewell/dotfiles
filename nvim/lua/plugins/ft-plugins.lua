@@ -7,9 +7,6 @@ return {
 		ft = 'kbd',
 	},
 
-	-- ### YAML
-	{ 'pedrohdz/vim-yaml-folds', ft="yaml" },
-
 	-- ### Lua
 	-- Faster LuaLS setup for Neovim 
 	{
@@ -23,8 +20,5 @@ return {
 			-- },
 		},
 	},
-
-	-- ### Linux
-	-- 'wgwoods/vim-systemd-syntax',
 }
 
