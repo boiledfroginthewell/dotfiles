@@ -104,9 +104,9 @@ return {
 	-- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
 	{ "chrisgrieser/nvim-spider",
 		keys = {
-			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "x" } },
-			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "x" } },
-			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "x" } },
+			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "v" } },
+			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "v", "o" } },
+			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "v", "o" } },
 			{ "e",
 				"<cmd>lua require('spider').motion('w', { skipInsignificantPunctuation = false })<CR>",
 				mode = { "o" }

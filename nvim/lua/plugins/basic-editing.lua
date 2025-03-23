@@ -423,6 +423,21 @@ return {
 		enabled = false,
 	},
 
+	{
+		'aaronik/treewalker.nvim',
+		opts = {},
+		keys = {
+			{ "<C-t>", "<cmd>keepjumps Treewalker Up<cr>", { silent = true } },
+			{ "<C-h>", "<cmd>keepjumps Treewalker Down<cr>", { silent = true } },
+			{ "<C-d>", "<cmd>Treewalker Left<cr>", { silent = true } },
+			{ "<C-n>", "<cmd>Treewalker Right<cr>", { silent = true } },
+			{ "<C-S-t>", "<cmd>keepjumps Treewalker SwapUp<cr>", { silent = true } },
+			{ "<C-S-h>", "<cmd>keepjumps Treewalker SwapDown<cr>", { silent = true } },
+			{ "<C-S-d>", "<cmd>Treewalker SwapLeft<cr>", { silent = true } },
+			{ "<C-S-n>", "<cmd>Treewalker SwapRight<cr>", { silent = true } },
+		},
+	},
+
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
 	{'mrjones2014/smart-splits.nvim',
 		keys = {
