@@ -1,5 +1,33 @@
 ---@type LazySpec
 return {
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		---@type snacks.Config
+		opts = {
+			quickfile = {},
+			input = {
+				win = {
+					relative = "cursor",
+					title_pos = "left",
+					width = 40,
+					keys = {
+						i_esc = { "<esc>", { "cmp_close", "cancel" }, mode = "i", expr = true },
+					}
+				}
+			},
+			image = {},
+			indent = {
+				animate = {
+					duration = {
+						total = 200
+					}
+				}
+			},
+		},
+	},
+
 	-- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single.
 	{ 'rbtnn/vim-ambiwidth',
 		init = function()
@@ -41,14 +69,25 @@ return {
 
 	-- Better marks for Neovim 🏹📌
 	{
-    '2kabhishek/markit.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-		opts = {
-			mappings = {
-				set = false,
-				toggle_mark = "m"
-			},
-		},
+		'2kabhishek/markit.nvim',
+		event = { 'BufReadPre', 'BufNewFile' },
+		opts = function()
+			local opts = {
+				default_mappings = true,
+				mappings = {
+					set = false,
+					toggle_mark = "m",
+					delete = false,
+					delete_line = "km-",
+					delete_bookmark= "km=",
+					delete_buf = "km<space>",
+				},
+			}
+			for i = 0, 9 do
+				opts.mappings["delete_bookmark" .. i] = "km" .. i
+			end
+			return opts
+		end,
 		init = function()
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
 		end
@@ -295,9 +334,6 @@ return {
 		---@type Flash.Config
 		opts = {
 			modes = {
-				search = {
-					enabled = true,
-				},
 				char = {
 					enabled = false,
 				},
@@ -387,6 +423,21 @@ return {
 		enabled = false,
 	},
 
+	{
+		'aaronik/treewalker.nvim',
+		opts = {},
+		keys = {
+			{ "<C-t>", "<cmd>keepjumps Treewalker Up<cr>", { silent = true } },
+			{ "<C-h>", "<cmd>keepjumps Treewalker Down<cr>", { silent = true } },
+			{ "<C-d>", "<cmd>Treewalker Left<cr>", { silent = true } },
+			{ "<C-n>", "<cmd>Treewalker Right<cr>", { silent = true } },
+			{ "<C-S-t>", "<cmd>keepjumps Treewalker SwapUp<cr>", { silent = true } },
+			{ "<C-S-h>", "<cmd>keepjumps Treewalker SwapDown<cr>", { silent = true } },
+			{ "<C-S-d>", "<cmd>Treewalker SwapLeft<cr>", { silent = true } },
+			{ "<C-S-n>", "<cmd>Treewalker SwapRight<cr>", { silent = true } },
+		},
+	},
+
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
 	{'mrjones2014/smart-splits.nvim',
 		keys = {
@@ -456,6 +507,7 @@ return {
 	-- fzf heart lua
 	{'ibhagwan/fzf-lua',
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		event = "VeryLazy",
 		config = function(lazy, opts)
 			local fzf = require('fzf-lua')
 			fzf.setup(vim.tbl_deep_extend('force', {}, fzf.defaults, {
@@ -471,6 +523,7 @@ return {
 					},
 				},
 			}))
+			fzf.register_ui_select()
 		end,
 		keys = {
 			-- {

@@ -57,6 +57,7 @@ return {
 		keys = {
 			{ "<leader>#", function()
 				vim.cmd(":ShebangInsert")
+				vim.cmd(":update")
 				vim.cmd(":! chmod u+x %")
 			end, desc = 'Shebang Insert' },
 		},
@@ -104,9 +105,9 @@ return {
 	-- Use the w, e, b motions like a spider. Move by subwords and skip insignificant punctuation.
 	{ "chrisgrieser/nvim-spider",
 		keys = {
-			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "x" } },
-			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "x" } },
-			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "x" } },
+			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n", "v" } },
+			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n", "v", "o" } },
+			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n", "v", "o" } },
 			{ "e",
 				"<cmd>lua require('spider').motion('w', { skipInsignificantPunctuation = false })<CR>",
 				mode = { "o" }
@@ -128,9 +129,28 @@ return {
 					augend.integer.alias.hex,
 					augend.date.alias["%Y/%m/%d"],
 					augend.constant.alias.bool,
+					augend.constant.new {
+						elements = { "True", "False" },
+						word = true,
+						cyclic = true,
+					},
 					augend.semver.alias.semver,
 				},
 			}
+		end,
+	},
+
+	{ 'mfussenegger/nvim-lint',
+		config = function()
+			local lint = require("lint")
+			lint.linters_by_ft = {
+				python = { "mypy" },
+			}
+			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+				callback = function()
+					lint.try_lint()
+				end,
+			})
 		end,
 	},
 
@@ -145,5 +165,16 @@ return {
 		end,
 		enabled = vim.fn.has('mac') == 0,
 		cond = vim.fn.has('mac') == 0,
+	},
+
+	{ 'pwntester/octo.nvim',
+		deps = {
+			'nvim-lua/plenary.nvim',
+			'ibhagwan/fzf-lua',
+			'nvim-tree/nvim-web-devicons',
+		},
+		opts = {
+			github_hostname = "",
+		},
 	},
 }

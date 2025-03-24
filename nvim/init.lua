@@ -16,6 +16,16 @@ vim.opt.foldmethod = "indent"
 vim.opt.equalalways = false
 vim.opt.foldmethod = "indent"
 
+vim.opt.list = true
+vim.opt.listchars = {
+	-- '␣', '⍽', "⋅"
+	lead = '⋅',
+	trail = '⋅',
+	-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
+	tab = '│ ',
+	nbsp = '▫',
+}
+
 -- filename completion for dotenv files
 vim.opt.isfname:remove("=")
 
@@ -33,8 +43,8 @@ vim.keymap.set("n", "U", "<c-R>")
 vim.keymap.set({"n", "v"}, "{", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "}", "<Cmd>keepjumps normal! }<CR>")
 
-vim.keymap.set({"n", "v"}, "<c-t>", "<Cmd>keepjumps normal! {<CR>")
-vim.keymap.set({"n", "v"}, "<c-h>", "<Cmd>keepjumps normal! }<CR>")
+-- vim.keymap.set({"n", "v"}, "<c-t>", "<Cmd>keepjumps normal! {<CR>")
+-- vim.keymap.set({"n", "v"}, "<c-h>", "<Cmd>keepjumps normal! }<CR>")
 vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "<s-cr>", "O<esc>")

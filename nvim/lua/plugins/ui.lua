@@ -11,6 +11,7 @@ return {
 			borderless_pickers = false,
 			highlights = {
 				Comment = { fg = "#91FFFE", bg = "NONE", italic = true },
+				-- CursorLine = { bg = "NONE", underline = true},
 			},
 		},
 	},
@@ -42,6 +43,7 @@ return {
 
 	-- Indent guides for Neovim
 	{ "lukas-reineke/indent-blankline.nvim",
+		enabled = false,
 		main = "ibl",
 		init = function()
 			vim.opt.list = true
@@ -89,4 +91,23 @@ return {
 		},
 	},
 
+	-- Extensible Neovim Scrollbar
+	{ "petertriho/nvim-scrollbar",
+		dependencies = {
+			"lewis6991/gitsigns.nvim",
+			"kevinhwang91/nvim-hlslens",
+		},
+		opts = {
+			excluded_filetypes = {
+				"snacks_input",
+			}
+		},
+		config = function(lazy, opts)
+			require("scrollbar").setup(opts)
+			require("scrollbar.handlers.gitsigns").setup()
+			require("scrollbar.handlers.search").setup({
+				override_lens = function() end
+			})
+		end,
+	},
 }
