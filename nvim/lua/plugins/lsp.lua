@@ -191,7 +191,7 @@ return {
 		opts = {
 			formatters_by_ft = {
 				python = {
-					"ruff_fix", "ruffformat", "ruff_organize_import"
+					"ruff_fix", "ruff_format", "ruff_organize_import"
 				},
 			},
 			format_on_save = function(bufnr)
