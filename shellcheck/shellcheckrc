@@ -3,3 +3,9 @@
 
 # it's often intentional not to quote variables
 disable=SC2086
+
+# disable source warning
+disable=SC1090
+
+# Expressions don't expand in single quotes, use double quotes for that.
+disable=SC2016
