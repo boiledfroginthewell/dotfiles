@@ -100,6 +100,11 @@ return {
 		opts = {
 			excluded_filetypes = {
 				"snacks_input",
+			},
+			marks = {
+				Cursor = {
+					text = "█",
+				}
 			}
 		},
 		config = function(lazy, opts)
