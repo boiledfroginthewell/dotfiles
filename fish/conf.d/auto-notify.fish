@@ -2,7 +2,7 @@ not status -i || status -c && exit
 
 set NOTIFY_THREASHOLD 60000
 if not set -q AUTO_NOTIFY_EXCLUDE_PATTERNS
-	set AUTO_NOTIFY_EXCLUDE_PATTERNS l 'gg?' diff watchexec fzf 'm[ae]n' lazygit 'vi?'
+	set AUTO_NOTIFY_EXCLUDE_PATTERNS l 'gg?' diff watchexec fzf 'm[ae]n' lazygit 'vi?' jqf
 end
 set NOTIFY_EXCLUDE '^('(string join '|' $AUTO_NOTIFY_EXCLUDE_PATTERNS)')( |$)'
 
