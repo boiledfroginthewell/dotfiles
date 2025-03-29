@@ -21,7 +21,7 @@ vim.opt.listchars = {
 	lead = '⋅',
 	trail = '⋅',
 	-- "▏ ", '│ ', '↠ ', '⇥ ', '↦ ', '⇀ ', '⇢ ',
-	tab = '│ ',
+	tab = '⇢ ',
 	nbsp = '▫',
 }
 
