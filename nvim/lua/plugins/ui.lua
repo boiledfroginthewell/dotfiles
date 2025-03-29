@@ -27,6 +27,10 @@ return {
 		}
 	},
 
+	{ 'johnfrankmorgan/whitespace.nvim',
+		opts = {}
+	},
+
 	-- Make your nvim window separators colorful
 	{ "nvim-zh/colorful-winsep.nvim",
 		config = true,
@@ -97,13 +101,21 @@ return {
 			"lewis6991/gitsigns.nvim",
 			"kevinhwang91/nvim-hlslens",
 		},
+		init = function()
+			vim.api.nvim_set_hl(0, "ScrollbarHandle", { bg = "#7b8496" })
+		end,
 		opts = {
 			excluded_filetypes = {
 				"snacks_input",
 			},
+			handle = {
+				blend = 40,
+				highlight = "ScrollbarHandle",
+			},
 			marks = {
 				Cursor = {
-					text = "█",
+					text = " ",
+					highlight = "ScrollbarHandle",
 				}
 			}
 		},

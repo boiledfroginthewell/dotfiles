@@ -6,7 +6,6 @@ return {
 		lazy = false,
 		---@type snacks.Config
 		opts = {
-			quickfile = {},
 			input = {
 				win = {
 					relative = "cursor",
