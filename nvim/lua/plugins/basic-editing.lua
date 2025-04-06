@@ -310,8 +310,8 @@ return {
 	-- Neovim motions on speed!
 	{ 'smoka7/hop.nvim',
 		version = "*",
-		config = function()
-			require("hop").setup()
+		config = function(lazy, opts)
+			require("hop").setup(opts)
 			vim.api.nvim_set_hl(0, "HopNextKey2", { fg='#00c7e6', ctermfg=33, })
 		end,
 		opts = {
@@ -322,7 +322,7 @@ return {
 		keys = {
 			{ '-', '<cmd>HopWord<cr>' },
 		},
-		enabled = false,
+		-- enabled = false,
 	},
 
 	-- Navigate your code with search labels, enhanced character motions and Treesitter integration
@@ -353,6 +353,7 @@ return {
 			{ "g-", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
 			-- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
 		},
+		enabled = false
 	},
 
 	{ "rhysd/clever-f.vim",
