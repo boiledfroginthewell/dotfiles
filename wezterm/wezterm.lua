@@ -4,7 +4,6 @@ local is_mac = false
 if wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'aarch64-apple-darwin' then
 	is_mac = true
 end
-local is_gnome_shell = os.getenv("XDG_CURRENT_DESKTOP") == "ubuntu:GNOME"
 
 -- -- https://wezfurlong.org/wezterm/config/lua/window/toast_notification.html
 -- wezterm.on('window-config-reloaded', function(window, pane)
@@ -70,10 +69,6 @@ config.keys = {
 for _, v in ipairs(require('nvim-smart-splits')) do
 	table.insert(config.keys, v)
 end
-
--- if not is_gnome_shell
--- 	table.insert(config.keys, { key = "RightArrow", mods="ALT", action=wezterm.action{ActivatePaneDirection="Right"}})
--- end
 
 config.mouse_bindings = {
 	{
