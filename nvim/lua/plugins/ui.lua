@@ -27,6 +27,46 @@ return {
 		}
 	},
 
+	{
+		"jake-stewart/auto-cmdheight.nvim",
+		lazy = false,
+		opts = {}
+	},
+
+	{
+		"Hajime-Suzuki/vuffers.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		after = function ()
+			vim.api.nvim_create_autocmd("SessionLoadPost", {
+				callback = function()
+					require("vuffers").on_session_loaded()
+				end,
+			})
+		end,
+		opts = {
+			handlers = {
+				-- when deleting a buffer via vuffers list (by default triggered by "d" key)
+				on_delete_buffer = function(bufnr)
+					vim.api.nvim_command(":bwipeout " .. bufnr)
+				end,
+			},
+			keymaps = {
+				view = {
+					open = "<CR>",
+					delete = "k",
+					pin = "p",
+					unpin = "P",
+					rename = "r",
+					reset_custom_display_name = "R",
+					reset_custom_display_names = "<leader>R",
+					move_up = "U",
+					move_down = "D",
+					move_to = "i",
+				},
+			},
+		}
+	},
+
 	{ 'johnfrankmorgan/whitespace.nvim',
 		opts = {}
 	},
@@ -42,6 +82,7 @@ return {
 			-- cursor_color = "#d3cdc3",
 			normal_bg = "#16181a",
 			smear_between_neighbor_lines = false,
+			smear_to_cmd = false,
 		},
 	},
 
