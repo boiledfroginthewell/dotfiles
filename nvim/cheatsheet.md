@@ -11,17 +11,14 @@ f -- 文字手前ジャンプ (like j)
 :'<,'>! -- Shellコマンド置換
 
 ## Programming
-<F5> -- :AsyncRun
 <F8> -- :TagbarToggle
 <C-k> -- Toggle Comments
 ,# -- :ShebangInsert
 <C-down> -- Accept Codeium Suggestion
-<C-t> -- tag peek
 za  -- fold
 
 ## Text Objects
 <Tab> -- Indent
-o -- any bracket
 W -- big word
 
 ## LSP

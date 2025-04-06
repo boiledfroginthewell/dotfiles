@@ -294,17 +294,16 @@ return {
 					useDefaults = true,
 				},
 			}
-
-			vim.keymap.set(
-				{ "o", "x" },
-				"i<Tab>",
-				'<cmd>lua require("various-textobjs").indentation("inner", "inner")<CR>'
-			)
-			vim.keymap.set(
-				{ "o", "x" },
-				"a<Tab>",
-				'<cmd>lua require("various-textobjs").indentation("outer", "inner")<CR>'
-			)
+			for key, arg in pairs({
+				["i"] = "inner",
+				["a"] = "outer",
+			}) do
+				vim.keymap.set(
+					{ "o", "x" },
+					key .. "<Tab>",
+					'<cmd>lua require("various-textobjs").indentation("' .. arg .. '", "inner")<CR>'
+				)
+			end
 		end
 	},
 
