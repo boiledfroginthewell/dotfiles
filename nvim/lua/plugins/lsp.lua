@@ -19,6 +19,7 @@ return {
 			excluded_servers = {},
 			preferred_servers = {
 				gitcommit = {},
+				markdown = {},
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
 			},
@@ -195,7 +196,11 @@ return {
 				},
 			},
 			format_on_save = function(bufnr)
-				if vim.g.conform_enable_autoformat == 1 or vim.b[bufnr].conform_enable_autoformat == 1 then
+				if vim.b[bufnr].conform_enable_autoformat == 1
+					or (
+						vim.b[bufnr].conform_enable_autoformat ~= 0
+						and vim.g.conform_enable_autoformat == 1
+					) then
 					return { timeout_ms = 500, lsp_format = "fallback" }
 				end
 			end,

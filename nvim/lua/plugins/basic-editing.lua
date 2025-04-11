@@ -315,7 +315,7 @@ return {
 			vim.api.nvim_set_hl(0, "HopNextKey2", { fg='#00c7e6', ctermfg=33, })
 		end,
 		opts = {
-			keys = 'euoai' .. 'f:l,r.c' .. ';qjkxvzwmby' .. 'dsnth',
+			keys = 'euoai' .. 'f:lrc' .. ';qjkxzwmby' .. 'dsnth',
 			multi_windows = true,
 			uppercase_labels = true,
 		},
@@ -604,9 +604,11 @@ return {
 					require("telescope").setup{
 						defaults = {
 							sorting_strategy = "ascending",
-							layout_strategy = "horizontal",
+							layout_strategy = "vertical",
 							layout_config = {
 								prompt_position = "top",
+								mirror = true,
+								preview_cutoff = 6,
 							},
 							mappings = {
 								i = {
