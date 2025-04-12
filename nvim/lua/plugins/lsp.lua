@@ -1,7 +1,18 @@
 ---@type LazySpec
 return {
 	-- nvim-lspconfig is a "data only" repo, providing basic, default Nvim LSP client configurations for various LSP servers.
-	'neovim/nvim-lspconfig',
+	{ 'neovim/nvim-lspconfig',
+    dependencies = {
+			"netmute/ctags-lsp.nvim",
+			build = "go install github.com/netmute/ctags-lsp@latest"
+		},
+    config = function()
+        local lspconfig = require("lspconfig")
+				lspconfig.ctags_lsp.setup({
+					filetypes = { "sql", "yaml" }
+				})
+    end,
+	},
 
 	-- Neovim plugin to manage global and project-local settings 
 	{ 'folke/neoconf.nvim',
@@ -28,104 +39,54 @@ return {
 		},
 	},
 
-	-- A completion plugin for neovim coded in Lua.
-	{
-		'hrsh7th/nvim-cmp',
-		name = 'nvim-cmp',
+	-- Performant, batteries-included completion plugin for Neovim
+	{'saghen/blink.cmp',
+		version = '1.*',
 		dependencies = {
-			'onsails/lspkind.nvim',
 			{
-				'saadparwaiz1/cmp_luasnip',
+				"L3MON4D3/LuaSnip",
+				version = "v2.*",
+				build = "make install_jsregexp",
 				dependencies = {
-					{
-						"L3MON4D3/LuaSnip",
-						version = "v2.*",
-						-- install jsregexp (optional!).
-						-- build = "make install_jsregexp"
-						dependencies = {
-							'honza/vim-snippets',
-						}
-					},
+					'honza/vim-snippets',
 				},
 				init = function()
 					require("luasnip.loaders.from_snipmate").lazy_load()
 				end,
 			},
-			{ 'hrsh7th/cmp-nvim-lsp',
-				after = { 'neovim/nvim-lspconfig' },
-				init = function()
-					-- Add cmp_nvim_lsp capabilities settings to lspconfig
-					-- This should be executed before you configure any language server
-					local lspconfig_defaults = require('lspconfig').util.default_config
-					lspconfig_defaults.capabilities = vim.tbl_deep_extend(
-						'force',
-						lspconfig_defaults.capabilities,
-						require('cmp_nvim_lsp').default_capabilities()
-					)
-				end,
-			},
-			'hrsh7th/cmp-buffer',
-			'delphinus/cmp-ctags',
-			'mtoohey31/cmp-fish',
 		},
-		config = function()
-			local cmp = require('cmp')
-			local lspkind = require("lspkind")
-
-			cmp.setup {
-				sources = {
-					-- nvim/lua
-					{ name = 'nvim_lsp' },
-					{ name = 'nvim_lua' },
-					-- misc
-					{ name = 'fish' },
-					-- basic
-					{ name = 'luasnip' },
-					{ name = 'treesitter' },
-					{ name = 'buffer' },
-					{ name = 'ctags' },
+		after = { 'neovim/nvim-lspconfig' },
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
+		opts = {
+			keymap = { preset = 'super-tab' },
+			completion = { documentation = { auto_show = true } },
+			signature = { enabled = true },
+			snippets = { preset = "luasnip" },
+			cmdline = {
+				completion = {
+					menu = {
+						auto_show = true
+					},
+					list = {
+						selection = {
+							preselect = false,
+							auto_insert = false
+						}
+					},
 				},
-				snippet = {
-					expand = function(args)
-						require('luasnip').lsp_expand(args.body)
-					end,
-				},
-				mapping = {
-					['<Up>'] = cmp.mapping.select_prev_item({behavior = 'select'}),
-					['<Down>'] = cmp.mapping.select_next_item({behavior = 'select'}),
-					-- my custom mappings
-					['<PageUp>'] = cmp.mapping.select_prev_item({behavior = 'select', count = 10}),
-					['<PageDown>'] = cmp.mapping.select_next_item({behavior = 'select', count = 10}),
-					['<CR>'] = cmp.mapping.confirm { select = false },
-					['<Tab>'] = cmp.mapping(function(fallback)
-						if cmp.get_selected_entry() ~= nil then
-							cmp.confirm()
-						elseif cmp.visible() then
-							cmp.select_next_item()
-							cmp.confirm()
-						else
-							fallback()
-						end
-					end),
-					-- ['<C-Space>'] = cmp.mapping.complete(),
-					['<ESC>'] = cmp.mapping(function(fallback)
-						if cmp.get_selected_entry() ~= nil then
-							cmp.confirm()
-							fallback()
-						else
-							fallback()
-						end
-					end),
-				},
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
-				},
-				formatting = {
-					format = lspkind.cmp_format()
-				},
+				keymap = {
+					preset = "super-tab",
+				}
 			}
-		end
+		},
+		opts_extend = { "sources.default" },
+		config = function(_, opts)
+			local blink = require("blink.cmp")
+			blink.setup(opts)
+			local lspconfig_defaults = require('lspconfig').util.default_config
+			lspconfig_defaults.capabilities = blink.get_lsp_capabilities(lspconfig_defaults.capabilities)
+		end,
 	},
 
 	-- 💫 Extensible UI for Neovim notifications and LSP progress messages. 

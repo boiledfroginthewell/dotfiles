@@ -14,6 +14,7 @@ vim.opt.scrolloff = 0
 vim.opt.foldlevelstart = 99
 vim.opt.foldmethod = "indent"
 vim.opt.equalalways = false
+vim.opt.winborder = "rounded"
 
 vim.opt.list = true
 vim.opt.listchars = {
