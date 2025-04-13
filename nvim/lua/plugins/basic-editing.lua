@@ -231,80 +231,69 @@ return {
 	{'kana/vim-textobj-user',
 		init = function()
 			vim.api.nvim_create_autocmd(
-			'VimEnter', {
-				callback = function(ev)
-					-- vim.api.nvim_call_function(
-					-- 	'textobj#user#plugin',
-					-- 	{
-					-- 		'spaces',
-					-- 		-- {
-					-- 		-- 	space = {
-					-- 		-- 		pattern = {' ', ' '},
-					-- 		-- 		['select-a'] = 'a<space>',
-					-- 		-- 		['select-i'] = 'i<space>',
-					-- 		-- 	},
-					-- 		-- }}
-					-- 		{
-					-- 			['spacea'] = {
-					-- 				-- pattern = '\\s*\\S+\\s*',
-					-- 				pattern = ' \\S+ ',
-					-- 				select = 'a<Space>',
-					-- 				scan = 'cursor',
-					-- 			},
-					-- 			['spacei'] = {
-					-- 				pattern = '[^ \t]+',
-					-- 				select = 'i<Space>',
-					-- 				scan = 'line',
-					-- 			}
-					-- 		}
-					-- 	}
-					-- )
-					vim.cmd[[
-						call textobj#user#plugin('spaces', {
-							\   'space-a': {
-							\     'pattern': '\s*\S\+\s*',
-							\     'select': 'a<Space>',
-							\     'scan': 'cursor',
-							\   },
-							\   'space-i': {
-							\     'pattern': '[^ \t]\+',
-							\     'select': 'i<Space>',
-							\     'scan': 'line',
-							\   }
-							\ })
-						call textobj#user#plugin('bigwords', {
-							\   'big-words': {
-							\     'pattern': '[a-zA-Z0-9_-]\+',
-							\     'select': ['aW', 'iW'],
-							\     'scan': 'cursor',
-							\   }
-							\ })
-					]]
-				end
-			})
+				'VimEnter', {
+					callback = function(ev)
+						vim.api.nvim_call_function("textobj#user#plugin", {
+							"spaces", {
+								["space-a"] = {
+									pattern = "\\s*\\S\\+\\s*",
+									select = "a<Space>",
+									scan = "cursor",
+								},
+								["space-i"] = {
+									pattern = "[^ \\t]\\+",
+									select = "i<Space>",
+									scan = "line",
+								}
+							}
+						})
+					end
+				}
+			)
 		end,
 	},
 
-	{"chrisgrieser/nvim-various-textobjs",
-		event = "VeryLazy",
-		lazy = false,
-		config = function ()
-			require("various-textobjs").setup {
-				keymaps = {
-					useDefaults = true,
-				},
+	-- Extend and create a/i textobjects
+	{ 'echasnovski/mini.ai',
+		version = false,
+		opts = function()
+			local gen_spec = require('mini.ai').gen_spec
+			return {
+				search_method = "cover",
+				custom_textobjects = {
+					-- ['<space>'] = gen_spec.pair('^%s', "%s$"),
+					f = false,
+					-- f = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
+					-- a = gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
+					-- c = gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
+					-- B = gen_spec.treesitter({ a = '@block.outer', i = '@block.inner' }),
+				}
 			}
-			for key, arg in pairs({
-				["i"] = "inner",
-				["a"] = "outer",
-			}) do
-				vim.keymap.set(
-					{ "o", "x" },
-					key .. "<Tab>",
-					'<cmd>lua require("various-textobjs").indentation("' .. arg .. '", "inner")<CR>'
-				)
-			end
 		end
+	},
+
+	{ 'nvim-treesitter/nvim-treesitter-textobjects',
+		event = "VeryLazy",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		main = 'nvim-treesitter.configs',
+		opts = {
+			textobjects = {
+				select = {
+					enable = true,
+					keymaps = {
+						ia = '@parameter.inner',
+						aa = '@parameter.outer',
+						["if"] = '@function.inner',
+						af = '@function.outer',
+						ic = '@class.inner',
+						ac = '@class.outer',
+						iB = '@block.inner',
+						aB = '@block.outer',
+					},
+				},
+			},
+		},
+		enabled = false,
 	},
 
 	-- Neovim motions on speed!

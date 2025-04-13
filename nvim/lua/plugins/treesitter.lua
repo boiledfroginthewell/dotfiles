@@ -23,23 +23,6 @@ return {
 
 	{ 'HiPhish/rainbow-delimiters.nvim' },
 
-	{ 'nvim-treesitter/nvim-treesitter-textobjects',
-		event = "VeryLazy",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		main = 'nvim-treesitter.configs',
-		opts = {
-			textobjects = {
-				select = {
-					enable = true,
-					keymaps = {
-						ia = '@parameter.inner',
-						aa = '@parameter.outer',
-					},
-				},
-			},
-		},
-	},
-
 	{ 'RRethy/nvim-treesitter-textsubjects',
 		lazy = false,
 		dependencies = { "nvim-treesitter/nvim-treesitter" },

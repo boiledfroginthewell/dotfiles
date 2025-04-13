@@ -19,7 +19,9 @@ za  -- fold
 
 ## Text Objects
 <Tab> -- Indent
-W -- big word
+w -- word
+b -- Any braces
+q -- Any quotes
 
 ## LSP
 <F2> -- Rename
