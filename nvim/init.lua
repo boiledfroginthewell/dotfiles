@@ -63,7 +63,7 @@ vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
 vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
 
--- カーソル下の単語を置換する
+-- Replace the word under the cursor
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
 vim.keymap.set("v", "g*", "\"qy:%s~<C-r>q~~gc<left><left><left>")
 
@@ -88,17 +88,19 @@ end
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
 vim.keymap.set("n", "<c-y>", paste("\"+P"))
 vim.keymap.set("i", "<c-y>", paste(ctrl_r .. "+"))
-vim.keymap.set("i", "<a-v>", paste(ctrl_r .. "+"))
+vim.keymap.set("i", "<a-y>", paste(ctrl_r .. "\""))
 vim.keymap.set("n", "<c-s-y>", paste("\"+p"))
 vim.keymap.set("n", "<c-a-y>", paste("\"*P"))
 vim.keymap.set("n", "<c-c>", "\"+y")
 vim.keymap.set({"n", "v"}, "<a-c>", "\"+y")
 vim.keymap.set("n", "<a-v>", paste("\"+P"))
+-- disable updating register
+vim.keymap.set("n", "0", "\"_")
 
 vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
 vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
 
--- 検索ハイライトクリア
+-- clear search highlights
 vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 
 vim.keymap.set("n", "gadd", ":!git add %<CR>", {silent=true})
