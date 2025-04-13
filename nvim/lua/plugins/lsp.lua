@@ -6,12 +6,12 @@ return {
 			"netmute/ctags-lsp.nvim",
 			build = "go install github.com/netmute/ctags-lsp@latest"
 		},
-    config = function()
-        local lspconfig = require("lspconfig")
-				lspconfig.ctags_lsp.setup({
-					filetypes = { "sql", "yaml" }
-				})
-    end,
+		config = function()
+			local lspconfig = require("lspconfig")
+			lspconfig.ctags_lsp.setup({
+				filetypes = { "sql", "yaml" }
+			})
+		end,
 	},
 
 	-- Neovim plugin to manage global and project-local settings 

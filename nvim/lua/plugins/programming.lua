@@ -1,5 +1,5 @@
 ---@type LazySpec
-return {
+local spec = {
 	{ 'NMAC427/guess-indent.nvim',
 		config = function ()
 			-- https://github.com/NMAC427/guess-indent.nvim/issues/3
@@ -74,10 +74,30 @@ return {
 			-- sort by file order
 			vim.g.tagbar_sort = 0
 		end,
-		keys = {
-			{ "<F8>", ":TagbarToggle<CR>" },
+		cmd = {
+			"TagbarToggle",
 		},
 		lazy = false,
+	},
+
+	-- Neovim plugin for a code outline window
+	{ 'stevearc/aerial.nvim',
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons"
+		},
+		event = "VeryLazy",
+		opts = {
+			layout = { placement = "edge" },
+			lsp = {
+				priority = {
+					ctags_lsp = 20
+				}
+			}
+		},
+		cmd = {
+			"AerialToggle",
+		},
 	},
 
 	--  A neovim plugin for peeking at tag definitions using the `nvim_open_win` "floating window" feature.
@@ -185,3 +205,15 @@ return {
 		},
 	},
 }
+
+local tagbar_ft = { "sql", "hive" }
+vim.keymap.set("n", "<F8>", function ()
+	if vim.b[vim.api.nvim_get_current_buf()].prefer_tagbar == 1
+			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then
+		vim.cmd[[TagbarToggle]]
+	else
+		vim.cmd[[AerialToggle!]]
+	end
+end, {})
+
+return spec
