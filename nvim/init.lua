@@ -104,6 +104,22 @@ vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
 vim.keymap.set("n", "gadd", ":!git add %<CR>", {silent=true})
 vim.keymap.set("n", "gcommit", ":!Git commit<CR>", {silent=true})
 
+vim.api.nvim_create_autocmd('BufEnter', {
+	desc = "Close floating window by <ESC>",
+	pattern = { "markdown" },
+	callback = function()
+		if vim.fn.win_gettype() ~= 'popup' then
+			return
+		end
+
+		for key in { "<esc>", "T" } do
+			vim.keymap.set('n', key, function()
+				vim.api.nvim_win_close(vim.fn.win_getid(), true)
+			end, { buffer = vim.api.nvim_get_current_buf() })
+		end
+	end,
+})
+
 vim.cmd([[
 augroup myvimrc
 	autocmd!
@@ -136,6 +152,7 @@ require("wezterm-integration")
 -- vim.cmd[[colorscheme slate]]
 -- vim.cmd[[hi Comment guifg=#90FFaF]]
 -- vim.cmd[[colorscheme zephyr]]
-vim.cmd[[colorscheme cyberdream]]
+-- vim.cmd[[colorscheme cyberdream]]
 -- vim.cmd[[colorscheme bamboo]]
+vim.cmd[[colorscheme vscode]]
 

@@ -24,14 +24,14 @@ b -- Any braces
 q -- Any quotes
 
 ## LSP
-<F2> -- Rename
-<F4> -- Code Actions
+<F2> -- Rename (grr)
+<F4> -- Code Actions (gra)
 ,f -- format
 T  -- hover()
 gd -- definition()
-gr -- references()
-gH -- call hierarchy
-gi -- implementation()
+grr -- references()
+,H -- call hierarchy
+gri -- implementation()
 gs -- Signature Help
 
 ## Git
