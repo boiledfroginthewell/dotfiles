@@ -43,6 +43,13 @@ return {
 				end,
 			})
 		end,
+		init = function()
+			vim.api.nvim_create_user_command("Vuffers", function(args)
+				require("vuffers")[args.fargs[1]]()
+			end, {
+				nargs = "+"
+			})
+		end,
 		opts = {
 			handlers = {
 				-- when deleting a buffer via vuffers list (by default triggered by "d" key)

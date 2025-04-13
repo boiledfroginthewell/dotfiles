@@ -14,7 +14,7 @@ return {
 		end,
 	},
 
-	-- Neovim plugin to manage global and project-local settings 
+	-- Neovim plugin to manage global and project-local settings
 	{ 'folke/neoconf.nvim',
 		main = 'neoconf',
 		opts = {},
@@ -89,21 +89,22 @@ return {
 		end,
 	},
 
-	-- 💫 Extensible UI for Neovim notifications and LSP progress messages. 
+	-- 💫 Extensible UI for Neovim notifications and LSP progress messages.
 	{ "j-hui/fidget.nvim",
 		event = "LspAttach",
 		opts = {}
 	},
 
-	-- LSP signature hint as you type 
+	-- LSP signature hint as you type
 	{
 		"ray-x/lsp_signature.nvim",
 		event = "VeryLazy",
 		opts = {},
-		config = function(_, opts) require'lsp_signature'.setup(opts) end
+		config = function(_, opts) require'lsp_signature'.setup(opts) end,
+		enabled = false,
 	},
 
-	-- VSCode 💡 for neovim's built-in LSP. 
+	-- VSCode 💡 for neovim's built-in LSP.
 	{ "kosayoda/nvim-lightbulb",
 		opts = {
 			autocmd = { enabled = true }
