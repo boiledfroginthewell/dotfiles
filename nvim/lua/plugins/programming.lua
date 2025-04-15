@@ -140,27 +140,9 @@ local spec = {
 			{ "gw", "w" },
 			{ "gb", "b" },
 		},
-		enabled = false,
 	},
 
-	{ "chrisgrieser/nvim-spider",
-		keys = {
-			{ "e", "<cmd>lua require('spider').motion('w')<CR>", mode = { "n" } },
-			{ "w", "<cmd>lua require('spider').motion('e')<CR>", mode = { "n" } },
-			{ "b", "<cmd>lua require('spider').motion('b')<CR>", mode = { "n" } },
-			{ "e", "<cmd>lua require('spider').motion('e')<CR>",
-				mode = { "o", "v" }
-			},
-			{ "w", "<cmd>lua require('spider').motion('w')<CR>",
-				mode = { "o", "v" }
-			},
-			{ "b", "<cmd>lua require('spider').motion('b')<CR>",
-				mode = { "o", "v" }
-			},
-		}
-	},
-
-	-- enhanced increment/decrement plugin for Neovim.
+	-- enhanced increment/decrement plugin for Neovim. 
 	{ 'monaqa/dial.nvim',
 		keys = {
 			{ "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" } },
