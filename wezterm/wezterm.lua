@@ -20,6 +20,7 @@ config.warn_about_missing_glyphs = false
 config.send_composed_key_when_left_alt_is_pressed = false
 config.send_composed_key_when_right_alt_is_pressed = false
 config.scrollback_lines = 30000
+config.hide_mouse_cursor_when_typing = false
 
 config.default_cursor_style = "SteadyBar"
 -- config.force_reverse_video_cursor = true
