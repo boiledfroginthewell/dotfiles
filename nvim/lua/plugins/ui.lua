@@ -125,4 +125,8 @@ return {
 			})
 		end,
 	},
+
+	-- The fastest Neovim colorizer.
+	"norcalli/nvim-colorizer.lua",
+
 }

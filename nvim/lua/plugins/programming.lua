@@ -189,6 +189,7 @@ local spec = {
 			}
 			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
 			vim.keymap.set("i", "<C-i>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<C-f>", function() return vim.fn['codeium#AcceptNextWord']() end, { expr = true, silent = true })
 		end,
 		enabled = vim.fn.has('mac') == 0,
 		cond = vim.fn.has('mac') == 0,

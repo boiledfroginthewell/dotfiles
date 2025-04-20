@@ -418,20 +418,20 @@ return {
 		'aaronik/treewalker.nvim',
 		opts = {},
 		keys = {
-			{ "<C-t>", function ()
-				if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] == nil then
-					vim.cmd[[normal! {]]
-					return
-				end
-				vim.cmd[[:Treewalker Up]]
-			end, { silent = true } },
-			{ "<C-h>", function ()
-				if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] == nil then
-					vim.cmd[[normal! }]]
-					return
-				end
-				vim.cmd[[:Treewalker Down]]
-			end, { silent = true } },
+			-- { "<C-t>", function ()
+			-- 	if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] == nil then
+			-- 		vim.cmd[[normal! {]]
+			-- 		return
+			-- 	end
+			-- 	vim.cmd[[:Treewalker Up]]
+			-- end, { silent = true } },
+			-- { "<C-h>", function ()
+			-- 	if vim.treesitter.highlighter.active[vim.api.nvim_get_current_buf()] == nil then
+			-- 		vim.cmd[[normal! }]]
+			-- 		return
+			-- 	end
+			-- 	vim.cmd[[:Treewalker Down]]
+			-- end, { silent = true } },
 			{ "<C-d>", "<cmd>Treewalker Left<cr>", { silent = true } },
 			{ "<C-n>", "<cmd>Treewalker Right<cr>", { silent = true } },
 			{ "<C-S-t>", "<cmd>keepjumps Treewalker SwapUp<cr>", { silent = true } },
