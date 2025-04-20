@@ -84,10 +84,13 @@ return {
 			}
 			for i = 0, 9 do
 				opts.mappings["delete_bookmark" .. i] = "km" .. i
+				opts.mappings["toggle_bookmark" .. i] = "m" .. i
+				opts["bookmark_" .. i] = { sign = tostring(i) }
 			end
 			return opts
 		end,
-		init = function()
+		config = function(_, opts)
+			require("markit").setup(opts)
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
 		end
 	},
