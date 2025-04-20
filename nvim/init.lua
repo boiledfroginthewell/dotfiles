@@ -154,7 +154,7 @@ require("wezterm-integration")
 -- vim.cmd[[colorscheme slate]]
 -- vim.cmd[[hi Comment guifg=#90FFaF]]
 -- vim.cmd[[colorscheme zephyr]]
--- vim.cmd[[colorscheme cyberdream]]
+vim.cmd[[colorscheme cyberdream]]
 -- vim.cmd[[colorscheme bamboo]]
-vim.cmd[[colorscheme vscode]]
+-- vim.cmd[[colorscheme vscode]]
 
