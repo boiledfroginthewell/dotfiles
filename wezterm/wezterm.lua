@@ -58,6 +58,29 @@ config.keys = {
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
 	{ key = "%",        mods = "CTRL|SHIFT", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
 	{ key = "w",        mods = "CTRL|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = false } } },
+	{ -- toggle zoom state of another pane
+		key = "z",
+		mods = "CTRL|ALT",
+		action = wezterm.action_callback(function(window, pane)
+			local zoomed_pane = nil
+			for _, info in pairs(window:active_tab():panes_with_info()) do
+				if info.is_zoomed then
+					zoomed_pane = info.pane
+					break
+				end
+			end
+
+			if zoomed_pane == nil then
+				local target_pane = pane:tab():get_pane_direction("Next")
+				target_pane:activate()
+				window:active_tab():set_zoomed(true)
+			else
+				window:active_tab():set_zoomed(false)
+				local target_pane = pane:tab():get_pane_direction("Prev")
+				target_pane:activate()
+			end
+		end)
+	},
 
 	-- Copy & Paste
 	{ key = "C",        mods = "CTRL|SHIFT", action = wezterm.action { CopyTo = "ClipboardAndPrimarySelection" } },
@@ -105,6 +128,18 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 		overrides = nil
 	end
 	window:set_config_overrides(overrides)
+end)
+
+wezterm.on("user-var-changed", function(window, pane, name, value)
+	if name ~= "EXEC_LAST" then
+		return
+	end
+
+	local target_pane = pane:tab():get_pane_direction("Next")
+	window:perform_action(wezterm.action.ScrollToBottom, target_pane)
+	local ctrl_u = "\x15"
+	-- A dummy character "a" is appended becouste wezterm ignores one character after send_text.
+	target_pane:send_text(ctrl_u .. "!!\r\na")
 end)
 
 local ok, localConfig = pcall(require, 'local')
