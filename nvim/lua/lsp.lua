@@ -2,6 +2,17 @@
 -- This will avoid an annoying layout shift in the screen
 vim.opt.signcolumn = 'yes'
 
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "🔥",
+			[vim.diagnostic.severity.WARN] = "⚠️",
+			[vim.diagnostic.severity.HINT] = "🗨️",
+			[vim.diagnostic.severity.INFO] = "",
+		}
+	}
+})
+
 local function diagnostic()
 	if #vim.diagnostic.get(0, { lnum = vim.api.nvim_win_get_cursor(0)[1] }) ~= 0 then
 		vim.diagnostic.open_float()
@@ -30,19 +41,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		vim.keymap.set('n', '<F2>', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
 		-- vim.keymap.set({'n', 'x'}, '<F3>', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
 		vim.keymap.set('n', '<F4>', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
-
-
-		local signs = {
-			Error = "🔥",
-			Warn = "⚠️",
-			-- (vim.fn.has('mac') == 1 and '💬') or '🗨️',
-			Hint = "🗨️",
-			-- Info = " "
-		}
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-		end
-
 	end
 })

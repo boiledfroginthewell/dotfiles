@@ -201,7 +201,7 @@ return {
 			scope = "line",
 			render_event = { "DiagnosticChanged", "CursorMoved", "WinScrolled" },
 			format = function(diagnostic)
-				return string.format("%s [%s]", diagnostic.message, diagnostic.code)
+				return string.format("%s [%s] #%s", diagnostic.message, diagnostic.code, diagnostic.source)
 			end,
 		},
 	},

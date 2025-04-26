@@ -65,7 +65,6 @@ return {
 			use_git_branch = true,
 			bypass_save_filetypes = { "cheetsheat", "neo-tree" },
 			args_allow_files_auto_save = true,
-			show_auto_restore_notif = true,
 			purge_after_minutes = 10 * 24 * 60,
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
 		}
