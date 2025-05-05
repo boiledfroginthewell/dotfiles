@@ -32,7 +32,7 @@ return {
 	},
 
 	-- ### Lua
-	-- Faster LuaLS setup for Neovim 
+	-- Faster LuaLS setup for Neovim
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
