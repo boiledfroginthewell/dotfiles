@@ -36,12 +36,17 @@ return {
 	{
 		"folke/lazydev.nvim",
 		ft = "lua", -- only load on lua files
+		dependencies = {
+			{'gonstoll/wezterm-types', lazy = true},
+		},
 		opts = {
-			library = vim.api.nvim_get_runtime_file("", true),
+			library = {
+				{ vim.api.nvim_get_runtime_file("", true) },
+				{ path = "wezterm-types", mods = {"wezterm"} },
 				-- See the configuration section for more details
 				-- Load luvit types when the `vim.uv` word is found
 				-- { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-			-- },
+			},
 		},
 	},
 }
