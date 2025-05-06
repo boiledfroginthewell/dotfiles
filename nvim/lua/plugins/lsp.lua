@@ -185,10 +185,10 @@ return {
 		},
 	},
 
+	-- LSP diagnostics in virtual text at the top right of your screen
 	{ "dgagn/diagflow.nvim",
 		event = "LspAttach",
 		opts = {
-			toggle_event = { "InsertEnter", "InsertLeave" },
 			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
 				error = "DiagnosticFloatingError",
 				warning = "DiagnosticFloatingWarn",
@@ -198,6 +198,7 @@ return {
 			show_sign = true,
 			show_borders = true,
 			padding_right = 1,
+			max_height = 99,
 			scope = "line",
 			render_event = { "DiagnosticChanged", "CursorMoved", "WinScrolled" },
 			format = function(diagnostic)
