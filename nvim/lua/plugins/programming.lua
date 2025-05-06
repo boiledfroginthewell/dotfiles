@@ -98,6 +98,19 @@ local spec = {
 		cmd = {
 			"AerialToggle",
 		},
+		enabled = false,
+	},
+
+	-- Navigate code with an outline sidebar. Forked from symbols-outline.nvim.
+	{ "hedyhli/outline.nvim",
+		cmd = { "Outline", "OutlineOpen" },
+		opts = {
+			symbol_folding = {
+				auto_unfold = {
+					hovered = false
+				}
+			}
+		},
 	},
 
 	--  A neovim plugin for peeking at tag definitions using the `nvim_open_win` "floating window" feature.
@@ -213,7 +226,9 @@ vim.keymap.set("n", "<F8>", function ()
 			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then
 		vim.cmd[[TagbarToggle]]
 	else
-		vim.cmd[[AerialToggle!]]
+		-- vim.cmd[[AerialToggle!]]
+		vim.cmd[[Outline!]]
+		-- vim.cmd[[Trouble symbols toggle focus=false]]
 	end
 end, {})
 
