@@ -14,6 +14,9 @@ return {
 		---@type CsvView.Options
 		opts = {
 			parser = { comments = { "#" } },
+			view = {
+				display_mode = "border",
+			},
 			keymaps = {
 				-- Text objects for selecting fields
 				textobject_field_inner = { "if", mode = { "o", "x" } },

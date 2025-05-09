@@ -63,7 +63,7 @@ return {
 		---@type AutoSession.Config
 		opts = {
 			use_git_branch = true,
-			bypass_save_filetypes = { "cheetsheat", "neo-tree" },
+			bypass_save_filetypes = { "cheetsheat", "neo-tree", "gitcommit", "gitrebase" },
 			args_allow_files_auto_save = true,
 			purge_after_minutes = 10 * 24 * 60,
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
