@@ -25,7 +25,6 @@ function gg
 		$argv \
 	| less -p
 end
-alias t=task
 alias d=docker
 alias tf=terraform
 if type -q docker-compose
