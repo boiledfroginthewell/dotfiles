@@ -1,7 +1,5 @@
-if status is-interactive
-#
+if not status is-interactive; return; end
 
-# tmp
 set -gx SHELL (which fish)
 
 fish_add_path --prepend /usr/local/bin
@@ -18,7 +16,15 @@ alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user xremap"
 alias pppp="systemctl restart --user xremap"
 type -q hub && alias git hub
-alias gg="git forest --exclude=refs/stash --pretty='format:%s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' '--date=format-local:%Y-%m-%d %H:%M' --color=always --all | less -p"
+function gg
+	git forest \
+		--exclude=refs/stash \
+		--pretty='format:%s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' \
+		--date='format-local:%Y-%m-%d %H:%M' \
+		--color=always \
+		$argv \
+	| less -p
+end
 alias t=task
 alias d=docker
 alias tf=terraform
@@ -61,6 +67,4 @@ bind \eh forward-token
 bind \cj forward-jump
 bind \cf backward-jump
 bind \cz 'fg; commandline -f repaint'
-
-end
 
