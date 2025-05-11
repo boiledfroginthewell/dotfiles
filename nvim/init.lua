@@ -157,4 +157,4 @@ require("wezterm-integration")
 vim.cmd[[colorscheme cyberdream]]
 -- vim.cmd[[colorscheme bamboo]]
 -- vim.cmd[[colorscheme vscode]]
-
+-- vim.cmd.colorscheme "catppuccin-mocha"

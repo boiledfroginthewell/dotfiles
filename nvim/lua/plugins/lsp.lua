@@ -31,6 +31,7 @@ return {
 			preferred_servers = {
 				gitcommit = {},
 				markdown = {},
+				text = {},
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
 			},
