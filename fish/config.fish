@@ -26,6 +26,7 @@ function gg
 	| less -p
 end
 alias d=docker
+alias t=task
 alias tf=terraform
 if type -q docker-compose
 	alias dc=docker-compose
