@@ -1,0 +1,74 @@
+format = """
+$directory\
+[󰿟](bg:bg)\
+$all\
+$character"""
+
+right_format = """
+[\
+[](fg:bg)\
+$status\
+$cmd_duration\
+$time\
+](bg:bg)"""
+# ([󰿟](bg:bg)$time)\
+
+add_newline = false
+palette = "default"
+
+[palettes.default]
+# bg = "#1d2230"
+bg = "#525256"
+
+
+[cmd_duration]
+format = "[$duration]($style)"
+style = "bold yellow bg:bg"
+
+[directory]
+# style = "fg:#e3e5e5 bg:#769ff0"
+style = "bold cyan bg:bg"
+format = "[$path]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
+
+[gcloud]
+disabled = true
+
+[git_branch]
+symbol = ""
+style = "bg:#394260"
+format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+
+[git_status]
+style = "bg:#394260"
+format = '[[($all_status$ahead_behind)](fg:#769ff0 bg:#394260)]($style)'
+conflicted = '󰘕'
+ahead = '🐇'
+behind = '🐢'
+diverged = '󰙁'
+untracked = ''
+up_to_date = "[✓](green bg:#394260)"
+modified = ''
+stashed = ""
+staged = '[++\($count\)](cyan bg:#394260)'
+renamed = ''
+deleted = ''
+typechanged = ""
+
+[status]
+disabled = false
+format = "[$symbol$status ]($style)"
+style = "bold red bg:bg"
+
+[time]
+disabled = false
+time_format = "%R" # Hour:Minute Format
+format = '[$time]($style) '
+style = "bold yellow bg:bg"
