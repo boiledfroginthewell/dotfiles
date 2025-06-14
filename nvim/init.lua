@@ -85,17 +85,18 @@ local function paste(cmd)
 	end
 end
 
+vim.keymap.set("v", "p", "\"_dp")
+vim.keymap.set("v", "P", "\"_dP")
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
 vim.keymap.set("n", "<c-y>", paste("\"+P"))
 vim.keymap.set("i", "<c-y>", paste(ctrl_r .. "+"))
+vim.keymap.set("v", "<c-y>", paste("\"_x+P"))
 vim.keymap.set("i", "<a-y>", paste(ctrl_r .. "\""))
 vim.keymap.set("n", "<c-s-y>", paste("\"+p"))
 vim.keymap.set("n", "<c-a-y>", paste("\"*P"))
 vim.keymap.set("n", "<c-c>", "\"+y")
 vim.keymap.set({"n", "v"}, "<a-c>", "\"+y")
 vim.keymap.set("n", "<a-v>", paste("\"+P"))
--- disable updating register
-vim.keymap.set("n", "0", "\"_")
 
 vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
 vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
