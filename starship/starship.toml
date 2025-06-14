@@ -1,36 +1,53 @@
+# , , , 
+# [](fg:bg)
 format = """
 $directory\
-[󰿟](bg:bg)\
 $all\
+$status\
+$memory_usage\
+[](fg:prev_bg) \
 $character"""
 
 right_format = """
 [\
-[](fg:bg)\
-$status\
 $cmd_duration\
+$nodejs\
+$python\
+$kubernetes\
+$jobs\
+$shlvl\
 $time\
 ](bg:bg)"""
-# ([󰿟](bg:bg)$time)\
 
 add_newline = false
 palette = "default"
 
 [palettes.default]
-# bg = "#1d2230"
-bg = "#525256"
+bg = "#424242"
+# bg = "#525256"
 
+
+[battery]
+format = "[[](bg:prev_bg fg:bg)$symbol$percentage]($style)"
+[[battery.display]]
+style = "bold red bg:bg"
+
+[character]
+disabled = true
 
 [cmd_duration]
-format = "[$duration]($style)"
-style = "bold yellow bg:bg"
+format = "[[](bg:prev_bg fg:bg)󱦟 $duration]($style)"
+style = "yellow bg:bg"
 
 [directory]
 # style = "fg:#e3e5e5 bg:#769ff0"
 style = "bold cyan bg:bg"
-format = "[$path]($style)"
+format = "[$path]($style)[$read_only]($read_only_style)"
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
 truncation_length = 3
 truncation_symbol = "…/"
+use_os_path_sep = false
+repo_root_style = "bold underline cyan bg:bg"
 
 [directory.substitutions]
 "Documents" = "󰈙 "
@@ -42,33 +59,73 @@ truncation_symbol = "…/"
 disabled = true
 
 [git_branch]
-symbol = ""
-style = "bg:#394260"
-format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
+# symbol = ""
+symbol = "ﯙ"
+style = "fg:#12bd09 bg:#3C4563"
+format = '[[](fg:prev_bg bg:#394260)$symbol$branch]($style)'
 
 [git_status]
-style = "bg:#394260"
-format = '[[($all_status$ahead_behind)](fg:#769ff0 bg:#394260)]($style)'
-conflicted = '󰘕'
+style = "fg:#12bd09 bold bg:#394260"
+format = '[($all_status$ahead_behind)]($style)'
 ahead = '🐇'
 behind = '🐢'
 diverged = '󰙁'
+up_to_date = ""
+conflicted = '[󰘕$count](yellow bold bg:bg)'
 untracked = ''
-up_to_date = "[✓](green bg:#394260)"
 modified = ''
-stashed = ""
-staged = '[++\($count\)](cyan bg:#394260)'
-renamed = ''
-deleted = ''
+staged = '[+$count](green bg:#394260)'
+deleted = '[-$count](#B23333 bg:#394260)'
+renamed = '[󱀱$count](cyan bg:#394260)'
 typechanged = ""
+stashed = ""
+
+[jobs]
+symbol = ""
+
+[kubernetes]
+disabled = false
+format = '[[](bg:prev_bg fg:bg)$context]($style)'
+detect_env_vars = ["KUBECONIFIG"]
+
+[line_break]
+disabled = true
+
+[memory_usage]
+disabled = false
+symbol = "💥"
+format = "$symbol[${ram}( | ${swap})]($style)"
+
+[lua]
+disabled = true
+symbol = "󰢱"
+
+[nodejs]
+format = '[[](bg:prev_bg fg:bg)${symbol}(${version})]($style)'
+
+[package]
+disabled = true
+
+[python]
+format = '[[](bg:prev_bg fg:bg)${symbol}(${version})]($style)'
+symbol = ""
+style = "bg:bg"
+
+[shlvl]
+disabled = false
+format = '[[](bg:prev_bg fg:bg)$symbol$shlvl]($style)'
 
 [status]
 disabled = false
-format = "[$symbol$status ]($style)"
+format = "[[](bg:prev_bg fg:bg)$symbol$status ]($style)"
 style = "bold red bg:bg"
+
+[sudo]
+disabled = false
 
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
-format = '[$time]($style) '
-style = "bold yellow bg:bg"
+# 
+format = '[[](bg:prev_bg fg:bg)$time]($style)'
+style = "#ffecb3 bg:bg"
