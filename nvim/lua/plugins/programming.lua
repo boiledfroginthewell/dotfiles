@@ -220,7 +220,7 @@ local spec = {
 	},
 }
 
-local tagbar_ft = { "sql", "hive" }
+local tagbar_ft = { "sql", "hive", "xml" }
 vim.keymap.set("n", "<F8>", function ()
 	if vim.b[vim.api.nvim_get_current_buf()].prefer_tagbar == 1
 			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then
