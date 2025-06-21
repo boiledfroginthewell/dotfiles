@@ -199,7 +199,7 @@ return {
 			show_sign = true,
 			show_borders = true,
 			padding_right = 1,
-			max_height = 99,
+			max_height = 12,
 			scope = "line",
 			render_event = { "DiagnosticChanged", "CursorMoved", "WinScrolled" },
 			format = function(diagnostic)
