@@ -82,6 +82,9 @@ style = "fg:#12bd09 bg:#3C4563"
 format = '[[](fg:prev_bg bg:#394260)$symbol$branch]($style)'
 truncation_length = 15
 
+[git_state]
+style = "bold yellow bg:#394260"
+
 [git_status]
 style = "fg:#12bd09 bold bg:#394260"
 format = '[($all_status$ahead_behind)]($style)'
