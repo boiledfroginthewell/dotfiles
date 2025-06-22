@@ -72,12 +72,13 @@ return {
 					list = {
 						selection = {
 							preselect = false,
-							auto_insert = false
 						}
 					},
 				},
 				keymap = {
 					preset = "super-tab",
+					["<Up>"] = { "select_prev", "fallback" },
+					["<Down>"] = { "select_next", "fallback" },
 				}
 			}
 		},
