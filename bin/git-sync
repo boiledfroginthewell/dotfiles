@@ -10,23 +10,22 @@ heading() {
 git fetch -p --progress
 
 tab="%09"
-git for-each-ref --format="%(refname:short)$tab%(upstream:short)$tab%(worktreepath)" refs/heads \
+git for-each-ref --format="%(refname:short)x$tab%(upstream:short)x$tab%(worktreepath)x" refs/heads \
 	| while read -r line; do
 		set -- $line
-		localBranch="$1"
-		remoteBranch="${2:-}"
-		worktree="${3:-}"
+		localBranch="${1%x}"
+		remoteBranch="${2%x}"
+		worktree="${3%x}"
 		if [ -z "$remoteBranch" ]; then
 			continue
 		fi
 		if [ -n "${worktree:-}" ] && [ "${worktree:-}" != "$(git rev-parse --show-toplevel)" ]; then
 			continue
 		fi
-		if [ "$(git rev-parse "$localBranch")" = "$(git rev-parse "$remoteBranch")" ]; then
+		if ! [[ "$remoteBranch" =~ origin/* ]]; then
 			continue
 		fi
-
-		if ! [[ "$remoteBranch" =~ origin/* ]]; then
+		if [ "$(git rev-parse "$localBranch" --)" = "$(git rev-parse "$remoteBranch" --)" ]; then
 			continue
 		fi
 		if git ls-remote --exit-code origin "${remoteBranch#origin/}" &> /dev/null; then
