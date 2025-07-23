@@ -2,7 +2,11 @@
 # [](fg:bg)
 format = """
 $directory\
-$all\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status\
 $status\
 $memory_usage\
 [](fg:prev_bg) \
@@ -14,11 +18,7 @@ $jobs\
  \
 $cmd_duration\
 $shlvl\
-$aws\
-$java\
-$nodejs\
-$python\
-$kubernetes\
+$all\
 $time\
 ](bg:bg)"""
 
@@ -34,7 +34,7 @@ bg = "#424242"
 # format ="[[](bg:prev_bg fg:bg)$symbol($profile)( \\($region\\))( \\[$duration\\])]($style)"
 format ="[[](bg:prev_bg fg:bg)$symbol($profile)( \\[$duration\\])]($style)"
 symbol = ""
-style = "bold yellow bg:bg"
+style = "bold #FFA500 bg:bg"
 
 [battery]
 format = "[[](bg:prev_bg fg:bg)$symbol$percentage]($style)"
@@ -45,7 +45,7 @@ style = "bold red bg:bg"
 disabled = true
 
 [cmd_duration]
-format = "[[](bg:prev_bg fg:bg)󱦟$duration]($style)"
+format = "[[](bg:prev_bg fg:bg)󱦟 $duration]($style)"
 style = "yellow bg:bg"
 min_time = 10000
 
@@ -76,11 +76,16 @@ disabled = true
 disabled = true
 
 [git_branch]
-symbol = ""
+# symbol = ""
+symbol = " "
 # symbol = "ﯙ"
 style = "fg:#12bd09 bg:#3C4563"
 format = '[[](fg:prev_bg bg:#394260)$symbol$branch]($style)'
 truncation_length = 15
+
+[git_commit]
+style = "green bold bg:#394260"
+format = "[\\($hash$tag\\)]($style)"
 
 [git_state]
 style = "bold yellow bg:#394260"
@@ -92,19 +97,19 @@ ahead = '⇡'
 behind = '⇣'
 diverged = '󰙁'
 up_to_date = ""
-conflicted = '[󰘕$count](yellow bold bg:bg)'
+conflicted = '[󰘕$count](yellow bold bg:#394260)'
 untracked = ''
 modified = ''
 staged = '[+$count](green bg:#394260)'
 deleted = '[-$count](#B23333 bg:#394260)'
 renamed = '[󱀱$count](cyan bg:#394260)'
-typechanged = ""
+typechanged = "󰙰"
 stashed = ""
 
 [java]
-format = "[[](bg:prev_bg fg:bg)$symbol($version)](style)"
+format = "[[](bg:prev_bg fg:bg)$symbol($version)]($style)"
 symbol = ""
-style = "red dimmed bg:bg"
+style = "#B07219 bg:bg"
 
 [jobs]
 # symbol = ""
@@ -139,7 +144,11 @@ disabled = true
 format = '[[](bg:prev_bg fg:bg)${symbol}(${version})]($style)'
 symbol = ""
 # style = "bg:bg"
-style = "yellow bold bg:bg"
+style = "#ffdf76 bold bg:bg"
+
+[rust]
+format ="[[](bg:prev_bg fg:bg)$symbol($version)]($style)"
+style = "bold red bg:bg"
 
 [shlvl]
 disabled = false
