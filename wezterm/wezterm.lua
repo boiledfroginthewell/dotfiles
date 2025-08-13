@@ -28,16 +28,19 @@ config.default_cursor_style = "SteadyBar"
 -- config.color_scheme = 'Builtin Dark'
 config.color_scheme = 'Andromeda'
 config.font_size = 13.8
+---@diagnostic disable-next-line: missing-fields
 config.colors = {
 	split = "#4444AA",
 	compose_cursor = "#000099",
 	cursor_fg = '#262A33',
 	cursor_bg = '#E5E5E5',
 }
+---@diagnostic disable-next-line: missing-fields
 config.inactive_pane_hsb = {
 	saturation = 0.7,
 	brightness = 0.53,
 }
+---@diagnostic disable-next-line: missing-fields
 config.window_padding = {
 	left = 0,
 	right = 0,
@@ -89,6 +92,20 @@ config.keys = {
 	{ key = "PageUp",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "PageDown", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
 	{ key = "n", mods = "CTRL|SHIFT", action = wezterm.action_callback(copy_last_output) },
+
+	-- https://github.com/wezterm/wezterm/issues/1988#issuecomment-2462216249
+  {
+    key = 'f',
+    mods = 'SHIFT|CTRL',
+    action = wezterm.action_callback(function (window, pane)
+      window:perform_action(wezterm.action.Search 'CurrentSelectionOrEmptyString', pane)
+      window:perform_action(wezterm.action.Multiple {
+				wezterm.action.CopyMode 'ClearPattern',
+				wezterm.action.CopyMode 'ClearSelectionMode',
+				wezterm.action.CopyMode 'MoveToScrollbackBottom'
+			}, pane)
+    end),
+  },
 }
 for _, v in ipairs(require('nvim-smart-splits')) do
 	table.insert(config.keys, v)
