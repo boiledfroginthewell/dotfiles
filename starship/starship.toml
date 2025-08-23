@@ -159,9 +159,6 @@ disabled = false
 format = "[[](bg:prev_bg fg:bg)$symbol$status ]($style)"
 style = "bold red bg:bg"
 
-[sudo]
-disabled = false
-
 [time]
 disabled = false
 time_format = "%R" # Hour:Minute Format
