@@ -29,6 +29,8 @@ function l
 		set mime (file --mime ($READLINK_COMMAND "$files[1]") | cut -d : -f 2)
 		if string match -q "*image/*" $mime
 			$imageViewer $opt $files
+		else if string match -q '*.zip' "$files[1]"
+			unzip -l $opt $files
 		else if string match -q "*charset=binary*" $mime && not string match -q "*x-empty*" $mime
 			open $opt $files
 		else

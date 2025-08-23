@@ -1,4 +1,4 @@
 --map-syntax="*.hql:SQL"
 --theme=Coldark-Dark
---style="changes,header,grid,numbers"
+--style="changes,header"
 
