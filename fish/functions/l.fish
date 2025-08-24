@@ -4,6 +4,7 @@ if type -q wezterm
 else if type -q imgcat
 	set imageViewer imgcat
 end
+set ipynbViewer (nvl -c nbcat nbpreview less)
 if readlink -m . &> /dev/null
 	# Gnu readlink (coreutils) is available
 	set READLINK_COMMAND readlink -m
@@ -23,7 +24,7 @@ function l
 
 	if [ ! -t 0 ]
 		less
-	else if [ -z "$files" ] || [ -d "$files[1]" ] || contains -- -l $opt
+	else if [ -z "$files" ] || [ -d "$files[1]" ] || [ ! -s "$files[1]" ] || contains -- -l $opt
 		ls $opt $files
 	else
 		set mime (file --mime ($READLINK_COMMAND "$files[1]") | cut -d : -f 2)
@@ -31,7 +32,9 @@ function l
 			$imageViewer $opt $files
 		else if string match -q '*.zip' "$files[1]"
 			unzip -l $opt $files
-		else if string match -q "*charset=binary*" $mime && not string match -q "*x-empty*" $mime
+		else if string match -rq "jupyter|ipynb" $mime
+			$ipynbViewer $opt $files
+		else if string match -q "*charset=binary*" $mime
 			open $opt $files
 		else
 			less $opt $files
