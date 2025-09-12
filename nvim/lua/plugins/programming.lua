@@ -12,6 +12,12 @@ local spec = {
 	-- sleuth.vim: Heuristically set buffer options
 	-- "tpope/vim-sleuth",
 
+	-- An all in one plugin for converting text case in Neovim
+	{
+		"johmsalas/text-case.nvim",
+		config = true
+	},
+
 	-- A plugin to visualise and resolve merge conflicts in neovim
 	{ 'akinsho/git-conflict.nvim',
 		version = "*",

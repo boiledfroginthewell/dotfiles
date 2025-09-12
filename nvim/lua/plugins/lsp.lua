@@ -156,7 +156,7 @@ return {
 		opts = {
 			formatters_by_ft = {
 				python = {
-					"ruff_fix", "ruff_format", "ruff_organize_import"
+					"ruff_fix", "ruff_format", -- "ruff_organize_import"
 				},
 			},
 			format_on_save = function(bufnr)
@@ -165,7 +165,9 @@ return {
 						vim.b[bufnr].conform_enable_autoformat ~= 0
 						and vim.g.conform_enable_autoformat == 1
 					) then
-					return { timeout_ms = 500, lsp_format = "fallback" }
+					return { timeout_ms = 500, lsp_format = "fallback", formatters_by_ft ={
+						python = { "ruff_fix", "ruff_format" }
+					}}
 				end
 			end,
 		},

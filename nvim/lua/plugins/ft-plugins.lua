@@ -10,12 +10,27 @@ return {
 	-- ### CSV
 	{
 		"hat0uma/csvview.nvim",
+		init = function()
+			vim.api.nvim_set_hl(0, "csvCol0", { fg = "red" })
+
+			vim.opt.wrap = false
+			local group = vim.api.nvim_create_augroup("setupCsvView", {})
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {"csv", "tsv"},
+				group = group,
+				callback = function(args)
+					local csvview = require("csvview")
+					csvview.enable(bufnr)
+				end,
+			})
+		end,
 		---@module "csvview"
 		---@type CsvView.Options
 		opts = {
 			parser = { comments = { "#" } },
 			view = {
 				display_mode = "border",
+				header_lnum = 1,
 			},
 			keymaps = {
 				-- Text objects for selecting fields
@@ -31,6 +46,7 @@ return {
 				jump_prev_row = { "<S-Enter>", mode = { "n", "v" } },
 			},
 		},
+		ft = {"csv", "tsv"},
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 	},
 
