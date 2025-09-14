@@ -79,6 +79,8 @@ return {
 					preset = "super-tab",
 					["<Up>"] = { "select_prev", "fallback" },
 					["<Down>"] = { "select_next", "fallback" },
+					["<C-d>"] = { "snippet_backward", "fallback" },
+					["<C-n>"] = { "snippet_forward", "fallback" },
 				}
 			}
 		},

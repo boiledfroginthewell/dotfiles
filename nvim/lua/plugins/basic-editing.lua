@@ -230,6 +230,10 @@ return {
 		enabled = false,
 	},
 
+	-- rsi.vim: Readline style insertion
+	{ "tpope/vim-rsi"
+	},
+
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
 	{ "kylechui/nvim-surround",
 		event = "VeryLazy",

@@ -151,7 +151,7 @@ vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 require("lsp")
 require("copies/lazynvim")
 require("wezterm-integration")
-require("local")
+local ok, localPlugins = pcall(require, 'local')
 
 -- vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme slate]]
