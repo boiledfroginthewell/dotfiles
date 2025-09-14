@@ -47,6 +47,7 @@ vim.keymap.set({"n", "v"}, "<c-t>", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "<c-h>", "<Cmd>keepjumps normal! }<CR>")
 vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
+vim.keymap.set("n", "Q", "q" )
 vim.keymap.set("n", "<s-cr>", "O<esc>")
 vim.keymap.set("n", "<cr>", "o<esc>")
 vim.keymap.set("n", "<c-]>", "g<c-]>")
@@ -61,7 +62,7 @@ vim.keymap.set({"v", "x"}, "<c-k>", "gc", { remap = true })
 vim.keymap.set('n', '<leader>o', ':e <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', 'QQ', '<cmd>q<cr>')
-vim.keymap.set('n', 'QA', '<cmd>qa!<cr>')
+vim.keymap.set('n', '<c-q>', '<cmd>qa!<cr>')
 
 -- Replace the word under the cursor
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
@@ -150,6 +151,7 @@ vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 require("lsp")
 require("copies/lazynvim")
 require("wezterm-integration")
+require("local")
 
 -- vim.cmd[[highlight NonText guibg=none]]
 -- vim.cmd[[colorscheme slate]]

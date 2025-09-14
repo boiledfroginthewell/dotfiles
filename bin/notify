@@ -23,5 +23,5 @@ shift $(( OPTIND - 1 ))
 
 message="${@:-Done}"
 
-osascript -e "display notification \"$message\" $title $sound"
+osascript -e "display notification \"${message//\"/\\\"}\" $title $sound"
 

@@ -178,6 +178,12 @@ return {
 		},
 	},
 
+	-- ⚡Fix the auto-scroll to the middle of the screen when switching between buffers in Neovim
+	{ 'BranimirE/fix-auto-scroll.nvim',
+		config = true,
+		event = 'VeryLazy'
+	},
+
 	-- Better quickfix window in Neovim, polish old quickfix window.
 	{ "kevinhwang91/nvim-bqf",
 		ft = "qf",
