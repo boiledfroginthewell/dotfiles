@@ -602,6 +602,40 @@ return {
 		keys = {
 			{ "<leader>,", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
 		},
+		enabled = false,
+	},
+
+	-- Finally a Fast Fuzzy File Finder for neovim
+	{
+		'dmtrKovalenko/fff.nvim',
+		build = function()
+			-- this will download prebuild binary or try to use existing rustup toolchain to build from source
+			-- (if you are using lazy you can use gb for rebuilding a plugin if needed)
+			require("fff.download").download_or_build_binary()
+		end,
+		opts = { -- (optional)
+			layout = {
+				prompt_position = "top",
+			},
+			keymaps = {
+				preview_scroll_up = '<PageUp>',
+				preview_scroll_down = '<PageDown>',
+			},
+			debug = {
+				enabled = true,     -- we expect your collaboration at least during the beta
+				show_scores = true, -- to help us optimize the scoring system, feel free to share your scores!
+			},
+		},
+		-- No need to lazy-load with lazy.nvim.
+		-- This plugin initializes itself lazily.
+		lazy = false,
+		keys = {
+			{
+				",,", -- try it if you didn't it is a banger keybinding for a picker
+				function() require('fff').find_files() end,
+				desc = 'FFFind files',
+			}
+		}
 	},
 
 	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.

@@ -221,9 +221,11 @@ local spec = {
 			'nvim-tree/nvim-web-devicons',
 		},
 		opts = {
+			picker = "fzf-lua",
 			github_hostname = "",
 		},
 	},
+
 }
 
 local tagbar_ft = { "sql", "hive", "xml" }
