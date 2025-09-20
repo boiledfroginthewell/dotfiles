@@ -60,7 +60,11 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
-			keymap = { preset = 'super-tab' },
+			keymap = {
+				preset = 'super-tab',
+				["<C-t>"] = { "snippet_backward", "fallback" },
+				["<C-h>"] = { "snippet_forward", "fallback" },
+			},
 			completion = { documentation = { auto_show = true } },
 			signature = { enabled = true },
 			snippets = { preset = "luasnip" },
@@ -79,8 +83,6 @@ return {
 					preset = "super-tab",
 					["<Up>"] = { "select_prev", "fallback" },
 					["<Down>"] = { "select_next", "fallback" },
-					["<C-d>"] = { "snippet_backward", "fallback" },
-					["<C-n>"] = { "snippet_forward", "fallback" },
 				}
 			}
 		},

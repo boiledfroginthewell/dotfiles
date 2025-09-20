@@ -86,6 +86,9 @@ local function paste(cmd)
 	end
 end
 
+vim.keymap.set("i", "<c-h>", "<C-n>")
+vim.keymap.set("i", "<c-t>", "<C-p>")
+
 vim.keymap.set("v", "p", "\"_dp")
 vim.keymap.set("v", "P", "\"_dP")
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
