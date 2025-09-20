@@ -49,9 +49,6 @@ format = "[[](bg:prev_bg fg:bg)󱦟 $duration]($style)"
 style = "yellow bg:bg"
 min_time = 10000
 
-[gradle]
-disabled = true
-
 [directory]
 # style = "fg:#e3e5e5 bg:#769ff0"
 style = "bold cyan bg:bg"
@@ -71,9 +68,9 @@ repo_root_style = "bold underline cyan bg:bg"
 [docker_context]
 disabled = true
 
-
 [gcloud]
 disabled = true
+
 
 [git_branch]
 # symbol = ""
@@ -106,6 +103,15 @@ renamed = '[󱀱$count](cyan bg:#394260)'
 typechanged = "󰙰"
 stashed = ""
 
+[golang]
+format = "[[](bg:prev_bg fg:bg)$symbol($version)]($style)"
+symbol = ""
+style = "bold cyan bg:bg"
+version_format = "${raw}"
+
+[gradle]
+disabled = true
+
 [java]
 format = "[[](bg:prev_bg fg:bg)$symbol($version)]($style)"
 symbol = ""
@@ -128,6 +134,7 @@ disabled = true
 disabled = false
 symbol = "💥"
 format = "$symbol[${ram}( | ${swap})]($style)"
+style = "white bold dimmed bg:bg"
 
 [lua]
 disabled = true
@@ -136,6 +143,8 @@ symbol = "󰢱"
 [nodejs]
 format = '[[](bg:prev_bg fg:bg)${symbol}(${version})]($style)'
 style ="bold green bg:bg"
+symbol = ""
+version_format = "${raw}"
 
 [package]
 disabled = true
