@@ -99,15 +99,6 @@ return {
 		opts = {}
 	},
 
-	-- LSP signature hint as you type
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "VeryLazy",
-		opts = {},
-		config = function(_, opts) require'lsp_signature'.setup(opts) end,
-		enabled = false,
-	},
-
 	-- VSCode 💡 for neovim's built-in LSP.
 	{ "kosayoda/nvim-lightbulb",
 		opts = {

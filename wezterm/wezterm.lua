@@ -1,14 +1,6 @@
 local wezterm = require 'wezterm' --[[@as Wezterm]]
 local config = wezterm.config_builder()
-local is_mac = false
-if wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'aarch64-apple-darwin' then
-	is_mac = true
-end
-
--- -- https://wezfurlong.org/wezterm/config/lua/window/toast_notification.html
--- wezterm.on('window-config-reloaded', function(window, pane)
---   window:toast_notification('wezterm', 'configuration reloaded!', nil, 3000)
--- end)
+local is_mac = wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'aarch64-apple-darwin'
 
 config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
 config.use_ime = true

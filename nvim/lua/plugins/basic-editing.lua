@@ -329,37 +329,6 @@ return {
 		},
 	},
 
-	-- Navigate your code with search labels, enhanced character motions and Treesitter integration
-	{
-		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {
-			modes = {
-				char = {
-					enabled = false,
-				},
-			},
-			label = {
-				rainbow = {
-					enabled = true,
-					shade = 8
-				}
-			},
-			jump = {
-				autojump = true
-			}
-		},
-		-- stylua: ignore
-		keys = {
-			{ "-", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-			{ "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-			{ "g-", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-			-- { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-		},
-		enabled = false
-	},
-
 	{ "rhysd/clever-f.vim",
 		init = function()
 			vim.g.clever_f_mark_direct = 1
