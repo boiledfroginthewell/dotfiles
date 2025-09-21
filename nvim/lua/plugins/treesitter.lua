@@ -3,15 +3,18 @@ return {
 	{ 'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
 		opts = {
+			auto_install = true,
 			ensure_installed = {
 				"lua", 'luadoc', 'vim', "vimdoc",
 				'json', "jsonc", 'markdown', 'yaml', 'toml',
 				'bash', "fish",
 				'python',
+				"sql"
 			},
 			highlight = { enable = true },
 			indent = {
-				enable = true
+				enable = true,
+				disable = { "yaml" }
 			},
 		},
 		config = function(lazyPlugin, opts)
