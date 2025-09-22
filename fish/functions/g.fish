@@ -1,3 +1,5 @@
+fish_add_path $FORGIT_INSTALL_DIR/bin
+
 function g --wrap git
 	if [ -z "$argv" -o "$argv[1]" = "--" ]
 		git status $argv
