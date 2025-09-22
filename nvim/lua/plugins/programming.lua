@@ -200,15 +200,18 @@ local spec = {
 		end,
 	},
 
-	{'Exafunction/codeium.vim',
+	-- Free, ultrafast Copilot alternative for Vim and Neovim
+	{"Exafunction/windsurf.vim",
 		event = 'BufEnter',
 		config = function ()
+			vim.g.codeium_no_map_tab = true
 			vim.g.codeium_filetypes = {
 				sh = false,
 			}
 			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-			vim.keymap.set("i", "<C-i>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<C-Up>", function() return vim.fn['codeium#Complete']() end, { expr = true, silent = true })
 			vim.keymap.set("i", "<C-f>", function() return vim.fn['codeium#AcceptNextWord']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<C-l>", function() return vim.fn['codeium#AcceptNextLine']() end, { expr = true, silent = true })
 		end,
 		enabled = vim.fn.has('mac') == 0,
 		cond = vim.fn.has('mac') == 0,
