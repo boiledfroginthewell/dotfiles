@@ -9,3 +9,4 @@ fi
 ln -sf "$CDIR/dotfiles.plist" "$TARGET_DIR"
 launchctl load "$TARGET_DIR/dotfiles.plist"
 
+cp $CDIR/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
