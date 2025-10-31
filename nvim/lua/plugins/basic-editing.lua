@@ -48,14 +48,6 @@ return {
 	-- This neovim plugin creates missing folders on save.
 	'jghauser/mkdir.nvim',
 
-	{ 'embear/vim-localvimrc',
-		init = function()
-			vim.g.localvimrc_ask = 0
-			vim.g.localvimrc_sandbox = 0
-			vim.g.localvimrc_persistent = 1
-		end,
-	},
-
 	{
 		'rmagatti/auto-session',
 		lazy = false,
@@ -267,7 +259,7 @@ return {
 	},
 
 	-- Extend and create a/i textobjects
-	{ 'echasnovski/mini.ai',
+	{ 'nvim-mini/mini.ai',
 		version = false,
 		opts = function()
 			local gen_spec = require('mini.ai').gen_spec
@@ -483,6 +475,17 @@ return {
 			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
 		},
 	},
+
+	{
+    "antosha417/nvim-lsp-file-operations",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.
+    },
+    config = function()
+      require("lsp-file-operations").setup()
+    end,
+  },
 
 	-- fzf heart lua
 	{'ibhagwan/fzf-lua',

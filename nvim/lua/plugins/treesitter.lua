@@ -21,6 +21,7 @@ return {
 			require('nvim-treesitter.configs').setup(opts)
 			vim.treesitter.language.register('sql', 'hive')
 			vim.treesitter.language.register('html', 'xml')
+			vim.treesitter.language.register('python', 'python3')
 
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
