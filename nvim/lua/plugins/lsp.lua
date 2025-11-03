@@ -6,12 +6,14 @@ return {
 			"netmute/ctags-lsp.nvim",
 			build = "go install github.com/netmute/ctags-lsp@latest"
 		},
-		config = function()
-			local lspconfig = require("lspconfig")
-			lspconfig.ctags_lsp.setup({
-				filetypes = { "sql", "yaml" }
-			})
-		end,
+		tag = "v2.3.0",
+		pin = true,
+		-- config = function()
+		-- 	local lspconfig = require("lspconfig")
+		-- 	lspconfig.ctags_lsp.setup({
+		-- 		filetypes = { "sql", "yaml" }
+		-- 	})
+		-- end,
 	},
 
 	-- Neovim plugin to manage global and project-local settings
@@ -35,8 +37,6 @@ return {
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
 			},
-			-- prefer_local = false
-			prefer_local = true
 		},
 	},
 
@@ -87,12 +87,6 @@ return {
 			}
 		},
 		opts_extend = { "sources.default" },
-		config = function(_, opts)
-			local blink = require("blink.cmp")
-			blink.setup(opts)
-			local lspconfig_defaults = require('lspconfig').util.default_config
-			lspconfig_defaults.capabilities = blink.get_lsp_capabilities(lspconfig_defaults.capabilities)
-		end,
 	},
 
 	-- 💫 Extensible UI for Neovim notifications and LSP progress messages.
@@ -185,7 +179,9 @@ return {
 	},
 
 	-- LSP diagnostics in virtual text at the top right of your screen
-	{ "dgagn/diagflow.nvim",
+	-- { "dgagn/diagflow.nvim",
+	{ "boiledfroginthewell/diagflow.nvim",
+		branch="prevent-diag-from-hiding-cursor-line",
 		event = "LspAttach",
 		opts = {
 			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
