@@ -16,15 +16,7 @@ alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user xremap"
 alias pppp="systemctl restart --user xremap"
 type -q hub && alias git hub
-function gg
-	git forest \
-		--exclude=refs/stash \
-		--pretty='format:%s  %C(yellow)%an%Creset %C(cyan)@%ad %C(white dim)%h' \
-		--date='format-local:%Y-%m-%d %H:%M' \
-		--color=always \
-		$argv \
-	| less -p
-end
+type -q serie && alias gg=serie
 alias d=docker
 alias t=task
 alias tf=terraform
