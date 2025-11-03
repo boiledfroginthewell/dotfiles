@@ -54,7 +54,7 @@ return {
 		---@module "auto-session"
 		---@type AutoSession.Config
 		opts = {
-			use_git_branch = true,
+			git_use_branch_name = true,
 			bypass_save_filetypes = { "cheetsheat", "neo-tree", "gitcommit", "gitrebase" },
 			args_allow_files_auto_save = true,
 			purge_after_minutes = 10 * 24 * 60,

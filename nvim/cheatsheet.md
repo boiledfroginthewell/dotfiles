@@ -15,7 +15,7 @@ f -- 文字手前ジャンプ (like j)
 ,# -- :ShebangInsert
 <C-down> -- Accept Codeium Suggestion
 za  -- fold
-<C-d,s> -- Jump snippet placeholders
+<C-d,n> -- Jump snippet placeholders
 
 ## Visual Mode
 gv -- Select last visual selection
