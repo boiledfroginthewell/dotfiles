@@ -119,13 +119,6 @@ local spec = {
 		},
 	},
 
-	--  A neovim plugin for peeking at tag definitions using the `nvim_open_win` "floating window" feature.
-	{ 'semanticart/tag-peek.vim',
-		keys = {
-			{ '<leader>t', '<cmd>call tag_peek#ShowTag()<CR>', desc = 'Peek tag definition' },
-		},
-	},
-
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
 	"RRethy/vim-illuminate",
 

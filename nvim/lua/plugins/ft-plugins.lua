@@ -54,6 +54,15 @@ return {
 		cmd = { "CsvViewEnable", "CsvViewDisable", "CsvViewToggle" },
 	},
 
+	-- ### XML
+	-- Use treesitter to auto close and auto rename html tag
+	{ "windwp/nvim-ts-autotag",
+		opts = {
+			enable_close_on_slash = true
+		},
+		ft = { "xml", "html" },
+	},
+
 	-- ### Lua
 	-- Faster LuaLS setup for Neovim
 	{
