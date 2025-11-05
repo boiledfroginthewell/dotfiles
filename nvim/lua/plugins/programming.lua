@@ -210,21 +210,9 @@ local spec = {
 		cond = vim.fn.has('mac') == 0,
 	},
 
-	{ 'pwntester/octo.nvim',
-		deps = {
-			'nvim-lua/plenary.nvim',
-			'ibhagwan/fzf-lua',
-			'nvim-tree/nvim-web-devicons',
-		},
-		opts = {
-			picker = "fzf-lua",
-			github_hostname = "",
-		},
-	},
-
 }
 
-local tagbar_ft = { "sql", "hive", "xml" }
+local tagbar_ft = { "sql", "hive", "xml", "yaml" }
 vim.keymap.set("n", "<F8>", function ()
 	if vim.b[vim.api.nvim_get_current_buf()].prefer_tagbar == 1
 			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then
