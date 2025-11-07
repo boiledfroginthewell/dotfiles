@@ -7,7 +7,9 @@ end
 set NOTIFY_EXCLUDE '^('(string join '|' $AUTO_NOTIFY_EXCLUDE_PATTERNS)')( |$)'
 
 function __check_time -e fish_postexec
-	if [ $status != 0 ]
+	if [ $status = 0 ]
+		set cmdStatus "✅️ "
+	else
 		set cmdStatus "❌ "
 	end
 	if [ $CMD_DURATION -gt $NOTIFY_THREASHOLD ]
