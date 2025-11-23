@@ -45,4 +45,16 @@ return {
 		end
 	},
 
+	-- Show code context
+	{ 'nvim-treesitter/nvim-treesitter-context',
+		config = function(lazy, opts)
+			require("treesitter-context").setup(opts)
+			vim.schedule(function()
+				vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#112260" })
+			end)
+		end,
+		opts = {
+			separator = "―",
+		}
+	},
 }
