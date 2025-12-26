@@ -450,30 +450,43 @@ return {
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
-		branch = "v2.x",
+		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
+		init = function ()
+
+		end,
 		opts = {
-			use_libuv_file_watcher = true,
+			popup_border_style = "rounded",
 			filesystem = {
+				window = {
+					mappings = {
+						["<leader>gs"] = "git_add_file",
+						["ga"] = "git_add_file",
+					},
+				},
 				filtered_items = {
 					hide_dotfiles = false,
 					hide_gitignored = false,
+					hide_by_name = {
+						"__pycache__"
+					}
 				},
 				group_empty_dirs = true,
+				use_libuv_file_watcher = true,
 			},
 			window = {
 				mappings = {
-					["t"] = false,
+					["t"] = "noop",
+					["<C-b>"] = "noop",
 				},
 			},
 		},
 		keys = {
-			{ '<c-b>', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
-			{ '<leader>e', '<cmd>NeoTreeRevealToggle<cr>', desc = 'NeoTree' },
+			{ '<C-b>', '<cmd>Neotree reveal toggle<cr>', desc = 'NeoTree' },
 		},
 	},
 
@@ -505,6 +518,11 @@ return {
 							vim.api.nvim_feedkeys(':e ' .. files, 'n', true)
 						end,
 					},
+				},
+				winopts = {
+					preview = {
+						layout = "vertical"
+					}
 				},
 			}))
 			fzf.register_ui_select()
