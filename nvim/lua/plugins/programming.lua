@@ -210,21 +210,52 @@ local spec = {
 		cond = vim.fn.has('mac') == 0,
 	},
 
-	{ 'pwntester/octo.nvim',
-		deps = {
-			'nvim-lua/plenary.nvim',
-			'ibhagwan/fzf-lua',
-			'nvim-tree/nvim-web-devicons',
+	{
+		"olimorris/codecompanion.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-treesitter/nvim-treesitter",
+			{
+				"echasnovski/mini.diff",
+				config = function()
+					local diff = require("mini.diff")
+					diff.setup({
+						-- Disabled by default
+						source = diff.gen_source.none(),
+					})
+				end,
+	 		},
+			{
+				"MeanderingProgrammer/render-markdown.nvim",
+				ft = { "codecompanion" }
+			},
 		},
 		opts = {
-			picker = "fzf-lua",
-			github_hostname = "",
+			-- NOTE: The log_level is in `opts.opts`
+			opts = {
+				log_level = "DEBUG", -- or "TRACE"
+			},
 		},
+		keys = {
+			{ "<M-a><M-c>",
+				function ()
+					local codeCompanion = require("codecompanion")
+					if vim.bo.filetype == "codecompanion" then
+						codeCompanion.close_last_chat()
+					elseif codeCompanion.last_chat() == nil then
+						codeCompanion.chat()
+					else
+						codeCompanion.toggle()
+					end
+				end,
+				mode = {"n"}
+			},
+			{ "<M-a><M-c>", ":CodeCompanion ", mode = {"v"} },
+		}
 	},
-
 }
 
-local tagbar_ft = { "sql", "hive", "xml" }
+local tagbar_ft = { "sql", "hive", "xml", "yaml" }
 vim.keymap.set("n", "<F8>", function ()
 	if vim.b[vim.api.nvim_get_current_buf()].prefer_tagbar == 1
 			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then

@@ -6,7 +6,8 @@ return {
 			auto_install = true,
 			ensure_installed = {
 				"lua", 'luadoc', 'vim', "vimdoc",
-				'json', "jsonc", 'markdown', 'yaml', 'toml',
+				'markdown', "markdown_inline",
+				'json', "jsonc", 'yaml', 'toml',
 				'bash', "fish",
 				'python',
 				"sql"

@@ -16,10 +16,10 @@ alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user xremap"
 alias pppp="systemctl restart --user xremap"
 type -q hub && alias git hub
-type -q serie && alias gg=serie
+type -q serie && alias gg="serie -i head"
 alias d=docker
 alias t=task
-alias tf=terraform
+alias tf=(nvl -c tofu terraform)
 if type -q docker-compose
 	alias dc=docker-compose
 else if type -q docker
