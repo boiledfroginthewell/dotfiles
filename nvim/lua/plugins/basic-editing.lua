@@ -42,6 +42,19 @@ return {
 	-- Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
 	'ConradIrwin/vim-bracketed-paste',
 
+	-- Context-aware paste indentation for Neovim. Pasted code lands at the correct indent level, every time, in every language.
+	{
+		'nemanjamalesija/smart-paste.nvim',
+		event = 'VeryLazy',
+		config = true,
+	},
+
+	-- Improved Yank and Put functionalities for Neovim
+	{
+		"gbprod/yanky.nvim",
+		opts = {},
+	},
+
 	-- Configure commands not to be registered in the command-line history
 	{ 'yutkat/history-ignore.nvim', },
 
@@ -447,6 +460,13 @@ return {
 				end
 			})
 		end,
+		enabled = false,
+	},
+
+	-- A super simple smooth resize plugin for neovim
+	{
+		"aronjohanns/smooth-resize.nvim",
+	   opts = true
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",

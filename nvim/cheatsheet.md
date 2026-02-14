@@ -13,7 +13,7 @@ f -- 文字手前ジャンプ (like j)
 ## Programming
 <F8> -- :TagbarToggle
 ,# -- :ShebangInsert
-<C-down> -- Accept Codeium Suggestion
+<M-f/left/down> -- Accept Windsurf Suggestion
 za  -- fold
 <C-d,n> -- Jump snippet placeholders
 
