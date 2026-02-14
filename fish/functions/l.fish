@@ -34,6 +34,8 @@ function l
 			unzip -l $opt $files
 		else if string match -rq "jupyter|ipynb" $mime
 			$ipynbViewer $opt $files
+		else if type -q glow && string match -q '*.md' "$files[1]"
+			glow $opt $files
 		else if string match -q "*charset=binary*" $mime
 			open $opt $files
 		else
