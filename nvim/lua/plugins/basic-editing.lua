@@ -47,12 +47,47 @@ return {
 		'nemanjamalesija/smart-paste.nvim',
 		event = 'VeryLazy',
 		config = true,
+		enabled = false,
 	},
 
 	-- Improved Yank and Put functionalities for Neovim
 	{
 		"gbprod/yanky.nvim",
-		opts = {},
+		dependencies = { "folke/snacks.nvim" },
+		opts = {
+			ring = {
+				history_length = 100,
+			},
+			highlight = {
+				-- already achieved by undo-glow.nvim
+				on_put = false,
+				on_yank = false,
+			},
+			textobj = {
+				enabled = false,
+			},
+		},
+		keys = {
+			{ "p", "<Plug>(YankyPutAfter)", mode = { "n", "x" } },
+			{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" } },
+			{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" } },
+			{ "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" } },
+			-- TODO: make submode
+			{ "[p", "<Plug>(YankyPreviousEntry)", mode = { "n", "x" } },
+			{ "]p", "<Plug>(YankyNextEntry", mode = { "n", "x" } },
+			{ "iy", function()
+				require("yanky.textobj").last_put()
+			end, mode = { "i", "x" }
+			},
+			{
+				"<leader>p",
+				function()
+					Snacks.picker.yanky()
+				end,
+				mode = { "n", "x" },
+				desc = "Open Yank History",
+			},
+		}
 	},
 
 	-- Configure commands not to be registered in the command-line history
