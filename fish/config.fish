@@ -12,6 +12,9 @@ if [ (uname) = Darwin ]
 else
 	alias diff="diff --ignore-space-change --ignore-trailing-space"
 end
+if type -q eza
+	alias tree="eza --tree"
+end
 alias pgrep="pgrep -afl"
 alias rrrr="systemctl restart --user xremap"
 alias pppp="systemctl restart --user xremap"

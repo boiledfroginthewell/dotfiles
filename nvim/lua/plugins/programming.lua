@@ -52,6 +52,18 @@ local spec = {
 		event = "VeryLazy",
 	},
 
+	-- Diff between multiple git commits, similar to jetbrains git log.
+	{
+		"Salanoid/gitlogdiff.nvim",
+		main = "gitlogdiff",
+		dependencies = {
+			"sindrets/diffview.nvim",
+			"folke/snacks.nvim",
+		},
+		cmd = "GitLogDiff",
+		opts = { max_count = 300 },
+	},
+
 	{ 'sbdchd/vim-shebang',
 		init = function()
 			vim.g["shebang#shebangs"] = {
@@ -120,7 +132,16 @@ local spec = {
 	},
 
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
-	"RRethy/vim-illuminate",
+		"RRethy/vim-illuminate",
+
+	-- A Neovim plugin to mark occurrences of words/patterns/selections in a buffer and perform operations on them. Inspired by vim-mode-plus's occurrence feature.
+	{
+		"lettertwo/occurrence.nvim",
+		lazy = false,
+		---@module "occurrence"
+		---@type occurrence.Options
+		-- opts = {} -- setup is optional; the defaults will work out of the box.
+	},
 
 	{'haringsrob/nvim_context_vt',
 		init = function ()
@@ -201,10 +222,12 @@ local spec = {
 			vim.g.codeium_filetypes = {
 				sh = false,
 			}
-			vim.keymap.set("i", "<C-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-			vim.keymap.set("i", "<C-Up>", function() return vim.fn['codeium#Complete']() end, { expr = true, silent = true })
-			vim.keymap.set("i", "<C-f>", function() return vim.fn['codeium#AcceptNextWord']() end, { expr = true, silent = true })
-			vim.keymap.set("i", "<C-l>", function() return vim.fn['codeium#AcceptNextLine']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<M-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+			-- vim.keymap.set("i", "<C-Up>", function() return vim.fn['codeium#Complete']() end, { expr = true, silent = true })
+			-- vim.keymap.set("i", "<C-f>", function() return vim.fn['codeium#AcceptNextWord']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<M-f>", function() return vim.fn['codeium#AcceptNextWord']() end, { expr = true, silent = true })
+			vim.keymap.set("i", "<M-n>", function() return vim.fn['codeium#AcceptNextLine']() end, { expr = true, silent = true })
+			-- vim.keymap.set("i", "<C-l>", function() return vim.fn['codeium#AcceptNextLine']() end, { expr = true, silent = true })
 		end,
 		enabled = vim.fn.has('mac') == 0,
 		cond = vim.fn.has('mac') == 0,
