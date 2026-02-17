@@ -140,21 +140,6 @@ return {
 		end
 	},
 
-	-- Incremental LSP renaming based on Neovim's command-preview feature.
-	{
-		"smjonas/inc-rename.nvim",
-		opts = true,
-			keys = {
-				{
-					"<f2>",
-					function()
-						require("inc_rename").inc_rename()
-					end,
-					desc = "Rename",
-				},
-			},
-	},
-
 	{
 		'stevearc/conform.nvim',
 		opts = {
