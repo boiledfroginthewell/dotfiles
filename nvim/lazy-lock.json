@@ -87,6 +87,7 @@
   "tint.nvim": { "branch": "master", "commit": "586e87f00c8b0f5e857cefe10839e41f3e8c6d01" },
   "treewalker.nvim": { "branch": "main", "commit": "3d5148e160ed9728b3275d37d06ea028cef5f43b" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
+  "ts-install.nvim": { "branch": "main", "commit": "2284eb78d77cb2e7d62193b2666c93669557738f" },
   "undo-glow.nvim": { "branch": "main", "commit": "ac70916caa2f4e57419bb4c1a2e303cdb7bb57e2" },
   "url-open": { "branch": "main", "commit": "dce2a9bc51e4885ea80ca03da5b4d0f719aaf820" },
   "vim-ambiwidth": { "branch": "main", "commit": "4fd05792acac85d29bb0dc08f720a49093abefad" },

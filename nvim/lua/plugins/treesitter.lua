@@ -2,6 +2,7 @@
 return {
 	{ 'nvim-treesitter/nvim-treesitter',
 		build = ":TSUpdate",
+		branch = "master",
 		opts = {
 			auto_install = true,
 			ensure_installed = {
@@ -27,6 +28,24 @@ return {
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 		end,
+	},
+
+	-- Treesitter parser manager for Neovim
+	{ 'lewis6991/ts-install.nvim',
+		dependencies = {
+			'nvim-treesitter/nvim-treesitter',
+		},
+		opts = {
+			ensure_install = {
+				"lua", "luadoc", "vimdoc",
+				"markdown", "markdown_inline",
+				"json", "jsonc", "yaml", "toml",
+				"bash", "fish",
+				"python",
+			},
+			-- ignore_install = {},
+			auto_install = true
+		}
 	},
 
 	{ 'HiPhish/rainbow-delimiters.nvim' },
