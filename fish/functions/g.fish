@@ -20,7 +20,7 @@ function g --wrap git
 			return
 		end
 		set worktree (printf "%s\n" $worktrees | fzf | choose 0)
-		set -q worktree && cd "$worktree"
+		test -n "$worktree" && cd "$worktree"
 	else if [ "$argv[1]" = "addi" ]
 		if type forgit::add &> /dev/null
 			forgit::add $argv[2..]
@@ -28,7 +28,7 @@ function g --wrap git
 			git forgit add $argv[2..]
 		end
  	else if [ "$argv[1]" = "add" ] && [ (count $argv) = 1 ]
-		forgit::add
+		git forgit add
 	else if [ "$argv[1]" = "switch" ] && [ (count $argv) = 1 ]
 		set branch (git branch -a --color | fzf | cut -c 3-)
 		set -q branch && git switch "$branch"

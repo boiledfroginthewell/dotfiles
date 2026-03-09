@@ -12,7 +12,9 @@ if [ (uname) = Darwin ]
 else
 	alias diff="diff --ignore-space-change --ignore-trailing-space"
 end
-if type -q eza
+if type -q struct
+	alias tree=struct
+else if type -q eza
 	alias tree="eza --tree"
 end
 alias pgrep="pgrep -afl"
@@ -31,6 +33,7 @@ end
 alias ipython="ipython --no-confirm-exit"
 alias vi="nvim"
 alias v=nvim
+alias gcf="git forgit checkout_file"
 set -x EDITOR nvim
 
 abbr --add k kubectl
