@@ -272,12 +272,14 @@ return {
 
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
 	{ "kylechui/nvim-surround",
-		event = "VeryLazy",
-		opts = {
-			keymaps = {
-				delete = 'ks'
-			}
-		},
+		init = function()
+			vim.g.nvim_surround_no_mappings = true
+		end,
+		keys = {
+			{ "cs", "<Plug>(nvim-surround-change)", desc = "Change a surrounding pair" },
+			{ "ks", "<Plug>(nvim-surround-delete)", desc = "Delete a surrounding pair" },
+			{ "ys", "<Plug>(nvim-surround-normal)", desc = "Add a surrounding pair around a motion (normal mode)" }
+		}
 	},
 
 	-- vim-textobj-user - Create your own text objects
