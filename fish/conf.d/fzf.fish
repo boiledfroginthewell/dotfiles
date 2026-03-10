@@ -1,13 +1,20 @@
 not status -i || status -c && exit
 
 set -gx FZF_DEFAULT_COMMAND fzf-default-command
-set __FZF_DEFAULT_OPTS --reverse --multi --cycle --ansi --exact \
-	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down,ctrl-f:replace-query"
+set __FZF_DEFAULT_OPTS '
+	--reverse --multi --cycle --ansi --exact
+	--no-sort
+	--bind "ctrl-a:toggle-all,shift-left:preview-page-up,shift-right:preview-page-down"
+	--bind "ctrl-f:replace-query"
+	--bind "ctrl-y:execute-silent(echo {} | pbcopy)"
+	--header "ctrl-f: fill, ctrl-y: yank"
+'
+
 if [ "$FZF_DEFAULT_OPTS" != "$__FZF_DEFAULT_OPTS" ]
 	set -Ux FZF_DEFAULT_OPTS $__FZF_DEFAULT_OPTS
 end
 set -gx FZF_CTRL_R_OPTS "
-	--bind 'ctrl-d:execute-silent(history delete --exact --case-sensitive {})+reload(history -z)+ignore'
+	--bind 'ctrl-d:execute-silent!history delete --exact --case-sensitive \"\$(echo {} | sed \"s/^[ 0-9]*//\")\"!+reload(history -z --reverse)+ignore'
 	--header 'ctrl-d: Delete history'
 "
 
@@ -28,7 +35,7 @@ end
 [ -z "$FZF_HEIGHT" ] && set FZF_HEIGHT 40%
 
 function _fzf_config_insert_git
-	switch (commandline -po)[2]
+	switch (commandline -px)[2]
 		case stash add restore
 			git status --short | \
 			fzf \
@@ -43,56 +50,62 @@ function _fzf_config_insert_git
 			echo __fallback
 			return
 	end
-
 end
 
 function iconify
 	while read line
 		set emoji "　"
 		if string match -q '*.sh' "$line"
-			set emoji 🐚
+			set emoji "🐚"
 		else if string match -q '*.fish' "$line"
-			set emoji 🐟
+			set emoji "🐟"
+		else if string match -q '*.lua' "$line"
+			set emoji "󰢱"
 		else if string match -q '*.vim' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -q '*.py' "$line"
-			set emoji 🐍
+			set emoji "🐍"
 		else if string match -qr '\\.(js|ts)$' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -q '*.java' "$line"
-			set emoji ☕
+			set emoji "☕"
 		else if string match -q '*.cql' "$line"
-			set emoji 👁️
+			set emoji "👁️"
 		else if string match -qr '\\.[shc]ql$' "$line"
-			set emoji 🛢️
+			set emoji "🛢️"
 		else if string match -qr '\\.(txt|md)$|README$' "$line"
-			set emoji 📝
+			set emoji "📝"
 		else if string match -q '*.json' "$line"
-			set emoji ﬥ
+			# set emoji ﬥ
+			set emoji ""
 		else if string match -q '*.xml' "$line"
-			set emoji 
+			# set emoji 
+			set emoji "󰗀"
 		else if string match -qr '\\.ya?ml$' "$line"
-			set emoji 
+			set emoji ""
+		else if string match -qr '\\.toml$' "$line"
+			set emoji ""
 		else if string match -q '*.ini' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -q '*.properties' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -qr '\\.(exe|ps1)$' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -qr '\\.[ct]sv$' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -qr 'git' "$line"
-			set emoji 
+			# set emoji ""
+			set emoji ""
 		else if string match -qri 'docker' "$line"
-			set emoji 🐋
+			set emoji "🐋"
 		else if string match -qri 'aws' "$line"
-			set emoji 
+			set emoji ""
 		else if string match -q '/opt/' "$line"
-			set emoji 🤖
+			set emoji "🤖"
 		else if string match -qr '/(\.?config|dotfiles)' "$line"
-			set emoji ⚙️
+			set emoji "⚙️"
 		else if string match -qr '/$' "$line"
-			set emoji 📁
+			set emoji "📁"
 		end
 		echo "$emoji $line"
 	end
@@ -104,19 +117,27 @@ function _fzf_config_ctrl_s
 	set -f searchCommand fzf-default-command
 	set -f query
 	set -f directory
-	if [ -d $inputValue ]
-		set -f searchCommand fd .
+	if [ -n "$(commandline -p)" ] && [ ""$(commandline -xpc)[1] = argo ] && string match -qr '^(cronwf/|wftmpl/)' "$(commandline -cxt)"
+		set -f file (fd -e yaml -e yml -E kustomization | fzf)
+		if [ -n "$file" ]
+			set -f resourceName (basename "$file" | string replace -r '\\..*' '')
+			commandline "$(commandline)$resourceName"
+		end
+		commandline -f repaint
+		return
+	else if [ -d $inputValue ]
+		set -f searchCommand fd --no-ignore-vcs .
 		set -fe query
 		set -f directory "$inputValue"
 	else if string match -q '*/*' $inputValue && [ -d (dirname $inputValue) ]
-		set -f searchCommand fd .
+		set -f searchCommand fd --no-ignore-vcs .
 		set -f query (basename $inputValue)
 		set -f directory (dirname $inputValue)
-	else if string match -qr "g(it)?" (commandline -po)[1]
+	else if string match -qr "g(it)?" (commandline -p)[1]
 		set output (_fzf_config_insert_git)
 		if [ "$output" = "__fallback" ]
 			set -e output
-			set -f searchCommand fd .
+			set -f searchCommand fd --no-ignore-vcs .
 			set -e query
 			set -f directory (git rev-parse --show-toplevel | sed s:"^$PWD":"./":)
 		else if [ -z "$output" ]
@@ -132,11 +153,13 @@ function _fzf_config_ctrl_s
 		set -f output (
 			$searchCommand $directory | \
 			iconify | \
+			sed "s;\b$PWD/?;./;g" | \
 			fzf \
 			--height $FZF_HEIGHT \
 			--query "$query" \
 			--bind "ctrl-l:execute(less {})" | \
-			string sub -s 3
+			string sub -s 3 | \
+			string trim
 		)
 	end
 	if [ -z "$output" ]
