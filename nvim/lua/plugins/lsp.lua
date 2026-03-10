@@ -144,21 +144,26 @@ return {
 		'stevearc/conform.nvim',
 		opts = {
 			formatters_by_ft = {
+				go = { "gofmt" },
 				python = {
 					"ruff_fix", "ruff_format", -- "ruff_organize_import"
 				},
+				terraform = { "tofu_fmt" },
 			},
 			format_on_save = function(bufnr)
-				if vim.b[bufnr].conform_enable_autoformat == 1
+				if vim.tbl_contains({ "terraform", "go" }, vim.bo.ft)
+					or vim.b[bufnr].conform_enable_autoformat == 1
 					or (
 						vim.b[bufnr].conform_enable_autoformat ~= 0
 						and vim.g.conform_enable_autoformat == 1
 					) then
-					return { timeout_ms = 500, lsp_format = "fallback", formatters_by_ft ={
-						python = { "ruff_fix", "ruff_format" }
-					}}
+					return { timeout_ms = 500, lsp_format = "fallback" }
 				end
 			end,
+		},
+		ft = {
+			"terraform",
+			"go"
 		},
 		keys = {
 			{
@@ -183,6 +188,7 @@ return {
 	{ "boiledfroginthewell/diagflow.nvim",
 		branch="prevent-diag-from-hiding-cursor-line",
 		event = "LspAttach",
+		pin = true,
 		opts = {
 			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
 				error = "DiagnosticFloatingError",

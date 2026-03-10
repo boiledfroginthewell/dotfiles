@@ -104,6 +104,7 @@ return {
 		opts = {
 			git_use_branch_name = true,
 			bypass_save_filetypes = { "cheetsheat", "neo-tree", "gitcommit", "gitrebase" },
+			close_filetypes_on_save = { "gitcommit", "gitrebase", "checkhealth" },
 			args_allow_files_auto_save = true,
 			purge_after_minutes = 10 * 24 * 60,
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
@@ -216,6 +217,7 @@ return {
 			{ "BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
 			{ "<a-w>", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
 		},
+		next = "alternate",
 	},
 
 	-- ⚡Fix the auto-scroll to the middle of the screen when switching between buffers in Neovim
@@ -621,63 +623,6 @@ return {
 		-- 	end)()
 		-- 	vim.keymap.set('n', '<leader>,', action)
 		-- end,
-	},
-
-	{
-		"danielfalk/smart-open.nvim",
-		branch = "0.3.x",
-		config = function()
-			require("smart-open").setup({
-				match_algorithm = "fzf",
-				mappings = {
-					i = {
-						["<C-u>"] = function()
-							vim.api.nvim_input("<C-S-u>")
-						end,
-						-- ["<C-k>"] = function()
-						-- 	vim.api.nvim_input("<C-S-k>")
-						-- end,
-					}
-				},
-			})
-			require("telescope").load_extension("smart_open")
-		end,
-		dependencies = {
-			{
-				"nvim-telescope/telescope.nvim",
-				branch = "0.1.x",
-				dependencies = { "nvim-lua/plenary.nvim" },
-				config = function()
-					local actions = require("telescope.actions")
-					require("telescope").setup{
-						defaults = {
-							sorting_strategy = "ascending",
-							layout_strategy = "vertical",
-							layout_config = {
-								prompt_position = "top",
-								mirror = true,
-								preview_cutoff = 6,
-							},
-							mappings = {
-								i = {
-									['<esc>'] = actions.close
-								}
-							}
-						}
-					}
-				end,
-			},
-			"kkharji/sqlite.lua",
-			"nvim-telescope/telescope-fzf-native.nvim",
-			-- Only required if using match_algorithm fzf
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
-			-- { "nvim-telescope/telescope-fzy-native.nvim" },
-		},
-		keys = {
-			{ "<leader>,", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-		},
-		enabled = false,
 	},
 
 	-- Finally a Fast Fuzzy File Finder for neovim
