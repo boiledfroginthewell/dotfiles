@@ -308,7 +308,6 @@ return {
 			-- cursor_color = "#d3cdc3",
 			normal_bg = "#16181a",
 			smear_between_neighbor_lines = false,
-			smear_to_cmd = false,
 		},
 	},
 

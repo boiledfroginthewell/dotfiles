@@ -194,6 +194,11 @@ local spec = {
 						word = true,
 						cyclic = true,
 					},
+					augend.constant.new {
+						elements = { "==", "!=" },
+						word = true,
+						cyclic = true,
+					},
 					augend.semver.alias.semver,
 				},
 			}
