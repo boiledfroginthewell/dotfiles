@@ -1,5 +1,7 @@
-snippet Logger "logger"
-	_logger = logging.getLogger(__name__)
+snippet _logger "logger"
+	import logging
+
+	${0}_logger = logging.getLogger(__name__)
 
 snippet ifmain "main"
 	if __name__ == "__main__" and "__file__" in globals():
@@ -14,3 +16,5 @@ snippet plotly "Plot with Plotly"
 snippet debug "Start debugger"
 	import pdb; pdb.set_trace()
 
+snippet does_not_raise "conditionally testing exceptions in pytest"
+	from contextlib import nullcontext as does_not_raise
