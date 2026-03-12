@@ -2,70 +2,43 @@
 set -eu -o pipefail
 
 if [[ "${1:-}" = -i ]]; then
-	useIcons=1
+	echo "Warning: dropped iconify support" >&2
 fi
-
-# Show absolute path or relative path, which is shorter
-compact() {
-	while read -r line; do
-		local ABS="$line"
-		local REL=${ABS#"$PWD"/}
-		REL=${REL:-.}
-
-		echo ${REL}
-	done
-}
 
 get_project_root() {
 	if [ -n "$1" ]; then
 		cd "$1"
 	fi
 	local PROJECT_ROOT
-	PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+	PROJECT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)/"
 	echo "${PROJECT_ROOT:-$PWD}"
 }
 
-iconify() {
-	if [ -z "${useIcons:-}" ]; then
-		more
-		return
-	fi
-
-	while read -r line; do
-		emoji="　"
-		if [[ $line = *.sh ]]; then
-			emoji=🐚
-		elif [[ $line = *.fish ]]; then
-			emoji=🐟
-		elif [[ $line = *.vim ]]; then
-			emoji=
-		elif [[ $line = *.py ]]; then
-			emoji=
-		elif [[ $line = *.js ]]; then
-			emoji=
-		elif [[ $line = *.txt ]] || [[ $line = *.md ]]; then
-			emoji=📝
-		elif [[ $line = *.xml ]]; then
-			emoji=
-		elif [[ $line = *.exe ]] || [[ $line = *.ps1 ]]; then
-			emoji=
-		fi
-		echo "$emoji $line"
-	done
-}
-
 directory="${1:-}"
+projectRoot=$(get_project_root "${directory}")
 if [ -z "$directory" ]; then
-	directory=$(get_project_root "${directory}")
+	directory="$projectRoot"
 fi
 
-# <(< "${XDG_DATA_HOME}/z/data" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1 | sed 's/^/  /') | \
+if type grealpath >&/dev/null; then
+	_REALPATH=grealpath
+else
+	_REALPATH=realpath
+fi
+relativeProjectRoot="$($_REALPATH --relative-to="$PWD" "$projectRoot" 2>/dev/null)/"
+# If realpath fails, fallback to simple logic
+if [ -z "$relativeProjectRoot" ]; then
+	relativeProjectRoot=${projectRoot#"$PWD"/}
+	relativeProjectRoot=${relativeProjectRoot:-.}
+fi
+
 
 cat \
-	<(fd . ${directory}) \
-	<(< "${XDG_DATA_HOME}/z/data" sort -t '|' -k 2,3 -rn | cut -d '|' -f 1) | \
-compact |\
-awk '!x[$0]++' |\
-sed "s:$HOME:~:" |\
-iconify
-
+	<(fd .) \
+	<(test -n "${directory}" && test "$directory" != "PWD" && fd . "${directory}" --exclude="${PWD}") \
+	<(jumper find | sed 's;$;/;') | \
+sed -E \
+	-e "s:^$PWD/::" \
+	-e "s:^$projectRoot:$relativeProjectRoot:" \
+	-e "s:^$HOME/:~/:" |\
+awk '!x[$0]++'

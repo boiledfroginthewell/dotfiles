@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -eu -o pipefail
+
+while IFS= read -r line; do
+	emoji="　"
+	if [[ "$line" == *.sh ]]; then
+		emoji="🐚"
+	elif [[ "$line" == *.fish ]]; then
+		emoji="🐟"
+	elif [[ "$line" == *.lua ]]; then
+		emoji="󰢱"
+	elif [[ "$line" == *.vim ]]; then
+		emoji=""
+	elif [[ "$line" == *.py ]]; then
+		emoji=""
+	elif [[ "$line" =~ \.(js|ts)$ ]]; then
+		emoji=""
+	elif [[ "$line" == *.java ]]; then
+		emoji="☕"
+	elif [[ "$line" == *.cql ]]; then
+		emoji="👁️"
+	elif [[ "$line" =~ \.[shc]ql$ ]]; then
+		emoji="🛢️"
+	elif [[ "$line" =~ \.(txt|md)$ ]] || [[ "$line" == *"README" ]]; then
+		emoji="📝"
+	elif [[ "$line" == *.json ]]; then
+		# emji ﬥ
+		emoji=""
+	elif [[ "$line" == *.xml ]]; then
+		# emoji 
+		emoji="󰗀"
+	elif [[ "$line" =~ \.ya?ml$ ]]; then
+		emoji="⚙️"
+	elif [[ "$line" == *.toml ]]; then
+		emoji="⚙️"
+	elif [[ "$line" =~ .*\.env(\.|$) ]]; then
+		emoji="⚙️"
+	elif [[ "$line" == *.ini ]] || [[ "$line" == *.properties ]]; then
+		emoji="⚙️"
+	elif [[ "$line" =~ \.(exe|ps1)$ ]]; then
+		emoji=""
+	elif [[ "$line" =~ \.[ct]sv$ ]]; then
+		emoji=""
+	elif [[ "$line" =~ \.tf$ ]]; then
+		emoji="󱁢"
+	elif [[ "$line" =~ \.(key|pem)$ ]]; then
+		emoji="🔑"
+	elif [[ "$line" =~ git ]]; then
+		# emoji ""
+		emoji=""
+	elif [[ "$line" =~ [Dd][Oo][Cc][Kk][Ee][Rr] ]]; then
+		emoji="🐋"
+	elif [[ "$line" =~ [Aa][Ww][Ss] ]]; then
+		emoji=""
+	elif [[ "$line" == *.lock ]]; then
+		emoji=""
+	elif [[ "$line" == */opt/* ]]; then
+		emoji="🤖"
+	elif [[ "$line" =~ /(\.?config|dotfiles) ]]; then
+		emoji="⚙️"
+	elif [[ "$line" == */ ]]; then
+		emoji="📁"
+	fi
+	echo "$emoji $line"
+done
