@@ -98,27 +98,6 @@ local spec = {
 		lazy = false,
 	},
 
-	-- Neovim plugin for a code outline window
-	{ 'stevearc/aerial.nvim',
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons"
-		},
-		event = "VeryLazy",
-		opts = {
-			layout = { placement = "edge" },
-			lsp = {
-				priority = {
-					ctags_lsp = 20
-				}
-			}
-		},
-		cmd = {
-			"AerialToggle",
-		},
-		enabled = false,
-	},
-
 	-- Navigate code with an outline sidebar. Forked from symbols-outline.nvim.
 	{ "hedyhli/outline.nvim",
 		cmd = { "Outline", "OutlineOpen" },
@@ -127,6 +106,12 @@ local spec = {
 				auto_unfold = {
 					hovered = false
 				}
+			},
+			keymaps = {
+				unfold = "n",
+				unfold_all = "N",
+				fold = "d",
+				fold_all = "D",
 			}
 		},
 	},
