@@ -29,15 +29,11 @@ while IFS= read -r line; do
 	elif [[ "$line" == *.xml ]]; then
 		# emoji 
 		emoji="󰗀"
-	elif [[ "$line" =~ \.ya?ml$ ]]; then
-		emoji="⚙️"
-	elif [[ "$line" == *.toml ]]; then
+	elif [[ "$line" =~ \.(ya?ml|toml|ini|properties|conf)$ ]]; then
 		emoji="⚙️"
 	elif [[ "$line" =~ .*\.env(\.|$) ]]; then
 		emoji="⚙️"
-	elif [[ "$line" == *.ini ]] || [[ "$line" == *.properties ]]; then
-		emoji="⚙️"
-	elif [[ "$line" =~ \.(exe|ps1)$ ]]; then
+	elif [[ "$line" =~ \.(exe|ps1|bat)$ ]]; then
 		emoji=""
 	elif [[ "$line" =~ \.[ct]sv$ ]]; then
 		emoji=""
@@ -45,6 +41,14 @@ while IFS= read -r line; do
 		emoji="󱁢"
 	elif [[ "$line" =~ \.(key|pem)$ ]]; then
 		emoji="🔑"
+	elif [[ "$line" =~ \.(png|jpg|gif)$ ]]; then
+		emoji=""
+	elif [[ "$line" =~ \.(pu)$ ]]; then
+		emoji=""
+	elif [[ "$line" == *.groovy ]]; then
+		emoji="󰧭"
+	elif [[ "$line" =~ \.(gradle)$|gradlew$ ]]; then
+		emoji=""
 	elif [[ "$line" =~ git ]]; then
 		# emoji ""
 		emoji=""
@@ -59,7 +63,7 @@ while IFS= read -r line; do
 	elif [[ "$line" =~ /(\.?config|dotfiles) ]]; then
 		emoji="⚙️"
 	elif [[ "$line" == */ ]]; then
-		emoji="📁"
+		emoji=""
 	fi
 	echo "$emoji $line"
 done
