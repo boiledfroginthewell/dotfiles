@@ -78,7 +78,7 @@ function _fzf_config_ctrl_s
 		set output (_fzf_config_insert_git)
 		if [ "$output" = "__fallback" ]
 			set -e output
-			set -f searchCommand fd --no-ignore-vcs .
+			set -f searchCommand fd .
 			set -e query
 			set -f directory (git rev-parse --show-toplevel | sed s:"^$PWD":"./":)
 		else if [ -z "$output" ]

@@ -1,5 +1,7 @@
 if not status is-interactive; return; end
 
+fish_config theme choose ayu-mirage
+
 set -gx SHELL (which fish)
 
 fish_add_path --prepend /usr/local/bin
