@@ -46,7 +46,7 @@ if type -q bat
 	set -gx MANROFFOPT "-c"
 end
 set -gx LESS "--quit-if-one-screen"
-alias less=(nvl -c bat lv less)
+alias less=(nvl -c moor bat lv less)
 
 # ls alternative
 if type -q eza
