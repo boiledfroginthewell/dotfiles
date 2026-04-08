@@ -103,8 +103,16 @@ local spec = {
 		cmd = { "Outline", "OutlineOpen" },
 		opts = {
 			symbol_folding = {
+				autofold_depth = 3,
 				auto_unfold = {
 					hovered = false
+				}
+			},
+			symbols = {
+				filter = {
+					"Variable",
+					"Constant",
+					exclude = true
 				}
 			},
 			keymaps = {
