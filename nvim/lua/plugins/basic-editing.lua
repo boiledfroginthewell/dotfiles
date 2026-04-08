@@ -583,6 +583,9 @@ return {
 						layout = "vertical"
 					}
 				},
+				grep = {
+					RIPGREP_CONFIG_PATH = vim.env.RIPGREP_CONFIG_PATH
+				}
 			}))
 			fzf.register_ui_select()
 		end,
