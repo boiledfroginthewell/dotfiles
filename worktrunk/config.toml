@@ -1,0 +1,40 @@
+## Worktree path template
+# Controls where new worktrees are created.
+
+# Centralized worktrees directory
+worktree-path = "~/prj/worktrees/{{ repo }}/{{ branch | sanitize }}"
+skip-commit-generation-prompt = true
+
+## Hooks
+[pre-start]
+copy = "wt step copy-ignored && echo copied"
+mise = "test -e mise.toml && mise trust || true"
+
+[post-start]
+python-venv = "test -e uv.lock && uv sync"
+
+
+## LLM commit messages
+# See LLM commits docs (https://worktrunk.dev/llm-commits/) for setup and Custom prompt templates (#custom-prompt-templates) for template customization.
+### Codex
+[commit.generation]
+command = "codex exec -m gpt-5.1-codex-mini -c model_reasoning_effort='low' -c system_prompt='' --sandbox=read-only --json - | jq -sr '[.[] | select(.item.type? == \"agent_message\")] | last.item.text'"
+
+
+# ## Command config
+# ### Merge
+# Most flags are on by default. Set to false to change default behavior.
+[merge]
+# squash = true      # Squash commits into one (--no-squash to preserve history)
+# commit = true      # Commit uncommitted changes first (--no-commit to skip)
+# rebase = true      # Rebase onto target before merge (--no-rebase to skip)
+# remove = true      # Remove worktree after merge (--no-remove to keep)
+# verify = true      # Run project hooks (--no-verify to skip)
+no-ff = true
+
+### Step
+[step.copy-ignored]
+exclude = [".venv/", ".task/"]
+
+# Built-in excludes always apply: VCS metadata directories (`.bzr/`, `.hg/`, `.jj/`, `.pijul/`, `.sl/`, `.svn/`) and tool-state directories (`.conductor/`, `.entire/`, `.pi/`, `.worktrees/`). User config and project config exclusions are combined.
+
