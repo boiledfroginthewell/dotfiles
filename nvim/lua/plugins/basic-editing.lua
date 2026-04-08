@@ -114,29 +114,24 @@ return {
 	-- Better marks for Neovim 🏹📌
 	{
 		'2kabhishek/markit.nvim',
+		dependencies = { '2kabhishek/pickme.nvim', 'nvim-lua/plenary.nvim' },
 		event = { 'BufReadPre', 'BufNewFile' },
-		opts = function()
-			local opts = {
-				default_mappings = true,
-				mappings = {
-					set = false,
-					toggle_mark = "m",
-					delete = false,
-					delete_line = "km-",
-					delete_bookmark= "km=",
-					delete_buf = "km<space>",
-				},
-			}
-			for i = 0, 9 do
-				opts.mappings["delete_bookmark" .. i] = "km" .. i
-				opts.mappings["toggle_bookmark" .. i] = "m" .. i
-				opts["bookmark_" .. i] = { sign = tostring(i) }
-			end
-			return opts
-		end,
+		opts = {
+			add_default_keybindings = false,
+		},
 		config = function(_, opts)
 			require("markit").setup(opts)
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
+		end,
+		keys = function()
+			local keys = {
+				{ "mt", ":Markit mark toggle<cr>", desc = "Toggle mark" },
+				{ "mk", ":Markit mark delete line<cr>", desc = "Delete mark" },
+			}
+			for i = 0, 9 do
+				table.insert(keys, { "m" .. i, ":Markit bookmark toggle " .. i .. "<cr>", desc = "Toggle book mark " .. i })
+			end
+			return keys
 		end
 	},
 
