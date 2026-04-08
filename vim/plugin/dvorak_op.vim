@@ -1,12 +1,12 @@
 " Dvorak layout
-" d -> h -> j -> f -> t -> k -> d
+" d <- k <- t <- f <- j <- h <- d
 " l <--> n
 " Basic Movement
 noremap d h
 noremap h gj
 noremap t gk
 noremap n l
-" gd is reserved for coc
+" gd is reserved for lsp
 noremap gh j
 noremap gt k
 noremap gn gl
@@ -18,6 +18,8 @@ noremap N L
 " noremap gJ gf
 " noremap gf gt
 " noremap gF gT
+ noremap gl gt
+ noremap gL gT
 " delete
 noremap k d
 noremap kk dd
@@ -48,6 +50,7 @@ noremap _ $
 " nnoremap w e
 " vnoremap w e
 " snoremap w e
-noremap <A-k> "f0D
+
+"noremap <A-k> "f0D
 " noremap <M-k> "f0D
 

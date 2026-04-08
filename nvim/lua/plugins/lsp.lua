@@ -6,8 +6,8 @@ return {
 			"netmute/ctags-lsp.nvim",
 			build = "go install github.com/netmute/ctags-lsp@latest"
 		},
-		tag = "v2.3.0",
-		pin = true,
+		branch = "master",
+		-- pin = false,
 		-- config = function()
 		-- 	local lspconfig = require("lspconfig")
 		-- 	lspconfig.ctags_lsp.setup({
@@ -29,6 +29,7 @@ return {
 		"dundalek/lazy-lsp.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
 		opts = {
+			use_vim_lsp_config = true,
 			excluded_servers = {},
 			preferred_servers = {
 				gitcommit = {},
@@ -36,6 +37,7 @@ return {
 				text = {},
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
+				terraform = { "tofu_ls" },
 			},
 		},
 	},

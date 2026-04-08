@@ -17,7 +17,6 @@ return {
 		init = function()
 			vim.api.nvim_set_hl(0, "csvCol0", { fg = "red" })
 
-			vim.opt.wrap = false
 			local group = vim.api.nvim_create_augroup("setupCsvView", {})
 			vim.api.nvim_create_autocmd("FileType", {
 				pattern = {"csv", "tsv"},
@@ -25,6 +24,8 @@ return {
 				callback = function(args)
 					local csvview = require("csvview")
 					csvview.enable(bufnr)
+					-- TODO: apply this buffer local
+					vim.o.wrap = false
 				end,
 			})
 		end,
