@@ -40,7 +40,7 @@ config.window_padding = {
 
 local function copy_last_output(window, pane)
 	local cursor = pane:get_cursor_position()
-	local zone = pane:get_semantic_zone_at(0, cursor.y - 1)
+	local zone = pane:get_semantic_zone_at(1, cursor.y - 1)
 	if not zone then
 		return
 	end

@@ -2,3 +2,5 @@ git:
   commit:
     autoWrapCommitMessage: false
   autoForwardBranches: none
+  pagers:
+    - pager: delta --paging=never

@@ -1,4 +1,4 @@
 --smart-case
 
---type-add=autogen:{uv.lock,package-lock.json}
+--type-add=autogen:{uv.lock,package-lock.json,lazy-lock.json}
 --type-not=autogen

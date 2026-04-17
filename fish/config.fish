@@ -36,15 +36,18 @@ alias ipython="ipython --no-confirm-exit"
 alias vi="nvim"
 alias v=nvim
 alias gcf="git forgit checkout_file"
+alias lg="lazygit"
 set -x EDITOR nvim
 
 abbr --add k kubectl
 
 # less alternative
+set -gx PAGER moor
 if type -q bat
 	set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 	set -gx MANROFFOPT "-c"
 end
+set -gx MOOR "--quit-if-one-screen"
 set -gx LESS "--quit-if-one-screen"
 alias less=(nvl -c moor bat lv less)
 

@@ -1,7 +1,7 @@
 not status -i || status -c && exit
 
 set NOTIFY_THRESHOLD 60000
-set BUILTIN_AUTO_NOTIFY_EXCLUDE_PATTERNS l 'gg?' diff watchexec fzf 'm[ae]n' lazygit 'vi?' jqf
+set BUILTIN_AUTO_NOTIFY_EXCLUDE_PATTERNS l 'gg?' diff watchexec fzf 'm[ae]n' lazygit lg 'vi?' jqf
 set NOTIFY_EXCLUDE '^('(string join '|' $BUILTIN_AUTO_NOTIFY_EXCLUDE_PATTERNS $AUTO_NOTIFY_EXCLUDE_PATTERNS)')( |$)'
 
 function __check_time -e fish_postexec
