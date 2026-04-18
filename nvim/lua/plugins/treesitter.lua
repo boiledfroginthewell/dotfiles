@@ -1,6 +1,9 @@
 ---@type LazySpec
 return {
 	{ 'nvim-treesitter/nvim-treesitter',
+		dependencies = {
+			"pnx/tree-sitter-dotenv"
+		},
 		build = ":TSUpdate",
 		branch = "master",
 		opts = {
@@ -24,6 +27,29 @@ return {
 			vim.treesitter.language.register('sql', 'hive')
 			vim.treesitter.language.register('html', 'xml')
 			vim.treesitter.language.register('python', 'python3')
+
+			function configureDotEnv()
+				local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+
+				-- Tell treesitter where dotenv parser is located
+				parser_config.dotenv = {
+					install_info = {
+						url = "https://github.com/pnx/tree-sitter-dotenv",
+						branch = "main",
+						files = { "src/parser.c", "src/scanner.c" },
+					},
+					filetype = "dotenv",
+				}
+
+				-- Associate .env files as "dotenv"
+				vim.filetype.add({
+					pattern = {
+						['%.env'] = 'dotenv',
+						['%.env%..+'] = 'dotenv',
+					},
+				})
+			end
+			configureDotEnv()
 
 			vim.opt.foldmethod = "expr"
 			vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
@@ -50,6 +76,8 @@ return {
 
 	{ 'HiPhish/rainbow-delimiters.nvim' },
 
+	'JoosepAlviste/nvim-ts-context-commentstring',
+
 	{ 'RRethy/nvim-treesitter-textsubjects',
 		lazy = false,
 		dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -65,16 +93,4 @@ return {
 		end
 	},
 
-	-- Show code context
-	{ 'nvim-treesitter/nvim-treesitter-context',
-		config = function(lazy, opts)
-			require("treesitter-context").setup(opts)
-			vim.schedule(function()
-				vim.api.nvim_set_hl(0, "TreesitterContext", { bg = "#112260" })
-			end)
-		end,
-		opts = {
-			separator = "―",
-		}
-	},
 }

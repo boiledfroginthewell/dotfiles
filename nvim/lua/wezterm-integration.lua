@@ -54,4 +54,4 @@ local function splitWezRun()
 	-- local echo_message = sequence_set_user_var("RESET_SCROLL", BASE64_1) .. "\\x15" .. command .. "\\r\\n"
 	-- io.popen("echo -e '" .. echo_message .. "' | wezterm cli send-text --no-paste --pane-id " .. paneId)
 end
-vim.keymap.set("n", "<F5>", splitWezRun)
+vim.keymap.set({"n", "i"}, "<F5>", splitWezRun)

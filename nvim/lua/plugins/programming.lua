@@ -98,35 +98,28 @@ local spec = {
 		lazy = false,
 	},
 
-	-- Neovim plugin for a code outline window
-	{ 'stevearc/aerial.nvim',
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-			"nvim-tree/nvim-web-devicons"
-		},
-		event = "VeryLazy",
-		opts = {
-			layout = { placement = "edge" },
-			lsp = {
-				priority = {
-					ctags_lsp = 20
-				}
-			}
-		},
-		cmd = {
-			"AerialToggle",
-		},
-		enabled = false,
-	},
-
 	-- Navigate code with an outline sidebar. Forked from symbols-outline.nvim.
 	{ "hedyhli/outline.nvim",
 		cmd = { "Outline", "OutlineOpen" },
 		opts = {
 			symbol_folding = {
+				autofold_depth = 3,
 				auto_unfold = {
 					hovered = false
 				}
+			},
+			symbols = {
+				filter = {
+					"Variable",
+					"Constant",
+					exclude = true
+				}
+			},
+			keymaps = {
+				unfold = "n",
+				unfold_all = "N",
+				fold = "d",
+				fold_all = "D",
 			}
 		},
 	},
@@ -191,6 +184,11 @@ local spec = {
 					augend.constant.alias.bool,
 					augend.constant.new {
 						elements = { "True", "False" },
+						word = true,
+						cyclic = true,
+					},
+					augend.constant.new {
+						elements = { "==", "!=" },
 						word = true,
 						cyclic = true,
 					},

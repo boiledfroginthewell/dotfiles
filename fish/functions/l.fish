@@ -24,19 +24,19 @@ function l
 
 	if [ ! -t 0 ]
 		less
-	else if [ -z "$files" ] || [ -d "$files[1]" ] || [ ! -s "$files[1]" ] || contains -- -l $opt
+	else if [ -z "$files" ] || [ -d "$files[1]" ] || contains -- -l $opt
 		ls $opt $files
+	else if ! [ -s "$files[1]" ]
+		file "$files[1]"
 	else
 		set mime (file --mime ($READLINK_COMMAND "$files[1]") | cut -d : -f 2)
-		if string match -q "*image/*" $mime
+		if string match -q "*image/*" "$mime"
 			$imageViewer $opt $files
-		else if string match -q '*.zip' "$files[1]"
+		else if string match -q '*.zip' "$files[1]" || string match -q "* application/zip;*" $mime
 			unzip -l $opt $files
-		else if string match -rq "jupyter|ipynb" $mime
+		else if string match -rq "jupyter|ipynb" "$mime"
 			$ipynbViewer $opt $files
-		else if type -q glow && string match -q '*.md' "$files[1]"
-			glow $opt $files
-		else if string match -q "*charset=binary*" $mime
+		else if string match -q "*charset=binary*" "$mime"
 			open $opt $files
 		else
 			less $opt $files

@@ -6,8 +6,8 @@ return {
 			"netmute/ctags-lsp.nvim",
 			build = "go install github.com/netmute/ctags-lsp@latest"
 		},
-		tag = "v2.3.0",
-		pin = true,
+		branch = "master",
+		-- pin = false,
 		-- config = function()
 		-- 	local lspconfig = require("lspconfig")
 		-- 	lspconfig.ctags_lsp.setup({
@@ -29,6 +29,7 @@ return {
 		"dundalek/lazy-lsp.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
 		opts = {
+			use_vim_lsp_config = true,
 			excluded_servers = {},
 			preferred_servers = {
 				gitcommit = {},
@@ -36,6 +37,7 @@ return {
 				text = {},
 				html = { "html" },
 				python = { "basedpyright", "ruff" },
+				terraform = { "tofu_ls" },
 			},
 		},
 	},
@@ -140,40 +142,30 @@ return {
 		end
 	},
 
-	-- Incremental LSP renaming based on Neovim's command-preview feature.
-	{
-		"smjonas/inc-rename.nvim",
-		opts = true,
-			keys = {
-				{
-					"<f2>",
-					function()
-						require("inc_rename").inc_rename()
-					end,
-					desc = "Rename",
-				},
-			},
-	},
-
 	{
 		'stevearc/conform.nvim',
 		opts = {
 			formatters_by_ft = {
+				go = { "gofmt" },
 				python = {
 					"ruff_fix", "ruff_format", -- "ruff_organize_import"
 				},
+				terraform = { "tofu_fmt" },
 			},
 			format_on_save = function(bufnr)
-				if vim.b[bufnr].conform_enable_autoformat == 1
+				if vim.tbl_contains({ "terraform", "go" }, vim.bo.ft)
+					or vim.b[bufnr].conform_enable_autoformat == 1
 					or (
 						vim.b[bufnr].conform_enable_autoformat ~= 0
 						and vim.g.conform_enable_autoformat == 1
 					) then
-					return { timeout_ms = 500, lsp_format = "fallback", formatters_by_ft ={
-						python = { "ruff_fix", "ruff_format" }
-					}}
+					return { timeout_ms = 500, lsp_format = "fallback" }
 				end
 			end,
+		},
+		ft = {
+			"terraform",
+			"go"
 		},
 		keys = {
 			{
@@ -198,6 +190,7 @@ return {
 	{ "boiledfroginthewell/diagflow.nvim",
 		branch="prevent-diag-from-hiding-cursor-line",
 		event = "LspAttach",
+		pin = true,
 		opts = {
 			severity_colors = {  -- The highlight groups to use for each diagnostic severity level
 				error = "DiagnosticFloatingError",

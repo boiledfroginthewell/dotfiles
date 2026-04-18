@@ -104,6 +104,7 @@ return {
 		opts = {
 			git_use_branch_name = true,
 			bypass_save_filetypes = { "cheetsheat", "neo-tree", "gitcommit", "gitrebase" },
+			close_filetypes_on_save = { "gitcommit", "gitrebase", "checkhealth" },
 			args_allow_files_auto_save = true,
 			purge_after_minutes = 10 * 24 * 60,
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
@@ -113,29 +114,24 @@ return {
 	-- Better marks for Neovim 🏹📌
 	{
 		'2kabhishek/markit.nvim',
+		dependencies = { '2kabhishek/pickme.nvim', 'nvim-lua/plenary.nvim' },
 		event = { 'BufReadPre', 'BufNewFile' },
-		opts = function()
-			local opts = {
-				default_mappings = true,
-				mappings = {
-					set = false,
-					toggle_mark = "m",
-					delete = false,
-					delete_line = "km-",
-					delete_bookmark= "km=",
-					delete_buf = "km<space>",
-				},
-			}
-			for i = 0, 9 do
-				opts.mappings["delete_bookmark" .. i] = "km" .. i
-				opts.mappings["toggle_bookmark" .. i] = "m" .. i
-				opts["bookmark_" .. i] = { sign = tostring(i) }
-			end
-			return opts
-		end,
+		opts = {
+			add_default_keybindings = false,
+		},
 		config = function(_, opts)
 			require("markit").setup(opts)
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
+		end,
+		keys = function()
+			local keys = {
+				{ "mt", ":Markit mark toggle<cr>", desc = "Toggle mark" },
+				{ "mk", ":Markit mark delete line<cr>", desc = "Delete mark" },
+			}
+			for i = 0, 9 do
+				table.insert(keys, { "m" .. i, ":Markit bookmark toggle " .. i .. "<cr>", desc = "Toggle book mark " .. i })
+			end
+			return keys
 		end
 	},
 
@@ -216,6 +212,7 @@ return {
 			{ "BD", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
 			{ "<a-w>", "<cmd>:BufDel<CR>", desc = "Buffer Delete" },
 		},
+		next = "alternate",
 	},
 
 	-- ⚡Fix the auto-scroll to the middle of the screen when switching between buffers in Neovim
@@ -272,12 +269,14 @@ return {
 
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
 	{ "kylechui/nvim-surround",
-		event = "VeryLazy",
-		opts = {
-			keymaps = {
-				delete = 'ks'
-			}
-		},
+		init = function()
+			vim.g.nvim_surround_no_mappings = true
+		end,
+		keys = {
+			{ "cs", "<Plug>(nvim-surround-change)", desc = "Change a surrounding pair" },
+			{ "ks", "<Plug>(nvim-surround-delete)", desc = "Delete a surrounding pair" },
+			{ "ys", "<Plug>(nvim-surround-normal)", desc = "Add a surrounding pair around a motion (normal mode)" }
+		}
 	},
 
 	-- vim-textobj-user - Create your own text objects
@@ -579,6 +578,9 @@ return {
 						layout = "vertical"
 					}
 				},
+				grep = {
+					RIPGREP_CONFIG_PATH = vim.env.RIPGREP_CONFIG_PATH
+				}
 			}))
 			fzf.register_ui_select()
 		end,
@@ -619,63 +621,6 @@ return {
 		-- 	end)()
 		-- 	vim.keymap.set('n', '<leader>,', action)
 		-- end,
-	},
-
-	{
-		"danielfalk/smart-open.nvim",
-		branch = "0.3.x",
-		config = function()
-			require("smart-open").setup({
-				match_algorithm = "fzf",
-				mappings = {
-					i = {
-						["<C-u>"] = function()
-							vim.api.nvim_input("<C-S-u>")
-						end,
-						-- ["<C-k>"] = function()
-						-- 	vim.api.nvim_input("<C-S-k>")
-						-- end,
-					}
-				},
-			})
-			require("telescope").load_extension("smart_open")
-		end,
-		dependencies = {
-			{
-				"nvim-telescope/telescope.nvim",
-				branch = "0.1.x",
-				dependencies = { "nvim-lua/plenary.nvim" },
-				config = function()
-					local actions = require("telescope.actions")
-					require("telescope").setup{
-						defaults = {
-							sorting_strategy = "ascending",
-							layout_strategy = "vertical",
-							layout_config = {
-								prompt_position = "top",
-								mirror = true,
-								preview_cutoff = 6,
-							},
-							mappings = {
-								i = {
-									['<esc>'] = actions.close
-								}
-							}
-						}
-					}
-				end,
-			},
-			"kkharji/sqlite.lua",
-			"nvim-telescope/telescope-fzf-native.nvim",
-			-- Only required if using match_algorithm fzf
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			-- Optional.  If installed, native fzy will be used when match_algorithm is fzy
-			-- { "nvim-telescope/telescope-fzy-native.nvim" },
-		},
-		keys = {
-			{ "<leader>,", "<cmd>Telescope smart_open<cr>", desc = "Smart Open" },
-		},
-		enabled = false,
 	},
 
 	-- Finally a Fast Fuzzy File Finder for neovim

@@ -1,2 +1,4 @@
 fish_variables
 **/*.local.fish
+/completions/wt.fish
+/functions/wt.fish

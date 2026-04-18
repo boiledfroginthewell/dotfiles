@@ -1,4 +1,4 @@
 --smart-case
 
---glob=!node_modules/*
-
+--type-add=autogen:{uv.lock,package-lock.json,lazy-lock.json}
+--type-not=autogen

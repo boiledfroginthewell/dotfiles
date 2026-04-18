@@ -1,0 +1,7 @@
+[core.option]
+graph_width = "single"
+initial_selection = "head"
+
+[ui.list]
+subject_min_width = 30
+name_width = 10

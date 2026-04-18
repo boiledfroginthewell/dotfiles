@@ -1,5 +1,7 @@
 if not status is-interactive; return; end
 
+fish_config theme choose ayu-mirage
+
 set -gx SHELL (which fish)
 
 fish_add_path --prepend /usr/local/bin
@@ -12,7 +14,9 @@ if [ (uname) = Darwin ]
 else
 	alias diff="diff --ignore-space-change --ignore-trailing-space"
 end
-if type -q eza
+if type -q struct
+	alias tree=struct
+else if type -q eza
 	alias tree="eza --tree"
 end
 alias pgrep="pgrep -afl"
@@ -31,17 +35,21 @@ end
 alias ipython="ipython --no-confirm-exit"
 alias vi="nvim"
 alias v=nvim
+alias gcf="git forgit checkout_file"
+alias lg="lazygit"
 set -x EDITOR nvim
 
 abbr --add k kubectl
 
 # less alternative
+set -gx PAGER moor
 if type -q bat
 	set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 	set -gx MANROFFOPT "-c"
 end
+set -gx MOOR "--quit-if-one-screen"
 set -gx LESS "--quit-if-one-screen"
-alias less=(nvl -c bat lv less)
+alias less=(nvl -c moor bat lv less)
 
 # ls alternative
 if type -q eza

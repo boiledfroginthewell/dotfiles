@@ -159,6 +159,9 @@ style = "#ffdf76 bold bg:bg"
 format ="[[](bg:prev_bg fg:bg)$symbol($version)]($style)"
 style = "bold red bg:bg"
 
+[scala]
+disabled = true
+
 [shlvl]
 disabled = false
 format = '[[](bg:prev_bg fg:bg)$symbol$shlvl]($style)'
@@ -167,6 +170,9 @@ format = '[[](bg:prev_bg fg:bg)$symbol$shlvl]($style)'
 disabled = false
 format = "[[](bg:prev_bg fg:bg)$symbol$status ]($style)"
 style = "bold red bg:bg"
+
+[terraform]
+disabled = true
 
 [time]
 disabled = false
