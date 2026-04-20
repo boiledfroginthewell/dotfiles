@@ -210,21 +210,6 @@ return {
 		},
 	},
 
-	{
-		'lafarr/hierarchy.nvim',
-		opts = {},
-		cmd = {
-			"FunctionReferences",
-		},
-		keys = {
-			{
-				"<leader>H",
-				":FunctionReferences<cr>",
-				desc = "Hierarchy",
-			},
-		},
-	},
-
 	-- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
 	{
 		"folke/trouble.nvim",
@@ -270,5 +255,32 @@ return {
 				desc = "Quickfix List (Trouble)",
 			},
 		},
+	},
+
+	{
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		config = {
+			callhierarchy = {
+				layout = "normal",
+				keys = {
+					-- edit = "<cr>",
+					toggle_or_req = "<cr>",
+				}
+			},
+			ui = {
+				expand = "",
+				collapse = "󰛲",
+				-- expand = "",
+				-- collapse = "",
+			}
+		},
+		keys = {
+			{ "<leader>h", "<cmd>Lspsaga incoming_calls<cr>", desc = "Incoming Call Hierarchy" },
+			{ "<leader>H", "<cmd>Lspsaga outgoing_calls<cr>", desc = "Outgoing Call Hierarchy" },
+		},
+		dependencies = {
+			"nvim-tree/nvim-web-devicons",
+		}
 	},
 }
