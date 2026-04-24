@@ -82,5 +82,20 @@ return {
 			},
 		},
 	},
+
+	-- ### Python
+	-- Refactor Python imports on file move/rename in Neovim
+	{
+		"alexpasmantier/pymple.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"MunifTanjim/nui.nvim",
+			"nvim-tree/nvim-web-devicons",
+			"nvim-neo-tree/neo-tree.nvim"
+		},
+		build = ":PympleBuild",
+		config = true,
+		ft = {"python"}
+	}
 }
 
