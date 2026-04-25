@@ -151,6 +151,8 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	target_pane:send_text(ctrl_u .. "!!\r\na")
 end)
 
+require('cwd-tab-color')
+
 local ok, localConfig = pcall(require, 'local')
 if ok then
 	localConfig.setup(config)
