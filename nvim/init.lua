@@ -13,6 +13,8 @@ vim.cmd("autocmd BufEnter * set formatoptions-=o")
 vim.opt.scrolloff = 0
 vim.opt.foldlevelstart = 99
 -- vim.opt.foldmethod = "indent"
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 vim.opt.equalalways = false
 vim.opt.winborder = "rounded"
 vim.opt.exrc = true
@@ -142,8 +144,12 @@ augroup END
 -- https://github.com/neovim/nvim-lspconfig/issues/3144#issuecomment-2102626442
 vim.filetype.add({
   extension = {
-    env = 'env',
+    env = 'dotenv',
   },
+	pattern = {
+		['%.env'] = 'dotenv',
+		['%.env%..+'] = 'dotenv',
+	},
 })
 
 -- Plugins
@@ -152,6 +158,8 @@ vim.g['cheatsheet#vsplit'] = 1
 vim.g['cheatsheet#vsplit_width'] = 35
 vim.g['cheatsheet#state_cache_seconds'] = 4 * 60 * 60
 vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
+
+require('vim._core.ui2').enable()
 
 require("lsp")
 require("copies/lazynvim")

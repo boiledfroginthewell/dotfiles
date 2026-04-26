@@ -125,7 +125,7 @@ local spec = {
 	},
 
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
-		"RRethy/vim-illuminate",
+	-- "RRethy/vim-illuminate",
 
 	-- A Neovim plugin to mark occurrences of words/patterns/selections in a buffer and perform operations on them. Inspired by vim-mode-plus's occurrence feature.
 	{
@@ -235,7 +235,6 @@ local spec = {
 		"olimorris/codecompanion.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
 			{
 				"echasnovski/mini.diff",
 				config = function()
@@ -245,7 +244,7 @@ local spec = {
 						source = diff.gen_source.none(),
 					})
 				end,
-	 		},
+			},
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
 				ft = { "codecompanion" }
