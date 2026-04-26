@@ -52,6 +52,7 @@ vim.keymap.set("n", "q:", "<nop>")
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "Q", "q" )
 vim.keymap.set("n", "<s-cr>", "O<esc>")
+vim.keymap.set("i", "<s-cr>", "<esc>O")
 vim.keymap.set("n", "<cr>", "o<esc>")
 vim.keymap.set("n", "<c-]>", "g<c-]>")
 vim.keymap.set("n", "g<c-]>", "<c-]>")
@@ -93,6 +94,8 @@ end
 vim.keymap.set("i", "<c-h>", "<C-n>")
 vim.keymap.set("i", "<c-t>", "<C-p>")
 
+-- https://vi.stackexchange.com/questions/6749/after-copying-a-visual-selection-return-to-original-location#6751
+vim.keymap.set("v", "y", "m`y<c-o>", { remap = false })
 vim.keymap.set("v", "p", "\"_dP")
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
 vim.keymap.set("n", "<c-y>", paste("\"+p"))
