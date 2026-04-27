@@ -99,6 +99,9 @@ return {
 	{
 		'rmagatti/auto-session',
 		lazy = false,
+		init = function()
+			vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+		end,
 		---@module "auto-session"
 		---@type AutoSession.Config
 		opts = {
@@ -303,48 +306,6 @@ return {
 				}
 			)
 		end,
-	},
-
-	-- Extend and create a/i textobjects
-	{ 'nvim-mini/mini.ai',
-		version = false,
-		opts = function()
-			local gen_spec = require('mini.ai').gen_spec
-			return {
-				search_method = "cover",
-				custom_textobjects = {
-					-- ['<space>'] = gen_spec.pair('^%s', "%s$"),
-					f = false,
-					-- f = gen_spec.treesitter({ a = '@function.outer', i = '@function.inner' }),
-					-- a = gen_spec.treesitter({ a = '@parameter.outer', i = '@parameter.inner' }),
-					-- c = gen_spec.treesitter({ a = '@class.outer', i = '@class.inner' }),
-					-- B = gen_spec.treesitter({ a = '@block.outer', i = '@block.inner' }),
-				}
-			}
-		end
-	},
-
-	{ 'nvim-treesitter/nvim-treesitter-textobjects',
-		event = "VeryLazy",
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		main = 'nvim-treesitter.configs',
-		opts = {
-			textobjects = {
-				select = {
-					enable = true,
-					keymaps = {
-						ia = '@parameter.inner',
-						aa = '@parameter.outer',
-						["if"] = '@function.inner',
-						af = '@function.outer',
-						ic = '@class.inner',
-						ac = '@class.outer',
-						iB = '@block.inner',
-						aB = '@block.outer',
-					},
-				},
-			},
-		},
 	},
 
 	-- Neovim motions on speed!

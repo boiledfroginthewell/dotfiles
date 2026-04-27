@@ -43,7 +43,32 @@ local spec = {
 		-- order to load the plugin when the command is run for the first time
 		keys = {
 			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-		}
+		},
+		enabled = false,
+	},
+
+	-- A neovim lua plugin to help easily manage multiple terminal windows
+	{'akinsho/toggleterm.nvim',
+		version = "*",
+		config = true,
+		keys = {
+			{
+				"<M-g>",
+				function()
+					if not _TOGGLETERM_LAZYGIT then
+						local Terminal = require("toggleterm.terminal").Terminal
+						_TOGGLETERM_LAZYGIT = Terminal:new({
+							cmd = "lazygit",
+							hidden = true,
+							direction = "tab",
+						})
+					end
+					_TOGGLETERM_LAZYGIT:toggle()
+				end,
+				desc = "LazyGit",
+				mode = {"n", "t"},
+			},
+		},
 	},
 
 	{ "tpope/vim-fugitive",
@@ -123,7 +148,7 @@ local spec = {
 	},
 
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
-		"RRethy/vim-illuminate",
+	-- "RRethy/vim-illuminate",
 
 	-- A Neovim plugin to mark occurrences of words/patterns/selections in a buffer and perform operations on them. Inspired by vim-mode-plus's occurrence feature.
 	{
@@ -233,7 +258,6 @@ local spec = {
 		"olimorris/codecompanion.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
-			"nvim-treesitter/nvim-treesitter",
 			{
 				"echasnovski/mini.diff",
 				config = function()
@@ -243,7 +267,7 @@ local spec = {
 						source = diff.gen_source.none(),
 					})
 				end,
-	 		},
+			},
 			{
 				"MeanderingProgrammer/render-markdown.nvim",
 				ft = { "codecompanion" }

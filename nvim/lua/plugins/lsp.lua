@@ -16,15 +16,6 @@ return {
 		-- end,
 	},
 
-	-- Neovim plugin to manage global and project-local settings
-	{ 'folke/neoconf.nvim',
-		main = 'neoconf',
-		opts = {},
-		-- should be run before nvim-lspconfig
-		priority = 100,
-		lazy = false,
-	},
-
 	{
 		"dundalek/lazy-lsp.nvim",
 		dependencies = { "neovim/nvim-lspconfig" },
