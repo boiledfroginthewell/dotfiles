@@ -230,6 +230,8 @@ local spec = {
 			vim.g.codeium_no_map_tab = true
 			vim.g.codeium_filetypes = {
 				sh = false,
+				dotenv = false,
+				env = false,
 			}
 			vim.keymap.set("i", "<M-Down>", function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
 			-- vim.keymap.set("i", "<C-Up>", function() return vim.fn['codeium#Complete']() end, { expr = true, silent = true })

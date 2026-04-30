@@ -142,20 +142,6 @@ augroup myvimrc
 augroup END
 ]])
 
--- https://github.com/neovim/nvim-lspconfig/issues/3144#issuecomment-2102626442
-vim.filetype.add({
-  extension = {
-    env = 'dotenv',
-  },
-	pattern = {
-		['%.env'] = 'dotenv',
-		['%.env%..+'] = 'dotenv',
-		["%.sh"] = "bash",
-		[".bashrc"] = "bash",
-		[".profile"] = "bash",
-	},
-})
-
 -- Plugins
 vim.g['cheatsheet#cheat_file'] = vim.fn.stdpath('config') .. '/cheatsheet.md'
 vim.g['cheatsheet#vsplit'] = 1
@@ -165,6 +151,7 @@ vim.keymap.set('n', '<leader>?', ':Cheat<CR>')
 
 require('vim._core.ui2').enable()
 
+require("ft-detect")
 require("lsp")
 require("copies/lazynvim")
 require("wezterm-integration")

@@ -78,5 +78,5 @@
 	protocol = https
 
 [include]
-	path = ./userconfig
+	path = ./user.gitconfig
 
