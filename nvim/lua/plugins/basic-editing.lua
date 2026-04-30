@@ -111,7 +111,10 @@ return {
 			args_allow_files_auto_save = true,
 			purge_after_minutes = 10 * 24 * 60,
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
-		}
+		},
+		keys = {
+			{ "ZR", "<cmd>update | restart AutoSession restore<cr>", desc = "restart" },
+		},
 	},
 
 	-- Better marks for Neovim 🏹📌
