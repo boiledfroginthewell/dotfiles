@@ -29,7 +29,6 @@ local spec = {
 	},
 
 	{ "kdheepak/lazygit.nvim",
-		lazy = true,
 		cmd = {
 			"LazyGit",
 			"LazyGitConfig",
@@ -37,10 +36,9 @@ local spec = {
 			"LazyGitFilter",
 			"LazyGitFilterCurrentFile",
 		},
-		-- optional for floating window border decoration
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+		init = function ()
+			vim.g.lazygit_floating_window_scaling_factor = 0.94
+		end,
 		-- setting the keybinding for LazyGit with 'keys' is recommended in
 		-- order to load the plugin when the command is run for the first time
 		keys = {

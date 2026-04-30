@@ -1,4 +1,4 @@
-:Cheat -- Vim Cheet Sheet
+:Cheat -- Vim Cheat Sheet
 ==========================
 gM -- 行の中心にカーソル移動
 f -- 文字手前ジャンプ (like j)
