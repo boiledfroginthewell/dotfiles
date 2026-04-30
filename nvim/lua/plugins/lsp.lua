@@ -2,18 +2,7 @@
 return {
 	-- nvim-lspconfig is a "data only" repo, providing basic, default Nvim LSP client configurations for various LSP servers.
 	{ 'neovim/nvim-lspconfig',
-    dependencies = {
-			"netmute/ctags-lsp.nvim",
-			build = "go install github.com/netmute/ctags-lsp@latest"
-		},
 		branch = "master",
-		-- pin = false,
-		-- config = function()
-		-- 	local lspconfig = require("lspconfig")
-		-- 	lspconfig.ctags_lsp.setup({
-		-- 		filetypes = { "sql", "yaml" }
-		-- 	})
-		-- end,
 	},
 
 	{
@@ -88,17 +77,9 @@ return {
 		opts = {}
 	},
 
-	-- VSCode 💡 for neovim's built-in LSP.
-	{ "kosayoda/nvim-lightbulb",
-		opts = {
-			autocmd = { enabled = true }
-		},
-	},
-
 	-- Display references, definitions and implementations of document symbols
 	{ "Wansmer/symbol-usage.nvim",
 		event = "LspAttach",
-		-- config = true,
 		opts = function ()
 			local SymbolKind = vim.lsp.protocol.SymbolKind
 			---@type UserOpts
@@ -251,7 +232,7 @@ return {
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
-		config = {
+		opts = {
 			callhierarchy = {
 				layout = "normal",
 				keys = {

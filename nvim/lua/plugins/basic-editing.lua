@@ -620,13 +620,6 @@ return {
 		}
 	},
 
-	-- Vim plugin for automatic time tracking and metrics generated from your programming activity.
-	{ 'wakatime/vim-wakatime',
-		enabled = vim.fn.has('mac') == 0,
-		cond = vim.fn.has('mac') == 0,
-		lazy = false,
-	},
-
 	-- Minimal plugin allow you to open url under cursor in neovim without netrw with default browser of your system and highlight url
 	{
 		"sontungexpt/url-open",
