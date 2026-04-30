@@ -161,18 +161,6 @@ local spec = {
 		-- opts = {} -- setup is optional; the defaults will work out of the box.
 	},
 
-	{'haringsrob/nvim_context_vt',
-		init = function ()
-			vim.cmd[[autocmd ColorScheme * highlight ContextVt guifg='#707070']]
-		end,
-		opts = {
-				prefix = '󰨿',
-				disable_ft = {'python', 'yaml', 'md', 'markdown'},
-				-- highlight = 'SpecialKey',
-		},
-		enabled = false,
-	},
-
 	{ 'chaoren/vim-wordmotion',
 		event = "VeryLazy",
 		init = function()

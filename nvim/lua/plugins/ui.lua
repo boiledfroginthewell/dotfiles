@@ -29,12 +29,6 @@ return {
 	},
 
 	{
-		"jake-stewart/auto-cmdheight.nvim",
-		lazy = false,
-		opts = {}
-	},
-
-	{
 		"Hajime-Suzuki/vuffers.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		after = function ()
@@ -309,6 +303,7 @@ return {
 			normal_bg = "#16181a",
 			smear_between_neighbor_lines = false,
 		},
+		-- enabled = false,
 	},
 
 	-- Extensible Neovim Scrollbar
