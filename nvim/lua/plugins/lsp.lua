@@ -109,7 +109,18 @@ return {
 					end
 
 					return table.concat(fragments, ' ') .. stacked_functions
-				end
+				end,
+				disable = {
+					cond = {
+						function (bufnr)
+							local path = vim.api.nvim_buf_get_name(bufnr)
+							return (
+								string.find(path, "/.venv/")
+								or string.find(path, "/node_modules/")
+							)
+						end
+					}
+				}
 			}
 		end
 	},

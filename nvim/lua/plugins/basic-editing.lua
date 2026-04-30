@@ -113,7 +113,7 @@ return {
 			suppressed_dirs = { '~/', '~/Projects', '~/Downloads', '/' },
 		},
 		keys = {
-			{ "ZR", "<cmd>update | restart AutoSession restore<cr>", desc = "restart" },
+			{ "ZR", "<cmd>restart AutoSession restore<cr>", desc = "restart" },
 		},
 	},
 
