@@ -150,6 +150,9 @@ vim.filetype.add({
 	pattern = {
 		['%.env'] = 'dotenv',
 		['%.env%..+'] = 'dotenv',
+		["%.sh"] = "bash",
+		[".bashrc"] = "bash",
+		[".profile"] = "bash",
 	},
 })
 

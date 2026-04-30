@@ -13,7 +13,7 @@ return {
 				"git_config",
 				"dockerfile",
 				'markdown', "markdown_inline",
-				'json', "jsonc", 'yaml', 'toml',
+				'json', 'yaml', 'toml',
 				'bash', "fish",
 				'python',
 				"sql"
