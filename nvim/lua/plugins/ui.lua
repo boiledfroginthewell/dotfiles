@@ -305,6 +305,7 @@ return {
 	},
 
 	{ "sphamba/smear-cursor.nvim",
+		event = { "VeryLazy" },
 	  opts = {
 			-- cursor_color = "#d3cdc3",
 			normal_bg = "#16181a",
@@ -315,6 +316,7 @@ return {
 
 	-- Extensible Neovim Scrollbar
 	{ "petertriho/nvim-scrollbar",
+		event = { "VeryLazy" },
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
 			"kevinhwang91/nvim-hlslens",

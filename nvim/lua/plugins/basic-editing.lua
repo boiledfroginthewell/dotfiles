@@ -474,9 +474,6 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
-		init = function ()
-
-		end,
 		opts = {
 			popup_border_style = "rounded",
 			filesystem = {
@@ -510,6 +507,7 @@ return {
 
 	{
     "antosha417/nvim-lsp-file-operations",
+		event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-neo-tree/neo-tree.nvim", -- makes sure that this loads after Neo-tree.

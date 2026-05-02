@@ -7,6 +7,7 @@ return {
 
 	{
 		"dundalek/lazy-lsp.nvim",
+		event = { "VeryLazy" },
 		dependencies = { "neovim/nvim-lspconfig" },
 		opts = {
 			use_vim_lsp_config = true,
@@ -24,10 +25,12 @@ return {
 
 	-- Performant, batteries-included completion plugin for Neovim
 	{'saghen/blink.cmp',
+		event = { "VeryLazy" },
 		version = '1.*',
 		dependencies = {
 			{
 				"L3MON4D3/LuaSnip",
+				event = { "VeryLazy" },
 				version = "v2.*",
 				build = "make install_jsregexp",
 				dependencies = {
@@ -38,7 +41,6 @@ return {
 				end,
 			},
 		},
-		after = { 'neovim/nvim-lspconfig' },
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
