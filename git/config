@@ -29,6 +29,7 @@
 	autoFixup = true
 
 [delta]
+	tabs = 2
 	hunk-style = plain
 	line-numbers = true
 	color-moved = default

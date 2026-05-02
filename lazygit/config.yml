@@ -4,3 +4,16 @@ git:
   autoForwardBranches: none
   pagers:
     - pager: delta --paging=never
+
+os:
+  editPreset: "nvim-remote"
+
+gui:
+  tabWidth: 2
+  spinner:
+    frames: [🌑, 🌒, 🌓, 🌔, 🌕, 🌖, 🌗, 🌘]
+    rate: 300
+
+keybinding:
+  universal:
+    executeShellCommand: "$"
