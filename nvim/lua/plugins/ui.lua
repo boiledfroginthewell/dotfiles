@@ -28,6 +28,13 @@ return {
 		}
 	},
 
+	-- Neovim Lua plugin for autohighlighting word under cursor. Part of 'mini.nvim' library.
+	{
+		'nvim-mini/mini.cursorword',
+		version = false,
+		config = true
+	},
+
 	{
 		"Hajime-Suzuki/vuffers.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },

@@ -28,7 +28,7 @@ return {
 		},
 	},
 
-	-- { 'HiPhish/rainbow-delimiters.nvim' },
+	{ 'HiPhish/rainbow-delimiters.nvim' },
 
 	-- Extend and create a/i textobjects
 	{ 'nvim-mini/mini.ai',
@@ -38,10 +38,6 @@ return {
 			{
 				'nvim-treesitter/nvim-treesitter-textobjects',
 				branch = "main",
-				dependencies = {
-					"nvim-treesitter/nvim-treesitter",
-					branch = "main",
-				},
 			}
 		},
 		opts = function()
