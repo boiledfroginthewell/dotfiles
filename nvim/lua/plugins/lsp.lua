@@ -5,6 +5,7 @@ return {
 		branch = "master",
 	},
 
+	-- Neovim plugin to auto install LSP servers
 	{
 		"dundalek/lazy-lsp.nvim",
 		event = { "VeryLazy" },
@@ -20,6 +21,29 @@ return {
 				python = { "basedpyright", "ruff" },
 				terraform = { "tofu_ls" },
 			},
+		},
+	},
+
+	{
+		"mason-org/mason-lspconfig.nvim",
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
+		opts = {
+			ensure_installed = {
+				-- The following servers aro not supported by lazy-lsp with use_vim_lsp_config=true
+				-- https://github.com/dundalek/lazy-lsp.nvim/issues/63
+				-- (Run `:checkhealth lazy-lsp` to see unspported config warnings)
+				"cssls",
+				"html",
+				"jdtls",
+				"jsonls",
+				-- https://github.com/mason-org/mason-lspconfig.nvim/issues/615
+				-- "mmdc",
+				"ts_ls",
+				"yamlls",
+			}
 		},
 	},
 
