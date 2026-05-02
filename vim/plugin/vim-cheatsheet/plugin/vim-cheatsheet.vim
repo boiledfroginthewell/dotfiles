@@ -37,12 +37,21 @@ function! s:write_state(state)
  call  writefile([a:state, localtime()], s:cache_file)
 endfunction
 
+function! s:quit_if_only_unlisted_buffers() abort
+  if len(getbufinfo({'buflisted': 1})) == 0
+    if exists('*getcmdwintype') && getcmdwintype() !=# ''
+      return
+    endif
+    qa
+  endif
+endfunction
+
 
 if !exists('g:cheatsheet#no_auto_open')
     augroup cheatsheet
         autocmd!
         autocmd VimEnter * if winwidth(0) >= 90| CheatInit| endif
-        autocmd bufenter * if (winnr("$") == 1 && exists("t:cheatbuf")) | q | endif
+        autocmd BufEnter,BufDelete,BufWipeout * call s:quit_if_only_unlisted_buffers()
         autocmd VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
     augroup END
 endif
