@@ -2,7 +2,6 @@
 vim.opt.number = true
 vim.opt.signcolumn = 'yes'
 vim.opt.termguicolors = true
-vim.opt.cursorline = true
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.swapfile = false
@@ -141,6 +140,18 @@ augroup myvimrc
 	autocmd VimEnter * silent! delmarks!
 augroup END
 ]])
+
+vim.opt.cursorline = true
+vim.api.nvim_create_autocmd("BufLeave", {
+	callback = function()
+		vim.wo.cursorline = false
+	end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		vim.wo.cursorline = true
+	end,
+})
 
 -- Plugins
 vim.g['cheatsheet#cheat_file'] = vim.fn.stdpath('config') .. '/cheatsheet.md'
