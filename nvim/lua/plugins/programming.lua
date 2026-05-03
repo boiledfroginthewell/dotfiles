@@ -150,15 +150,6 @@ local spec = {
 	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
 	-- "RRethy/vim-illuminate",
 
-	-- A Neovim plugin to mark occurrences of words/patterns/selections in a buffer and perform operations on them. Inspired by vim-mode-plus's occurrence feature.
-	{
-		"lettertwo/occurrence.nvim",
-		lazy = false,
-		---@module "occurrence"
-		---@type occurrence.Options
-		-- opts = {} -- setup is optional; the defaults will work out of the box.
-	},
-
 	{ 'chaoren/vim-wordmotion',
 		event = "VeryLazy",
 		init = function()
