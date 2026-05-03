@@ -84,7 +84,45 @@ return {
 	{ "nvim-zh/colorful-winsep.nvim",
 		config = true,
 		event = { "WinLeave" },
+		enabled = false
 	},
+
+	-- 🎈 Floating statuslines for Neovim
+	{
+		'b0o/incline.nvim',
+			event = 'VeryLazy',
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+			opts = {
+				hide = {
+					only_win = true,
+				},
+				window = {
+					margin = {
+						horizontal = 0,
+					},
+					padding = 0,
+				},
+				render = function(props)
+					local helpers = require 'incline.helpers'
+					local devicons = require 'nvim-web-devicons'
+
+					local filename = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(props.buf), ':t')
+					if filename == '' then
+						filename = '[No Name]'
+					end
+					local ft_icon, ft_color = devicons.get_icon_color(filename)
+					local modified = vim.bo[props.buf].modified
+					local modified_marker =  modified and '*' or ''
+					return {
+						ft_icon and { ' ', ft_icon, guibg = ft_color, guifg = helpers.contrast_color(ft_color) } or '',
+						{ modified_marker, filename, gui = modified and 'bold,italic' or 'bold' },
+						' ',
+						guibg = '#44406e',
+					}
+				end,
+			},
+			config = true,
+		},
 
 	-- 🌈 Add animated glow/highlight effects to your neovim operation (undo, redo, yank, paste and more) with simple APIs. Alternatives to highlight-undo.nvim and tiny-glimmer.nvim.
 	{
@@ -311,7 +349,6 @@ return {
 			normal_bg = "#16181a",
 			smear_between_neighbor_lines = false,
 		},
-		-- enabled = false,
 	},
 
 	-- Extensible Neovim Scrollbar
@@ -350,5 +387,107 @@ return {
 
 	-- The fastest Neovim colorizer.
 	"norcalli/nvim-colorizer.lua",
+
+	-- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
+	{
+		'nvim-lualine/lualine.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		init = function()
+			vim.o.showmode = false
+		end,
+		opts = {
+			options = {
+				-- theme = "powerline_dark",
+				-- theme = "everforest",
+				theme = "onedark",
+				component_separators = "",
+				section_separators = "",
+			},
+			extensions = { "lazy", "mason", "oil", "quickfix", "toggleterm", "trouble" },
+			sections = {
+				lualine_a = {
+					{
+						"mode",
+						fmt = function (name)
+							return name:sub(1, 1)
+						end
+					},
+				},
+				lualine_b = {},
+				lualine_c = {
+					{
+						"filename",
+						file_status = true,
+						path = 3,
+						symbols = {
+							modified = '+',
+							readonly = "[🔒Ro]",
+						}
+					}
+				},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {
+					{
+						"filetype",
+					},
+					{
+						-- Tree-sitter parsers
+						function()
+							local parser = vim.treesitter.get_parser()
+							if parser == nil then
+								return "🌳"
+							end
+							local langs = {}
+							local function walk(tree)
+								local lang = tree:lang()
+								if lang and not vim.tbl_contains(langs, lang) then
+									table.insert(langs, lang)
+								end
+								for _, child in pairs(tree:children() or {}) do
+									walk(child)
+								end
+							end
+							walk(parser)
+							table.sort(langs)
+							-- https://github.com/nvim-lualine/lualine.nvim/issues/1453
+							return "🌳" .. table.concat(langs, ",")
+						end,
+						cond = function()
+							local exclusion = { "neo-tree" }
+							return not vim.tbl_contains(exclusion, vim.bo.filetype)
+						end,
+						draw_empty = true,
+						padding = 0,
+						on_click = function() vim.cmd.checkhealth("vim.treesitter") end,
+					},
+					{
+						'lsp_status',
+						icon = '🔠',
+						symbols = {
+							spinner = {},
+							done = '',
+						},
+						ignore_lsp = {},
+						draw_empty = true,
+						on_click = function() vim.cmd.checkhealth("vim.lsp") end,
+					},
+				},
+			},
+			inactive_sections = {
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {
+					{
+						'filename',
+						path = 3
+					}
+				},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
+		},
+	},
 
 }
