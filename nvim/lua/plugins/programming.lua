@@ -1,5 +1,5 @@
 ---@type LazySpec
-local spec = {
+return {
 	{ 'NMAC427/guess-indent.nvim',
 		config = function ()
 			-- https://github.com/NMAC427/guess-indent.nvim/issues/3
@@ -104,52 +104,79 @@ local spec = {
 		},
 	},
 
-	{ 'majutsushi/tagbar',
-		cond = function()
-			return vim.fn.executable("ctags") == 1
-		end,
-		init = function()
-			vim.g.tagbar_width = 30
-			vim.g.tagbar_compact = 1
-			vim.g.tagbar_iconchars = { '>', 'V' }
-			-- sort by file order
-			vim.g.tagbar_sort = 0
-		end,
-		cmd = {
-			"TagbarToggle",
-		},
-		lazy = false,
-	},
-
-	-- Navigate code with an outline sidebar. Forked from symbols-outline.nvim.
-	{ "hedyhli/outline.nvim",
-		cmd = { "Outline", "OutlineOpen" },
-		opts = {
-			providers = {
-				priority = { "lazy_plugins", "lsp", "coc", "markdown", "norg", "man" },
-				lazy_plugins = {
-					path_pattern = "/lua/plugins/.*%.lua$",
+	-- Neovim plugin for a code outline window
+	{ 'stevearc/aerial.nvim',
+		dependencies = {
+			{
+				"echasnovski/mini.icons",
+				opts = {
+					lsp = {
+						["function"] = { glyph = '󰊕', hl = 'MiniIconsAzure' },
+					},
 				},
 			},
-			symbol_folding = {
-				autofold_depth = 3,
-				auto_unfold = {
-					hovered = false
-				}
+		},
+		lazy = false,
+		opts = {
+			layout = {
+				placement = "edge",
+				min_width = 20,
 			},
-			symbols = {
-				filter = {
-					"Variable",
-					"Constant",
-					exclude = true
-				}
-			},
+			open_automatic = true,
+			show_guides = true,
 			keymaps = {
-				unfold = "n",
-				unfold_all = "N",
-				fold = "d",
-				fold_all = "D",
-			}
+				["l"] = false,
+				["n"] = "actions.tree_open",
+				["L"] = false,
+				["N"] = "actions.tree_open_recursive",
+				["h"] = false,
+				["d"] = "actions.tree_close",
+				["H"] = false,
+				["D"] = "actions.tree_close_recursive",
+			},
+			filter_kind = {
+				"Class",
+				"Constructor",
+				"Enum",
+				"Function",
+				"Interface",
+				"Module",
+				"Package",
+				"Method",
+				"Struct",
+			},
+			---@module "aerial"
+			---@param bufnr integer
+			---@param item aerial.Symbol
+			---@param ctx {backend_name: string, lang: {name: string, parser: string}, symbols?: any, symbol?: any, syntax_tree?: any, match?: any}
+			---  A record containing the following fields:
+			---  * backend_name: treesitter, lsp, man...
+			---  * lang: info about the language
+			---  * symbols?: specific to the lsp backend
+			---  * symbol?: specific to the lsp backend
+			---  * syntax_tree?: specific to the treesitter backend
+			---  * match?: specific to the treesitter backend, TS query match
+			post_parse_symbol = function(bufnr, item, ctx)
+				local file_path = vim.api.nvim_buf_get_name(bufnr)
+				if (
+					ctx.match ~= nil
+					and (
+						file_path:match("/lua/plugins/.*%.lua$")
+						or file_path:match("Taskfile.y?ml$")
+					)
+				) then
+					return ctx.match.custom_outline ~= nil
+				end
+				return true
+			end,
+		},
+		cmd = {
+			"AerialToggle",
+		},
+		keys = {
+			{ "<F8>", "<cmd>AerialToggle!<cr>", desc = "Outline" },
+			{ "[a", "<cmd>AerialPrev<cr>" },
+			{ "]a", "<cmd>AerialNext<cr>" },
 		},
 	},
 
@@ -284,17 +311,3 @@ local spec = {
 		}
 	},
 }
-
-local tagbar_ft = { "sql", "hive", "xml", "yaml" }
-vim.keymap.set("n", "<F8>", function ()
-	if vim.b[vim.api.nvim_get_current_buf()].prefer_tagbar == 1
-			or vim.tbl_contains(tagbar_ft, vim.bo.filetype) then
-		vim.cmd[[TagbarToggle]]
-	else
-		-- vim.cmd[[AerialToggle!]]
-		vim.cmd[[Outline!]]
-		-- vim.cmd[[Trouble symbols toggle focus=false]]
-	end
-end, {})
-
-return spec

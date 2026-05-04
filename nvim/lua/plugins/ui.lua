@@ -32,7 +32,15 @@ return {
 	{
 		'nvim-mini/mini.cursorword',
 		version = false,
-		config = true
+		config = function ()
+			require('mini.cursorword').setup()
+				vim.api.nvim_create_autocmd('FileType', {
+					pattern = 'aerial',
+					callback = function ()
+						vim.b.minicursorword_disable = true
+					end
+				})
+		end
 	},
 
 	{
@@ -366,7 +374,7 @@ return {
 				component_separators = "",
 				section_separators = "",
 			},
-			extensions = { "lazy", "mason", "oil", "quickfix", "toggleterm", "trouble" },
+			extensions = { "aerial", "lazy", "mason", "oil", "quickfix", "toggleterm", "trouble" },
 			sections = {
 				lualine_a = {
 					{
