@@ -1,4 +1,5 @@
 -- Basic Configs
+vim.opt.mouse = "vir"
 vim.opt.number = true
 vim.opt.signcolumn = 'yes'
 vim.opt.termguicolors = true
