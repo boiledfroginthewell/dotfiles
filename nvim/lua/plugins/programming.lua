@@ -125,6 +125,12 @@ local spec = {
 	{ "hedyhli/outline.nvim",
 		cmd = { "Outline", "OutlineOpen" },
 		opts = {
+			providers = {
+				priority = { "lazy_plugins", "lsp", "coc", "markdown", "norg", "man" },
+				lazy_plugins = {
+					path_pattern = "/lua/plugins/.*%.lua$",
+				},
+			},
 			symbol_folding = {
 				autofold_depth = 3,
 				auto_unfold = {
