@@ -48,11 +48,13 @@ local function copy_last_output(window, pane)
 	window:copy_to_clipboard(output)
 end
 
+local lazygit = require 'lazygit'
 config.keys = {
 	-- Pane Operations
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
 	{ key = "%",        mods = "CTRL|SHIFT", action = wezterm.action { SplitVertical = { domain = "CurrentPaneDomain" } } },
 	{ key = "w",        mods = "CTRL|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = false } } },
+	{ key = "g",        mods = "ALT",        action = wezterm.action_callback(lazygit.toggle_lazygit) },
 	{ -- toggle zoom state of another pane
 		key = "z",
 		mods = "CTRL|ALT",

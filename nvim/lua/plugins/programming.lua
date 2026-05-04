@@ -47,30 +47,6 @@ return {
 		enabled = false,
 	},
 
-	-- A neovim lua plugin to help easily manage multiple terminal windows
-	{'akinsho/toggleterm.nvim',
-		version = "*",
-		config = true,
-		keys = {
-			{
-				"<M-g>",
-				function()
-					if not _TOGGLETERM_LAZYGIT then
-						local Terminal = require("toggleterm.terminal").Terminal
-						_TOGGLETERM_LAZYGIT = Terminal:new({
-							cmd = "lazygit",
-							hidden = true,
-							direction = "tab",
-						})
-					end
-					_TOGGLETERM_LAZYGIT:toggle()
-				end,
-				desc = "LazyGit",
-				mode = {"n", "t"},
-			},
-		},
-	},
-
 	{ "tpope/vim-fugitive",
 		event = "VeryLazy",
 	},
