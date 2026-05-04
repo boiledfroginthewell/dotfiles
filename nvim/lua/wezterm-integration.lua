@@ -55,3 +55,15 @@ local function splitWezRun()
 	-- io.popen("echo -e '" .. echo_message .. "' | wezterm cli send-text --no-paste --pane-id " .. paneId)
 end
 vim.keymap.set({"n", "i"}, "<F5>", splitWezRun)
+
+vim.keymap.set("n", "<M-a><M-a>", function()
+	local pane_id = vim.fn.system("pane-pgrep.py 'claude|codex|cursor-cli|gemini'"):gsub("%s+", "")
+	local command = string.format(
+		[[wezterm cli send-text --pane-id %d '%s'\n\n]],
+		pane_id,
+		"Current File: @" .. vim.fn.expand("%")
+	)
+	vim.fn.system(command)
+	vim.fn.system("wezterm cli activate-pane --pane-id " .. pane_id)
+end, { desc = "Send current file to AI Coding CLI" })
+
