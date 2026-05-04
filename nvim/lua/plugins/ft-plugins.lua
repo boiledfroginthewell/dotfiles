@@ -23,9 +23,8 @@ return {
 				group = group,
 				callback = function(args)
 					local csvview = require("csvview")
-					csvview.enable(bufnr)
-					-- TODO: apply this buffer local
-					vim.o.wrap = false
+					csvview.enable()
+					vim.wo.wrap = false
 				end,
 			})
 		end,

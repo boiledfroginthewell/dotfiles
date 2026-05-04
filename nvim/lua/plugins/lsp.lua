@@ -30,6 +30,8 @@ return {
 			{ "mason-org/mason.nvim", opts = {} },
 			"neovim/nvim-lspconfig",
 		},
+		---@module "mason-lspconfig"
+		---@type MasonLspconfigSettings
 		opts = {
 			ensure_installed = {
 				-- The following servers aro not supported by lazy-lsp with use_vim_lsp_config=true
@@ -106,6 +108,7 @@ return {
 	-- Display references, definitions and implementations of document symbols
 	{ "Wansmer/symbol-usage.nvim",
 		event = "LspAttach",
+		---@module "symbol-usage"
 		opts = function ()
 			local SymbolKind = vim.lsp.protocol.SymbolKind
 			---@type UserOpts
@@ -153,6 +156,8 @@ return {
 
 	{
 		'stevearc/conform.nvim',
+		---@module "conform"
+		---@type conform.setupOpts
 		opts = {
 			formatters_by_ft = {
 				go = { "gofmt" },
@@ -222,6 +227,8 @@ return {
 	-- 🚦 A pretty diagnostics, references, telescope results, quickfix and location list to help you solve all the trouble your code is causing.
 	{
 		"folke/trouble.nvim",
+		---@module "trouble"
+		---@type trouble.Config
 		opts = {
 			modes = {
 				lsp_document_symbols = {
@@ -290,6 +297,6 @@ return {
 		},
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
-		}
+		},
 	},
 }

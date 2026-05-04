@@ -4,6 +4,7 @@ return {
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
+		---@module "snacks"
 		---@type snacks.Config
 		opts = {
 			input = {
@@ -191,7 +192,7 @@ return {
 			},
 		},
 		-- Optional dependencies
-		dependencies = { { "echasnovski/mini.icons", opts = {} } },
+		-- dependencies = { { "echasnovski/mini.icons", opts = {} } },
 		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
 		lazy = false,
 	},
@@ -464,7 +465,7 @@ return {
 	-- A super simple smooth resize plugin for neovim
 	{
 		"aronjohanns/smooth-resize.nvim",
-	   opts = true
+	   opts = {}
 	},
 
 	{ "nvim-neo-tree/neo-tree.nvim",
@@ -474,6 +475,8 @@ return {
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
+		---@module "neo-tree"
+		---@type neotree.Config
 		opts = {
 			popup_border_style = "rounded",
 			filesystem = {
@@ -627,13 +630,7 @@ return {
 	{
 		"sontungexpt/url-open",
 		cmd = "URLOpenUnderCursor",
-		config = function()
-			local status_ok, url_open = pcall(require, "url-open")
-			if not status_ok then
-				return
-			end
-			url_open.setup ({})
-		end,
+		config = true,
 		keys = {
 			{ "gx", "<cmd>URLOpenUnderCursor<cr>", desc = "Open URL under cursor" },
 		},

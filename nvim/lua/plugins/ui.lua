@@ -45,6 +45,7 @@ return {
 
 	{
 		"Hajime-Suzuki/vuffers.nvim",
+		---@module "vuffers"
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		after = function ()
 			vim.api.nvim_create_autocmd("SessionLoadPost", {
@@ -60,6 +61,7 @@ return {
 				nargs = "+"
 			})
 		end,
+		---@type Config
 		opts = {
 			handlers = {
 				-- when deleting a buffer via vuffers list (by default triggered by "d" key)
