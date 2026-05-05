@@ -42,12 +42,13 @@ vim.opt.smartindent = true
 vim.g.mapleader = ","
 
 -- sesnible defaults
-vim.keymap.set("n", "U", "<c-R>")
 vim.keymap.set({"n", "v"}, "{", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "}", "<Cmd>keepjumps normal! }<CR>")
 
 vim.keymap.set({"n", "v"}, "<c-t>", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "<c-h>", "<Cmd>keepjumps normal! }<CR>")
+vim.keymap.set({"n", "c"}, "<c-v>", "<nop>")
+vim.keymap.set({"n", "c"}, "<c-M-v>", "<c-v>", { remap = false })
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "Q", "q")
 vim.keymap.set("n", "<s-cr>", "O<esc>")
@@ -92,8 +93,6 @@ end
 vim.keymap.set("i", "<c-h>", "<C-n>")
 vim.keymap.set("i", "<c-t>", "<C-p>")
 
--- https://vi.stackexchange.com/questions/6749/after-copying-a-visual-selection-return-to-original-location#6751
-vim.keymap.set("v", "y", "m`y<c-o>", { remap = false })
 vim.keymap.set("v", "p", "\"_dP")
 local ctrl_r = vim.api.nvim_replace_termcodes("<c-r>", true, true, true)
 vim.keymap.set("n", "<c-y>", paste("\"+p"))
@@ -107,14 +106,14 @@ vim.keymap.set({"n", "v"}, "<a-c>", "\"+y")
 vim.keymap.set("n", "<a-v>", paste("\"+P"))
 vim.keymap.set({"n", "v"}, "gY", "\"+Y")
 
-vim.keymap.set("n", "<a-PageDown>", ":bn<cr>")
-vim.keymap.set("n", "<a-PageUp>", ":bp<cr>")
+vim.keymap.set("n", "<a-PageDown>", "<cmd>bn<cr>")
+vim.keymap.set("n", "<a-PageUp>", "<cmd>bp<cr>")
 
 -- clear search highlights
-vim.keymap.set("n", "<Esc>", ":<C-u>nohlsearch<CR>", { silent = true })
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", { silent = true })
 
-vim.keymap.set("n", "gadd", ":!git add %<CR>", {silent=true})
-vim.keymap.set("n", "gcommit", ":!Git commit<CR>", {silent=true})
+vim.keymap.set("n", "gadd", "<cmd>Git add %<CR>", {silent=true})
+vim.keymap.set("n", "gcommit", "<cmd>Git commit<CR>", {silent=true})
 
 vim.api.nvim_create_autocmd('BufEnter', {
 	desc = "Close floating window by <ESC>",

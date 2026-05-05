@@ -51,6 +51,16 @@ return {
 		enabled = false,
 	},
 
+	-- Don't let the cursor move while Yanking in Neovim
+	{
+		"svban/YankAssassin.nvim",
+		event = "VeryLazy",
+		opts = {
+			auto_normal = true,
+			auto_visual = true,
+		},
+	},
+
 	-- Improved Yank and Put functionalities for Neovim
 	{
 		"gbprod/yanky.nvim",
