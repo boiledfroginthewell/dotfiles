@@ -97,9 +97,12 @@ return {
 			layout = {
 				placement = "edge",
 				min_width = 20,
+				max_width = { 40, 0.25 },
+				win_opts = { fillchars = "eob: "},
 			},
 			open_automatic = true,
 			show_guides = true,
+			close_automatic_events = { "unfocus", "switch_buffer", "unsupported" },
 			keymaps = {
 				["l"] = false,
 				["n"] = "actions.tree_open",
