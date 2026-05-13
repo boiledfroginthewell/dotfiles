@@ -141,7 +141,7 @@ return {
 					ctx.match ~= nil
 					and (
 						file_path:match("/lua/plugins/.*%.lua$")
-						or file_path:match("Taskfile.y?ml$")
+						or file_path:match("Taskfile%.ya?ml$")
 					)
 				) then
 					return ctx.match.custom_outline ~= nil
@@ -158,9 +158,6 @@ return {
 			{ "]a", "<cmd>AerialNext<cr>" },
 		},
 	},
-
-	-- automatically highlighting other uses of the word under the cursor using either LSP, Tree-sitter, or regex matching.
-	-- "RRethy/vim-illuminate",
 
 	{ 'chaoren/vim-wordmotion',
 		event = "VeryLazy",

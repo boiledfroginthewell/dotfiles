@@ -47,8 +47,8 @@ vim.keymap.set({"n", "v"}, "}", "<Cmd>keepjumps normal! }<CR>")
 
 vim.keymap.set({"n", "v"}, "<c-t>", "<Cmd>keepjumps normal! {<CR>")
 vim.keymap.set({"n", "v"}, "<c-h>", "<Cmd>keepjumps normal! }<CR>")
-vim.keymap.set({"n", "c"}, "<c-v>", "<nop>")
-vim.keymap.set({"n", "c"}, "<c-M-v>", "<c-v>", { remap = false })
+vim.keymap.set({"i", "c"}, "<c-v>", "<nop>")
+vim.keymap.set({"i", "c"}, "<c-M-v>", "<c-v>", { remap = false })
 vim.keymap.set("n", "q", "<nop>", { nowait = true})
 vim.keymap.set("n", "Q", "q")
 vim.keymap.set("n", "<s-cr>", "O<esc>")
@@ -67,6 +67,9 @@ vim.keymap.set({"v", "x"}, "<c-k>", "gc", { remap = true })
 vim.keymap.set('n', '<leader>o', ':e <C-R>=expand("%:p:h") . "/" <CR>')
 vim.keymap.set('n', '<c-s>', '<cmd>update<cr>')
 vim.keymap.set('n', '<c-q>', '<cmd>qa!<cr>')
+
+vim.keymap.set('n', ']q', ':cn<cr>')
+vim.keymap.set('n', '[q', ':cp<cr>')
 
 -- Replace the word under the cursor
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
