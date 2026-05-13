@@ -1,4 +1,5 @@
 local wezterm = require 'wezterm'
+local is_mac = wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_triple == 'aarch64-apple-darwin'
 
 local M = {}
 
@@ -27,11 +28,17 @@ function M.toggle_lazygit(window, pane)
 			tab:set_zoomed(true)
 		end
 	else
+		local command
+		if is_mac then
+			command = { "/opt/homebrew/bin/fish", "-i", "-c", "exec lazygit" }
+		else
+			command = { "lazygit" }
+		end
 		window:perform_action(
 			wezterm.action.SplitPane {
 				direction = 'Down',
 				size = { Percent = 0 },
-				command = { args = { 'lazygit' } },
+				command = { args = command },
 			},
 			pane
 		)
