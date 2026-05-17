@@ -496,6 +496,42 @@ return {
 						["ga"] = "git_add_file",
 					},
 				},
+				renderers = {
+					file = {
+						{ "indent" },
+						{ "icon" },
+						{
+							"container",
+							content = {
+								{ "name", zindex = 10 },
+								{
+									"symlink_target",
+									zindex = 10,
+									highlight = "NeoTreeSymbolicLinkTarget",
+								},
+								{ "empty_indicator", zindex = 10 },
+								{ "clipboard", zindex = 10 },
+								{ "bufnr", zindex = 10 },
+								{ "modified", zindex = 20, align = "right" },
+								{ "diagnostics",  zindex = 20, align = "right" },
+								{ "git_status", zindex = 10, align = "right" },
+								{ "file_size", zindex = 10, align = "right" },
+								{ "type", zindex = 10, align = "right" },
+							},
+						},
+					},
+				},
+			components = {
+				empty_indicator = function(config, node, state)
+					if node.type == "file" then
+						local stats = vim.loop.fs_stat(node.path)
+						if stats and stats.size == 0 then
+							return { text = " ∅" }
+						end
+					end
+					return {}
+				end,
+			},
 				filtered_items = {
 					hide_dotfiles = false,
 					hide_gitignored = false,
