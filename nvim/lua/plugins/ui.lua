@@ -359,7 +359,14 @@ return {
 	},
 
 	-- The fastest Neovim colorizer.
-	"norcalli/nvim-colorizer.lua",
+	{ "norcalli/nvim-colorizer.lua",
+		opts = {
+			"lua",
+			'css',
+			'javascript',
+			html = { mode = 'background' }
+		},
+	},
 
 	-- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
 	{
