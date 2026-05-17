@@ -57,7 +57,7 @@ end
 vim.keymap.set({"n", "i"}, "<F5>", splitWezRun)
 
 vim.keymap.set("n", "<M-a><M-a>", function()
-	local pane_id = vim.fn.system("pane-pgrep.py 'claude|codex|cursor-cli|gemini'"):gsub("%s+", "")
+	local pane_id = vim.fn.system("pane-pgrep.py 'claude|codex|cursor-agent|gemini'"):gsub("%s+", "")
 	if pane_id == "" then
 		vim.api.vim_err_writeln("Error: No matching pane found.")
 		return

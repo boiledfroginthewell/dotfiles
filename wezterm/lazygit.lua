@@ -32,7 +32,7 @@ function M.toggle_lazygit(window, pane)
 		if is_mac then
 			command = { "/opt/homebrew/bin/fish", "-i", "-c", "exec lazygit" }
 		else
-			command = { "lazygit" }
+			command = { "fish", "-i", "-c", "exec lazygit" }
 		end
 		window:perform_action(
 			wezterm.action.SplitPane {
