@@ -56,7 +56,7 @@ return {
 		"Salanoid/gitlogdiff.nvim",
 		main = "gitlogdiff",
 		dependencies = {
-			"sindrets/diffview.nvim",
+			"dlyongemallo/diffview.nvim",
 			"folke/snacks.nvim",
 		},
 		cmd = "GitLogDiff",
@@ -140,7 +140,8 @@ return {
 				if (
 					ctx.match ~= nil
 					and (
-						file_path:match("/lua/plugins/.*%.lua$")
+						vim.b.aerial_custom_outline
+						or file_path:match("/lua/plugins/.*%.lua$")
 						or file_path:match("Taskfile%.ya?ml$")
 					)
 				) then
@@ -217,7 +218,9 @@ return {
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
-					lint.try_lint()
+					if vim.o.ft ~= "python" or not vim.fn.executable("mypy") then
+						lint.try_lint()
+					end
 				end,
 			})
 		end,
@@ -248,6 +251,7 @@ return {
 		"olimorris/codecompanion.nvim",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
+		  "j-hui/fidget.nvim",
 			{
 				"echasnovski/mini.diff",
 				config = function()
@@ -263,6 +267,9 @@ return {
 				ft = { "codecompanion" }
 			},
 		},
+		init = function()
+			require("copies.fidget-spinner"):init()
+		end,
 		opts = {
 			-- NOTE: The log_level is in `opts.opts`
 			opts = {

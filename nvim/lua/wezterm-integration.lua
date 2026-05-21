@@ -63,7 +63,7 @@ vim.keymap.set("n", "<M-a><M-a>", function()
 		return
 	end
 	local command = string.format(
-		[[wezterm cli send-text --pane-id %d '%s'\n\n]],
+		[[wezterm cli send-text --pane-id %s '%s'\n\n]],
 		pane_id,
 		"Current File: @" .. vim.fn.expand("%")
 	)

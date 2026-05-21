@@ -26,6 +26,7 @@ return {
 				}
 			},
 		},
+		enabled= false,
 	},
 
 	-- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single.
