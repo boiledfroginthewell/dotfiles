@@ -13,6 +13,7 @@ gui:
   spinner:
     frames: [🌑, 🌒, 🌓, 🌔, 🌕, 🌖, 🌗, 🌘]
     rate: 300
+  nerdFontsVersion: "3"
 
 keybinding:
   universal:
