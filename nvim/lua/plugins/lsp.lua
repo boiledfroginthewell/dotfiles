@@ -160,11 +160,14 @@ return {
 		---@type conform.setupOpts
 		opts = {
 			formatters_by_ft = {
+				lua = { "stylua" },
 				go = { "gofmt" },
 				python = {
 					"ruff_fix", "ruff_format", -- "ruff_organize_import"
 				},
-				terraform = { "tofu_fmt" },
+				terraform = { "tofu_fmt", "terraform_fmt", stop_after_first = true },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				typescript = { "prettierd", "prettier", stop_after_first = true },
 			},
 			format_on_save = function(bufnr)
 				if vim.tbl_contains({ "terraform", "go" }, vim.bo.ft)
