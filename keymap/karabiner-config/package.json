@@ -1,0 +1,21 @@
+{
+  "name": "karabiner-config",
+  "description": "karabiner config in karabiner.ts",
+  "scripts": {
+    "check": "tsc --noEmit",
+    "format": "npx prettier . --write" ,
+    "build": "tsx src/index.ts",
+    "deploy": "tsx src/index.ts dvorak.ts",
+    "update": "npm update karabiner.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.0",
+    "karabiner.ts": "latest",
+    "prettier": "3.8.4",
+    "tsx": "^4",
+    "typescript": "^6"
+  },
+  "prettier": {
+    "semi": false
+  }
+}
