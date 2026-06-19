@@ -1,0 +1,40 @@
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+# set mouse interaction modifier key (default: fn)
+yabai -m config mouse_modifier ctrl
+# set modifier + left-click drag to move window (default: move)
+yabai -m config mouse_action1 move
+# set modifier + right-click drag to resize window (default: resize)
+yabai -m config mouse_action2 resize
+
+yabai -m config window_shadow float
+
+float_app() {
+	app="$1"
+	yabai -m rule --add app="^$app\$" manage=off
+
+	# Existing windows are not configured by `-m rule`
+	id="$(yabai -m query --windows | jq '.[] | select(.app == "'"$app"'") | .id')"
+	if [ -n "$id" ]; then
+		echo -e "$id" | while read x; do
+			# xargs <<<"$app" -I _ -- yabai -m window "_" --toggle float
+			echo "$app - $x"
+			yabai -m window "$x" --toggle float
+			# xargs <<<"$app" -I _ -- echo yabai -m window "_" --toggle float
+		done
+	fi
+}
+
+float_app "Logseq"
+float_app "CotEditor"
+float_app "Okta Verify"
+float_app "システム設定"
+float_app "Karabiner-Elements"
+float_app "Karabiner-EventViewer"
+
+# yabai -m rule --add app="^SFirefox$" manage=on
+# yabai -m rule --add app="^SWezTerm$" manage=on
+
+# yabai -m space yabai-test --layout bsp
+yabai -m config layout bsp

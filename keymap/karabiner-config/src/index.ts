@@ -8,11 +8,13 @@ import {
   SANDS_RULE,
 } from "./rules/multiPurpose"
 import { G502_RULE } from "./rules/g502"
+import { YABAI_RULE } from "./rules/yabai"
 
 const profileName = process.argv[2] || "--dry-run"
 
 ;(async () => {
   kt.writeToProfile(profileName, [
+    YABAI_RULE,
     G502_RULE,
     SANDS_RULE,
     RETURN_CTRL_RULE,
