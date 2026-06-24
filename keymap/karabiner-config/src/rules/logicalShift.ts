@@ -41,4 +41,6 @@ export const LOGICAL_SHIFT_LAYER = kt
         .fill(null)
         .reduce((bind) => bind.to("spacebar"), kt.map("tab")),
     ]),
+
+    kt.map("japanese_kana").toVar("isSymbolLayer", 1, 0),
   ])
