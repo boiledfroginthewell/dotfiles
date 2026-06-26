@@ -24,7 +24,7 @@ pre-commit:
       run: "! rg -. $HOME -- {staged_files}"
       skip: [merge, rebase]
     no-conflicts:
-      run: "conflicts {staged_files}"
+      run: "git diff --check {staged_files}"
     compile-zsh:
       glob: "zsh/**/*.sh"
       run: zsh/compile.zsh {staged_files}
