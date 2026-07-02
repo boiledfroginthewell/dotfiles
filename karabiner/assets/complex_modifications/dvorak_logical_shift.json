@@ -690,6 +690,38 @@
           ]
         },
         {
+          "type": "basic",
+          "from": {
+            "key_code": "tab",
+            "modifiers": {
+              "optional": [
+                "any"
+              ]
+            }
+          },
+          "to": [
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "spacebar"
+            },
+            {
+              "key_code": "spacebar"
+            }
+          ],
+          "conditions": [
+            {
+              "name": "isLogicalShift",
+              "type": "variable_if",
+              "value": 1
+            }
+          ]
+        },
+        {
           "from": {
             "key_code": "japanese_eisuu",
             "modifiers": {

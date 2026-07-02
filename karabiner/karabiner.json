@@ -5404,6 +5404,14 @@
               ]
             }
           ]
+        },
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 49277,
+            "vendor_id": 1133
+          },
+          "ignore": true
         }
       ],
       "fn_function_keys": [
@@ -5465,6 +5473,16 @@
       }
     },
     {
+      "devices": [
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 49277,
+            "vendor_id": 1133
+          },
+          "ignore": true
+        }
+      ],
       "fn_function_keys": [
         {
           "from": {
@@ -5526,6 +5544,172 @@
     {
       "complex_modifications": {
         "rules": [
+          {
+            "description": "Layer - applicationLayer",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "caps_lock"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "applicationLayer",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 1
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_unless",
+                    "name": "applicationLayer",
+                    "value": 1
+                  },
+                  {
+                    "type": "variable_unless",
+                    "name": "__layer",
+                    "value": 1
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "caps_lock"
+                  }
+                ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "applicationLayer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "__layer",
+                      "value": 0
+                    }
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h"
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b org.mozilla.firefox"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "applicationLayer",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k"
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b com.github.wez.wezterm"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "applicationLayer",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "m"
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b com.tinyspeck.slackmacgap"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "applicationLayer",
+                    "value": 1
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "app layer",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "option"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b org.mozilla.firefox"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "option"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b com.github.wez.wezterm"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "mandatory": [
+                      "command",
+                      "option"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "shell_command": "open -b com.tinyspeck.slackmacgap"
+                  }
+                ]
+              }
+            ]
+          },
           {
             "description": "G502 Mouse Keys",
             "manipulators": [
@@ -5755,28 +5939,25 @@
                 "to": [
                   {
                     "set_variable": {
-                      "name": "isNumLayer",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "__layer",
+                      "name": "isSymbolLayer",
                       "value": 1
                     }
                   }
                 ],
+                "to_after_key_up": [
+                  {
+                    "set_variable": {
+                      "name": "isSymbolLayer",
+                      "value": 0
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "japanese_kana"
+                  }
+                ],
                 "conditions": [
-                  {
-                    "type": "variable_unless",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "variable_unless",
-                    "name": "__layer",
-                    "value": 1
-                  },
                   {
                     "type": "device_if",
                     "identifiers": [
@@ -5786,25 +5967,6 @@
                       }
                     ],
                     "description": "Dumang"
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "japanese_kana"
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "isNumLayer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "__layer",
-                      "value": 0
-                    }
                   }
                 ]
               },
@@ -5826,8 +5988,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -5859,8 +6022,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -5892,8 +6056,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -5925,8 +6090,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -5958,8 +6124,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -5991,8 +6158,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6024,374 +6192,9 @@
                 "conditions": [
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "semicolon",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "international3",
-                    "modifiers": [
-                      "shift"
-                    ]
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "a",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "1"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "s",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "2"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "d",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "3"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "f",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "4"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "g",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "5"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "h",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "6"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "j",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "7"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "k",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "8"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "l",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "9"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
-                  },
-                  {
-                    "type": "device_if",
-                    "identifiers": [
-                      {
-                        "vendor_id": 1155,
-                        "product_id": 22288
-                      }
-                    ],
-                    "description": "Dumang"
-                  }
-                ]
-              },
-              {
-                "type": "basic",
-                "from": {
-                  "key_code": "semicolon",
-                  "modifiers": {
-                    "mandatory": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "key_code": "0"
-                  }
-                ],
-                "conditions": [
-                  {
-                    "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6429,8 +6232,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6468,8 +6272,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6507,8 +6312,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6546,8 +6352,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6585,8 +6392,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6624,8 +6432,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6663,8 +6472,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6702,8 +6512,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6741,8 +6552,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6780,8 +6592,9 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -6819,8 +6632,430 @@
                   },
                   {
                     "type": "variable_if",
-                    "name": "isNumLayer",
-                    "value": 1
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "japanese_eisuu",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "isLogicalShift",
+                      "value": 1,
+                      "key_up_value": 0
+                    }
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "a",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "1"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "s",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "3"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "4"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "g",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "5"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "6"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "7"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "8"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "9"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "mandatory": [
+                      "shift"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "international3",
+                    "modifiers": [
+                      "shift"
+                    ]
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
+                  },
+                  {
+                    "type": "device_if",
+                    "identifiers": [
+                      {
+                        "vendor_id": 1155,
+                        "product_id": 22288
+                      }
+                    ],
+                    "description": "Dumang"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "semicolon",
+                  "modifiers": {
+                    "mandatory": [
+                      "any"
+                    ],
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "0"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isSymbolLayer",
+                    "value": 1,
+                    "description": "symbol layer"
                   },
                   {
                     "type": "device_if",
@@ -7592,7 +7827,7 @@
                 },
                 "to": [
                   {
-                    "key_code": "backslash",
+                    "key_code": "close_bracket",
                     "modifiers": [
                       "left_command"
                     ]
@@ -7628,6 +7863,33 @@
                   },
                   {
                     "key_code": "spacebar"
+                  }
+                ],
+                "conditions": [
+                  {
+                    "type": "variable_if",
+                    "name": "isLogicalShift",
+                    "value": 1
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "japanese_kana",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "isSymbolLayer",
+                      "value": 1,
+                      "key_up_value": 0
+                    }
                   }
                 ],
                 "conditions": [
@@ -8242,16 +8504,6 @@
           "simple_modifications": [
             {
               "from": {
-                "key_code": "caps_lock"
-              },
-              "to": [
-                {
-                  "key_code": "left_control"
-                }
-              ]
-            },
-            {
-              "from": {
                 "key_code": "left_control"
               },
               "to": [
@@ -8330,6 +8582,14 @@
               ]
             }
           ]
+        },
+        {
+          "identifiers": {
+            "is_keyboard": true,
+            "product_id": 49277,
+            "vendor_id": 1133
+          },
+          "ignore": true
         }
       ],
       "name": "dvorak.ts",
