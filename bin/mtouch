@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu -o pipefail
+
+target="$1"
+
+if [ -f "$target" ]; then
+	touch "$target"
+elif [ -d "$target" ]; then
+	exit
+elif ! [ -e "$target" ]; then
+	mkdir -p "$(dirname "$target")"
+	touch "$target"
+fi
+

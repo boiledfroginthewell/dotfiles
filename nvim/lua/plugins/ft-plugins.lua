@@ -95,6 +95,11 @@ return {
 		build = ":PympleBuild",
 		config = true,
 		ft = {"python"}
-	}
+	},
+
+	-- ### Misc
+	-- vim syntax file for plantuml
+	"aklt/plantuml-syntax",
+
 }
 

@@ -3,6 +3,7 @@
 Find WezTerm Pane by process name.
 """
 
+from __future__ import annotations
 from typing import Any
 import argparse
 import subprocess

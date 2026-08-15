@@ -26,6 +26,7 @@ return {
 				}
 			},
 		},
+		enabled= false,
 	},
 
 	-- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single.
@@ -135,8 +136,12 @@ return {
 		event = { 'BufReadPre', 'BufNewFile' },
 		opts = {
 			add_default_keybindings = false,
+			bookmarks = {},
 		},
 		config = function(_, opts)
+			for i = 0, 9 do
+				table.insert(opts.bookmarks, { sign = tostring(i)  })
+			end
 			require("markit").setup(opts)
 			vim.api.nvim_set_hl(0, "MarkSignLineHL", { bg = "#106010" })
 		end,

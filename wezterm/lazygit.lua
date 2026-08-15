@@ -22,7 +22,7 @@ function M.toggle_lazygit(window, pane)
 	if lazygit_pane then
 		if lazygit_is_zoomed then
 			tab:set_zoomed(false)
-			tab:get_pane_direction("Prev"):activate()
+			tab:get_pane_direction("Next"):activate()
 		else
 			lazygit_pane:activate()
 			tab:set_zoomed(true)
@@ -36,7 +36,7 @@ function M.toggle_lazygit(window, pane)
 		end
 		window:perform_action(
 			wezterm.action.SplitPane {
-				direction = 'Down',
+				direction = 'Up',
 				size = { Percent = 0 },
 				command = { args = command },
 			},

@@ -46,12 +46,15 @@ function! s:quit_if_only_unlisted_buffers() abort
   endif
 endfunction
 
-
+let g:cheatsheet#no_auto_open = 1
 if !exists('g:cheatsheet#no_auto_open')
     augroup cheatsheet
         autocmd!
         autocmd VimEnter * if winwidth(0) >= 90| CheatInit| endif
         autocmd BufEnter,BufDelete,BufWipeout * call s:quit_if_only_unlisted_buffers()
+        autocmd BufEnter * if (winnr("$") <= 1 && exists("t:cheatbuf")) | call s:close_cheat_sheet(t:cheatbuf) | endif
+        autocmd BufEnter * if (exists("t:cheatbuf") && len(getbufinfo({'buflisted': 1})) == 1 && getbufinfo({'buflisted': 1})[0]["bufnr"] != t:cheatbuf && &filetype == "cheatsheet") | q | endif
+        autocmd BufUnload * if (len(getbufinfo({'buflisted': 1})) == 0 && exists("t:cheatbuf")) | call s:close_cheat_sheet(t:cheatbuf) | endif
         autocmd VimResized,WinNew,WinEnter,WinLeave * call s:resize_cheat_sheet()
     augroup END
 endif
@@ -155,7 +158,7 @@ endfunction
 
 function! s:close_cheat_sheet(cheatbuf) abort
   if exists('t:cheatbuf')
-    execute 'bd' t:cheatbuf
+    execute 'bw' t:cheatbuf
     unlet! t:cheatbuf
   endif
   call s:write_state(0)

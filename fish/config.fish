@@ -10,9 +10,9 @@ fish_add_path --prepend (realpath "$__fish_config_dir/../bin")
 alias mkdir="mkdir -p"
 alias cp="cp -r"
 if [ (uname) = Darwin ]
-	alias diff="diff --ignore-space-change"
+	alias diff="diff --ignore-space-change -W \$COLUMNS"
 else
-	alias diff="diff --ignore-space-change --ignore-trailing-space"
+	alias diff="diff --ignore-space-change --ignore-trailing-space -W \$COLUMNS"
 end
 if type -q struct
 	alias tree=struct

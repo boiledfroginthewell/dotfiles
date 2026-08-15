@@ -32,6 +32,9 @@ git push origin HEAD
 # run git status disabling .gitignore
 git status --ignored
 
+# find conflicts
+git diff --check
+
 # search words over git history
 git grep <regexp> $(git rev-list --all)
 

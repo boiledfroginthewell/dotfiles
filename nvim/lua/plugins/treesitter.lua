@@ -7,7 +7,7 @@ return {
 		dependencies = {}, -- tree-sitter CLI must be installed system-wide
 		opts = {
 			auto_install = true,
-			-- use_repo_queries = true,
+			use_repo_queries = true,
 			ensure_installed = {
 				"lua", 'luadoc', 'vim', "vimdoc",
 				"git_config",
