@@ -108,7 +108,8 @@ return {
 					hide_dotfiles = false,
 					hide_gitignored = false,
 					hide_by_name = {
-						"__pycache__"
+						"__pycache__",
+						".devicon",
 					}
 				},
 				group_empty_dirs = true,
