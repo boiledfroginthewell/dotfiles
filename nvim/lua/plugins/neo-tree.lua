@@ -1,4 +1,12 @@
 ---@type neotree.FileRenderer
+local function broken_symlink(config, node, state)
+	if node.is_link and not vim.loop.fs_stat(node.path) then
+		return { text = " 󰌺", highlight = "Error" }
+	end
+	return {}
+end
+
+---@type neotree.FileRenderer
 local function empty_indicator(config, node, state)
 	if node.type == "file" then
 		local stats = vim.loop.fs_stat(node.path)
@@ -6,6 +14,63 @@ local function empty_indicator(config, node, state)
 			return { text = " ∅" }
 		end
 	end
+	return {}
+end
+
+local react_directive_cache = {}
+
+local function get_react_directive(file_path)
+	local uv = vim.uv or vim.loop
+	local stat = uv.fs_stat(file_path)
+	if not stat or stat.type ~= "file" then
+		return nil
+	end
+
+	local mtime = stat.mtime.sec
+	local cached = react_directive_cache[file_path]
+	if cached and cached.mtime == mtime then
+		return cached.directive
+	end
+
+	local fd = uv.fs_open(file_path, "r", 438)
+	if not fd then
+		return nil
+	end
+
+	local chunk_size = math.min(stat.size, 1024)
+	local data = uv.fs_read(fd, chunk_size, 0)
+	uv.fs_close(fd)
+
+	local directive = nil
+	if data then
+		if data:match('"use client"') or data:match("'use client'") then
+			directive = "client"
+		elseif data:match('"use server"') or data:match("'use server'") then
+			directive = "server"
+		elseif data:match('["\']server%-only["\']') then
+			directive = "server_only"
+		end
+	end
+
+	react_directive_cache[file_path] = { mtime = mtime, directive = directive }
+	return directive
+end
+
+---@type neotree.FileRenderer
+local function react_indicator(config, node, state)
+	if node.type ~= "file" or not (node.ext and node.ext:match("^[jt]sx?$")) then
+		return {}
+	end
+
+	local directive = get_react_directive(node.path)
+	if directive == "client" then
+		return { text = " 💻" }
+	elseif directive == "server" then
+		return { text = " ⚡" }
+	elseif directive == "server_only" then
+		return { text = " 🌐" }
+	end
+
 	return {}
 end
 
@@ -37,7 +102,7 @@ end
 
 vim.api.nvim_set_hl(0, "NeoTreeDirectoryIconOpened", {
 	fg = "#5ea1ff",
-  underline = true,
+	underline = true,
 })
 
 ---@type LazySpec
@@ -57,6 +122,11 @@ return {
 			default_component_configs = {
 				name = {
 					trailing_slash = true,
+				},
+				git_status = {
+					symbols = {
+						conflict = "💥",
+					},
 				},
 				icon = {
 					provider = function(icon, node, state)
@@ -89,7 +159,9 @@ return {
 									zindex = 10,
 									highlight = "NeoTreeSymbolicLinkTarget",
 								},
+								{ "broken_symlink",  zindex = 10 },
 								{ "empty_indicator", zindex = 10 },
+								{ "react_indicator", zindex = 10 },
 								{ "clipboard",       zindex = 10 },
 								{ "bufnr",           zindex = 10 },
 								{ "modified",        zindex = 20, align = "right" },
@@ -102,7 +174,9 @@ return {
 					},
 				},
 				components = {
+					broken_symlink = broken_symlink,
 					empty_indicator = empty_indicator,
+					react_indicator = react_indicator,
 				},
 				filtered_items = {
 					hide_dotfiles = false,
