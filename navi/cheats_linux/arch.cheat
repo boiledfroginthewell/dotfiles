@@ -2,15 +2,10 @@
 # show installed packages
 apt list --installed
 
-% kmonad
-# show systemd's user unit log
-journalctl --user-unit kmonad
-
-% systemd
-# restart systemd's user unit
-systemctl restart --user kmonad.service
-
 % arch
 # install without any interaction
 yay --noconfirm
+
+# Free up disk space by clearing pacman cache in /var
+yay -Sc
 
