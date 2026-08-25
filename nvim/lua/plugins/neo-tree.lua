@@ -193,11 +193,14 @@ return {
 				mappings = {
 					["t"] = "noop",
 					["<C-b>"] = "noop",
+					["d"] = "close_node",
+					["n"] = "open",
+					["k"] = "delete",
 				},
 			},
 		},
 		keys = {
-			{ '<C-b>',   '<cmd>Neotree reveal toggle<cr>', desc = 'NeoTree' },
+			{ '<C-b>',   '<cmd>Neotree reveal<cr>', desc = 'NeoTree' },
 			{ '<C-S-b>', '<cmd>Neotree close<cr>',         desc = 'NeoTree Close' },
 		},
 	},
