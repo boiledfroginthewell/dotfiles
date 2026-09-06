@@ -2,19 +2,16 @@ git:
   commit:
     autoWrapCommitMessage: false
   autoForwardBranches: none
-  pagers:
-    - pager: delta --paging=never
-
+  diffRenderers:
+    - command: delta --paging=never
 os:
   editPreset: "nvim-remote"
-
 gui:
   tabWidth: 2
   spinner:
-    frames: [🌑, 🌒, 🌓, 🌔, 🌕, 🌖, 🌗, 🌘]
+    frames: ["\U0001F311", "\U0001F312", "\U0001F313", "\U0001F314", "\U0001F315", "\U0001F316", "\U0001F317", "\U0001F318"]
     rate: 300
   nerdFontsVersion: "3"
-
 keybinding:
   universal:
     executeShellCommand: "$"
