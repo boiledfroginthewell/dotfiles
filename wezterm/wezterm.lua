@@ -4,9 +4,8 @@ local is_mac = wezterm.target_triple == 'x86_64-apple-darwin' or wezterm.target_
 
 config.default_prog = { is_mac and "/opt/homebrew/bin/fish" or "/usr/bin/fish" }
 config.use_ime = true
-config.show_update_window = false
 config.window_close_confirmation = 'NeverPrompt'
-config.check_for_updates = false
+config.check_for_updates = true
 config.check_for_updates_interval_seconds = 90 * 24 * 3600
 config.warn_about_missing_glyphs = false
 config.send_composed_key_when_left_alt_is_pressed = false
@@ -24,8 +23,8 @@ config.font_size = 13.8
 config.colors = {
 	split = "#4444AA",
 	compose_cursor = "#000099",
-	cursor_fg = '#262A33',
-	cursor_bg = '#E5E5E5',
+	-- cursor_fg = '#262A33',
+	-- cursor_bg = '#E5E5E5',
 }
 ---@diagnostic disable-next-line: missing-fields
 config.inactive_pane_hsb = {
@@ -46,9 +45,19 @@ local function copy_last_output(window, pane)
 	end
 	local output = pane:get_text_from_semantic_zone(zone)
 	window:copy_to_clipboard(output)
+	window:toast_notification("Copied!", output, nil, 4000)
 end
 
 local lazygit = require 'lazygit'
+-- local function open_recent_url(window, pane)
+-- 	local cursor = pane:get_cursor_position()
+-- 	local zone = pane:get_semantic_zone_at(0, cursor.y - 1)
+-- 	if not zone then
+-- 		return
+-- 	end
+-- 	local output = pane:get_text_from_semantic_zone(zone)
+-- end
+
 config.keys = {
 	-- Pane Operations
 	{ key = "\"",       mods = "CTRL|SHIFT", action = wezterm.action { SplitHorizontal = { domain = "CurrentPaneDomain" } } },
@@ -56,8 +65,10 @@ config.keys = {
 	{ key = "w",        mods = "CTRL|SHIFT", action = wezterm.action { CloseCurrentTab = { confirm = false } } },
 	{ key = "g",        mods = "ALT",        action = wezterm.action_callback(lazygit.toggle_lazygit) },
 	{ -- toggle zoom state of another pane
-		key = "z",
-		mods = "CTRL|ALT",
+		-- key = "z",
+		-- mods = "ALT|SHIFT",
+		key = "l",
+		mods = "ALT",
 		action = wezterm.action_callback(function(window, pane)
 			local zoomed_pane = nil
 			for _, info in pairs(window:active_tab():panes_with_info()) do
@@ -85,8 +96,7 @@ config.keys = {
 	{ key = "-",        mods = "CTRL",       action = "QuickSelect" },
 	{ key = "PageUp",   mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
 	{ key = "PageDown", mods = "CTRL|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
-	{ key = "n", mods = "CTRL|SHIFT", action = wezterm.action_callback(copy_last_output) },
-
+	{ key = "j",        mods = "CTRL|SHIFT", action = wezterm.action_callback(copy_last_output) },
 	-- https://github.com/wezterm/wezterm/issues/1988#issuecomment-2462216249
   {
     key = 'f',
@@ -100,6 +110,18 @@ config.keys = {
 			}, pane)
     end),
   },
+	{key="P", mods="CTRL",
+     action=wezterm.action{QuickSelectArgs={
+       patterns={
+          "https?://\\S+"
+       },
+       action = wezterm.action_callback(function(window, pane)
+          local url = window:get_selection_text_for_pane(pane)
+          wezterm.log_info("opening: " .. url)
+          wezterm.open_with(url)
+       end)
+     }}
+	 }
 }
 for _, v in ipairs(require('nvim-smart-splits')) do
 	table.insert(config.keys, v)
@@ -126,20 +148,22 @@ table.insert(config.hyperlink_rules, {
 	highlight = 1
 })
 
-wezterm.on("user-var-changed", function(window, pane, name, value)
-	if name ~= "WEZTERM_PROG" then
-		return
-	end
-
-	local overrides = window:get_config_overrides() or {}
-	if value == "nvim" then
-		-- overrides.force_reverse_video_cursor = true
-		overrides.default_cursor_style = "SteadyBlock"
-	else
-		overrides = nil
-	end
-	window:set_config_overrides(overrides)
-end)
+-- wezterm.on("user-var-changed", function(window, pane, name, value)
+-- 	if name ~= "WEZTERM_PROG" then
+-- 		return
+-- 	end
+--
+-- 	local overrides = window:get_config_overrides() or {}
+-- 	if value == "nvim" then
+-- 		-- overrides.force_reverse_video_cursor = true
+-- 		overrides.default_cursor_style = "SteadyBlock"
+-- 		-- overrides.colors.cursor_fg = '#262A33'
+-- 		-- overrides.colors.cursor_bg = '#E5E5E5'
+-- 	else
+-- 		overrides = nil
+-- 	end
+-- 	window:set_config_overrides(overrides)
+-- end)
 
 wezterm.on("user-var-changed", function(window, pane, name, value)
 	if name ~= "EXEC_LAST" then
@@ -149,8 +173,9 @@ wezterm.on("user-var-changed", function(window, pane, name, value)
 	local target_pane = pane:tab():get_pane_direction("Next")
 	window:perform_action(wezterm.action.ScrollToBottom, target_pane)
 	local ctrl_u = "\x15"
-	-- A dummy character "a" is appended becouste wezterm ignores one character after send_text.
-	target_pane:send_text(ctrl_u .. "!!\r\na")
+	-- A dummy character "a" is appended because wezterm ignores one character after send_text.
+	-- target_pane:send_text(ctrl_u .. "!!\r\na")
+	target_pane:send_text(ctrl_u .. "!!\r\n")
 end)
 
 require('cwd-tab-color')
@@ -161,4 +186,3 @@ if ok then
 end
 
 return config
-
