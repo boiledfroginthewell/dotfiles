@@ -16,9 +16,10 @@ bar
 .nvim.lua
 .serena/
 mise.toml
+.devicon
 
 .*token
-AGENTS.md
+AGENTS.override.md
 
 
 # Created by https://www.toptal.com/developers/gitignore/api/vim,java,macos,python,windows,terraform

@@ -10,6 +10,7 @@
 	algorithm = histogram
 	colorMoved = dimmed-zebra
 	colorMovedWS = ignore-all-space
+	findCopiesHarder = true
 
 [log]
 	follow = true
@@ -23,11 +24,13 @@
 
 [merge]
 	autoStash = true
+	conflictstyle = zdiff3
 
 [rebase]
 	autoSquash = true
 	autoStash = true
 	autoFixup = true
+	updateRefs = true
 
 [delta]
 	tabs = 2

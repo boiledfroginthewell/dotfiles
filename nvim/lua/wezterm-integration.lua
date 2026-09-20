@@ -56,7 +56,7 @@ local function splitWezRun()
 end
 vim.keymap.set({"n", "i"}, "<F5>", splitWezRun)
 
-vim.keymap.set("n", "<M-a><M-a>", function()
+local function send_current_file(file)
 	local pane_id = vim.fn.system("pane-pgrep.py 'claude|codex|cursor-agent|agy'"):gsub("%s+", "")
 	if pane_id == "" then
 		vim.api.vim_err_writeln("Error: No matching pane found.")
@@ -65,9 +65,28 @@ vim.keymap.set("n", "<M-a><M-a>", function()
 	local command = string.format(
 		[[wezterm cli send-text --pane-id %s '%s'\n\n]],
 		pane_id,
-		"Current File: @" .. vim.fn.expand("%")
+		"Current File: @" .. file
 	)
 	vim.fn.system(command)
 	vim.fn.system("wezterm cli activate-pane --pane-id " .. pane_id)
+end
+
+vim.keymap.set("n", "<M-a><M-a>", function()
+	send_current_file(vim.fn.expand("%"))
 end, { desc = "Send current file to AI Coding CLI" })
 
+
+vim.keymap.set("x", "<M-a><M-a>", function()
+	local start_line = vim.fn.line("v")
+	local end_line = vim.fn.line(".")
+	if start_line > end_line then
+		start_line, end_line = end_line, start_line
+	end
+
+	local suffix = "#L" .. start_line
+	if start_line ~= end_line then
+		suffix = string.format("#L%s-L%s", start_line, end_line)
+	end
+
+	send_current_file(vim.fn.expand("%") .. suffix)
+end, { desc = "Send current file to AI Coding CLI" })
