@@ -75,11 +75,14 @@
 
 [interactive]
 	diffFilter = delta --color-only
-[add.interactive]
+[add "interactive"]
 	useBuiltin = false
 
 [hub]
 	protocol = https
+
+[my-config "wt"]
+  symlinks = ".portal"
 
 [include]
 	path = ./user.gitconfig

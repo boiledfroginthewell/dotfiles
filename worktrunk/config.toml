@@ -9,9 +9,17 @@ skip-commit-generation-prompt = true
 copy = "wt step copy-ignored && echo copied"
 
 [[pre-start]]
+symlinks = """
+  git config get --all my-config.wt.symlinks \
+  | tr ',' '\n' \
+  | xarg -I % ln -sf "{{ primary_worktree_path }}/%" "%"
+"""
+
+[[pre-start]]
 mise = "test -e mise.toml && mise trust || true"
 
-[post-start]
+[[pre-start]]
+patches = "for x in .portal/patches/*.patch; do git apply $x; done"
 python-venv = "test -e uv.lock && uv sync"
 
 
