@@ -1,0 +1,47 @@
+#!/bin/bash
+set -eu -o pipefail
+
+agentCommand=agy
+leftPaneWidth=20
+
+function width() {
+	local currentWidth
+	currentWidth="$(tput cols)"
+	local percent="$1"
+	local minWidth="$2"
+
+	local targetWidth="$((currentWidth * percent / 100))"
+	if [ "$targetWidth" -lt "$minWidth" ]; then
+		echo "--cells $minWidth"
+	else
+		echo "--percent $percent"
+	fi
+}
+
+function newLayout() {
+	originalPane="$WEZTERM_PANE"
+
+	agentPane="$(
+		wezterm cli split-pane --left $(width "$leftPaneWidth" 35) -- $agentCommand
+	)"
+	wezterm cli split-pane --pane-id "$agentPane" --bottom --percent 30 -- nvim .todo
+
+	bottomPane="$(
+		wezterm cli split-pane --pane-id "$originalPane" --bottom --percent 25
+	)"
+	wezterm cli split-pane --pane-id "$bottomPane" --bottom --percent 1 -- lazygit
+
+	wezterm cli activate-pane --pane-id "$originalPane"
+}
+
+function resizeLayout() {
+	lazygitPane="$(pane-pgrep.py lazygit)"
+}
+
+agentPane="$(pane-pgrep.py "$agentCommand" 2>/dev/null || true)"
+if [ -z "${agentPane:-}" ]; then
+	newLayout
+else
+	resizeLayout
+fi
+
