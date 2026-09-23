@@ -58,6 +58,11 @@ vim.keymap.set({"n", "i"}, "<F5>", splitWezRun)
 
 local function send_current_file(file)
 	local pane_id = vim.fn.system("pane-pgrep.py 'claude|codex|cursor-agent|agy'"):gsub("%s+", "")
+
+	-- exit visual mode
+  local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+  vim.api.nvim_feedkeys(esc, 'nx', false)
+
 	if pane_id == "" then
 		vim.api.vim_err_writeln("Error: No matching pane found.")
 		return
