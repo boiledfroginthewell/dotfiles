@@ -371,7 +371,10 @@ return {
 	-- A blazing fast and easy to configure neovim statusline plugin written in pure lua.
 	{
 		'nvim-lualine/lualine.nvim',
-		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		dependencies = {
+			'nvim-tree/nvim-web-devicons',
+			"mfussenegger/nvim-lint",
+		},
 		init = function()
 			vim.o.showmode = false
 		end,
@@ -451,6 +454,18 @@ return {
 						ignore_lsp = {},
 						draw_empty = true,
 						on_click = function() vim.cmd.checkhealth("vim.lsp") end,
+					},
+					{
+						-- nvim-lint
+						function()
+							local linters = require("lint").get_running()
+							if #linters == 0 then
+								return "∅"
+							end
+							return table.concat(linters, "/")
+						end,
+						icon = "󱉶",
+						padding = 0,
 					},
 				},
 			},
