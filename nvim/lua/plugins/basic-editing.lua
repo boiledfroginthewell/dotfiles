@@ -196,6 +196,12 @@ return {
 		}
 	},
 
+	-- Lua/Neovim port of BufOnly.vim with some changes
+	{
+		"numToStr/BufOnly.nvim",
+		cmd = "BufOnly"
+	},
+
 	-- A snazzy bufferline for Neovim
 	{ 'akinsho/bufferline.nvim',
 		dependencies = 'nvim-tree/nvim-web-devicons',
