@@ -9,6 +9,9 @@ vim.filetype.add({
 	pattern = {
 		["%.env%..+"] = "dotenv",
 	},
+	filename = {
+		[".todo"] = "markdown",
+	},
 })
 
 -- git

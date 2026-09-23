@@ -108,7 +108,8 @@ return {
 		},
 		config = function()
 			local augend = require("dial.augend")
-			require("dial.config").augends:register_group{
+			local dial_config = require("dial.config")
+			dial_config.augends:register_group{
 				default = {
 					augend.integer.alias.decimal,
 					augend.integer.alias.hex,
@@ -125,6 +126,28 @@ return {
 						cyclic = true,
 					},
 					augend.semver.alias.semver,
+				},
+			}
+			-- https://github.com/monaqa/dial.nvim/issues/11#issuecomment-3148778108
+			dial_config.augends:on_filetype {
+				markdown = {
+					augend.user.new {
+						find = function(line, cursor)
+							if line:find "^%s*[-*] %[[ x]]" == nil then
+								return
+							end
+							local checkbox_start = line:find "%["
+							return { from = checkbox_start, to = checkbox_start + 2 }
+						end,
+						add = function(text, addend, cursor)
+							if text == "[ ]" then
+								return { text = "[x]" }
+							elseif text == "[x]" then
+								return { text = "[ ]" }
+							end
+							return {}
+						end,
+					},
 				},
 			}
 		end,
