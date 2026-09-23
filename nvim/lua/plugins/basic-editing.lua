@@ -172,6 +172,28 @@ return {
 			attach_to_untracked = false,
 			on_attach = require('copies/gitsigns-keymaps').on_attach,
 		},
+		keys = {
+			{
+				']c', function()
+					local gitsigns = require("gitsigns")
+					if vim.wo.diff then
+						vim.cmd.normal({']c', bang = true})
+					else
+						gitsigns.nav_hunk('next')
+					end
+				end,
+			},
+			{
+				'[c', function()
+					local gitsigns = require("gitsigns")
+					if vim.wo.diff then
+						vim.cmd.normal({'[c', bang = true})
+					else
+						gitsigns.nav_hunk('prev')
+					end
+				end,
+			},
+		}
 	},
 
 	-- A snazzy bufferline for Neovim
@@ -353,11 +375,34 @@ return {
 			-- vim.g.clever_f_smart_case = 1
 		end,
 		keys = {
-			{ ";", "<Plug>(clever-f-repeat-forward)", mode = { 'n', 'v', 'o' } },
-			{ "j", "<Plug>(clever-f-f)",              mode = { 'n', 'v', 'o' } },
-			{ "J", "<Plug>(clever-f-F)",              mode = { 'n', 'v', 'o' } },
-			{ "f", "<Plug>(clever-f-t)",              mode = { 'n', 'v', 'o' } },
-			{ "F", "<Plug>(clever-f-T)",              mode = { 'n', 'v', 'o' } },
+			{ "j", function()
+				require("brackets-move").clear()
+				local keys = vim.api.nvim_replace_termcodes("<Plug>(clever-f-f)", true, false, true)
+				vim.api.nvim_feedkeys(keys, 'm', false)
+			end,
+			mode = { 'n', 'v', 'o' }
+		},
+			{ "J", function()
+				require("brackets-move").clear()
+				local keys = vim.api.nvim_replace_termcodes("<Plug>(clever-f-F)", true, false, true)
+				vim.api.nvim_feedkeys(keys, 'm', false)
+			end,
+			mode = { 'n', 'v', 'o' }
+		},
+			{ "f", function()
+				require("brackets-move").clear()
+				local keys = vim.api.nvim_replace_termcodes("<Plug>(clever-f-t)", true, false, true)
+				vim.api.nvim_feedkeys(keys, 'm', false)
+			end,
+			mode = { 'n', 'v', 'o' }
+		},
+			{ "F", function()
+				require("brackets-move").clear()
+				local keys = vim.api.nvim_replace_termcodes("<Plug>(clever-f-T)", true, false, true)
+				vim.api.nvim_feedkeys(keys, 'm', false)
+			end,
+			mode = { 'n', 'v', 'o' }
+		},
 		},
 	},
 

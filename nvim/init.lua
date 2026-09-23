@@ -169,6 +169,7 @@ require("ft-detect")
 require("lsp")
 require("copies/lazynvim")
 require("wezterm-integration")
+require("brackets-move")
 local ok, localPlugins = pcall(require, 'local')
 
 -- vim.cmd[[highlight NonText guibg=none]]
