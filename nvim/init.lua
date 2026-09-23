@@ -70,6 +70,7 @@ vim.keymap.set('n', '<c-q>', '<cmd>qa!<cr>')
 
 vim.keymap.set('n', ']q', ':cn<cr>')
 vim.keymap.set('n', '[q', ':cp<cr>')
+vim.keymap.set('n', '<c-s-q>', ':cclose<cr>')
 
 -- Replace the word under the cursor
 vim.keymap.set("n", "g*", ":%s/<C-r><C-w>/")
