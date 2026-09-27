@@ -3,7 +3,11 @@ git:
     autoWrapCommitMessage: false
   autoForwardBranches: none
   diffRenderers:
-    - command: delta --paging=never
+    - name: delta
+      command: delta --paging=never
+    - name: diffstatic
+      type: extDiff
+      command: difft --color=always --context={{diffContext}}
 os:
   editPreset: "nvim-remote"
 gui:
