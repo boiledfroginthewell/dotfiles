@@ -20,6 +20,7 @@ noremap N L
 " noremap gF gT
  noremap gl gt
  noremap gL gT
+noremap <C-d> <C-t>
 " delete
 noremap k d
 noremap kk dd

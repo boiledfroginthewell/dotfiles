@@ -31,7 +31,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		local opts = { buffer = event.buf }
 
 		vim.keymap.set('n', 'T', hover, opts)
-		vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+		vim.keymap.set('n', 'gd', function()
+			local from = { vim.fn.bufnr('%'), vim.fn.line('.'), vim.fn.col('.'), 0 }
+			local tagname = vim.fn.expand('<cword>')
+			local stack_item = { tagname = tagname, from = from }
+			vim.fn.settagstack(vim.fn.win_getid(), { items = { stack_item } }, 'a')
+
+			vim.lsp.buf.definition()
+		end, opts)
 		-- vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
 		-- vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
 		-- vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
