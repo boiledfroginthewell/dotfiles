@@ -43,7 +43,7 @@ function M.toggle_lazygit(window, pane)
 				end
 			end
 			if not target_pane then
-				target_pane = tab:get_pane_direction("Next")
+				target_pane = tab:get_pane_direction("Prev")
 			end
 			if target_pane then
 				target_pane:activate()
@@ -65,7 +65,7 @@ function M.toggle_lazygit(window, pane)
 		end
 		window:perform_action(
 			wezterm.action.SplitPane {
-				direction = 'Up',
+				direction = 'Down',
 				size = { Percent = 0 },
 				command = { args = command },
 			},
