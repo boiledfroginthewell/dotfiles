@@ -24,12 +24,14 @@ function newLayout() {
 	agentPane="$(
 		wezterm cli split-pane --left $(width "$leftPaneWidth" 35) -- $agentCommand
 	)"
-	wezterm cli split-pane --pane-id "$agentPane" --bottom --percent 30 -- nvim .todo
+	todoPane="$(
+		wezterm cli split-pane --pane-id "$agentPane" --bottom --percent 30 -- nvim .todo
+	)"
+	wezterm cli split-pane --pane-id "$todoPane" --bottom --percent 1 -- lazygit
 
 	bottomPane="$(
 		wezterm cli split-pane --pane-id "$originalPane" --bottom --percent 25
 	)"
-	wezterm cli split-pane --pane-id "$bottomPane" --bottom --percent 1 -- lazygit
 
 	wezterm cli activate-pane --pane-id "$originalPane"
 }
