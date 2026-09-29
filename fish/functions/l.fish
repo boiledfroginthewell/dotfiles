@@ -4,6 +4,7 @@ if type -q wezterm
 else if type -q imgcat
 	set imageViewer imgcat
 end
+set mdViewer (nvl -c leaf moor bat less)
 set ipynbViewer (nvl -c nbcat nbpreview less)
 if readlink -m . &> /dev/null
 	# Gnu readlink (coreutils) is available
@@ -32,6 +33,8 @@ function l
 		set mime (file --mime ($READLINK_COMMAND "$files[1]") | cut -d : -f 2)
 		if string match -q "*image/*" "$mime"
 			$imageViewer $opt $files
+		else if string match -q '*.md' "$files[1]"
+			$mdViewer $opt $files
 		else if string match -q '*.zip' "$files[1]" || string match -q "* application/zip;*" $mime
 			unzip -l $opt $files
 		else if string match -rq "jupyter|ipynb" "$mime"
