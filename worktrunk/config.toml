@@ -10,9 +10,10 @@ copy = "wt step copy-ignored && echo copied"
 
 [[pre-start]]
 symlinks = """
-  git config get --all my-config.wt.symlinks \
-  | tr ',' '\n' \
-  | xarg -I % ln -sf "{{ primary_worktree_path }}/%" "%"
+for x in $(git config get --all my-config.wt.symlinks | tr ',' '\n'); do
+  rm -rf "$x"
+  ln -sf "{{ primary_worktree_path }}/$x" "$x"
+done
 """
 
 [[pre-start]]
@@ -38,7 +39,7 @@ ff = false
 
 ### Step
 [step.copy-ignored]
-exclude = [".venv/", ".task/"]
+exclude = [".venv/", ".task/", ".next", ".codex/", ".portal/"]
 
 # Built-in excludes always apply: VCS metadata directories (`.bzr/`, `.hg/`, `.jj/`, `.pijul/`, `.sl/`, `.svn/`) and tool-state directories (`.conductor/`, `.entire/`, `.pi/`, `.worktrees/`). User config and project config exclusions are combined.
 
