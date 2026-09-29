@@ -20,6 +20,8 @@ export const JP = {
   "\\": "international3",
 } as const
 
+export const IS_DUMANG = kt.ifDevice({ vendor_id: 1155, product_id: 22288 }, "Dumang")
+
 export function toDict<T extends string | number, U extends string | number>(
   a: T[],
   b: U[],

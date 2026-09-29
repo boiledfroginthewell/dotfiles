@@ -1,12 +1,12 @@
 import * as kt from "karabiner.ts"
 import { JP } from "./commons"
 
-const VAR_NAME = "isLogicalShift"
+export const LOGICAL_SHIFT_VAR = "isLogicalShift"
 
-export const IS_LOGICAL_SHIFT = kt.ifVar(VAR_NAME, 1, "Is logical shift?")
+export const IS_LOGICAL_SHIFT = kt.ifVar(LOGICAL_SHIFT_VAR, 1, "Is logical shift?")
 
 export const LOGICAL_SHIFT_LAYER = kt
-  .layer("japanese_eisuu", VAR_NAME)
+  .layer("japanese_eisuu", LOGICAL_SHIFT_VAR)
   .description("Logical Shift")
   .modifiers("??")
   .manipulators([
