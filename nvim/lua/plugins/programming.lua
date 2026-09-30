@@ -28,39 +28,8 @@ return {
 		},
 	},
 
-	{ "kdheepak/lazygit.nvim",
-		cmd = {
-			"LazyGit",
-			"LazyGitConfig",
-			"LazyGitCurrentFile",
-			"LazyGitFilter",
-			"LazyGitFilterCurrentFile",
-		},
-		init = function ()
-			vim.g.lazygit_floating_window_scaling_factor = 0.94
-		end,
-		-- setting the keybinding for LazyGit with 'keys' is recommended in
-		-- order to load the plugin when the command is run for the first time
-		keys = {
-			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
-		},
-		enabled = false,
-	},
-
 	{ "tpope/vim-fugitive",
 		event = "VeryLazy",
-	},
-
-	-- Diff between multiple git commits, similar to jetbrains git log.
-	{
-		"Salanoid/gitlogdiff.nvim",
-		main = "gitlogdiff",
-		dependencies = {
-			"dlyongemallo/diffview.nvim",
-			"folke/snacks.nvim",
-		},
-		cmd = "GitLogDiff",
-		opts = { max_count = 300 },
 	},
 
 	{ 'sbdchd/vim-shebang',

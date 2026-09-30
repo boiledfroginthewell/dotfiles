@@ -247,15 +247,6 @@ return {
 		config = true,
 	},
 
-	-- A neovim plugin that jump to previous and next buffer of the jumplist.
-	{ 'kwkarlwang/bufjump.nvim',
-		event = "VeryLazy",
-		opts = {
-			forward = 'g<c-i>',
-			backward = 'g<c-o>',
-		},
-	},
-
 	-- A Neovim plugin to improve buffer deletion
 	{ 'ojroques/nvim-bufdel',
 		keys = {
@@ -308,13 +299,6 @@ return {
 			vim.g.spelunker_target_min_char_len = 3
 			vim.g.spelunker_check_type = 2
 		end,
-	},
-
-	{'windwp/nvim-autopairs',
-		opts = {
-			-- ignored_next_char = 
-		},
-		enabled = false,
 	},
 
 	-- Add/change/delete surrounding delimiter pairs with ease. Written with heart in Lua.
@@ -410,55 +394,6 @@ return {
 			mode = { 'n', 'v', 'o' }
 		},
 		},
-	},
-
-	-- A Vim plugin for indent-level based motion.
-	{ 'jeetsukumaran/vim-indentwise',
-		config = function(lazy, opts)
-			vim.g.indentwise_skip_blanks = 1
-			local function indentwise_is_top_level()
-				local first_char = string.sub(vim.fn.getline('.'), 0, 1)
-				return first_char == '' or string.match(first_char, '\\S')
-			end
-			vim.keymap.set(
-				{'n', 'i', 'v'},
-				'<c-t>',
-				function()
-					return indentwise_is_top_level() and '{' or  '<Plug>(IndentWiseBlockScopeBoundaryBegin)'
-				end,
-				{silent = true, expr = true}
-			)
-			vim.keymap.set(
-				{'n', 'i', 'v'},
-				'<c-h>',
-				function()
-					return indentwise_is_top_level() and '}' or  '<Plug>(IndentWiseBlockScopeBoundaryEnd)'
-				end,
-				{silent = true, expr = true}
-			)
-		end,
-		enabled = false,
-	},
-
-	-- Fast vertical navigation in Neovim using folds
-	{
-		"domharries/foldnav.nvim",
-		version = "*",
-		config = function()
-			vim.g.foldnav = {
-				flash = {
-					enabled = true,
-				},
-			}
-		end,
-		keys = {
-			{ "<C-d>", function() require("foldnav").goto_start() end },
-			{ "<C-h>", function() require("foldnav").goto_next() end },
-			{ "<C-t>", function() require("foldnav").goto_prev_start() end },
-			-- { "<C-k>", function() require("foldnav").goto_prev_end() end },
-			{ "<C-n>", function() require("foldnav").goto_end() end },
-		},
-		enabled = false,
 	},
 
 	-- Smart, seamless, directional navigation and resizing of Neovim + terminal multiplexer splits. Supports tmux, Wezterm, and Kitty. Think about splits in terms of "up/down/left/right".
