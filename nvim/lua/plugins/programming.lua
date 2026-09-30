@@ -42,9 +42,18 @@ return {
 		end,
 		keys = {
 			{ "<leader>#", function()
-				vim.cmd(":ShebangInsert")
-				vim.cmd(":update")
-				vim.cmd(":! chmod u+x %")
+				vim.cmd.ShebangInsert()
+				vim.cmd.update()
+				local file = vim.api.nvim_buf_get_name(0)
+				local uv = vim.uv
+				local stat = uv.fs_stat(file)
+				if stat then
+					local new_mode = bit.bor(bit.band(stat.mode, 0xfff), 0x40)
+					local chmod_ok, chmod_err = uv.fs_chmod(file, new_mode)
+					if not chmod_ok then
+						vim.notify("Failed to make file executable: " .. tostring(chmod_err), vim.log.levels.ERROR)
+					end
+				end
 			end, desc = 'Shebang Insert' },
 		},
 	},
@@ -127,6 +136,8 @@ return {
 			local lint = require("lint")
 			lint.linters_by_ft = {
 				python = { "mypy" },
+				javascript = { "eslint" },
+				typescript = { "eslint" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()

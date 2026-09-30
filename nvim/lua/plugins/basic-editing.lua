@@ -26,7 +26,6 @@ return {
 				}
 			},
 		},
-		enabled= false,
 	},
 
 	-- This plugin provides a set of setcellwidths() for Vim that the ambiwidth is single.
@@ -49,7 +48,6 @@ return {
 		'nemanjamalesija/smart-paste.nvim',
 		event = 'VeryLazy',
 		config = true,
-		enabled = false,
 	},
 
 	-- Don't let the cursor move while Yanking in Neovim
@@ -84,7 +82,6 @@ return {
 			{ "P", "<Plug>(YankyPutBefore)", mode = { "n", "x" } },
 			{ "gp", "<Plug>(YankyGPutAfter)", mode = { "n", "x" } },
 			{ "gP", "<Plug>(YankyGPutBefore)", mode = { "n", "x" } },
-			-- TODO: make submode
 			{ "[p", "<Plug>(YankyPreviousEntry)", mode = { "n", "x" } },
 			{ "]p", "<Plug>(YankyNextEntry", mode = { "n", "x" } },
 			{ "iy", function()
@@ -266,7 +263,7 @@ return {
 	{ "kevinhwang91/nvim-bqf",
 		ft = "qf",
 		init = function()
-			vim.api.nvim_set_hl(0, "BqfPreviewFloat", { bg = "#666666" })
+			vim.api.nvim_set_hl(0, "BqfPreviewFloat", { bg = "#363636" })
 		end,
 		opts = {
 			preview = {
@@ -294,6 +291,7 @@ return {
 
 	-- Improved vim spelling plugin (with camel case support)!
 	{ 'kamykn/spelunker.vim',
+		event = "VeryLazy",
 		init = function()
 			vim.g.enable_spelunker_vim_on_readonly = 1
 			vim.g.spelunker_target_min_char_len = 3
