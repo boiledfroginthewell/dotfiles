@@ -7,10 +7,6 @@ return {
 		ft = 'kbd',
 	},
 
-	-- ### Markdown
-	-- VIM Table Mode for instant table creation.
-	{ "dhruvasagar/vim-table-mode", },
-
 	-- ### CSV
 	{
 		"hat0uma/csvview.nvim",

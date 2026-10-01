@@ -43,49 +43,7 @@ return {
 		end
 	},
 
-	{
-		"Hajime-Suzuki/vuffers.nvim",
-		---@module "vuffers"
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		after = function ()
-			vim.api.nvim_create_autocmd("SessionLoadPost", {
-				callback = function()
-					require("vuffers").on_session_loaded()
-				end,
-			})
-		end,
-		init = function()
-			vim.api.nvim_create_user_command("Vuffers", function(args)
-				require("vuffers")[args.fargs[1]]()
-			end, {
-				nargs = "+"
-			})
-		end,
-		---@type Config
-		opts = {
-			handlers = {
-				-- when deleting a buffer via vuffers list (by default triggered by "d" key)
-				on_delete_buffer = function(bufnr)
-					vim.api.nvim_command(":bwipeout " .. bufnr)
-				end,
-			},
-			keymaps = {
-				view = {
-					open = "<CR>",
-					delete = "k",
-					pin = "p",
-					unpin = "P",
-					rename = "r",
-					reset_custom_display_name = "R",
-					reset_custom_display_names = "<leader>R",
-					move_up = "U",
-					move_down = "D",
-					move_to = "i",
-				},
-			},
-		}
-	},
-
+	-- A simple neovim plugin to highlight and remove trailing whitespace.
 	{ 'johnfrankmorgan/whitespace.nvim',
 		opts = {}
 	},
