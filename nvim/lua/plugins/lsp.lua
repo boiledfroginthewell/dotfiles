@@ -72,8 +72,8 @@ return {
 		opts = {
 			keymap = {
 				preset = 'super-tab',
-				["<C-t>"] = { "snippet_backward", "fallback" },
-				["<C-h>"] = { "snippet_forward", "fallback" },
+				["<C-p>"] = { "snippet_backward", "fallback" },
+				["<C-n>"] = { "snippet_forward", "fallback" },
 			},
 			completion = { documentation = { auto_show = true } },
 			signature = { enabled = true },

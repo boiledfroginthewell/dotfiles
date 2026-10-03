@@ -1,5 +1,6 @@
 ---@type LazySpec
 return {
+	-- 🍿 A collection of QoL plugins for Neovim
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
@@ -169,28 +170,6 @@ return {
 			attach_to_untracked = false,
 			on_attach = require('copies/gitsigns-keymaps').on_attach,
 		},
-		keys = {
-			{
-				']c', function()
-					local gitsigns = require("gitsigns")
-					if vim.wo.diff then
-						vim.cmd.normal({']c', bang = true})
-					else
-						gitsigns.nav_hunk('next')
-					end
-				end,
-			},
-			{
-				'[c', function()
-					local gitsigns = require("gitsigns")
-					if vim.wo.diff then
-						vim.cmd.normal({'[c', bang = true})
-					else
-						gitsigns.nav_hunk('prev')
-					end
-				end,
-			},
-		}
 	},
 
 	-- Lua/Neovim port of BufOnly.vim with some changes

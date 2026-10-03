@@ -11,7 +11,8 @@ gM -- 行の中心にカーソル移動
 
 ## Programming
 <M-f/left/down> -- Accept Windsurf Suggestion
-<C-d/n> -- Jump snippet placeholders
+<C-p/n> -- Jump snippet placeholders
+<C-d/t> -- Indent
 
 ## Visual Mode
 gv -- Select last visual selection
@@ -25,7 +26,7 @@ q -- quick fixes
 p -- paste history
 
 ## Operators
-[ga{ulsdncp}](https://github.com/johmsalas/text-case.nvim/wiki/String-Case-functions) -- Text Case (UPPER/lower/snake/dash/CONSTANT/camel/pascal)
+ga{ulsdncp} -- TextCase (UPPER/lower/snake/dash/CONSTANT/camel/pascal)
 ## Text Objects
 <Tab> -- Indent
 iw -- word
@@ -40,9 +41,7 @@ gri -- implementation()
 gs -- Signature Help
 
 ## Git
-,hs -- stage hunk
-,hr -- reset hunk
-,hp -- undo staging hunk
+,h{srp} -- stage/reset/preview hunk
 gadd -- git add
 :GitConflictChoose{Ours,Theirs}
 :LineDiff
