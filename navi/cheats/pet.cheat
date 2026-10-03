@@ -81,7 +81,10 @@ fish_update_completions
 
 % ripgrep
 # include test files
-rg --type-clear test
+rg --type-clear test 
 
 # print only file names (`-l`)
-rg --files-with-matches
+rg --files-with-matches 
+
+# string matching without regex (`--fixed-string`)
+rg -F 
