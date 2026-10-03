@@ -80,6 +80,9 @@ return {
 
 	-- enhanced increment/decrement plugin for Neovim. 
 	{ 'monaqa/dial.nvim',
+		dependencies = {
+			'jakewvincent/mkdnflow.nvim',
+		},
 		keys = {
 			{ "<C-a>", "<Plug>(dial-increment)", mode = { "n", "v" } },
 			{ "<C-x>", "<Plug>(dial-decrement)", mode = { "n", "v" } },
@@ -95,34 +98,32 @@ return {
 					augend.constant.alias.bool,
 					augend.constant.new {
 						elements = { "True", "False" },
-						word = true,
-						cyclic = true,
+						preserve_case = true,
 					},
 					augend.constant.new {
 						elements = { "==", "!=" },
-						word = true,
-						cyclic = true,
 					},
 					augend.semver.alias.semver,
 				},
 			}
-			-- https://github.com/monaqa/dial.nvim/issues/11#issuecomment-3148778108
 			dial_config.augends:on_filetype {
 				markdown = {
+					-- Markdown heading levels
+					augend.constant.new {
+						elements = {"#", "##", "###", "####", "#####", "######"},
+						match_before_cursor = true,
+						cyclic = false,
+					},
+					-- Toggle To Do
 					augend.user.new {
 						find = function(line, cursor)
-							if line:find "^%s*[-*] %[[ x]]" == nil then
-								return
-							end
+							local to_do_list = require("mkdnflow").to_do.get_to_do_list()
+							if #to_do_list.items == 0 then return end
 							local checkbox_start = line:find "%["
 							return { from = checkbox_start, to = checkbox_start + 2 }
 						end,
 						add = function(text, addend, cursor)
-							if text == "[ ]" then
-								return { text = "[x]" }
-							elseif text == "[x]" then
-								return { text = "[ ]" }
-							end
+							require("mkdnflow").to_do.toggle_to_do()
 							return {}
 						end,
 					},

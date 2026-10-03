@@ -2,6 +2,29 @@
 
 ---@type LazySpec
 return {
+	-- ### Markdown
+	{
+    'jakewvincent/mkdnflow.nvim',
+    opts = {
+			modules = {
+				folds = false,
+				-- disable all mappings
+				-- maps = false,
+			},
+			links = {
+				auto_create = false,
+			},
+			mappings = {
+				MkdnIncreaseHeading = false,
+				MkdnDecreaseHeading = false,
+				MkdnFoldSection = false,
+				MkdnUnfoldSection = false,
+				MkdnCreateLinkFromClipboard = false,
+			}
+		}
+	},
+
+	-- ### Kmonad
 	-- Vim editing support for kmonad config files
 	{ 'kmonad/kmonad-vim',
 		ft = 'kbd',
