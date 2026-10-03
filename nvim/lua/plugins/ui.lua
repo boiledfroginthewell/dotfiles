@@ -288,6 +288,7 @@ return {
 		dependencies = {
 			"lewis6991/gitsigns.nvim",
 			"kevinhwang91/nvim-hlslens",
+			"akinsho/git-conflict.nvim",
 		},
 		init = function()
 			vim.api.nvim_set_hl(0, "ScrollbarHandle", { bg = "#7b8496" })
@@ -304,14 +305,52 @@ return {
 				Cursor = {
 					text = " ",
 					highlight = "ScrollbarHandle",
-				}
-			}
+				},
+				GitConflict = {
+					text = "💥",
+					priority = 0,
+				},
+			},
 		},
 		config = function(lazy, opts)
 			require("scrollbar").setup(opts)
 			require("scrollbar.handlers.gitsigns").setup()
 			require("scrollbar.handlers.search").setup({
 				override_lens = function() end
+			})
+			local git_conflict = require("git-conflict")
+			require("scrollbar.handlers").register("git_conflict", function(bufnr)
+				if git_conflict.conflict_count() == 0 then
+					return {}
+				end
+
+				local marks = {}
+				local conflict_start = nil
+				for i, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
+					if line:match("^<<<<<<<") then
+						conflict_start = i - 1
+					elseif conflict_start ~= nil and line:match("^>>>>>>>") then
+						local conflict_end = i - 1
+						for l = conflict_start, conflict_end do
+							table.insert(marks, {
+								line = l,
+								text = "💥",
+								type = "GitConflict",
+								level = 2,
+							})
+						end
+						conflict_start = nil
+					end
+				end
+				return marks
+			end)
+
+			vim.api.nvim_create_autocmd("User", {
+				pattern = { "GitConflictDetected", "GitConflictResolved" },
+				callback = function()
+					require("scrollbar.handlers").show()
+					require("scrollbar").render()
+				end,
 			})
 		end,
 	},
