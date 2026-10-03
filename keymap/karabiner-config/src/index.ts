@@ -9,12 +9,15 @@ import {
 } from "./rules/multiPurpose"
 import { G502_RULE } from "./rules/g502"
 import { YABAI_RULE } from "./rules/yabai"
+import { APP_LAYER, APP_LAYER_DUMMANG } from "./rules/appLayer"
 
 const profileName = process.argv[2] || "--dry-run"
 
 ;(async () => {
   kt.writeToProfile(profileName, [
-    YABAI_RULE,
+    APP_LAYER_DUMMANG,
+    APP_LAYER,
+    // YABAI_RULE,
     G502_RULE,
     SANDS_RULE,
     RETURN_CTRL_RULE,

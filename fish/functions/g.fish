@@ -34,7 +34,7 @@ function g --wrap git
 		set -q branch && git switch "$branch"
 	else if [ "$argv[1]" = "switch" ] && string match -qr -- "$argv[2]" '^\\d+$'
 		gh pr checkout $argv[2]
-	else if string match -qr "$argv[1]" '^auth|api|browse|gist|pr|release|repo$'
+	else if string match -qr "$argv[1]" '^auth|api|browse|gist|pr|release|repo|stack$'
 		gh $argv[1..]
 	else if [ "$argv[1]" = "open" ]
 		gh browse

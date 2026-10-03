@@ -18,3 +18,8 @@ snippet debug "Start debugger"
 
 snippet does_not_raise "conditionally testing exceptions in pytest"
 	from contextlib import nullcontext as does_not_raise
+
+snippet truststore "enable truststore for system certificates"
+	import truststore
+	truststore.inject_into_ssl()
+

@@ -13,7 +13,7 @@ bar
 .terraform
 .serena/
 mise.toml
-/.portal/
+/.portal
 
 # Vim
 .nvim.lua

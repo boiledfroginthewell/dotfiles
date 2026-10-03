@@ -9,7 +9,6 @@ function yabai(...args: string[]): string {
 
 function yabaiFocus(direction: "north" | "east" | "south" | "west"): string {
   return yabai(`-m window --focus ${direction} || ${yabaiBin} -m display --focus ${direction}`)
-  // return yabai(`-m window --focus ${direction}`)
 }
 
 function yabaiSwap(direction: "north" | "east" | "south" | "west"): string {
@@ -17,7 +16,8 @@ function yabaiSwap(direction: "north" | "east" | "south" | "west"): string {
 }
 
 export const YABAI_RULE = kt.rule("Yabai").manipulators([
-  kt.withModifier(["option", "command"])([
+  // kt.withModifier(["option", "command"])([
+  kt.withModifier("caps_lock")([
     // Window management
     kt.map("h").to$(yabaiFocus("west")),
     kt.map("j").to$(yabaiFocus("south")),
@@ -35,10 +35,14 @@ export const YABAI_RULE = kt.rule("Yabai").manipulators([
     kt.map("y").to$(yabai("-m window --toggle zoom-fullscreen")),
 
     // Space management
-    kt.map("d").to$(yabai("-m space --focus prev")),
+    // kt.map("d").to$(yabai("-m space --focus prev")),
     kt.map("f").to$(yabai("-m space --focus next")),
 
     kt.map("i").to$(yabai("-m space --create")),
     kt.map("w").to$(yabai("-m space --destroy")),
+
+    // kt.map("s").to$("open -b org.mozilla.firefox"),
+    // kt.map("d").to$("open -b com.github.wez.wezterm"),
+    // kt.map("a").to$("open -b com.tinyspeck.slackmacgap"),
   ]),
 ])

@@ -11,14 +11,16 @@ while IFS= read -r line; do
 		emoji="󰢱"
 	elif [[ "$line" == *.vim ]]; then
 		emoji=""
-	elif [[ "$line" == *.py ]]; then
+	elif [[ "$line" == *.py ]] || [[ "$line" == *py.typed ]]; then
 		emoji=""
-	elif [[ "$line" =~ \.(js|ts)$ ]]; then
+	elif [[ "$line" =~ \.(js|ts)x?$ ]] || [[ "$line" == *.mjs ]]; then
 		emoji=""
 	elif [[ "$line" == *.java ]]; then
 		emoji="☕"
 	elif [[ "$line" == *.cql ]]; then
 		emoji="👁️"
+	elif [[ "$line" == *.wasm ]]; then
+		emoji=""
 	elif [[ "$line" =~ \.[shc]ql$ ]]; then
 		emoji="🛢️"
 	elif [[ "$line" =~ \.(txt|md)$ ]] || [[ "$line" == *"README" ]]; then
@@ -29,6 +31,12 @@ while IFS= read -r line; do
 	elif [[ "$line" == *.xml ]]; then
 		# emoji 
 		emoji="󰗀"
+	elif [[ "$line" == *.html ]]; then
+		emoji=""
+	elif [[ "$line" == *.css ]]; then
+		emoji=""
+	elif [[ "$line" == *.jinja ]]; then
+		emoji=""
 	elif [[ "$line" =~ \.(ya?ml|toml|ini|properties|conf)$ ]]; then
 		emoji="⚙️"
 	elif [[ "$line" =~ .*\.env(\.|$) ]]; then
@@ -41,7 +49,7 @@ while IFS= read -r line; do
 		emoji="󱁢"
 	elif [[ "$line" =~ \.(key|pem)$ ]]; then
 		emoji="🔑"
-	elif [[ "$line" =~ \.(png|jpg|gif)$ ]]; then
+	elif [[ "$line" =~ \.(png|jpg|gif|svg)$ ]]; then
 		emoji=""
 	elif [[ "$line" =~ \.(pu)$ ]]; then
 		emoji=""
@@ -62,6 +70,12 @@ while IFS= read -r line; do
 		emoji="🤖"
 	elif [[ "$line" =~ /(\.?config|dotfiles) ]]; then
 		emoji="⚙️"
+	elif [[ "$line" =~ \.(patch|diff)$ ]]; then
+		emoji=""
+	elif [[ "$line" == *Makefile ]]; then
+		emoji=""
+	elif [[ "$line" == *LICENSE ]]; then
+		emoji="󰿃"
 	elif [[ "$line" == */ ]]; then
 		emoji=""
 	fi

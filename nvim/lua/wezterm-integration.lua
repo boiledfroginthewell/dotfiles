@@ -70,14 +70,17 @@ local function send_current_file(file)
 	local command = string.format(
 		[[wezterm cli send-text --pane-id %s '%s'\n\n]],
 		pane_id,
-		"Current File: @" .. file
+		" " .. file
 	)
 	vim.fn.system(command)
 	vim.fn.system("wezterm cli activate-pane --pane-id " .. pane_id)
 end
 
 vim.keymap.set("n", "<M-a><M-a>", function()
-	send_current_file(vim.fn.expand("%"))
+	local file = vim.fn.expand("%")
+	vim.cmd.normal({ '\27', bang = true })
+	-- vim.cmd('stopinsert')
+	send_current_file(file)
 end, { desc = "Send current file to AI Coding CLI" })
 
 

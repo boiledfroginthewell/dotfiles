@@ -79,3 +79,9 @@ psql -h <host=localhost> -p <port=5432> -U <user> -d <database> <schema>
 # update fish completion by parsin man documents
 fish_update_completions
 
+% ripgrep
+# include test files
+rg --type-clear test
+
+# print only file names (`-l`)
+rg --files-with-matches

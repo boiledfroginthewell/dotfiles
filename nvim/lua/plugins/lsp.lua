@@ -112,6 +112,7 @@ return {
 		opts = function ()
 			local SymbolKind = vim.lsp.protocol.SymbolKind
 			---@type UserOpts
+			---@diagnostic disable-next-line: missing-fields
 			return {
 				hl = { link = "LspCodeLens" },
 				vt_position = "end_of_line",
@@ -127,21 +128,32 @@ return {
 				request_pending_text = "󱤤",
 				text_format = function(symbol)
 					local fragments = {}
+					local style = nil
 
 					-- Indicator that shows if there are any other symbols in the same line
 					local stacked_functions = symbol.stacked_count > 0
 							and (' | +%s'):format(symbol.stacked_count)
 							or ''
 
-					if symbol.references then
-						table.insert(fragments, '' .. symbol.references)
+					table.insert(fragments, '' .. symbol.references)
+					if symbol.references == 0 then
+						style = "Question"
 					end
 
-					return table.concat(fragments, ' ') .. stacked_functions
+					local text = table.concat(fragments, ' ') .. stacked_functions
+					if style ~= nil then
+						return { { text, style } }
+					else
+						return text
+					end
 				end,
 				disable = {
 					cond = {
 						function (bufnr)
+							local ft = vim.bo.filetype
+							if vim.tbl_contains({ "html" }, ft) then
+								return false
+							end
 							local path = vim.api.nvim_buf_get_name(bufnr)
 							return (
 								string.find(path, "/.venv/")

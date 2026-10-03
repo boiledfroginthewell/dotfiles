@@ -1,6 +1,7 @@
 git:
   commit:
     autoWrapCommitMessage: false
+  autoStageResolvedConflicts: false
   autoForwardBranches: none
   diffRenderers:
     - name: delta
